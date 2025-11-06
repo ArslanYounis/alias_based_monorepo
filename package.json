@@ -1,0 +1,22 @@
+{
+  "name": "cross-platform-ui-components-v2",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "mobile",
+    "web"
+  ],
+  "scripts": {
+    "dev:mobile": "cd mobile && expo start",
+    "dev:web": "cd web && vite",
+    "dev:all": "concurrently \"npm run dev:web\" \"npm run dev:mobile\"",
+    "build:mobile": "cd mobile && expo export --output-dir dist",
+    "build:web": "cd web && BUILD_LIB=true vite build",
+    "build:all": "npm run build:web && npm run build:mobile"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.3"
+  }
+}
+
