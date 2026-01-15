@@ -4,10 +4,8 @@ import { Text } from "@platform/Text";
 
 export const LargeComponent: React.FC = () => {
   return (
-    <Container style={{ backgroundColor: "blue" }}>
-      <Text style={{ color: "red" }}>
-        Large component using platform-specific Container and Text
-      </Text>
+    <Container className="bg-black">
+      <Text>Large component using platform-specific Container and Text</Text>
     </Container>
   );
 };

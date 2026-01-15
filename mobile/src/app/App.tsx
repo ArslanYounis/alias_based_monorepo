@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { LargeComponent } from '@shared/components/LargeComponent';
+import { Container } from "~/src/ui/Container";
+import { Text } from "~/src/ui/Text";
+import { LargeComponent } from "~/lib-index";
 
 export default function App() {
   return (

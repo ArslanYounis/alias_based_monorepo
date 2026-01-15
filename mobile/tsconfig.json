@@ -4,10 +4,11 @@
     "jsx": "react-native",
     "moduleResolution": "node",
     "paths": {
+      "~/*": ["./*"],
       "@platform/*": ["./src/ui/*"],
       "@shared/*": ["../shared/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "nativewind-env.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
