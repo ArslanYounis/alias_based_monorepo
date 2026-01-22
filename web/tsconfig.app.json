@@ -23,9 +23,11 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    
+
     /* Path Aliases */
+    "baseUrl": ".",
     "paths": {
+      "@/*": ["./src/*"],
       "@platform/*": ["./src/ui/*"],
       "@shared/*": ["../shared/*"]
     }

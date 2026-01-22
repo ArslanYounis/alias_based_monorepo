@@ -1,0 +1,36 @@
+import { SVGProps } from "react";
+
+interface IPropType extends SVGProps<SVGSVGElement> {
+  width?: number | string;
+  height?: number | string;
+  color?: string;
+}
+
+const ToastSuccess = ({
+  width = 24,
+  height = 24,
+  color = "currentColor",
+  ...props
+}: IPropType) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M6.46966 13.0303C6.17677 12.7374 6.17677 12.2626 6.46966 11.9697C6.76255 11.6768 7.23743 11.6768 7.53032 11.9697L9.99967 14.439L16.4693 7.96941C16.7621 7.67662 17.237 7.67683 17.5299 7.96941C17.8228 8.2623 17.8228 8.73717 17.5299 9.03007L10.53 16.03C10.2371 16.3229 9.76223 16.3229 9.46934 16.03L6.46966 13.0303Z"
+        fill={color}
+      />
+      <path
+        d="M21.25 12C21.25 6.89137 17.1086 2.75 12 2.75C6.89137 2.75 2.75 6.89137 2.75 12C2.75 17.1086 6.89137 21.25 12 21.25C17.1086 21.25 21.25 17.1086 21.25 12ZM22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+export default ToastSuccess;

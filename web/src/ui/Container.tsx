@@ -6,7 +6,7 @@ export const Container: React.FC<ContainerProps> = ({
   className = '',
   style 
 }) => {
-  const containerClassName = `container ${className}`.trim();
+  const containerClassName = `${className}`.trim();
   
   return (
     <div className={containerClassName} style={style}>
