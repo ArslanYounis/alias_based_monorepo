@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -59,5 +59,764 @@
     --theme-color: 180, 76%, 35%, 1;
     --red-color: 358, 84%, 59%, 1;
     --light-primary-color: 180, 39%, 94%, 1;
+  }
+}
+ */
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  :root {
+    /* ==== Base font sizes ==== */
+    --text-10: 10px;
+    --text-12: 12px;
+    --text-14: 14px;
+    --text-16: 16px;
+    --text-18: 18px;
+    --text-20: 20px;
+    --text-24: 24px;
+    --text-32: 32px;
+    --text-48: 48px;
+    --text-64: 64px;
+    --text-80: 80px;
+
+    /* ==== Base line heights ==== */
+    --lh-auto: normal;
+    --lh-12: 12px;
+    --lh-16: 16px;
+    --lh-18: 18px;
+    --lh-20: 20px;
+    --lh-23: 23px;
+    --lh-24: 24px;
+    --lh-28: 28px;
+    --lh-32: 32px;
+    --lh-36: 36px;
+    --lh-56: 56px;
+    --lh-64: 64px;
+    --lh-80: 80px;
+
+    /* ==== Base ==== */
+    --color-Base-Black: #000000;
+    --color-Base-White: #ffffff;
+    --color-Base-Transparent: transparent;
+
+    /* ==== Set ==== */
+    --color-Set-Primary: #7d99a6;
+    --color-Set-Secondary: #008dcb;
+
+    /* ==== Secondary scale ==== */
+    --color-Secondary-10: #e5f4fa;
+    --color-Secondary-9: #b3ddef;
+    --color-Secondary-8: #80c6e5;
+    --color-Secondary-7: #4cafdb;
+    --color-Secondary-6: #1a98d0;
+    --color-Secondary-5: #008dcb;
+    --color-Secondary-4: #007fb7;
+    --color-Secondary-3: #00638e;
+    --color-Secondary-2: #004766;
+    --color-Secondary-1: #002a3d;
+    --color-Secondary-0: #000e14;
+
+    /* ==== Primary scale ==== */
+    --color-Primary-Chrome-Light-Saturated: #f0f3f5;
+    --color-Primary-Chrome-Light: #f9fbfc;
+    --color-Primary-Chrome-18: #f3f8fa;
+    --color-Primary-Chrome-17: #e6f2f5;
+    --color-Primary-Chrome-16: #d9e7ea;
+    --color-Primary-Chrome-15: #ccdce0;
+    --color-Primary-Chrome-14: #bfd1d5;
+    --color-Primary-Chrome-13: #b2c6cc;
+    --color-Primary-Chrome-12: #a5bbc2;
+    --color-Primary-Chrome-11: #97afb9;
+    --color-Primary-Chrome-10: #8aa4af;
+    --color-Primary-Chrome-9: #7d99a6;
+    --color-Primary-Chrome-8: #708a95;
+    --color-Primary-Chrome-7: #637b85;
+    --color-Primary-Chrome-6: #566c74;
+    --color-Primary-Chrome-5: #495d63;
+    --color-Primary-Chrome-4: #3c4e53;
+    --color-Primary-Chrome-3: #2f3f42;
+    --color-Primary-Chrome-2: #222f32;
+    --color-Primary-Chrome-1: #151f21;
+    --color-Primary-Chrome-0: #0a1010;
+    --color-Primary-Chrome-Faded: #050808;
+
+    /* ==== Blue scale ==== */
+    --color-Blue-Saturated-20: #5783db20;
+    --color-Blue-Saturated: #5783db;
+    --color-Blue-9: #1864ab;
+    --color-Blue-8: #1971c2;
+    --color-Blue-7: #1c7ed6;
+    --color-Blue-6: #228be6;
+    --color-Blue-5: #339af0;
+    --color-Blue-4: #4dabf7;
+    --color-Blue-3: #74c0fc;
+    --color-Blue-2: #a5d8ff;
+    --color-Blue-1: #d0ebff;
+    --color-Blue-0: #e7f5ff;
+
+    /* ==== Red scale ==== */
+    --color-Red-9-20: #ee3e4320;
+    --color-Red-9: #ee3e43;
+    --color-Red-8: #f05156;
+    --color-Red-7: #f16569;
+    --color-Red-6: #f3787b;
+    --color-Red-5: #f58b8e;
+    --color-Red-4: #f69ea1;
+    --color-Red-3: #f8b2b4;
+    --color-Red-2: #fac5c7;
+    --color-Red-1: #fcd8d9;
+    --color-Red-0: #fdecec;
+
+    /* ==== Dark scale ==== */
+    --color-Dark-10: #09090e;
+    --color-Dark-9: #12121b;
+    --color-Dark-8: #2a2a32;
+    --color-Dark-7: #414149;
+    --color-Dark-6: #59595f;
+    --color-Dark-5: #717176;
+    --color-Dark-4: #88888d;
+    --color-Dark-3: #a0a0a4;
+    --color-Dark-2: #b8b8bb;
+    --color-Dark-1: #d0d0d1;
+    --color-Dark-0: #e7e7e8;
+    --color-Dark-Faded: #f3f3f4;
+
+    /* ==== Light scale ==== */
+    --color-Light-10: #f8f8f9;
+    --color-Light-9: #ebebec;
+    --color-Light-8: #dedee0;
+    --color-Light-7: #d1d1d3;
+    --color-Light-6: #c4c4c7;
+    --color-Light-5: #b7b7ba;
+    --color-Light-4: #aaaaae;
+    --color-Light-3: #9d9da1;
+    --color-Light-2: #909095;
+    --color-Light-1: #838388;
+    --color-Light-0: #77777c;
+    --color-Light-Faded: #6a6a6f;
+
+    /* ==== Light Grey scale ==== */
+    --color-Form-Back: #f0f3f5;
+    --color-Form-Border: #e7e7e8;
+
+    /* ==== Green scale ==== */
+    --color-Green-9: #2b8a3e;
+    --color-Green-8: #2f9e44;
+    --color-Green-7: #37b24d;
+    --color-Green-6: #40c057;
+    --color-Green-5: #51cf66;
+    --color-Green-4: #69db7c;
+    --color-Green-3: #8ce99a;
+    --color-Green-2: #b2f2bb;
+    --color-Green-1: #d3f9d8;
+    --color-Green-0: #ebfbee;
+
+    /* ==== Indigo scale ==== */
+    --color-Indigo-9: #5d6edc;
+    --color-Indigo-8: #7180e0;
+    --color-Indigo-7: #8592e4;
+    --color-Indigo-6: #99a5e8;
+    --color-Indigo-5: #adb7ec;
+    --color-Indigo-4: #c1c9f0;
+    --color-Indigo-3: #d5dbf4;
+    --color-Indigo-2: #e9edf8;
+    --color-Indigo-1: #f3f5fb;
+    --color-Indigo-0: #f2f3fb;
+    --color-Indigo-faded: #fafafd;
+
+    /* ==== Teal scale ==== */
+    --color-Teal-9: #169f9f;
+    --color-Teal-8: #2da9a9;
+    --color-Teal-7: #45b2b2;
+    --color-Teal-6: #5cbcbc;
+    --color-Teal-5: #73c5c5;
+    --color-Teal-4: #8acfcf;
+    --color-Teal-3: #a2d9d9;
+    --color-Teal-2: #b9e2e2;
+    --color-Teal-1: #d0ecec;
+    --color-Teal-0: #e8f5f5;
+    --color-Teal-faded: #f3fafa;
+
+    /* ==== Gold scale ==== */
+    --color-Gold-9: #a38161;
+    --color-Gold-8: #ac8e71;
+    --color-Gold-7: #b59a81;
+    --color-Gold-6: #bfa790;
+    --color-Gold-5: #c8b3a0;
+    --color-Gold-4: #d1c0b0;
+    --color-Gold-3: #dacdc0;
+    --color-Gold-2: #e3d9d0;
+    --color-Gold-1: #ede6df;
+    --color-Gold-0: #f6f2ef;
+    --color-Gold-faded: #faf9f7;
+
+    /* ==== Yellow scale ==== */
+    --color-Yellow-9: #d0a621;
+    --color-Yellow-8: #dcb023;
+    --color-Yellow-7: #deb42f;
+    --color-Yellow-6: #e2bd48;
+    --color-Yellow-5: #e6c660;
+    --color-Yellow-4: #eacf79;
+    --color-Yellow-3: #edd791;
+    --color-Yellow-2: #f1e0a9;
+    --color-Yellow-1: #f5e9c2;
+    --color-Yellow-0: #fbf6e6;
+
+    /* ==== Drop shadow ==== */
+    --shadow-modal-light: 0px 24px 48px 12px rgba(0, 0, 0, 0.15);
+    --shadow-modal-dark: 0px 24px 32px 12px rgba(0, 0, 0, 0.25);
+
+    /* ==== Shadow Modal Layer 1 ==== */
+    --Shadow-Modal-Layer-1: var(--shadow-modal-light);
+
+    /* ==== Status ==== */
+    --Status-Theme-light: var(--color-Primary-Chrome-10);
+    --Status-Theme-solid: var(--color-Primary-Chrome-0);
+
+    --Status-Default-light: var(--color-Light-7);
+    --Status-Default-solid: var(--color-Dark-6);
+
+    --Status-Pending-light: var(--color-Blue-0);
+    --Status-Pending-fade: var(--color-Blue-1);
+    --Status-Pending-solid: var(--color-Blue-9);
+
+    --Status-Success-light: var(--color-Green-0);
+    --Status-Success-fade: var(--color-Green-1);
+    --Status-Success-solid: var(--color-Green-9);
+
+    --Status-Failed-light: var(--color-Red-0);
+    --Status-Failed-fade: var(--color-Red-1);
+    --Status-Failed-solid: var(--color-Red-9);
+
+    --Status-Action-light: var(--color-Yellow-0);
+    --Status-Action-fade: var(--color-Yellow-1);
+    --Status-Action-solid: var(--color-Yellow-9);
+
+    /* ==== Border ==== */
+    --Border-Default: var(--color-Light-8);
+    --Border-Dimmed: var(--color-Light-6);
+    --Border-Light: var(--color-Light-9);
+
+    /* ==== Text ==== */
+    --Text-Default: var(--color-Base-Black);
+    --Text-Dimmed: var(--color-Light-3);
+    --Text-Primary: var(--color-Primary-Chrome-9);
+    --Text-Link: var(--color-Secondary-5);
+    --Text-Link-Hover: var(--color-Secondary-7);
+
+    /* ==== Buttons ==== */
+    /* ==== Primary Button ==== */
+    --Button-Primary-Default-bg: var(--color-Secondary-5);
+    --Button-Primary-Default-Text: var(--color-Base-White);
+    --Button-Primary-Hover: var(--color-Secondary-7);
+    --Button-Primary-Disabled: var(--color-Dark-0);
+    /* ==== Secondary Button ==== */
+    --Button-Secondary-Default-Disabled-bg: var(--color-Base-Transparent);
+    --Button-Secondary-Default-Text-Stroke: var(--color-Secondary-5);
+    --Button-Secondary-Hover-bg: var(--color-Secondary-10);
+    --Button-Secondary-Disabled-Stroke: var(--color-Dark-3);
+    /* ==== Tertiary Button ==== */
+    --Button-Tertiary-Default-bg: var(--color-Dark-9);
+    --Button-Tertiary-Default-Text: var(--color-Base-White);
+    --Button-Tertiary-Hover: var(--color-Dark-7);
+    --Button-Tertiary-Disabled-bg: var(--color-Dark-6);
+    /* ==== Delete Button ==== */
+    --Button-Delete-Stroke: var(--color-Red-9);
+    --Button-Delete-Hover-bg: var(--color-Red-0);
+    /* ==== Radio Card Button ==== */
+    --Button-Radio-Card-Selected-Disabled: var(--color-Primary-Chrome-17);
+    --Button-Radio-Card-Default: var(--color-Primary-Chrome-18);
+
+    /* ==== Form Fields ==== */
+    /* ==== Form Field Active ==== */
+    --Form-Fields-Active-Input-text-active: var(--color-Primary-Chrome-Faded);
+    /* ==== Form Field Error ==== */
+    --Form-Fields-Error: var(--color-Red-9);
+    /* ==== Form Field Checkbox & Radio ==== */
+    --Form-Fields-Checkbox-Radio-CbR-border: var(--color-Dark-6);
+    --Form-Fields-Checkbox-Radio-CbR-border-selected: var(
+      --color-Set-Secondary
+    );
+    --Form-Fields-Checkbox-Radio-Cb-icon: var(--color-Dark-0);
+    --Form-Fields-Checkbox-Radio-Cb-icon-selected: var(--color-Base-White);
+    --Form-Fields-Checkbox-Radio-CbR-bg: var(--color-Base-White);
+    --Form-Fields-Checkbox-Radio-CbR-bg-selected: var(--color-Set-Secondary);
+    --Form-Fields-Checkbox-Radio-CbR-select-disable: var(
+      --color-Primary-Chrome-15
+    );
+    /* ==== Form Field Disabled ==== */
+    --Form-Fields-Disabled-input-bg-disabled: var(
+      --color-Primary-Chrome-Light-Saturated
+    );
+    --Form-Fields-Disabled-input-border-disabled: var(--color-Dark-0);
+    --Form-Fields-Disabled-label-disabled: var(--color-Dark-7);
+    --Form-Fields-Disabled-icon-disabled: var(--color-Base-Black);
+    /* ==== Form Field Input ==== */
+    --Form-Fields-Input-Form-bg: var(--color-Primary-Chrome-Light-Saturated);
+    --Form-Fields-Input-Form-border: var(--color-Dark-0);
+    --Form-Fields-Input-Form-icon: var(--color-Base-Black);
+    --Form-Fields-Input-Form-placeholder: var(--color-Dark-3);
+    --Form-Fields-Input-Form-label: var(--color-Dark-7);
+    /* ==== Form Field Captions ==== */
+    --Form-Fields-Captions-Text-color: var(--color-Dark-5);
+    /* ==== Form Field Label ==== */
+    --Form-Fields-Label-Text: var(--color-Dark-7);
+    --Form-Fields-Label-icon: var(--color-Dark-3);
+    --Form-Fields-Label-disabled: var(--color-Dark-1);
+    /* ==== Form Field File Upload ==== */
+    --Form-Fields-File-Upload-Default: var(--color-Light-9);
+    --Form-Fields-File-Upload-Uploaded: var(--color-Dark-Faded);
+    --Form-Fields-File-Upload-Uploaded-L1: var(--color-Dark-Faded);
+
+    /* ==== Filter ==== */
+    /* ==== Search Filter ==== */
+    --Filter-Search-placeholder: var(--color-Dark-3);
+    --Filter-Search-icon: var(--color-Dark-3);
+    --Filter-Search-bg: var(--color-Primary-Chrome-Light-Saturated);
+    --Filter-Search-stroke: var(--color-Dark-0);
+    --Filter-Search-selected-icon: var(--color-Dark-9);
+    --Filter-Search-selected-bg: var(--color-Base-White);
+    --Filter-Search-selected-stroke: var(--color-Primary-Chrome-9);
+    /* ==== Button Filter ==== */
+    --Filter-Button-text: var(--color-Dark-6);
+    --Filter-Button-bg-selected: var(--color-Primary-Chrome-18);
+    --Filter-Button-stroke-selected: var(--color-Primary-Chrome-15);
+    --Filter-Button-badge: var(--color-Primary-Chrome-9);
+    /* ==== Dropdown Filter ==== */
+    --Filter-Dropdown-bg: var(--color-Light-10);
+
+    /* ==== Cards ==== */
+    --Cards-Base-L1: var(--color-Base-White);
+    --Cards-Base-L2: var(--color-Base-White);
+    --Cards-Stroke: var(--color-Dark-0);
+    --Cards-SearchResult: var(--color-Base-White);
+    --Cards-SearchResult-selected: var(--color-Base-White);
+
+    /* ==== Structure ==== */
+    /* ==== Structure Primary ==== */
+    --Structure-Primary-0: var(--color-Primary-Chrome-18);
+    --Structure-Primary-1: var(--color-Primary-Chrome-17);
+    --Structure-Primary-2: var(--color-Primary-Chrome-16);
+    --Structure-Primary-3: var(--color-Primary-Chrome-15);
+    --Structure-Primary-4: var(--color-Primary-Chrome-14);
+    --Structure-Primary-5: var(--color-Primary-Chrome-13);
+    --Structure-Primary-6: var(--color-Primary-Chrome-12);
+    --Structure-Primary-7: var(--color-Primary-Chrome-11);
+    --Structure-Primary-8: var(--color-Primary-Chrome-10);
+    --Structure-Primary-9: var(--color-Primary-Chrome-9);
+    --Structure-Primary-9-Dark: var(--color-Primary-Chrome-9);
+    /* ==== Structure Warning ==== */
+    --Structure-Warning-Light: var(--color-Red-0);
+    --Structure-Warning-Mid-Light: var(--color-Red-1);
+    /* ==== Structure Main ==== */
+    --Structure-Main-Background: var(--color-Primary-Chrome-18);
+    /* ==== Structure Modal ==== */
+    --Structure-Modal-Level-1: var(--color-Primary-Chrome-Light);
+    --Structure-Modal-Level-2: var(--color-Primary-Chrome-Light);
+    --Structure-Modal-Level-3: var(--color-Primary-Chrome-Light);
+    /* ==== Structure Menu ==== */
+    --Structure-Menu-Background: var(--color-Primary-Chrome-18);
+    --Structure-Menu-Text: var(--color-Dark-5);
+    --Structure-Menu-Icon: var(--color-Dark-9);
+    /* ==== Structure Menu Select ==== */
+    --Structure-Menu-Select-Background: var(--color-Primary-Chrome-15);
+    --Structure-Menu-Select-Text: var(--color-Dark-9);
+    /* ==== Structure Footer ==== */
+    --Structure-Footer-Background: var(--color-Base-White);
+
+    /* ==== Cementic Rule Spacing ==== */
+    --spacing-none: 0px;
+    --spacing-xxs: 4px;
+    --spacing-xs: 8px;
+    --spacing-s: 12px;
+    --spacing-m: 16px;
+    --spacing-l: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 48px;
+    --spacing-xxxl: 64px;
+
+    /* ==== Cementic Rule Padding ==== */
+    --padding-none: 0px;
+    --padding-xxs: 4px;
+    --padding-xs: 8px;
+    --padding-s: 12px;
+    --padding-m: 16px;
+    --padding-l: 24px;
+    --padding-xl: 32px;
+    --padding-xxl: 48px;
+    --padding-xxxl: 64px;
+
+    /* ==== Cementic Rule Radius ==== */
+    --radius-none: 0px;
+    --radius-xxs: 4px;
+    --radius-xs: 8px;
+    --radius-s: 12px;
+    --radius-m: 16px;
+    --radius-l: 24px;
+    --radius-xl: 32px;
+    --radius-xxl: 48px;
+    --radius-xxxl: 64px;
+
+    /* ==== Cementic Rule Opacity ==== */
+    --opacity-0: 0;
+    --opacity-10: 10%;
+    --opacity-20: 20%;
+    --opacity-30: 30%;
+    --opacity-40: 40%;
+    --opacity-50: 50%;
+    --opacity-60: 60%;
+    --opacity-70: 70%;
+    --opacity-80: 80%;
+    --opacity-90: 90%;
+
+    /* ==== Signature Color ==== */
+    --signature-pen-color: var(--color-Base-Black);
+    --radius: 0.625rem;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 8.6%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8.6%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8.6%;
+    --primary: 0 0% 12%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 12%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 55.6%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 12%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 92.2%;
+    --input: 0 0% 92.2%;
+    --ring: 0 0% 70.8%;
+    --chart-1: 12 80% 64.6%;
+    --chart-2: 173 58% 60%;
+    --chart-3: 197 71% 53.1%;
+    --chart-4: 43 74% 66.3%;
+    --chart-5: 27 87% 67%;
+    --sidebar: 0 0% 98%;
+    --sidebar-foreground: 0 0% 8.6%;
+    --sidebar-primary: 0 0% 12%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 96.1%;
+    --sidebar-accent-foreground: 0 0% 12%;
+    --sidebar-border: 0 0% 92.2%;
+    --sidebar-ring: 0 0% 70.8%;
+  }
+
+  .dark {
+    /* ==== Modal layer 1 drop shadow ==== */
+    --Shadow-Modal-Layer-1: var(--shadow-modal-dark);
+
+    /* ==== Status ==== */
+    --Status-Theme-light: var(--color-Primary-Chrome-10);
+    --Status-Theme-solid: var(--color-Primary-Chrome-18);
+
+    --Status-Default-light: var(--color-Dark-0);
+    --Status-Default-solid: var(--color-Dark-6);
+
+    --Status-Pending-light: var(--color-Blue-0);
+    --Status-Pending-fade: var(--color-Blue-1);
+    --Status-Pending-solid: var(--color-Blue-9);
+
+    --Status-Success-light: var(--color-Green-0);
+    --Status-Success-fade: var(--color-Green-1);
+    --Status-Success-solid: var(--color-Green-9);
+
+    --Status-Failed-light: var(--color-Red-0);
+    --Status-Failed-fade: var(--color-Red-1);
+    --Status-Failed-solid: var(--color-Red-9);
+
+    --Status-Action-light: var(--color-Yellow-0);
+    --Status-Action-fade: var(--color-Yellow-1);
+    --Status-Action-solid: var(--color-Yellow-9);
+
+    /* ==== Border ==== */
+    --Border-Default: var(--color-dark-9);
+    --Border-Dimmed: var(--color-dark-6);
+    --Border-Light: var(--color-dark-0);
+
+    /* ==== Text ==== */
+    --Text-Default: var(--color-Base-White);
+    --Text-Dimmed: var(--color-Dark-3);
+    --Text-Primary: var(--color-Primary-Chrome-9);
+    --Text-Link: var(--color-Secondary-5);
+    --Text-Link-Hover: var(--color-Secondary-7);
+
+    /* ==== Buttons ==== */
+    /* ==== Primary Button ==== */
+    --Button-Primary-Default-bg: var(--color-Secondary-5);
+    --Button-Primary-Default-Text: var(--color-Base-White);
+    --Button-Primary-Hover: var(--color-Secondary-7);
+    --Button-Primary-Disabled: var(--color-Dark-6);
+    /* ==== Secondary Button ==== */
+    --Button-Secondary-Default-Disabled-bg: var(--color-Base-Transparent);
+    --Button-Secondary-Default-Text-Stroke: var(--color-Secondary-5);
+    --Button-Secondary-Hover-bg: var(--color-Blue-Saturated-20);
+    --Button-Secondary-Disabled-Stroke: var(--color-Dark-3);
+    /* ==== Tertiary Button ==== */
+    --Button-Tertiary-Default-bg: var(--color-Base-White);
+    --Button-Tertiary-Default-Text: var(--color-Base-Black);
+    --Button-Tertiary-Hover: var(--color-Dark-0);
+    --Button-Tertiary-Disabled-bg: var(--color-Dark-6);
+    /* ==== Delete Button ==== */
+    --Button-Delete-Stroke: var(--color-Red-9);
+    --Button-Delete-Hover-bg: var(--color-Red-9-20);
+    /* ==== Radio Card Button ==== */
+    --Button-Radio-Card-Selected-Disabled: var(--color-Dark-6);
+    --Button-Radio-Card-Default: var(--color-Dark-7);
+
+    /* ==== Form Fields ==== */
+    /* ==== Active ==== */
+    --Form-Fields-Active-Input-text-active: var(--color-Base-White);
+    /* ==== Error ==== */
+    --Form-Fields-Error: var(--color-Red-9);
+    /* ==== Checkbox & Radio ==== */
+    --Form-Fields-Checkbox-Radio-CbR-border: var(--color-Dark-2);
+    --Form-Fields-Checkbox-Radio-CbR-border-selected: var(
+      --color-Set-Secondary
+    );
+    --Form-Fields-Checkbox-Radio-Cb-icon: var(--color-Dark-6);
+    --Form-Fields-Checkbox-Radio-Cb-icon-selected: var(--color-Base-White);
+    --Form-Fields-Checkbox-Radio-CbR-bg: var(--color-Dark-9);
+    --Form-Fields-Checkbox-Radio-CbR-bg-selected: var(--color-Set-Secondary);
+    --Form-Fields-Checkbox-Radio-CbR-select-disable: var(--color-Dark-7);
+    /* ==== Form Field Disabled ==== */
+    --Form-Fields-Disabled-input-bg-disabled: var(--color-Base-White);
+    --Form-Fields-Disabled-input-border-disabled: var(--color-Base-White);
+    --Form-Fields-Disabled-label-disabled: var(--color-Base-White);
+    --Form-Fields-Disabled-icon-disabled: var(--color-Base-White);
+    /* ==== Form Field Input ==== */
+    --Form-Fields-Input-Form-bg: var(--color-Dark-5);
+    --Form-Fields-Input-Form-border: var(--color-Dark-4);
+    --Form-Fields-Input-Form-icon: var(--color-Base-White);
+    --Form-Fields-Input-Form-placeholder: var(--color-Base-White);
+    --Form-Fields-Input-Form-label: var(--color-Base-White);
+    /* ==== Form Field Captions ==== */
+    --Form-Fields-Captions-Text-color: var(--color-Base-White);
+    /* ==== Form Field Label ==== */
+    --Form-Fields-Label-Text: var(--color-Base-White);
+    --Form-Fields-Label-icon: var(--color-Base-White);
+    --Form-Fields-Label-disabled: var(--color-Dark-4);
+    /* ==== Form Field File Upload ==== */
+    --Form-Fields-File-Upload-Default: var(--color-Dark-5);
+    --Form-Fields-File-Upload-Uploaded: var(--color-Dark-8);
+    --Form-Fields-File-Upload-Uploaded-L1: var(--color-Dark-7);
+
+    /* ==== Filter ==== */
+    /* ==== Search Filter ==== */
+    --Filter-Search-placeholder: var(--color-Dark-3);
+    --Filter-Search-icon: var(--color-Dark-2);
+    --Filter-Search-bg: var(--color-Dark-7);
+    --Filter-Search-stroke: var(--color-Dark-5);
+    --Filter-Search-selected-icon: var(--color-Light-9);
+    --Filter-Search-selected-bg: var(--color-Dark-9);
+    --Filter-Search-selected-stroke: var(--color-Primary-Chrome-9);
+    /* ==== Button Filter ==== */
+    --Filter-Button-text: var(--color-Light-10);
+    --Filter-Button-bg-selected: var(--color-Dark-9);
+    --Filter-Button-stroke-selected: var(--color-Dark-9);
+    --Filter-Button-badge: var(--color-Primary-Chrome-9);
+    /* ==== Dropdown Filter ==== */
+    --Filter-Dropdown-bg: var(--color-Dark-7);
+
+    /* ==== Cards ==== */
+    --Cards-Base-L1: var(--color-Dark-8);
+    --Cards-Base-L2: var(--color-Dark-7);
+    --Cards-Stroke: var(--color-Base-Transparent);
+    --Cards-SearchResult: var(--color-Dark-9);
+    --Cards-SearchResult-selected: var(--color-Dark-10);
+
+    /* ==== Structure ==== */
+    /* ==== Structure Primary ==== */
+    --Structure-Primary-0: var(--color-Primary-Chrome-0);
+    --Structure-Primary-1: var(--color-Primary-Chrome-1);
+    --Structure-Primary-2: var(--color-Primary-Chrome-2);
+    --Structure-Primary-3: var(--color-Primary-Chrome-3);
+    --Structure-Primary-4: var(--color-Primary-Chrome-4);
+    --Structure-Primary-5: var(--color-Primary-Chrome-5);
+    --Structure-Primary-6: var(--color-Primary-Chrome-6);
+    --Structure-Primary-7: var(--color-Primary-Chrome-7);
+    --Structure-Primary-8: var(--color-Primary-Chrome-8);
+    --Structure-Primary-9: var(--color-Primary-Chrome-9);
+    --Structure-Primary-9-Dark: var(--color-Primary-Chrome-9);
+    /* ==== Structure Warning ==== */
+    --Structure-Warning-Light: var(--color-Red-0);
+    --Structure-Warning-Mid-Light: var(--color-Red-1);
+    /* ==== Structure Main ==== */
+    --Structure-Main-Background: var(--color-Primary-Chrome-2);
+    /* ==== Structure Modal ==== */
+    --Structure-Modal-Level-1: var(--color-Dark-9);
+    --Structure-Modal-Level-2: var(--color-Dark-8);
+    --Structure-Modal-Level-3: var(--color-Dark-7);
+    /* ==== Structure Menu ==== */
+    --Structure-Menu-Background: var(--color-Primary-Chrome-4);
+    --Structure-Menu-Text: var(--color-Dark-0);
+    --Structure-Menu-Icon: var(--color-Dark-Faded);
+    /* ==== Structure Menu Select ==== */
+    --Structure-Menu-Select-Background: var(--color-Primary-Chrome-3);
+    --Structure-Menu-Select-Text: var(--color-Dark-Faded);
+    /* ==== Structure Footer ==== */
+    --Structure-Footer-Background: var(--color-Primary-Chrome-4);
+
+    /* ==== Signature Color ==== */
+    --signature-pen-color: var(--color-Base-White);
+    --background: 0 0% 8.6%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 92.2%;
+    --primary-foreground: 0 0% 12%;
+    --secondary: 0 0% 26.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 26.9%;
+    --muted-foreground: 0 0% 70.8%;
+    --accent: 0 0% 26.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 70.4%;
+    --border: 0 0% 10%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 55.6%;
+    --chart-1: 264 60% 50%;
+    --chart-2: 160 84% 39.8%;
+    --chart-3: 47 72% 56%;
+    --chart-4: 258 90% 66%;
+    --chart-5: 12 86% 47%;
+    --sidebar: 0 0% 12%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 264 60% 50%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 26.9%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 10%;
+    --sidebar-ring: 0 0% 55.6%;
+  }
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* ==== Typography Utilities ==== */
+
+  /* Headings */
+  .text-heading-h1-shouting {
+    @apply text-[80px] leading-none;
+  }
+
+  .text-heading-h1-hero {
+    @apply text-[64px] leading-none;
+  }
+
+  .text-heading-h1 {
+    @apply text-[48px] leading-[56px];
+  }
+
+  .text-heading-h2 {
+    @apply text-[32px] leading-[36px];
+  }
+
+  .text-heading-h3 {
+    @apply text-[24px] leading-[28px];
+  }
+
+  .text-heading-h4 {
+    @apply text-[16px] leading-[20px];
+  }
+
+  /* Text */
+  .text-xxs {
+    @apply text-[10px] leading-[12px];
+  }
+
+  .text-xs {
+    @apply text-[12px] leading-[16px];
+  }
+
+  .text-s {
+    @apply text-[14px] leading-[18px];
+  }
+
+  .text-m {
+    @apply text-[16px] leading-[20px];
+  }
+
+  .text-l {
+    @apply text-[20px] leading-[24px];
+  }
+
+  /* Text Bold */
+  .text-bold-xxs {
+    @apply text-[10px] font-bold leading-none;
+  }
+
+  .text-bold-xs {
+    @apply text-[12px] font-bold leading-[16px];
+  }
+
+  .text-bold-s {
+    @apply text-[14px] font-bold leading-[18px];
+  }
+
+  .text-bold-m {
+    @apply text-[16px] font-bold leading-[20px];
+  }
+
+  .text-bold-ml {
+    @apply text-[18px] font-bold leading-[23px];
+  }
+
+  .text-bold-l {
+    @apply text-[20px] font-bold leading-[24px];
+  }
+
+  .signature-container {
+    --pen-color: var(--signature-pen-color);
+  }
+
+  .adrec-components {
+    .rounded-xxs {
+      @apply rounded[4px];
+    }
+
+    .rounded-xs {
+      @apply rounded[8px];
+    }
+
+    .rounded-s {
+      @apply rounded[12px];
+    }
+
+    .rounded-m {
+      @apply rounded[16px];
+    }
+
+    .rounded-l {
+      @apply rounded[24px];
+    }
+
+    .rounded-xl {
+      @apply rounded[32px];
+    }
+
+    .rounded-xxl {
+      @apply rounded[48px];
+    }
+
+    .rounded-xxxl {
+      @apply rounded[64px];
+    }
   }
 }
