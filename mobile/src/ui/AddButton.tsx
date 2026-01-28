@@ -14,10 +14,6 @@ export const AddButton = ({
     ? "border-button-primary-disabled cursor-not-allowed"
     : "border-button-primary-default-bg cursor-pointer";
 
-  const iconClass = disabled
-    ? "text-button-primary-disabled"
-    : "text-button-primary-default-bg";
-
   return (
     <View>
       <TouchableOpacity
@@ -25,8 +21,11 @@ export const AddButton = ({
         disabled={disabled}
         className={`flex items-center justify-center rounded-xs gap-sm py-xs px-l w-[66px] h-[50px] border ${borderClass}`}
       >
-        {/* color needs to apply here */}
-        <PlusIcon width={18} height={18} />
+        <PlusIcon
+          width={18}
+          height={18}
+          color={disabled ? "#e7e7e8" : "#008dcb"}
+        />
       </TouchableOpacity>
     </View>
   );

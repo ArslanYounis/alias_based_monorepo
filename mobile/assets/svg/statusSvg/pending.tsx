@@ -11,9 +11,6 @@ const PendingSvg: React.FC<PendingSvgProps> = ({
   height = 27,
   ...props
 }) => {
-  // Unique ID is not strictly necessary for this icon (no gradients), but kept for consistency
-  const uniqueId = React.useId();
-
   return (
     <Svg
       {...props}
@@ -22,7 +19,7 @@ const PendingSvg: React.FC<PendingSvgProps> = ({
       viewBox="0 0 18 19"
       fill="none"
     >
-      <G clipPath={`url(#clip0_${uniqueId})`}>
+      <G clipPath={`url(#clip0)`}>
         <Path
           d="M9 4.8L9 9.4L13.5 9.39999"
           stroke="#D0D0D1"
@@ -39,7 +36,7 @@ const PendingSvg: React.FC<PendingSvgProps> = ({
         />
       </G>
       <Defs>
-        <ClipPath id={`clip0_${uniqueId}`}>
+        <ClipPath id={`clip0`}>
           <Rect
             width={18}
             height={18.4}
