@@ -52,7 +52,7 @@ export default function App() {
         <ProfileIconStatus status="complete" />
         <ProfileIconStatus status="failed" />
       </View>
-      {/* <Bot /> */}
+      <Bot />
       <StatusBar style="auto" />
     </View>
   );
