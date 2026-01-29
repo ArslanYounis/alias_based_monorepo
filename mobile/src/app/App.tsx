@@ -23,13 +23,19 @@ export default function App() {
       />
       <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
         <Buttons title="Primary" />
-        <Buttons title="Primary Disable" disabled />
+        <Buttons title="Primary Dis" disabled />
         <Buttons title="Secondary" type="secondary" />
+        <Buttons title="Secondary Dis" type="secondary" disabled />
         <Buttons title="Tertiary" type="tertiary" />
+        <Buttons title="Tertiary Dis" type="tertiary" disabled />
         <Buttons title="Delete" type="delete" />
+        <Buttons title="Delete Dis" type="delete" disabled />
       </View>
       <View style={{ flexDirection: "row", gap: 10 }}>
         <Avatar />
+        <Avatar initials="AS" />
+        <Avatar initials="AS" status="complete" />
+        <Avatar status="inProgress" />
         <AddButton />
         <AddButton disabled />
         <CheckRadioLabel label="label" />

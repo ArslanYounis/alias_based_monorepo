@@ -110,5 +110,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
+    top: 20,
   },
 });
