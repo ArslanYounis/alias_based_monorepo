@@ -10,6 +10,7 @@ import {
   AddButton,
   CheckRadioLabel,
   ProfileIconStatus,
+  DummyComponent,
 } from "~/lib-index";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
@@ -21,7 +22,7 @@ export default function App() {
         value="Hello"
         value_ar="مرحبا"
       />
-      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
+      {/* <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
         <Buttons title="Primary" />
         <Buttons title="Primary Dis" disabled />
         <Buttons title="Secondary" type="secondary" />
@@ -58,7 +59,8 @@ export default function App() {
         <ProfileIconStatus status="complete" />
         <ProfileIconStatus status="failed" />
       </View>
-      <Bot />
+      <Bot /> */}
+      <DummyComponent title="ABC" />
       <StatusBar style="auto" />
     </View>
   );

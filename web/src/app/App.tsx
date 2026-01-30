@@ -1,6 +1,7 @@
 import { Header } from "@/ui/Header";
 import { Footer } from "@/ui/Footer";
 import { LargeComponent } from "@shared/components/LargeComponent";
+import { DummyComponent } from "@shared/components/DummyComponent";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
       }}
     >
       <Header />
-      <LargeComponent />
+      {/* <LargeComponent /> */}
+      <DummyComponent title="ABC" />
       <Footer showLogo={true} showBot={true} />
     </div>
   );

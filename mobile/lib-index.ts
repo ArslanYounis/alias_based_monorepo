@@ -14,4 +14,5 @@ export { ProfileIconStatus } from './src/ui/ProfileIconStatus';
 
 // Re-export shared components (they import from @platform internally)
 export { LargeComponent } from '../shared/components/LargeComponent';
+export { DummyComponent } from "../shared/components/DummyComponent";
 

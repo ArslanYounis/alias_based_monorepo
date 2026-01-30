@@ -1,4 +1,4 @@
-import { ComponentType } from "react";
+import type { ComponentType } from "react";
 import exposeComponents from "./expose.components";
 import exposeFormComponents from "./expose.form-components";
 
@@ -19,7 +19,7 @@ import exposeFormComponents from "./expose.form-components";
  * return <ComponentToRender {...props} />;
  */
 function transformRendererConfigs(
-  type: "form" | "service" = "service"
+  type: "form" | "service" = "service",
 ): Record<string, ComponentType<Record<string, unknown>>> {
   const newComponents =
     type === "form" ? exposeFormComponents : exposeComponents;
