@@ -14,7 +14,13 @@ export default defineConfig({
     federation({
       name: "componentLibrary",
       filename: "remoteEntry.js",
-      shared: ["react", "react-dom"],
+      shared: [
+        "react",
+        "react-dom",
+        "axios",
+        "@tanstack/react-query",
+        "tailwindcss",
+      ],
       exposes: {
         "./service-builder-config": resolve(
           __dirname,

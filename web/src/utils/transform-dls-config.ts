@@ -1,6 +1,6 @@
-import { ControlDefinition } from "@/types/dls.types";
-import { LucideIcon } from "lucide-react";
-import { ComponentType } from "react";
+import type { ControlDefinition } from "@/types/dls.types";
+import type { LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
 import exposeComponents from "./expose.components";
 import exposeFormComponents from "./expose.form-components";
 
@@ -51,7 +51,7 @@ type TransformedComponent = {
  * // Returns: { button: {...}, breadcrumb: {...} }
  */
 function transformDLSConfigs(
-  type: "form" | "service" = "service"
+  type: "form" | "service" = "service",
 ): Record<string, TransformedComponent> {
   const newComponents =
     type === "form" ? exposeFormComponents : exposeComponents;
