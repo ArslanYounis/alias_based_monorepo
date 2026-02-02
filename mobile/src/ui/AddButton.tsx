@@ -1,5 +1,5 @@
-import { TouchableOpacity, View } from "react-native";
 import PlusIcon from "~/assets/svg/icons/Plus";
+import { TouchableOpacity, View } from "react-native";
 
 export interface AddButtonProps {
   disabled?: boolean;

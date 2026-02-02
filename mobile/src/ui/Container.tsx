@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
-import type { ContainerProps } from '@shared/types';
+import React from "react";
+import { View, StyleSheet, ViewStyle } from "react-native";
+import type { ContainerProps } from "@shared/types";
 
 export const Container: React.FC<ContainerProps> = ({
   children,
@@ -21,4 +21,3 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
 });
-

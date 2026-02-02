@@ -40,12 +40,6 @@ export const Logo: React.FC<LogoProps> = ({
   const finalWidth = width ?? defaultWidth;
   const finalHeight = height ?? defaultHeight;
 
-  const imageStyle = {
-    width: finalWidth,
-    height: finalHeight,
-    resizeMode: "contain" as const,
-  };
-
   const renderLogo = () => {
     switch (type) {
       case "full":

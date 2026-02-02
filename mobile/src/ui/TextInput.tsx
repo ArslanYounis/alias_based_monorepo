@@ -1,6 +1,6 @@
 import React from "react";
-// import { Label } from "./Label";
-// import { Fields } from "./Fields";
+import { Label } from "./Label";
+import { Fields } from "./Fields";
 import { Caption } from "./Caption";
 import { View } from "react-native";
 
@@ -66,7 +66,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   return (
     <View className="flex flex-col gap-[10px]">
       {/* Label */}
-      {/* <Label
+      <Label
         label={label}
         label_ar={label_ar}
         required={required}
@@ -76,10 +76,10 @@ export const TextInput: React.FC<TextInputProps> = ({
         disabled={disabled}
         tooltipDirection={language === "en" ? "left-center" : "right-center"}
         language={language}
-      /> */}
+      />
 
       {/* Fields component used here */}
-      {/* <Fields
+      <Fields
         type={fieldType}
         placeholder={
           language === "en" ? placeholder : placeholder_ar || placeholder
@@ -91,9 +91,9 @@ export const TextInput: React.FC<TextInputProps> = ({
         icon={icon}
         disabled={disabled}
         language={language}
-        options={options} 
+        options={options}
         selectType={selectType}
-      /> */}
+      />
 
       {/* Caption or Error */}
       {(captionLeft ||
