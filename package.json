@@ -7,7 +7,9 @@
     "web"
   ],
   "scripts": {
-    "dev:mobile": "cd mobile && expo start",
+    "dev:mobile": "cd mobile && expo start --dev-client",
+    "dev:mobile:ios": "cd mobile && expo run:ios",
+    "dev:mobile:android": "cd mobile && expo run:android",
     "dev:web": "cd web && vite",
     "dev:all": "concurrently \"npm run dev:web\" \"npm run dev:mobile\"",
     "build:mobile": "cd mobile && expo export --output-dir dist",
@@ -16,10 +18,11 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "react": "19.1.1",
+    "react": "19.1.0",
     "typescript": "^5.3.3"
   },
   "overrides": {
-    "react": "19.1.1"
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
   }
 }
