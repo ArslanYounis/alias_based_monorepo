@@ -1,7 +1,7 @@
-import React, { ReactElement, cloneElement } from "react";
+import { Tooltip } from "./Tooltip";
 import { View, Text, TouchableOpacity } from "react-native";
+import React, { ReactElement, cloneElement, useState } from "react";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
-// import { Tooltip } from "./Tooltip";
 
 export interface NewButtonProps {
   language?: "en" | "ar";
@@ -49,9 +49,9 @@ export const Buttons = ({
   type = "primary",
   onPress = () => null,
   iconColor,
-}: //   tooltip,
-NewButtonProps) => {
-  //   const [isTooltipVisible, setTooltipVisible] = useState(false);
+  tooltip,
+}: NewButtonProps) => {
+  const [isTooltipVisible, setTooltipVisible] = useState(false);
 
   const sizeClasses = {
     s: `text-xs min-w-[87px] ${
@@ -104,11 +104,10 @@ NewButtonProps) => {
   return (
     <View className="relative flex items-center justify-center">
       <TouchableOpacity
-        // onPress={() => {
-        //   onPress();
-        //   if (tooltip) setTooltipVisible(!isTooltipVisible);
-        // }}
-        onPress={onPress}
+        onPress={() => {
+          onPress();
+          if (tooltip) setTooltipVisible(!isTooltipVisible);
+        }}
         disabled={disabled}
         className={`flex flex-row items-center justify-center rounded-xl ${sizeClasses[size]} ${backgroundColorClasses[type]}`}
       >
@@ -126,7 +125,7 @@ NewButtonProps) => {
         {rightIcon && <View className="ml-2">{renderIcon(rightIcon)}</View>}
       </TouchableOpacity>
 
-      {/* {tooltip && isTooltipVisible && (
+      {tooltip && isTooltipVisible && (
         <View className="absolute left-full ml-2 top-1/2 -translate-y-1/2 z-20">
           <Tooltip
             text={tooltip.text}
@@ -135,7 +134,7 @@ NewButtonProps) => {
             direction={tooltip.direction || "none"}
           />
         </View>
-      )} */}
+      )}
     </View>
   );
 };

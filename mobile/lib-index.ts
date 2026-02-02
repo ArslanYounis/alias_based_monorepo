@@ -3,12 +3,21 @@
 export { Bot } from './src/ui/Bot';
 export { Logo } from './src/ui/Logo';
 export { Text } from './src/ui/Text';
+export { Label } from './src/ui/Label';
+export { Fields } from './src/ui/Fields';
 export { Avatar } from './src/ui/Avatar';
+export { Header } from './src/ui/Header';
+export { Footer } from './src/ui/Footer';
 export { Buttons } from './src/ui/Buttons';
 export { Tooltip } from './src/ui/Tooltip';
 export { Caption } from './src/ui/Caption';
+export { Checkbox } from './src/ui/Checkbox';
+export { TextInput } from './src/ui/TextInput';
 export { AddButton } from './src/ui/AddButton';
 export { Container } from './src/ui/Container';
+export { DateInput } from './src/ui/DateInput';
+export { Breadcrumb } from './src/ui/Breadcrumb';
+export { IconButton } from './src/ui/IconButton';
 export { CheckRadioLabel } from './src/ui/CheckRadioLabel';
 export { ProfileIconStatus } from './src/ui/ProfileIconStatus';
 

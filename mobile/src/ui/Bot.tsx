@@ -1,5 +1,6 @@
+import { SvgUri } from "react-native-svg";
 import React, { useState, useEffect } from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
 interface BotProps {
@@ -60,10 +61,8 @@ export const Bot: React.FC<BotProps> = ({
         </View>
       )}
 
-      <Image
-        source={{
-          uri: "https://adrec-images.mastermind-mindset.com/footerAvatar.svg",
-        }}
+      <SvgUri
+        uri="https://adrec-images.mastermind-mindset.com/dmtIocn.svg"
         className={`w-16 h-16 rounded-full z-40 ${isRTL ? "ml-5" : "mr-5"}`}
       />
     </TouchableOpacity>
