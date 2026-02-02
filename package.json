@@ -7,6 +7,7 @@
     "web"
   ],
   "scripts": {
+    "generate:platform-types": "node scripts/generate-platform-types.js",
     "dev:mobile": "cd mobile && expo start",
     "dev:web": "cd web && vite",
     "dev:all": "concurrently \"npm run dev:web\" \"npm run dev:mobile\"",
