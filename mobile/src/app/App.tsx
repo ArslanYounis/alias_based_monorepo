@@ -1,12 +1,21 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
+import { CustomDrawer } from "~/lib-index";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <CustomDrawer open>
+          <View>
+            <Text>Layer 1</Text>
+          </View>
+        </CustomDrawer>
+      </View>
+    </GestureHandlerRootView>
   );
 }
 
