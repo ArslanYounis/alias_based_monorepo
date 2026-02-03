@@ -1,6 +1,6 @@
 {
   "name": "@adrec/mobile-ui-base",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Reusable UI components for Expo and React Native (Avatar, Buttons, Container, Text, etc.)",
   "publishConfig": {
     "registry": "https://y8ko0gcw88o8g0o4w4ocs4sk.mastermind-mindset.com/"
@@ -46,9 +46,10 @@
     "react-native": ">=0.70.0",
     "expo": ">=49.0.0",
     "nativewind": ">=4.0.0",
-    "react-native-reanimated": "~4.1.1",
+    "react-native-reanimated": ">=4.1.1",
     "react-native-safe-area-context": ">=4.0.0",
-    "react-native-svg": ">=13.0.0"
+    "react-native-svg": ">=13.0.0",
+    "axios": ">=1.0.0"
   },
   "peerDependenciesMeta": {
     "expo": {

@@ -28,6 +28,7 @@
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18",
+    "vaul": "^1.1.2",
     "vite-tsconfig-paths": "^6.0.4"
   },
   "devDependencies": {
