@@ -7,21 +7,30 @@
     "web"
   ],
   "scripts": {
-    "dev:mobile": "cd mobile && expo start",
+    "dev:mobile": "cd mobile && expo start --dev-client",
+    "dev:mobile:ios": "cd mobile && expo run:ios",
+    "dev:mobile:android": "cd mobile && expo run:android",
+    "generate:platform-types": "node scripts/generate-platform-types.js",
     "dev:web": "cd web && vite",
     "dev:all": "concurrently \"npm run dev:web\" \"npm run dev:mobile\"",
     "build:mobile": "cd mobile && expo export --output-dir dist",
     "build:web": "cd web && BUILD_LIB=true vite build",
     "build:all": "npm run build:web && npm run build:mobile",
     "preview:web": "cd web && vite preview",
-    "publish:lib": "cd mobile && npm run publish:lib"
+    "publish:lib": "cd mobile && npm run publish:lib",
+    "storybook": "cd web && npm run storybook",
+    "build-storybook": "cd web && npm run build-storybook"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
+    "react": "19.1.0",
     "typescript": "^5.3.3"
   },
   "overrides": {
-    "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "dependencies": {
+    "vaul": "^1.1.2"
   }
 }

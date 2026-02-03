@@ -1,7 +1,5 @@
-import { Header } from "@/ui/Header";
-import { Footer } from "@/ui/Footer";
-import { LargeComponent } from "@shared/components/LargeComponent";
-import { DummyComponent } from "@shared/components/DummyComponent";
+import { PlotSearch } from "@shared/components/PlotSearch";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
   return (
@@ -15,10 +13,9 @@ function App() {
         justifyContent: "center",
       }}
     >
-      <Header />
-      {/* <LargeComponent /> */}
-      <DummyComponent title="ABC" />
-      <Footer showLogo={true} showBot={true} />
+      <QueryClientProvider client={new QueryClient()}>
+        <PlotSearch />
+      </QueryClientProvider>
     </div>
   );
 }

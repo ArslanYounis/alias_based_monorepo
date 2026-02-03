@@ -1,4 +1,4 @@
-import ButtonsConfigs from "@/ui/configs/buttons.config";
+import ButtonsConfigs from "@/ui/Buttons/buttons.config";
 import DummyConfigs from "@/ui/configs/Dummy.config";
 
 /**
