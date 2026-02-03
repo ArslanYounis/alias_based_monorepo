@@ -1,22 +1,78 @@
 {
-  "name": "mobile",
-  "version": "1.0.0",
-  "main": "index.ts",
+  "name": "@adrec/mobile-ui-base",
+  "version": "1.0.8",
+  "description": "Reusable UI components for Expo and React Native (Avatar, Buttons, Container, Text, etc.)",
+  "publishConfig": {
+    "registry": "https://y8ko0gcw88o8g0o4w4ocs4sk.mastermind-mindset.com/"
+  },
+  "main": "dist/lib-index.js",
+  "module": "dist/lib-index.js",
+  "types": "dist/lib-index.d.ts",
+  "react-native": "dist/lib-index.js",
+  "source": "lib-index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/lib-index.d.ts",
+      "import": "./dist/lib-index.js",
+      "require": "./dist/lib-index.js",
+      "react-native": "./dist/lib-index.js",
+      "default": "./dist/lib-index.js"
+    },
+    "./global.css": "./global.css"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "global.css",
+    "tailwind.preset.js",
+    "README.md"
+  ],
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "build:lib": "node scripts/build-lib.js",
+    "build:lib:watch": "node scripts/build-lib.js --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit",
+    "prepublishOnly": "npm run build:lib",
+    "publish:lib": "npm publish --registry https://y8ko0gcw88o8g0o4w4ocs4sk.mastermind-mindset.com/"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.70.0",
+    "expo": ">=49.0.0",
+    "nativewind": ">=4.0.0",
+    "react-native-reanimated": ">=3.0.0",
+    "react-native-safe-area-context": ">=4.0.0",
+    "react-native-svg": ">=13.0.0"
+  },
+  "peerDependenciesMeta": {
+    "expo": {
+      "optional": true
+    },
+    "nativewind": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@rn-primitives/dropdown-menu": "^1.2.0",
     "@rn-primitives/popover": "^1.2.0",
     "@rn-primitives/slot": "^1.2.0",
     "@rn-primitives/types": "^1.1.0",
-    "@tanstack/react-query": "^5.90.20",
-    "axios": "^1.13.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "tailwind-merge": "^3.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@tanstack/react-query": "^5.90.20",
+    "@types/react": "~19.1.0",
+    "@types/react-native": "^0.72.8",
+    "axios": "^1.13.4",
     "expo": "~54.0.22",
     "expo-status-bar": "~3.0.8",
     "nativewind": "^4.1.23",
@@ -25,15 +81,9 @@
     "react-native-reanimated": "~4.1.1",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-svg": "15.12.1",
-    "tailwind-merge": "^3.2.0",
     "tailwindcss": "^3.4.17",
-    "tailwindcss-animate": "^1.0.7"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@types/react": "~19.1.0",
-    "@types/react-native": "^0.72.8",
+    "tailwindcss-animate": "^1.0.7",
+    "tsc-alias": "^1.8.10",
     "typescript": "~5.9.2"
-  },
-  "private": true
+  }
 }

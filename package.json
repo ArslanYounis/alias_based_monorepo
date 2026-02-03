@@ -13,7 +13,8 @@
     "build:mobile": "cd mobile && expo export --output-dir dist",
     "build:web": "cd web && BUILD_LIB=true vite build",
     "build:all": "npm run build:web && npm run build:mobile",
-    "preview:web": "cd web && vite preview"
+    "preview:web": "cd web && vite preview",
+    "publish:lib": "cd mobile && npm run publish:lib"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

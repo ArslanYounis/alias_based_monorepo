@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "react-native",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "..",
+    "baseUrl": "..",
+    "paths": {
+      "~/*": ["./mobile/*"],
+      "@platform/*": ["./mobile/src/ui/*"],
+      "@shared/*": ["./shared/*"]
+    }
+  },
+  "include": [
+    "nativewind-env.d.ts",
+    "lib-index.ts",
+    "src/ui/**/*.ts",
+    "src/ui/**/*.tsx",
+    "src/lib/**/*.ts",
+    "src/lib/**/*.tsx",
+    "../shared/components/**/*.ts",
+    "../shared/components/**/*.tsx",
+    "../shared/types/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
+}
