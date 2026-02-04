@@ -1,18 +1,8 @@
+import type { BreadcrumbProps } from "@shared/types";
 import React, { useState } from "react";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
 
-interface BreadcrumbItem {
-  label: string;
-  label_ar?: string;
-  onClick?: () => void;
-}
-
-export interface BreadcrumbProps {
-  items: BreadcrumbItem[];
-  selectedItemIndex?: number;
-  isSelectedHover?: boolean;
-  language?: "en" | "ar";
-}
+export type { BreadcrumbProps };
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   items = [

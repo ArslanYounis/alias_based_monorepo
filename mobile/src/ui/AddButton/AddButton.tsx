@@ -1,14 +1,12 @@
+import type { AddButtonProps } from "@shared/types";
 import PlusIcon from "~/assets/svg/icons/Plus";
 import { TouchableOpacity, View } from "react-native";
 
-export interface AddButtonProps {
-  disabled?: boolean;
-  onPress?: () => void;
-}
+export type { AddButtonProps };
 
 export const AddButton = ({
   disabled = false,
-  onPress = () => null,
+  onClick = () => null,
 }: AddButtonProps) => {
   const borderClass = disabled
     ? "border-button-primary-disabled cursor-not-allowed"
@@ -17,7 +15,7 @@ export const AddButton = ({
   return (
     <View>
       <TouchableOpacity
-        onPress={onPress}
+        onPress={onClick}
         disabled={disabled}
         className={`flex items-center justify-center rounded-xs gap-sm py-xs px-l w-[66px] h-[50px] border ${borderClass}`}
       >

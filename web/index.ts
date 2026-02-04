@@ -27,3 +27,4 @@ export { Layout } from "./src/ui/Layout";
 // Re-export shared components (they import from @platform internally)
 export { LargeComponent } from "../shared/components/LargeComponent";
 export { DummyComponent } from "../shared/components/DummyComponent";
+export { PlotSearch } from "../shared/components/PlotSearch";

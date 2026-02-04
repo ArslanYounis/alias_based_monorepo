@@ -1,3 +1,4 @@
+import type { ProfileIconStatusProps } from "@shared/types";
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
@@ -6,29 +7,25 @@ import ArrowSvg from "~/assets/svg/statusSvg/Arrow";
 import OnlineSvg from "~/assets/svg/statusSvg/Online";
 import FailedSvg from "~/assets/svg/statusSvg/failed";
 
-export type StatusType = "inProgress" | "complete" | "failed" | "pending";
-
-interface ProfileIconStatusProps {
-  status?: StatusType;
-  width?: number;
-  height?: number;
-}
+export type { ProfileIconStatusProps };
 
 export const ProfileIconStatus: React.FC<ProfileIconStatusProps> = ({
   status,
   width = 18,
   height = 18,
 }) => {
+  const w = typeof width === "number" ? width : 18;
+  const h = typeof height === "number" ? height : 18;
   const renderIcon = () => {
     switch (status) {
       case "pending":
-        return <AwaySvg width={width} height={height} />;
+        return <AwaySvg width={w} height={h} />;
       case "inProgress":
-        return <ArrowSvg width={width} height={height} />;
+        return <ArrowSvg width={w} height={h} />;
       case "complete":
-        return <OnlineSvg width={width} height={height} />;
+        return <OnlineSvg width={w} height={h} />;
       case "failed":
-        return <FailedSvg width={width} height={height} />;
+        return <FailedSvg width={w} height={h} />;
       default:
         return null;
     }
@@ -39,9 +36,9 @@ export const ProfileIconStatus: React.FC<ProfileIconStatusProps> = ({
       style={[
         styles.container,
         {
-          width,
-          height,
-          borderRadius: Number(width) / 2,
+          width: w,
+          height: h,
+          borderRadius: w / 2,
         },
       ]}
     >

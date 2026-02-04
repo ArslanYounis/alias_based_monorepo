@@ -1,4 +1,4 @@
-import { Tooltip } from "../Tooltip";
+import type { LabelProps } from "@shared/types";
 import React, { useState } from "react";
 import InfoSVG from "@/assets/svg/InfoSVG";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
@@ -7,31 +7,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Tooltip } from "../Tooltip";
 
-export interface LabelProps {
-  label: string;
-  label_ar?: string;
-  required?: boolean;
-  showInfoIcon?: boolean;
-  tooltipText?: string;
-  tooltipText_ar?: string;
-  tooltipDirection?:
-    | "top-left"
-    | "top-center"
-    | "top-right"
-    | "bottom-left"
-    | "bottom-center"
-    | "bottom-right"
-    | "left-top"
-    | "left-center"
-    | "left-bottom"
-    | "right-top"
-    | "right-center"
-    | "right-bottom";
-  disabled?: boolean;
-  language?: "en" | "ar";
-  htmlFor?: string;
-}
+export type { LabelProps };
 
 export const Label: React.FC<LabelProps> = ({
   label,
@@ -97,9 +75,8 @@ export const Label: React.FC<LabelProps> = ({
                     : tooltipText_ar || tooltipText
                 }
                 direction={
-                  tooltipDirection || language === "en"
-                    ? "top-left"
-                    : "top-right"
+                  tooltipDirection ??
+                  (language === "en" ? "top-left" : "top-right")
                 }
               />
             </PopoverContent>

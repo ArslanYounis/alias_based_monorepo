@@ -1,24 +1,10 @@
+import type { CustomDrawerProps, DrawerSize } from "@shared/types";
 import React from "react";
 import CrossIcon from "@/assets/svg/crossIcon";
 import BackDrawer from "@/assets/svg/backDrawer";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 
-export type DrawerSize = "layer1" | "layer2" | "layer3";
-
-export interface CustomDrawerProps {
-  open: boolean;
-  onOpenChange?: (open: boolean) => void;
-  direction?: "left" | "right";
-  size?: DrawerSize;
-  backgroundClassName?: string;
-  showCloseButton?: boolean;
-  closeButtonOffsetClass?: string;
-  className?: string;
-  dismissible?: boolean;
-  children?: React.ReactNode;
-  language?: "en" | "ar";
-  header?: React.ReactNode;
-}
+export type { CustomDrawerProps, DrawerSize };
 
 /**
  * Layer configuration for background and responsive width.

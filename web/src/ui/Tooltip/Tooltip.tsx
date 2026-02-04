@@ -1,29 +1,10 @@
+import type { TooltipProps, TooltipDirectionType } from "@shared/types";
 import React from "react";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
 
-type Direction =
-  | "top-left"
-  | "top-center"
-  | "top-right"
-  | "bottom-left"
-  | "bottom-center"
-  | "bottom-right"
-  | "left-top"
-  | "left-center"
-  | "left-bottom"
-  | "right-top"
-  | "right-center"
-  | "right-bottom"
-  | "none";
+export type { TooltipProps, TooltipDirectionType };
 
-interface TooltipProps {
-  text: string;
-  text_ar?: string;
-  language?: "en" | "ar";
-  direction?: Direction; // optional now
-}
-
-const directionStyles: Record<Direction, { wrapper?: string; arrow?: string }> =
+const directionStyles: Record<TooltipDirectionType, { wrapper?: string; arrow?: string }> =
   {
     // === TOP ===
     "top-left": {

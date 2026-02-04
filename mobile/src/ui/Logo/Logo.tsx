@@ -1,14 +1,10 @@
+import type { LogoProps } from "@shared/types";
 import React from "react";
 import { View } from "react-native";
 import { SvgUri } from "react-native-svg";
 import OneHub from "~/assets/svg/icons/OneHub";
 
-interface LogoProps {
-  type: "full" | "icon" | "hub";
-  className?: string;
-  width?: number;
-  height?: number;
-}
+export type { LogoProps };
 
 export const Logo: React.FC<LogoProps> = ({
   type,
@@ -37,8 +33,8 @@ export const Logo: React.FC<LogoProps> = ({
       defaultHeight = 0;
   }
 
-  const finalWidth = width ?? defaultWidth;
-  const finalHeight = height ?? defaultHeight;
+  const finalWidth = (typeof width === "number" ? width : undefined) ?? defaultWidth;
+  const finalHeight = (typeof height === "number" ? height : undefined) ?? defaultHeight;
 
   const renderLogo = () => {
     switch (type) {

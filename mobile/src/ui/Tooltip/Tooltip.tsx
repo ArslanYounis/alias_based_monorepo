@@ -1,30 +1,11 @@
+import type { TooltipProps, TooltipDirectionType } from "@shared/types";
 import React from "react";
 import { View } from "react-native";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
-type Direction =
-  | "top-left"
-  | "top-center"
-  | "top-right"
-  | "bottom-left"
-  | "bottom-center"
-  | "bottom-right"
-  | "left-top"
-  | "left-center"
-  | "left-bottom"
-  | "right-top"
-  | "right-center"
-  | "right-bottom"
-  | "none";
+export type { TooltipProps, TooltipDirectionType };
 
-interface TooltipProps {
-  text: string;
-  text_ar?: string;
-  language?: "en" | "ar";
-  direction?: Direction;
-}
-
-const directionClasses: Record<Direction, { wrapper: string; arrow: string }> =
+const directionClasses: Record<TooltipDirectionType, { wrapper: string; arrow: string }> =
   {
     "top-left": {
       wrapper: "absolute top-0 left-4 -translate-x-1/2 -translate-y-1/2",

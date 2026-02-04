@@ -1,10 +1,11 @@
+import type { HeaderProps, HeaderMenuItem } from "@shared/types";
 import { Avatar } from "../Avatar";
 import { Buttons } from "../Buttons";
 import { IconButton } from "../IconButton";
 import StatusUp from "@/assets/svg/statusUp";
 import IconoirSettingsSvg from "@/assets/IconoirSettings";
 import SelectDownArrow from "@/assets/icons/SelectDownArrow";
-import { Breadcrumb, type BreadcrumbProps } from "../Breadcrumb";
+import { Breadcrumb } from "../Breadcrumb";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
 import {
   DropdownMenu,
@@ -13,30 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export interface HeaderMenuItem {
-  label: string;
-  label_ar?: string;
-  onClick: () => void;
-  className?: string;
-}
-
-export interface HeaderProps {
-  language?: "en" | "ar";
-  checkinButtonText?: string;
-  checkinButtonText_ar?: string;
-  notificationsAriaLabel?: string;
-  notificationsAriaLabel_ar?: string;
-  notificationCount?: number;
-  userName?: string;
-  userName_ar?: string;
-  avatarUrl?: string;
-  languageText?: string;
-  languageText_ar?: string;
-  onToggleLanguage?: () => void;
-  isEditing?: boolean;
-  menuItems?: HeaderMenuItem[];
-  breadcrumbItems?: BreadcrumbProps["items"];
-}
+export type { HeaderProps, HeaderMenuItem };
 
 export const Header = ({
   language = "en",

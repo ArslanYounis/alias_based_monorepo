@@ -1,9 +1,7 @@
+import type { AddButtonProps } from "@shared/types";
 import { Plus } from "lucide-react";
 
-export interface AddButtonProps {
-  disabled?: boolean;
-  onClick?: () => void;
-}
+export type { AddButtonProps };
 
 export const AddButton = ({
   disabled = false,

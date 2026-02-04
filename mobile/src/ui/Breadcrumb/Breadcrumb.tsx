@@ -1,18 +1,9 @@
+import type { BreadcrumbProps } from "@shared/types";
 import React from "react";
 import { View, Text, Pressable } from "react-native";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
-interface BreadcrumbItem {
-  label: string;
-  label_ar?: string;
-  onPress?: () => void;
-}
-
-export interface BreadcrumbProps {
-  items: BreadcrumbItem[];
-  selectedItemIndex?: number;
-  language?: "en" | "ar";
-}
+export type { BreadcrumbProps };
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   items = [
@@ -20,6 +11,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
     { label: "Level 1", label_ar: "المستوى 1" },
   ],
   selectedItemIndex,
+  isSelectedHover,
   language = "en",
 }) => {
   const finalSelectedItemIndex =
@@ -38,8 +30,8 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
             {index > 0 && <Text className="px-s text-text-dimmed">/</Text>}
 
             <Pressable
-              disabled={!item.onPress}
-              onPress={item.onPress}
+              disabled={!item.onClick}
+              onPress={item.onClick}
               className={isSelected ? "" : ""}
             >
               <Text

@@ -1,14 +1,8 @@
+import type { CheckRadioLabelProps } from "@shared/types";
 import React from "react";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
 
-export interface CheckRadioLabelProps {
-  label?: string;
-  label_ar?: string;
-  disabled?: boolean;
-  language?: "en" | "ar";
-  onClick?: () => void;
-  htmlFor?: string;
-}
+export type { CheckRadioLabelProps };
 
 export const CheckRadioLabel: React.FC<CheckRadioLabelProps> = ({
   label,

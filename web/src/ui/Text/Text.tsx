@@ -1,10 +1,7 @@
+import type { TextProps } from "@shared/types";
 import React from "react";
 
-export interface TextProps {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  className?: string;
-}
+export type { TextProps };
 
 export const Text: React.FC<TextProps> = ({ children, style, className }) => {
   return (

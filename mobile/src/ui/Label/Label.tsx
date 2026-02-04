@@ -1,32 +1,11 @@
-import { Tooltip } from "../Tooltip";
+import type { LabelProps } from "@shared/types";
 import React, { useState } from "react";
 import { View, Pressable } from "react-native";
-import InfoIcon from "~/assets/svg/icons/Info";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
+import InfoIcon from "~/assets/svg/icons/Info";
+import { Tooltip } from "../Tooltip";
 
-export interface LabelProps {
-  label: string;
-  label_ar?: string;
-  required?: boolean;
-  showInfoIcon?: boolean;
-  tooltipText?: string;
-  tooltipText_ar?: string;
-  tooltipDirection?:
-    | "top-left"
-    | "top-center"
-    | "top-right"
-    | "bottom-left"
-    | "bottom-center"
-    | "bottom-right"
-    | "left-top"
-    | "left-center"
-    | "left-bottom"
-    | "right-top"
-    | "right-center"
-    | "right-bottom";
-  disabled?: boolean;
-  language?: "en" | "ar";
-}
+export type { LabelProps };
 
 export const Label: React.FC<LabelProps> = ({
   label,

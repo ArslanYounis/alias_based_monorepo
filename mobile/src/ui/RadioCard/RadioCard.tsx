@@ -1,18 +1,9 @@
+import type { RadioCardProps } from "@shared/types";
 import React from "react";
 import { Pressable, View } from "react-native";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
-interface RadioCardProps {
-  icon?: React.ReactNode;
-  label?: string;
-  label_ar?: string;
-  language?: "en" | "ar";
-  iconLocation?: "top" | "left" | "right" | "bottom";
-  disabled?: boolean;
-  pressed?: boolean;
-  id?: string;
-  onPress?: (id?: string) => void;
-}
+export type { RadioCardProps };
 
 export const RadioCard: React.FC<RadioCardProps> = ({
   icon,
@@ -21,14 +12,14 @@ export const RadioCard: React.FC<RadioCardProps> = ({
   iconLocation = "left",
   language = "en",
   disabled = false,
-  pressed = false,
+  clicked = false,
   id,
-  onPress,
+  onClick,
 }) => {
   /** Background */
   const getBackgroundClass = () => {
     if (disabled) return "bg-button-radio-card-selected-disabled";
-    if (pressed) return "bg-button-radio-card-selected-disabled";
+    if (clicked) return "bg-button-radio-card-selected-disabled";
     return "bg-button-radio-card-selected-disabled opacity-40";
   };
 
@@ -54,14 +45,14 @@ export const RadioCard: React.FC<RadioCardProps> = ({
   };
 
   const handlePress = () => {
-    if (!disabled && onPress) {
-      onPress(id);
+    if (!disabled && onClick) {
+      onClick(id);
     }
   };
 
   return (
     <Pressable
-      id={id}
+      nativeID={id}
       onPress={handlePress}
       disabled={disabled}
       className={`

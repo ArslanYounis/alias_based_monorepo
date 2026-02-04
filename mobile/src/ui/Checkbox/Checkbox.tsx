@@ -1,14 +1,9 @@
+import type { CustomCheckboxProps } from "@shared/types";
+import React, { useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
 import Svg, { Polyline } from "react-native-svg";
-import React, { useEffect, useState } from "react";
 
-export interface CustomCheckboxProps {
-  id: string;
-  checked?: boolean;
-  onChange?: (id: string, checked: boolean) => void;
-  disabled?: boolean;
-  hasError?: boolean;
-}
+export type { CustomCheckboxProps };
 
 export const Checkbox = ({
   id,

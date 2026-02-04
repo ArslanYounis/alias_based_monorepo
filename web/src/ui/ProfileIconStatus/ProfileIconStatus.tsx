@@ -1,16 +1,11 @@
+import type { ProfileIconStatusProps } from "@shared/types";
 import React from "react";
 import AwaySvg from "@/assets/svg/statusSvg/Away";
 import ArrowSvg from "@/assets/svg/statusSvg/Arrow";
 import OnlineSvg from "@/assets/svg/statusSvg/Online";
 import FailedSvg from "@/assets/svg/statusSvg/failed";
 
-type StatusType = "inProgress" | "complete" | "failed" | "pending";
-
-interface ProfileIconStatusProps {
-  status?: StatusType;
-  width?: number | string;
-  height?: number | string;
-}
+export type { ProfileIconStatusProps };
 
 export const ProfileIconStatus: React.FC<ProfileIconStatusProps> = ({
   status,

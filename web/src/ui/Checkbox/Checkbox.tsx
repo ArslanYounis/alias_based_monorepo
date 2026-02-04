@@ -1,12 +1,7 @@
+import type { CustomCheckboxProps } from "@shared/types";
 import { useEffect, useState } from "react";
 
-export interface CustomCheckboxProps {
-  id: string;
-  checked?: boolean;
-  onChange?: (id: string, checked: boolean) => void;
-  disabled?: boolean;
-  hasError?: boolean;
-}
+export type { CustomCheckboxProps };
 
 export const Checkbox = ({
   id,

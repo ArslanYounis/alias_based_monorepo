@@ -1,3 +1,4 @@
+import type { HeaderProps } from "@shared/types";
 import React from "react";
 import { Avatar } from "../Avatar";
 import { Buttons } from "../Buttons";
@@ -9,31 +10,8 @@ import { View, Text, Pressable } from "react-native";
 import SelectArrow from "~/assets/svg/icons/SelectArrow";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
-export interface HeaderMenuItem {
-  label: string;
-  label_ar?: string;
-  onClick: () => void;
-}
-
-export interface HeaderProps {
-  language?: "en" | "ar";
-  checkinButtonText?: string;
-  checkinButtonText_ar?: string;
-  userName?: string;
-  userName_ar?: string;
-  avatarUrl?: string;
-  languageText?: string;
-  languageText_ar?: string;
-  onToggleLanguage?: () => void;
-  isEditing?: boolean;
-  menuItems?: HeaderMenuItem[];
-  breadcrumbItems?: {
-    label: string;
-    label_ar?: string;
-    onPress?: () => void;
-  }[];
-  onAvatarPress?: () => void; // 👈 mobile menu trigger
-}
+export type { HeaderProps };
+export type { HeaderMenuItem } from "@shared/types";
 
 export const Header: React.FC<HeaderProps> = ({
   language = "en",
@@ -56,7 +34,7 @@ export const Header: React.FC<HeaderProps> = ({
       className={`bg-white px-4 pt-4 pb-3 ${isEditing ? "opacity-50" : ""}`}
     >
       {/* Breadcrumb (mobile-friendly) */}
-      {breadcrumbItems.length > 0 && (
+      {breadcrumbItems && breadcrumbItems.length > 0 && (
         <View className="mb-3">
           <Breadcrumb items={breadcrumbItems} language={language} />
         </View>

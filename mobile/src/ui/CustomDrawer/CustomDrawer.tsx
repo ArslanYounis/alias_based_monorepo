@@ -1,21 +1,9 @@
+import type { CustomDrawerProps, DrawerSize } from "@shared/types";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { View } from "react-native";
 import { BottomSheetModal, BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 
-export type DrawerSize = "layer1" | "layer2" | "layer3";
-
-export interface CustomDrawerProps {
-  open: boolean;
-  onOpenChange?: (open: boolean) => void;
-  size?: DrawerSize;
-  backgroundClassName?: string;
-  showCloseButton?: boolean;
-  className?: string;
-  dismissible?: boolean;
-  children?: React.ReactNode;
-  language?: "en" | "ar";
-  header?: React.ReactNode;
-}
+export type { CustomDrawerProps, DrawerSize };
 
 const drawerSnapPoints: Record<DrawerSize, string[]> = {
   layer1: ["90%"],

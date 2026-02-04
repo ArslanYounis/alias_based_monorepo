@@ -1,12 +1,8 @@
+import type { LogoProps } from "@shared/types";
 import React from "react";
 import OneHubsvg from "@/assets/icons/oneHubsvg";
 
-interface LogoProps {
-  type: "full" | "icon" | "hub";
-  className?: string;
-  width?: number | string;
-  height?: number | string;
-}
+export type { LogoProps };
 
 export const Logo: React.FC<LogoProps> = ({
   type,

@@ -1,3 +1,4 @@
+import type { FooterProps } from "@shared/types";
 import React, { useState } from "react";
 import { View, Pressable } from "react-native";
 
@@ -6,26 +7,19 @@ import { Logo } from "../Logo";
 import PullyUp from "~/assets/svg/icons/PullyUp";
 import PullyDown from "~/assets/svg/icons/PullyDown";
 
-interface FooterProps {
-  showLogo?: boolean;
-  logoType?: "full" | "icon" | "hub";
-  logoWidth?: number;
-  logoHeight?: number;
-  showBot?: boolean;
-  language?: "en" | "ar";
-  botMessage?: string;
-  botMessage_ar?: string;
-}
+export type { FooterProps };
 
 export const Footer = ({
   showLogo = true,
   logoType = "full",
   logoWidth = 120,
   logoHeight = 40,
+  logoClassName,
   showBot = true,
   language = "en",
   botMessage = "Hello! How can I help you today?",
   botMessage_ar = "مرحبا! كيف يمكنني مساعدتك اليوم؟",
+  botClassName,
 }: FooterProps) => {
   const [open, setOpen] = useState(false);
   const [botStatus, setBotStatus] = useState<"open" | "close">("close");
@@ -39,7 +33,7 @@ export const Footer = ({
 
         {open && (
           <View className="w-full flex-row justify-between items-center px-2">
-            {showLogo && <Logo type="icon" width={48} height={48} />}
+            {showLogo && <Logo type="icon" width={48} height={48} className={logoClassName} />}
 
             {showBot && (
               <Bot
@@ -47,7 +41,7 @@ export const Footer = ({
                 message={botMessage}
                 message_ar={botMessage_ar}
                 status={botStatus}
-                onPress={setBotStatus}
+                onClick={setBotStatus}
               />
             )}
           </View>

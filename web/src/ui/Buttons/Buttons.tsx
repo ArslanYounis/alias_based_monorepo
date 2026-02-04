@@ -1,40 +1,9 @@
-import { Tooltip } from "../Tooltip";
+import type { ButtonsProps } from "@shared/types";
 import { type ReactElement, useState, cloneElement } from "react";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
+import { Tooltip } from "../Tooltip";
 
-export interface NewButtonProps {
-  language?: "en" | "ar";
-  size?: "s" | "m" | "l";
-  fullWidth?: boolean;
-  title?: string;
-  title_ar?: string;
-  leftIcon?: ReactElement;
-  rightIcon?: ReactElement;
-  disabled?: boolean;
-  type?: "primary" | "secondary" | "tertiary" | "text-link" | "delete"; // help removed
-  buttonType?: "button" | "submit" | "reset";
-  onClick?: () => void;
-  iconColor?: string;
-  tooltip?: {
-    text: string;
-    text_ar?: string;
-    language?: "en" | "ar";
-    direction?:
-      | "top-left"
-      | "top-center"
-      | "top-right"
-      | "bottom-left"
-      | "bottom-center"
-      | "bottom-right"
-      | "left-top"
-      | "left-center"
-      | "left-bottom"
-      | "right-top"
-      | "right-center"
-      | "right-bottom"
-      | "none";
-  };
-}
+export type { ButtonsProps };
 
 export const Buttons = ({
   language = "en",
@@ -50,7 +19,7 @@ export const Buttons = ({
   onClick = () => null,
   iconColor,
   tooltip,
-}: NewButtonProps) => {
+}: ButtonsProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isTooltipHovered, setIsTooltipHovered] = useState(false);
 

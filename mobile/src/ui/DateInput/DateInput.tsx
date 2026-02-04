@@ -1,32 +1,14 @@
-import InfoSVG from "~/assets/svg/icons/Info";
-import React, { useEffect, useState } from "react";
-import SelectArrow from "~/assets/svg/icons/SelectArrow";
-import { View, Text, Pressable, Platform, Modal, TouchableOpacity } from "react-native";
-import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
+import type { DateInputProps } from "@shared/types";
 import DateTimePicker, {
   type DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
+import React, { useEffect, useState } from "react";
+import { View, Text, Pressable, Platform, Modal, TouchableOpacity } from "react-native";
+import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
+import InfoSVG from "~/assets/svg/icons/Info";
+import SelectArrow from "~/assets/svg/icons/SelectArrow";
 
-interface DateInputProps {
-  placeholder?: string;
-  placeholder_ar?: string;
-  hasError?: boolean;
-  label?: string;
-  label_ar?: string;
-  disabled?: boolean;
-  onDateChange?: (date: Date | undefined) => void;
-  required?: boolean;
-  infoText?: string;
-  infoText_ar?: string;
-  errMessage?: string;
-  errMessage_ar?: string;
-  caption?: string;
-  caption_ar?: string;
-  captionPosition?: "left" | "right";
-  language?: "en" | "ar";
-  value?: string;
-  testId?: string;
-}
+export type { DateInputProps };
 
 export const DateInput: React.FC<DateInputProps> = ({
   placeholder = "Select date",

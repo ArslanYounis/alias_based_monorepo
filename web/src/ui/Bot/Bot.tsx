@@ -1,14 +1,8 @@
+import type { BotProps } from "@shared/types";
 import React, { useState, useEffect } from "react";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
 
-interface BotProps {
-  language?: "en" | "ar";
-  message_ar?: string;
-  message?: string;
-  status?: "close" | "open";
-  className?: string;
-  onClick?: (newStatus: "open" | "close") => void;
-}
+export type { BotProps };
 
 export const Bot: React.FC<BotProps> = ({
   message = "Hello! How can I help you today?",

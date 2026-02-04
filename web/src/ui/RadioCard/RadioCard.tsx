@@ -1,17 +1,8 @@
+import type { RadioCardProps } from "@shared/types";
 import React from "react";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
 
-interface RadioCardProps {
-  icon?: React.ReactNode;
-  label?: string;
-  label_ar?: string;
-  language?: "en" | "ar";
-  iconLocation?: "top" | "left" | "right" | "bottom";
-  disabled?: boolean;
-  clicked?: boolean;
-  id?: string;
-  onClick?: (id?: string) => void;
-}
+export type { RadioCardProps };
 
 export const RadioCard: React.FC<RadioCardProps> = ({
   icon,

@@ -1,3 +1,4 @@
+import type { DateInputProps } from "@shared/types";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
@@ -12,27 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-interface DateInputProps {
-  placeholder?: string;
-  placeholder_ar?: string;
-  hasError?: boolean;
-  icon?: React.ReactNode;
-  label?: string;
-  label_ar?: string;
-  disabled?: boolean;
-  onDateChange?: (date: Date | undefined) => void;
-  required?: boolean;
-  infoText?: string;
-  infoText_ar?: string;
-  errMessage?: string;
-  errMessage_ar?: string;
-  caption?: string;
-  caption_ar?: string;
-  captionPosition?: "left" | "right";
-  language?: "en" | "ar";
-  value?: string; // ISO date string
-  testId?: string;
-}
+export type { DateInputProps };
 
 export const DateInput: React.FC<DateInputProps> = ({
   placeholder = "Select date",

@@ -1,3 +1,4 @@
+import type { FormFieldProps } from "@shared/types";
 import React, {
   type SVGProps,
   useState,
@@ -23,44 +24,7 @@ import { CheckRadioLabel } from "../CheckRadioLabel";
 import SelectArrow from "~/assets/svg/icons/SelectArrow";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
-export interface Option {
-  label?: string;
-  label_ar?: string;
-  value: string;
-}
-
-export interface FormFieldProps {
-  type:
-    | "text"
-    | "date"
-    | "select"
-    | "textarea"
-    | "uaeid"
-    | "currency"
-    | "phone"
-    | "number";
-  placeholder?: string;
-  placeholder_ar?: string;
-  value: string;
-  onChange: (value: string) => void;
-  hasError?: boolean;
-  errorMessage?: string;
-  errorMessage_ar?: string;
-  language?: "en" | "ar";
-  icon?: React.ReactNode;
-  options?: Option[];
-  disabled?: boolean;
-  currencySymbol?: React.ReactNode | string;
-  phoneCode?: React.ReactNode | string;
-  selectType?: "single" | "multi";
-  title?: string;
-  title_ar?: string;
-  isPrint_Archive?: boolean;
-  showAddButton?: boolean;
-  id?: string;
-  ariaLabel?: string;
-  testId?: string;
-}
+export type { FormFieldProps, Option } from "@shared/types";
 
 export const Fields: React.FC<FormFieldProps> = ({
   type,
@@ -353,7 +317,7 @@ export const Fields: React.FC<FormFieldProps> = ({
               <SelectArrow />
             </View>
           </TouchableOpacity>
-          {showAddButton && <AddButton onPress={() => setIsOpen(true)} />}
+          {showAddButton && <AddButton onClick={() => setIsOpen(true)} />}
         </View>
 
         <Modal

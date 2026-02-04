@@ -1,17 +1,8 @@
+import type { CaptionProps } from "@shared/types";
 import React from "react";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
 
-interface CaptionProps {
-  captionLeft?: string;
-  captionLeft_ar?: string;
-  captionRight?: string;
-  captionRight_ar?: string;
-  hasError?: boolean;
-  disabled?: boolean;
-  errorMessage?: string;
-  errorMessage_ar?: string;
-  language?: "en" | "ar";
-}
+export type { CaptionProps };
 
 export const Caption: React.FC<CaptionProps> = ({
   captionLeft = "Caption Left",
