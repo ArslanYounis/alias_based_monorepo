@@ -4,6 +4,7 @@ import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwit
 import { Tooltip } from "../Tooltip";
 
 export type { ButtonsProps };
+export type NewButtonProps = ButtonsProps;
 
 export const Buttons = ({
   language = "en",

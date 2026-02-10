@@ -32,5 +32,6 @@
       "@shared/*": ["../shared/*"]
     }
   },
-  "include": ["src", "../shared"]
+  "include": ["src", "../shared"],
+  "exclude": ["../shared/__platform_types__"]
 }

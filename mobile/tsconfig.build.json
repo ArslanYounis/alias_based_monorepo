@@ -30,9 +30,12 @@
     "src/ui/**/*.tsx",
     "src/lib/**/*.ts",
     "src/lib/**/*.tsx",
+    "src/configs/**/*.ts",
     "../shared/components/**/*.ts",
     "../shared/components/**/*.tsx",
-    "../shared/types/**/*.ts"
+    "../shared/types/**/*.ts",
+    "../shared/configs/**/*.ts",
+    "../shared/utils/**/*.ts"
   ],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
 }
