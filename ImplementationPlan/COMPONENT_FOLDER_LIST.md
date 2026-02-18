@@ -3,6 +3,14 @@
 > Follows the pattern from `alias_based_monorepo/`  
 > Total: **45 components** across **3 packages** (`web`, `mobile`, `shared`)
 
+## Migration status
+
+| Component | Status |
+|-----------|--------|
+| **Pagination** | ✅ Migrated (web + mobile) |
+
+---
+
 ## Alias Resolution
 
 | Alias | Web resolves to | Mobile resolves to |
@@ -52,15 +60,15 @@ alias_based_monorepo/
 
 ### General UI (7)
 
-| # | File | Source (current) | Web Implementation |
-|---|------|-----------------|-------------------|
-| 1 | `Button.tsx` | `src/stories/buttons/` | `<button>` + Tailwind + mouse events |
-| 2 | `Typography.tsx` | `src/revamp/typography/` | `<h1>`–`<h4>`, `<p>` + Tailwind variants |
-| 3 | `Breadcrumb.tsx` | `src/stories/breadcrumb/` | `<nav>` / `<ol>` / `<li>` |
-| 4 | `Pagination.tsx` | `src/stories/pagination/` | `<nav>` + `<button>` page controls |
-| 5 | `ScreenLoader.tsx` | `src/stories/screenLoader/` | `fixed inset-0`, backdrop-blur, GIF |
-| 6 | `Prompt.tsx` | `src/stories/prompt/` | Dialog with yes/no buttons |
-| 7 | `AddMoreButton.tsx` | `src/stories/addMoreButton/` | `<div>` + lucide-react icon |
+| # | File | Source (current) | Web Implementation | Status |
+|---|------|-----------------|-------------------|--------|
+| 1 | `Button.tsx` | `src/stories/buttons/` | `<button>` + Tailwind + mouse events | — |
+| 2 | `Typography.tsx` | `src/revamp/typography/` | `<h1>`–`<h4>`, `<p>` + Tailwind variants | — |
+| 3 | `Breadcrumb.tsx` | `src/stories/breadcrumb/` | `<nav>` / `<ol>` / `<li>` | — |
+| 4 | `Pagination.tsx` | `src/stories/pagination/` | `<nav>` + `<button>` page controls | ✅ Migrated |
+| 5 | `ScreenLoader.tsx` | `src/stories/screenLoader/` | `fixed inset-0`, backdrop-blur, GIF | — |
+| 6 | `Prompt.tsx` | `src/stories/prompt/` | Dialog with yes/no buttons | — |
+| 7 | `AddMoreButton.tsx` | `src/stories/addMoreButton/` | `<div>` + lucide-react icon | — |
 
 ### Form Primitives (12)
 
@@ -116,15 +124,15 @@ alias_based_monorepo/
 
 ### General UI (7)
 
-| # | File | `web/src/ui/` counterpart | React Native Implementation |
-|---|------|--------------------------|----------------------------|
-| 1 | `Button.tsx` | `Button.tsx` | `<Pressable>` + StyleSheet |
-| 2 | `Typography.tsx` | `Typography.tsx` | `<Text>` with style variants |
-| 3 | `Breadcrumb.tsx` | `Breadcrumb.tsx` | `<View>` + `<Text>` chain |
-| 4 | `Pagination.tsx` | `Pagination.tsx` | `<Pressable>` row / list footer |
-| 5 | `ScreenLoader.tsx` | `ScreenLoader.tsx` | `<Modal>` + `<ActivityIndicator>` |
-| 6 | `Prompt.tsx` | `Prompt.tsx` | `<Modal>` or `Alert.alert()` |
-| 7 | `AddMoreButton.tsx` | `AddMoreButton.tsx` | `<Pressable>` + lucide-react-native |
+| # | File | `web/src/ui/` counterpart | React Native Implementation | Status |
+|---|------|--------------------------|----------------------------|--------|
+| 1 | `Button.tsx` | `Button.tsx` | `<Pressable>` + StyleSheet | — |
+| 2 | `Typography.tsx` | `Typography.tsx` | `<Text>` with style variants | — |
+| 3 | `Breadcrumb.tsx` | `Breadcrumb.tsx` | `<View>` + `<Text>` chain | — |
+| 4 | `Pagination.tsx` | `Pagination.tsx` | `<Pressable>` row / list footer | ✅ Migrated |
+| 5 | `ScreenLoader.tsx` | `ScreenLoader.tsx` | `<Modal>` + `<ActivityIndicator>` | — |
+| 6 | `Prompt.tsx` | `Prompt.tsx` | `<Modal>` or `Alert.alert()` | — |
+| 7 | `AddMoreButton.tsx` | `AddMoreButton.tsx` | `<Pressable>` + lucide-react-native | — |
 
 ### Form Primitives (12)
 
