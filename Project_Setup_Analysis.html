@@ -1,0 +1,388 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">
+<head>
+<meta charset="UTF-8">
+<meta name="ProgId" content="Word.Document">
+<meta name="Generator" content="Microsoft Word 15">
+<meta name="Originator" content="Microsoft Word 15">
+<title>Cross-Platform UI Components Monorepo - Project Setup Analysis</title>
+<style>
+body { font-family: Calibri, Arial, sans-serif; font-size: 9pt; line-height: 1.3; margin: 0.25in 0.35in; }
+h1 { font-size: 13pt; color: #2E5090; border-bottom: 2px solid #2E5090; padding-bottom: 3pt; margin-top: 12pt; margin-bottom: 6pt; }
+h2 { font-size: 11pt; color: #2E5090; margin-top: 10pt; margin-bottom: 4pt; }
+h3 { font-size: 10pt; color: #365F91; margin-top: 8pt; margin-bottom: 3pt; }
+p { margin: 0 0 5pt; text-align: justify; }
+ul, ol { margin: 5pt 0; }
+li { margin: 2pt 0; }
+table { border-collapse: collapse; width: 100%; margin: 6pt 0; font-size: 9pt; }
+th, td { border: 1px solid #ccc; padding: 4pt 6pt; text-align: left; }
+th { background-color: #2E5090; color: white; font-weight: bold; }
+tr:nth-child(even) { background-color: #f9f9f9; }
+code { font-family: Consolas, monospace; background: #f4f4f4; padding: 1pt 4pt; font-size: 8pt; }
+pre { font-family: Consolas, monospace; background: #f4f4f4; padding: 6pt; overflow-x: auto; font-size: 8pt; margin: 5pt 0; }
+.toc { background: #f0f4f8; padding: 8pt; margin: 8pt 0; border-left: 4px solid #2E5090; }
+.warning { background: #fff3cd; padding: 6pt; margin: 6pt 0; border-left: 4px solid #ffc107; }
+.info { background: #d1ecf1; padding: 6pt; margin: 6pt 0; border-left: 4px solid #0dcaf0; }
+.repository { font-size: 8pt; color: #666; margin: 4pt 0; }
+</style>
+</head>
+<body>
+
+<h1>Cross-Platform UI Components Monorepo – Project Setup Analysis</h1>
+
+<p class="repository"><strong>Repository URL:</strong> <a href="https://github.com/ArslanYounis/alias_based_monorepo/tree/npm_rn">https://github.com/ArslanYounis/alias_based_monorepo/tree/npm_rn</a></p>
+
+<p>This document provides a complete analysis of the alias-based monorepo architecture for cross-platform UI components. It explains how the project is structured, how the <code>@platform</code> alias enables web and mobile code sharing, and the complexity implications for development and onboarding.</p>
+
+<div class="toc">
+<h2>Table of Contents</h2>
+<ol>
+<li>Executive Summary</li>
+<li>Project Overview and Architecture</li>
+<li>Workspace Structure</li>
+<li>Path Aliases and Resolution</li>
+<li>How the @platform Alias Works</li>
+<li>Shared Types and Prop Contracts</li>
+<li>Build and Development Workflows</li>
+<li>Adding New @platform Components – Step-by-Step</li>
+<li>Complexity Analysis</li>
+<li>Impact on Development Time</li>
+<li>Unit Testing Headaches</li>
+<li>Native Modules and Platform-Only Features</li>
+<li>New Developer Onboarding</li>
+<li>Recommendations</li>
+</ol>
+</div>
+
+<h2>1. Executive Summary</h2>
+
+<p>This monorepo enables a single codebase to deliver UI components for both <strong>web</strong> (Vite + React) and <strong>mobile</strong> (Expo / React Native). The key mechanism is the <code>@platform</code> path alias, which resolves to platform-specific implementations at build time. Shared components under <code>shared/components/</code> import from <code>@platform/Container</code>, <code>@platform/Text</code>, etc., and the bundler (Vite for web, Metro for mobile) resolves these to the correct implementation. This design reduces duplication of business logic while allowing platform-native rendering (HTML/CSS vs React Native).</p>
+
+<h2>2. Project Overview and Architecture</h2>
+
+<p>The project uses npm workspaces with two primary packages: <code>web</code> and <code>mobile</code>. A <code>shared</code> folder (not an npm workspace) holds types, hooks, and composite components that use <code>@platform</code> imports. The architecture follows this flow:</p>
+
+<ol>
+<li><strong>Platform primitives:</strong> Each named component (e.g., Buttons, Container, Text) exists in both <code>web/src/ui/</code> and <code>mobile/src/ui/</code> with the same props contract but different implementations (HTML vs React Native).</li>
+<li><strong>Shared prop types:</strong> All prop interfaces live in <code>shared/types/ui/</code>, ensuring web and mobile stay in sync.</li>
+<li><strong>Shared composite components:</strong> Components like DummyComponent, LargeComponent, and PlotSearch live in <code>shared/components/</code> and import from <code>@platform/*</code>. At runtime, the correct platform implementation is used.</li>
+</ol>
+
+<h2>3. Workspace Structure</h2>
+
+<pre>
+alias_based_monorepo/
+├── package.json              # Root workspace config (npm workspaces: web, mobile)
+├── tsconfig.json             # Base TS config, path aliases for shared
+├── scripts/
+│   └── generate-platform-types.js   # Generates shared/__platform_types__/*.d.ts
+│
+├── shared/                   # Shared code (not an npm workspace)
+│   ├── types/                # Shared TypeScript types
+│   │   ├── index.ts          # ContainerProps, BaseComponentProps, re-exports ui/*
+│   │   └── ui/               # One file per UI component's props (AddButton, Buttons, etc.)
+│   ├── components/           # Components that use @platform (resolve per app)
+│   │   ├── DummyComponent/
+│   │   ├── LargeComponent/
+│   │   └── PlotSearch/
+│   ├── hooks/                # Shared hooks (e.g. useGetSearchByCompanyOwner)
+│   ├── __platform_types__/   # Generated .d.ts for shared folder TypeScript
+│   └── tsconfig.json
+│
+├── web/                      # Web app (Vite + React)
+│   ├── package.json
+│   ├── index.ts              # Library entry: re-exports src/ui + shared components
+│   ├── vite.config.ts        # Resolves @platform and @shared aliases
+│   ├── src/
+│   │   ├── app/              # App shell, App.tsx
+│   │   ├── ui/               # Web implementations (one folder per component)
+│   │   │   ├── AddButton/, Avatar/, Buttons/, Container/, Text/, etc.
+│   │   │   └── Layout/       # Web-only (no mobile counterpart)
+│   │   └── federation/       # Module federation configs
+│   └── dist/                 # Build output
+│
+└── mobile/                   # Mobile app (Expo)
+    ├── package.json          # @adrec/mobile-ui-base (publishable)
+    ├── index.ts              # App entry (Expo)
+    ├── lib-index.ts          # Library entry: re-exports src/ui + shared
+    ├── metro.config.js       # Resolves @platform and @shared
+    ├── src/
+    │   ├── app/              # App.tsx, main.tsx
+    │   ├── ui/               # Mobile implementations (mirrors web)
+    │   └── lib/              # constants, utils, useColorScheme
+    ├── scripts/build-lib.js  # Builds lib-index → dist/, rewrites aliases
+    └── dist/                 # Library build output
+</pre>
+
+<h2>4. Path Aliases and Resolution</h2>
+
+<p>Path aliases are configured at three levels: root tsconfig, web tsconfig, mobile tsconfig, and the respective bundlers (Vite, Metro).</p>
+
+<table>
+<tr><th>Alias</th><th>Web Resolution</th><th>Mobile Resolution</th></tr>
+<tr><td><code>@platform/*</code></td><td><code>web/src/ui/*</code></td><td><code>mobile/src/ui/*</code></td></tr>
+<tr><td><code>@shared/*</code></td><td><code>../shared/*</code></td><td><code>../shared/*</code></td></tr>
+<tr><td><code>@/*</code></td><td><code>./src/*</code> (web only)</td><td>—</td></tr>
+<tr><td><code>~/*</code></td><td>—</td><td><code>./*</code> (mobile root)</td></tr>
+</table>
+
+<p><strong>Web (Vite):</strong> <code>vite.config.ts</code> uses <code>resolve.alias</code> to map <code>@platform</code> to <code>web/src/ui</code> and <code>@shared</code> to <code>../shared</code>. The <code>vite-tsconfig-paths</code> plugin also respects tsconfig paths.</p>
+
+<p><strong>Mobile (Metro):</strong> <code>metro.config.js</code> sets <code>resolver.extraNodeModules</code> so that <code>@platform</code> resolves to <code>mobile/src/ui</code> and <code>@shared</code> to <code>../shared</code>. The <code>watchFolders</code> includes <code>../shared</code> so Metro can resolve imports from the shared folder.</p>
+
+<h2>5. How the @platform Alias Works</h2>
+
+<p>When a shared component (e.g., <code>shared/components/DummyComponent/DummyComponent.tsx</code>) imports:</p>
+
+<pre>
+import { Container } from "@platform/Container";
+import { Text } from "@platform/Text";
+import { Buttons } from "@platform/Buttons";
+</pre>
+
+<p>The resolution depends on which app is running:</p>
+
+<ul>
+<li><strong>Web:</strong> When the web app builds or runs, Vite resolves <code>@platform/Container</code> → <code>web/src/ui/Container</code>, <code>@platform/Text</code> → <code>web/src/ui/Text</code>, etc. The shared component thus uses web-specific implementations (HTML elements, Tailwind CSS).</li>
+<li><strong>Mobile:</strong> When the mobile app builds or runs, Metro resolves <code>@platform/Container</code> → <code>mobile/src/ui/Container</code>, etc. The same shared component now uses React Native components (View, Text, TouchableOpacity).</li>
+</ul>
+
+<p>The shared component code is identical; only the resolution target changes. This is the core benefit of the @platform alias.</p>
+
+<h3>Shared Folder TypeScript</h3>
+
+<p>The <code>shared</code> folder has its own <code>tsconfig.json</code> with:</p>
+
+<pre>
+"paths": {
+  "@platform/*": ["./__platform_types__/*"],
+  "@shared/*": ["./*"]
+}
+</pre>
+
+<p>For type-checking shared code in isolation, <code>@platform</code> resolves to <code>shared/__platform_types__/</code>, which contains generated stub declaration files (e.g., <code>Buttons.d.ts</code>) that unify the prop types from both web and mobile implementations.</p>
+
+<h2>6. Shared Types and Prop Contracts</h2>
+
+<p>Each platform primitive has a corresponding type file in <code>shared/types/ui/</code>, e.g., <code>Buttons.ts</code>:</p>
+
+<pre>
+export interface ButtonsProps {
+  language?: "en" | "ar";
+  size?: "s" | "m" | "l";
+  fullWidth?: boolean;
+  title?: string;
+  title_ar?: string;
+  leftIcon?: ReactElement;
+  rightIcon?: ReactElement;
+  disabled?: boolean;
+  type?: "primary" | "secondary" | "tertiary" | "text-link" | "delete";
+  buttonType?: "button" | "submit" | "reset";
+  onClick?: () => void;
+  iconColor?: string;
+  tooltip?: { ... };
+}
+</pre>
+
+<p>Both web and mobile <code>Buttons</code> components import from <code>@shared/types</code> and implement this interface. Platform differences (e.g., web uses <code>onClick</code>, mobile may map to <code>onPress</code> internally) are handled inside each implementation while keeping the external API consistent.</p>
+
+<h2>7. Build and Development Workflows</h2>
+
+<table>
+<tr><th>Script</th><th>Description</th></tr>
+<tr><td><code>npm install</code></td><td>Install dependencies for all workspaces</td></tr>
+<tr><td><code>npm run dev:web</code></td><td>Start Vite dev server</td></tr>
+<tr><td><code>npm run dev:mobile</code></td><td>Start Expo dev server</td></tr>
+<tr><td><code>npm run dev:all</code></td><td>Run web and mobile concurrently</td></tr>
+<tr><td><code>npm run build:web</code></td><td>Build web app (with BUILD_LIB=true) → web/dist/</td></tr>
+<tr><td><code>npm run build:mobile</code></td><td>Expo export → mobile/dist/</td></tr>
+<tr><td><code>npm run build:all</code></td><td>Run both builds</td></tr>
+<tr><td><code>npm run generate:platform-types</code></td><td>Regenerate shared/__platform_types__/*.d.ts</td></tr>
+<tr><td><code>npm run publish:lib</code></td><td>Publish mobile library (from mobile/)</td></tr>
+</table>
+
+<p><strong>Mobile library build:</strong> <code>mobile/scripts/build-lib.js</code> compiles <code>lib-index.ts</code> and then post-processes the output to replace <code>@platform/*</code> and <code>@shared/*</code> imports with relative paths. This ensures the published package does not depend on path aliases at consumer install time.</p>
+
+<h2>8. Adding New @platform Components – Step-by-Step</h2>
+
+<p>To add a new cross-platform component (e.g., <code>NewWidget</code>), the developer must:</p>
+
+<ol>
+<li><strong>Create shared type:</strong> Add <code>shared/types/ui/NewWidget.ts</code> with the props interface.</li>
+<li><strong>Export from shared types:</strong> Add <code>export * from "./NewWidget"</code> in <code>shared/types/ui/index.ts</code>.</li>
+<li><strong>Implement web version:</strong> Create <code>web/src/ui/NewWidget/NewWidget.tsx</code> and <code>index.ts</code>, importing types from <code>@shared/types</code>.</li>
+<li><strong>Implement mobile version:</strong> Create <code>mobile/src/ui/NewWidget/NewWidget.tsx</code> and <code>index.ts</code> with the same props contract.</li>
+<li><strong>Regenerate platform types:</strong> Run <code>npm run generate:platform-types</code> to create/update <code>shared/__platform_types__/NewWidget.d.ts</code>.</li>
+<li><strong>Re-export from library entry points:</strong> Add <code>export { NewWidget } from "./src/ui/NewWidget"</code> (or equivalent) in both <code>web/index.ts</code> and <code>mobile/lib-index.ts</code>.</li>
+<li><strong>If used in a shared component:</strong> Import via <code>@platform/NewWidget</code> in the shared component.</li>
+</ol>
+
+<p>This is a seven-step process with multiple touchpoints (types, web, mobile, platform types, library exports).</p>
+
+<h2>9. Complexity Analysis</h2>
+
+<h3>9.1 Architectural Complexity</h3>
+
+<p>The @platform pattern introduces several layers of indirection:</p>
+
+<ul>
+<li><strong>Dual resolution:</strong> <code>@platform</code> means different things in web vs mobile. A developer must understand that the same import resolves to different files depending on the build context.</li>
+<li><strong>Three-way TypeScript config:</strong> Root, web, mobile, and shared each have path mappings. Misconfiguration in one place can cause silent failures or confusing errors.</li>
+<li><strong>Generated types:</strong> <code>shared/__platform_types__/</code> is generated by a script. Forgetting to run it after adding a component can lead to TypeScript errors in shared code.</li>
+<li><strong>Build-time alias rewriting:</strong> The mobile build script rewrites aliases in the output. This is non-standard and adds maintenance burden.</li>
+</ul>
+
+<h3>9.2 Synchronization Requirements</h3>
+
+<p>For each @platform component:</p>
+
+<ul>
+<li>Web and mobile must maintain <strong>identical public props</strong> and semantics.</li>
+<li>Any change to props requires updating <code>shared/types</code>, both implementations, and possibly <code>generate-platform-types</code> output.</li>
+<li>Platform-only features (e.g., web-specific <code>Layout</code>) are allowed but increase the cognitive load when deciding what belongs in @platform vs platform-specific exports.</li>
+</ul>
+
+<h3>9.3 Tooling and Build Configuration</h3>
+
+<p>Each platform uses different tooling:</p>
+
+<ul>
+<li>Web: Vite, tsconfig paths, vite-tsconfig-paths</li>
+<li>Mobile: Metro, extraNodeModules, Expo</li>
+<li>Shared: Custom tsconfig with __platform_types__ resolution</li>
+</ul>
+
+<p>Adding a new build target (e.g., another platform) would require another alias resolution layer.</p>
+
+<h2>10. Impact on Development Time</h2>
+
+<h3>10.1 Per-Component Effort</h3>
+
+<p>Adding a single @platform component takes roughly <strong>2–4×</strong> the time of adding a web-only or mobile-only component because:</p>
+
+<ul>
+<li>Two full implementations (web + mobile) must be written and tested.</li>
+<li>Shared types must be defined and kept in sync.</li>
+<li>Platform type generation and library exports must be updated.</li>
+</ul>
+
+<h3>10.2 Ongoing Maintenance</h3>
+
+<p>Every change to a shared component or platform primitive can require:</p>
+
+<ul>
+<li>Updating shared types</li>
+<li>Updating both web and mobile implementations</li>
+<li>Regenerating platform types</li>
+<li>Testing on both web and mobile</li>
+</ul>
+
+<p>Estimated overhead: <strong>20–40%</strong> compared to a single-platform codebase, depending on how often components change.</p>
+
+<h3>10.3 Debugging Complexity</h3>
+
+<p>When a bug appears in a shared component:</p>
+
+<ul>
+<li>It may manifest differently on web vs mobile (e.g., different event handlers, layout engines).</li>
+<li>The developer must trace through alias resolution to know which implementation is actually running.</li>
+<li>IDE "Go to Definition" may land in <code>__platform_types__</code> stubs instead of real implementations, which can confuse newcomers.</li>
+</ul>
+
+<h2>11. Unit Testing Headaches</h2>
+
+<p>Unit testing @platform components introduces significant overhead and complexity that can increase as the component library grows.</p>
+
+<h3>11.1 Dual Test Suites</h3>
+<p>Because each component has two implementations (web and mobile), teams often end up maintaining <strong>two parallel test suites</strong>. Web components use React Testing Library with jsdom or similar; mobile components require React Native Testing Library with a different renderer. Shared components that use @platform imports must be tested in both environments—or with complex mocking—to ensure correct behavior on each platform.</p>
+
+<h3>11.2 Alias and Module Resolution in Tests</h3>
+<p>Test runners (Jest, Vitest, etc.) must resolve <code>@platform</code> and <code>@shared</code> the same way the app does. This requires:</p>
+<ul>
+<li>Configuring <code>moduleNameMapper</code> or equivalent in Jest/Vitest to map aliases for web tests</li>
+<li>Ensuring Metro or the mobile test runner resolves aliases for React Native tests</li>
+<li>Shared tests may need different resolver configs depending on which platform they target</li>
+</ul>
+<p>Misconfiguration leads to "module not found" or wrong implementations being loaded, which can be time-consuming to debug.</p>
+
+<h3>11.3 Mocking Complexity</h3>
+<p>When testing shared components (e.g., PlotSearch, DummyComponent), developers must decide whether to mock <code>@platform</code> components or use real implementations. Mocking requires setting up module mocks for each platform primitive used; using real implementations may pull in platform-specific dependencies (e.g., React Native or DOM APIs) that fail in the other platform's test environment.</p>
+
+<h3>11.4 Platform-Specific Behavior</h3>
+<p>Components may behave differently on web vs mobile (e.g., touch vs mouse events, layout, accessibility). Tests that pass on web can fail on mobile (or in the mobile test environment) and vice versa. Achieving meaningful coverage across both platforms often means writing <strong>platform-specific test cases</strong>, duplicating setup and assertion logic.</p>
+
+<h3>11.5 Maintenance Overhead</h3>
+<p>Every new @platform component adds test surface for both implementations plus any shared components that use it. Refactoring a shared component can break tests in multiple places (web unit tests, mobile unit tests, integration tests). The testing headache compounds as the number of @platform components increases—roughly <strong>2× the maintenance</strong> of a single-platform component library.</p>
+
+<h3>11.6 Shared Component Testing – Not Yet Validated</h3>
+<p><strong>Important:</strong> Whether unit testing actually works for shared components in this setup has <strong>not been tested or validated</strong>. Shared components (DummyComponent, LargeComponent, PlotSearch) import from <code>@platform/*</code>, and it is unclear whether Jest, Vitest, or React Native test runners can correctly resolve these aliases and render shared components in isolation. Teams adopting this architecture should treat shared component unit testing as an open item and validate the approach early—including alias resolution, mocking strategy, and cross-platform test execution—before committing to the pattern.</p>
+
+<h2>12. Native Modules and Platform-Only Features</h2>
+
+<p>Mobile supports native modules (e.g., Camera, GPS, biometrics, file system access) that have no direct web equivalent. The current @platform architecture does not define how these should be handled.</p>
+
+<h3>12.1 The Problem</h3>
+<p>A component that uses the device Camera on mobile cannot be a straightforward @platform component—web has no native Camera API in the same sense (it uses <code>getUserMedia</code> or file input). If a shared component or screen needs camera access, the resolution strategy is undefined: should there be a mobile-only implementation, a web fallback (e.g., file upload), or conditional logic inside a shared component?</p>
+
+<h3>12.2 Possible Approaches</h3>
+<ul>
+<li><strong>Platform-only components:</strong> Keep Camera (and similar features) as mobile-only components, not in <code>@platform</code>. Screens that need camera would import the mobile implementation directly and use a different flow on web.</li>
+<li><strong>Abstraction layer with platform-specific implementations:</strong> Create a <code>@platform/CameraCapture</code> where the mobile implementation uses the native Camera module and the web implementation uses <code>input type="file"</code> or <code>getUserMedia</code>. The shared API would hide the platform difference behind a common props contract.</li>
+<li><strong>Runtime detection and fallbacks:</strong> Shared components could detect the platform and render a mobile-specific child on native and a web-specific child (or placeholder) on web. This adds branching logic and can complicate shared code.</li>
+</ul>
+
+<h3>12.3 Current State</h3>
+<p>The repository does not currently demonstrate handling of native modules or platform-only features. Teams will need to decide on a strategy (platform-only vs abstraction vs runtime branching) and document it. This gap can increase complexity when adding features that rely on capabilities available on only one platform.</p>
+
+<h2>13. New Developer Onboarding</h2>
+
+<h3>13.1 Understanding Curve</h3>
+
+<p><strong>Difficulty: Medium–High.</strong> A new developer needs to understand:</p>
+
+<ol>
+<li>Monorepo and npm workspaces</li>
+<li>Path aliases and how they differ per package</li>
+<li>The concept of "platform resolution" – one import, two implementations</li>
+<li>The role of <code>shared/types</code> and <code>__platform_types__</code></li>
+<li>Why the mobile build script rewrites aliases</li>
+<li>The component addition workflow (7 steps)</li>
+</ol>
+
+<p>Without documentation, this can take <strong>1–2 weeks</strong> of exploration and trial-and-error.</p>
+
+<h3>13.2 Common Pitfalls</h3>
+
+<ul>
+<li>Adding a component to web but forgetting mobile (or vice versa), leading to runtime errors when the shared component is used on the missing platform.</li>
+<li>Forgetting to run <code>generate:platform-types</code> and getting type errors in shared code.</li>
+<li>Assuming <code>@platform</code> resolves the same in all contexts (it does not – shared uses __platform_types__ for type-checking).</li>
+<li>Using platform-specific APIs (e.g., DOM or React Native APIs) inside a shared component that uses @platform imports – shared components must remain platform-agnostic.</li>
+</ul>
+
+<h3>13.3 Mitigations</h3>
+
+<ul>
+<li>Maintain this document and a short CONTRIBUTING.md with the component addition checklist.</li>
+<li>Add a pre-commit or CI check that ensures every <code>web/src/ui/X</code> has a corresponding <code>mobile/src/ui/X</code> for components used in shared.</li>
+<li>Run <code>generate:platform-types</code> as part of the build or a pre-publish hook.</li>
+<li>Provide a template or script to scaffold a new @platform component.</li>
+</ul>
+
+<h2>14. Recommendations</h2>
+
+<ol>
+<li><strong>Document the mental model:</strong> Create a one-page diagram showing how <code>@platform</code> resolves in web vs mobile, and where shared code fits.</li>
+<li><strong>Automate platform type generation:</strong> Run <code>generate:platform-types</code> automatically before builds or in CI.</li>
+<li><strong>Add a scaffold script:</strong> A script that creates the type file, web component folder, mobile component folder, and updates index files would reduce errors and save time.</li>
+<li><strong>Enforce symmetry:</strong> Use lint rules or CI to ensure platform components exist in pairs when referenced by shared components.</li>
+<li><strong>Consider alternatives for simple cases:</strong> For components with little shared logic, maintaining two separate implementations without @platform may be simpler. Reserve @platform for components that truly benefit from shared business logic.</li>
+<li><strong>Validate shared component testing early:</strong> Confirm that unit tests can run for shared components with @platform imports before scaling the pattern. Document the test setup (alias resolution, mocks) for future developers.</li>
+<li><strong>Define a strategy for native modules:</strong> Establish and document how platform-only features (Camera, GPS, etc.) will be handled—platform-only components, abstraction layers, or runtime fallbacks—before building features that depend on them.</li>
+</ol>
+
+<hr>
+
+<p><em>Document generated for the alias_based_monorepo project. Repository: <a href="https://github.com/ArslanYounis/alias_based_monorepo/tree/npm_rn">https://github.com/ArslanYounis/alias_based_monorepo/tree/npm_rn</a></em></p>
+
+</body>
+</html>

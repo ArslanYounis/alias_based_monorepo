@@ -1,8 +1,5 @@
-// Library exports for npm publishing
-// Re-export platform-specific components
-export { Container } from './src/ui/Container';
-export { Text } from './src/ui/Text';
-
-// Re-export shared components (they import from @platform internally)
-export { LargeComponent } from '../shared/components/LargeComponent';
-
+// Configs (renderer, public components, icon registry only)
+export { default as serviceRendererConfig } from "./src/configs/service-renderer.config";
+export { default as formRendererConfig } from "./src/configs/form-renderer.config";
+export { Layout } from "./src/configs/public-component";
+export { iconRegistry } from "./src/configs/icon-registry";

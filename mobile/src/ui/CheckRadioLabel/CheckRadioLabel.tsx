@@ -1,0 +1,36 @@
+import type { CheckRadioLabelProps } from "@shared/types";
+import React from "react";
+import { Text, TouchableOpacity } from "react-native";
+import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
+
+export type { CheckRadioLabelProps };
+
+export const CheckRadioLabel: React.FC<CheckRadioLabelProps> = ({
+  label,
+  label_ar,
+  language = "en",
+  disabled = false,
+  onClick,
+  htmlFor,
+}) => {
+  const colorClass = disabled
+    ? "text-form-fields-label-disabled"
+    : "text-form-fields-label-text";
+
+  return (
+    <TouchableOpacity disabled={disabled} onPress={onClick} className="flex">
+      <Text
+        className={`text-bold-m ${colorClass}`}
+        style={{
+          writingDirection: language === "en" ? "ltr" : "rtl",
+        }}
+      >
+        <SharedLanguageSwitchRenderer
+          language={language}
+          value={label}
+          value_ar={label_ar}
+        />
+      </Text>
+    </TouchableOpacity>
+  );
+};
