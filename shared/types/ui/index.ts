@@ -28,9 +28,16 @@ export type { LogoProps } from "./Logo";
 export type { PaginationProps } from "./Pagination";
 export type { ProfileIconStatusProps } from "./ProfileIconStatus";
 export type { RadioCardProps } from "./RadioCard";
+export type { ScreenLoaderProps } from "./ScreenLoader";
+export type { PromptProps } from "./Prompt";
+export type { AddMoreButtonProps } from "./AddMoreButton";
 export type { TextProps } from "./Text";
 export type { TextInputProps } from "./TextInput";
 export type {
   TooltipDirectionType,
   TooltipProps,
 } from "./Tooltip";
+export type {
+  TypographyProps,
+  TypographyVariant,
+} from "./Typography";

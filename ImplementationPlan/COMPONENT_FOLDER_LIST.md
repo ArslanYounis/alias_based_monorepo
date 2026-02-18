@@ -7,7 +7,13 @@
 
 | Component | Status |
 |-----------|--------|
+| **Button** | ✅ Migrated (web + mobile) |
+| **Typography** | ✅ Migrated (web + mobile) |
+| **Breadcrumb** | ✅ Migrated (web + mobile) |
 | **Pagination** | ✅ Migrated (web + mobile) |
+| **ScreenLoader** | ✅ Migrated (web + mobile) |
+| **Prompt** | ✅ Migrated (web + mobile) |
+| **AddMoreButton** | ✅ Migrated (web + mobile) |
 
 ---
 
@@ -62,13 +68,13 @@ alias_based_monorepo/
 
 | # | File | Source (current) | Web Implementation | Status |
 |---|------|-----------------|-------------------|--------|
-| 1 | `Button.tsx` | `src/stories/buttons/` | `<button>` + Tailwind + mouse events | — |
-| 2 | `Typography.tsx` | `src/revamp/typography/` | `<h1>`–`<h4>`, `<p>` + Tailwind variants | — |
-| 3 | `Breadcrumb.tsx` | `src/stories/breadcrumb/` | `<nav>` / `<ol>` / `<li>` | — |
+| 1 | `Button.tsx` | `src/stories/buttons/` | `<button>` + Tailwind + mouse events | ✅ Migrated |
+| 2 | `Typography.tsx` | `src/revamp/typography/` | `<h1>`–`<h4>`, `<p>` + Tailwind variants | ✅ Migrated |
+| 3 | `Breadcrumb.tsx` | `src/stories/breadcrumb/` | `<nav>` / `<ol>` / `<li>` | ✅ Migrated |
 | 4 | `Pagination.tsx` | `src/stories/pagination/` | `<nav>` + `<button>` page controls | ✅ Migrated |
-| 5 | `ScreenLoader.tsx` | `src/stories/screenLoader/` | `fixed inset-0`, backdrop-blur, GIF | — |
-| 6 | `Prompt.tsx` | `src/stories/prompt/` | Dialog with yes/no buttons | — |
-| 7 | `AddMoreButton.tsx` | `src/stories/addMoreButton/` | `<div>` + lucide-react icon | — |
+| 5 | `ScreenLoader.tsx` | `src/stories/screenLoader/` | `fixed inset-0`, backdrop-blur, GIF | ✅ Migrated |
+| 6 | `Prompt.tsx` | `src/stories/prompt/` | Dialog with yes/no buttons | ✅ Migrated |
+| 7 | `AddMoreButton.tsx` | `src/stories/addMoreButton/` | `<div>` + lucide-react icon | ✅ Migrated |
 
 ### Form Primitives (12)
 
@@ -126,13 +132,13 @@ alias_based_monorepo/
 
 | # | File | `web/src/ui/` counterpart | React Native Implementation | Status |
 |---|------|--------------------------|----------------------------|--------|
-| 1 | `Button.tsx` | `Button.tsx` | `<Pressable>` + StyleSheet | — |
-| 2 | `Typography.tsx` | `Typography.tsx` | `<Text>` with style variants | — |
-| 3 | `Breadcrumb.tsx` | `Breadcrumb.tsx` | `<View>` + `<Text>` chain | — |
+| 1 | `Button.tsx` | `Button.tsx` | `<Pressable>` + StyleSheet | ✅ Migrated |
+| 2 | `Typography.tsx` | `Typography.tsx` | `<Text>` with style variants | ✅ Migrated |
+| 3 | `Breadcrumb.tsx` | `Breadcrumb.tsx` | `<View>` + `<Text>` chain | ✅ Migrated |
 | 4 | `Pagination.tsx` | `Pagination.tsx` | `<Pressable>` row / list footer | ✅ Migrated |
-| 5 | `ScreenLoader.tsx` | `ScreenLoader.tsx` | `<Modal>` + `<ActivityIndicator>` | — |
-| 6 | `Prompt.tsx` | `Prompt.tsx` | `<Modal>` or `Alert.alert()` | — |
-| 7 | `AddMoreButton.tsx` | `AddMoreButton.tsx` | `<Pressable>` + lucide-react-native | — |
+| 5 | `ScreenLoader.tsx` | `ScreenLoader.tsx` | `<Modal>` + `<ActivityIndicator>` | ✅ Migrated |
+| 6 | `Prompt.tsx` | `Prompt.tsx` | `<Modal>` or `Alert.alert()` | ✅ Migrated |
+| 7 | `AddMoreButton.tsx` | `AddMoreButton.tsx` | `<Pressable>` + lucide-react-native | ✅ Migrated |
 
 ### Form Primitives (12)
 
