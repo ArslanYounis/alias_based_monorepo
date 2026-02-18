@@ -1,7 +1,8 @@
 import ButtonsConfig from "~/src/ui/Buttons/config";
 import DummyConfig from "./Dummy.config";
-import PlotSearchConfig from "./PlotSearch.config";
 import LargeComponentConfig from "./LargeComponent.config";
+import PaginationConfig from "~/src/ui/Pagination/config";
+import PlotSearchConfig from "./PlotSearch.config";
 
 /**
  * Component configs used for renderer only (service + form).
@@ -10,8 +11,9 @@ import LargeComponentConfig from "./LargeComponent.config";
 const exposeComponents = [
   ButtonsConfig,
   DummyConfig,
-  PlotSearchConfig,
   LargeComponentConfig,
+  PaginationConfig,
+  PlotSearchConfig,
 ];
 
 export default exposeComponents;
