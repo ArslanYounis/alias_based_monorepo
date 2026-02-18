@@ -25,6 +25,7 @@ export type { HeaderMenuItem, HeaderProps } from "./Header";
 export type { IconButtonProps } from "./IconButton";
 export type { LabelProps, TooltipDirection } from "./Label";
 export type { LogoProps } from "./Logo";
+export type { PaginationProps } from "./Pagination";
 export type { ProfileIconStatusProps } from "./ProfileIconStatus";
 export type { RadioCardProps } from "./RadioCard";
 export type { TextProps } from "./Text";
