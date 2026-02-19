@@ -18,10 +18,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
     selectedItemIndex !== undefined ? selectedItemIndex : items.length - 1;
 
   return (
-    <View
-      className="py-xxs"
-      style={{ flexDirection: language === "ar" ? "row-reverse" : "row" }}
-    >
+    <View className="py-xxs" style={{ flexDirection: "row" }}>
       {items.map((item, index) => {
         const isSelected = index === finalSelectedItemIndex;
 

@@ -19,29 +19,26 @@ const Prompt: React.FC<PromptProps> = ({
   onNoClick,
   language = "en",
 }) => {
-  const isRTL = language === "ar";
-
   return (
-    <View style={{ flexDirection: isRTL ? "rtl" : "ltr" }}>
-      <View style={{ gap: 24 }}>
-        <SharedLanguageSwitchRenderer
-          value={title}
-          value_ar={title_ar}
-          language={language}
-          className="text-heading-h1 font-bold text-text-default"
-        />
-        <SharedLanguageSwitchRenderer
-          value={subtiltle}
-          value_ar={subtiltle_ar}
-          language={language}
-          className="text-m text-text-default"
-        />
-        <View
-          style={{
-            flexDirection: isRTL ? "row-reverse" : "row",
-            gap: 16,
-          }}
-        >
+    <View style={{ gap: 24 }}>
+      <SharedLanguageSwitchRenderer
+        value={title}
+        value_ar={title_ar}
+        language={language}
+        className="text-heading-h1 font-bold text-text-default"
+      />
+      <SharedLanguageSwitchRenderer
+        value={subtiltle}
+        value_ar={subtiltle_ar}
+        language={language}
+        className="text-m text-text-default"
+      />
+      <View
+        style={{
+          flexDirection: "row",
+          gap: 16,
+        }}
+      >
           <Buttons
             title={noText}
             title_ar={noText_ar}
@@ -57,7 +54,6 @@ const Prompt: React.FC<PromptProps> = ({
             language={language}
           />
         </View>
-      </View>
     </View>
   );
 };

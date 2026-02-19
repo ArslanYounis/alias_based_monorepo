@@ -97,13 +97,11 @@ const Pagination: React.FC<PaginationProps> = ({
           Math.max(0, totalCount - (currentPage - 1) * pageSize)
         );
 
-  const isRtl = language === "ar";
-
   return (
     <View>
       <View
         style={{
-          flexDirection: isRtl ? "row-reverse" : "row",
+          flexDirection: "row",
           alignItems: "center",
           justifyContent,
           gap: 8,
