@@ -38,6 +38,19 @@
 | **Payment** | ✅ Migrated (web + mobile) |
 | **NewApplicationSummary** | ✅ Migrated (web + mobile) |
 | **ApplicationSummary** | ✅ Migrated (web + mobile) |
+| **ModalTitle** | ✅ Migrated (shared — web + mobile) |
+| **ModalSteps** | ✅ Migrated (shared — web + mobile) |
+| **CardTitle** | ✅ Migrated (shared — web + mobile) |
+| **GenericCard** | ✅ Migrated (shared — web + mobile) |
+| **GenericCards** | ✅ Migrated (shared — web + mobile) |
+| **GenericTableCard** | ✅ Migrated (shared — web + mobile) |
+| **OwnerCard** | ✅ Migrated (shared — web + mobile) |
+| **PlotCard** | ✅ Migrated (shared — web + mobile) |
+| **ViewOwnerDetail** | ✅ Migrated (shared — web + mobile) |
+| **ApplicationDetail** | ✅ Migrated (shared — web + mobile) |
+| **ApplicationMessage** | ✅ Migrated (shared — web + mobile) |
+| **Table** | ✅ Migrated (shared — web + mobile) |
+| **TestComponent** | ✅ Migrated (shared — web + mobile) |
 
 ---
 
@@ -214,65 +227,65 @@ alias_based_monorepo/
 ---
 
 ## shared/components/ — 13 components
-> Composed using `@platform` alias. Single file — runs on both platforms.
+> Composed using `@platform` alias. Single file — runs on both platforms. **All 13 migrated.**
 
-| # | File | Source (current) | `@platform` Imports Used |
-|---|------|-----------------|--------------------------|
-| 1 | `ModalTitle.tsx` | `src/stories/modalTitle/` | `@platform/Typography` |
-| 2 | `ModalSteps.tsx` | `src/stories/modalSteps/` | `@platform/Typography` |
-| 3 | `CardTitle.tsx` | `src/revamp/cardTitle/` | `@platform/Button`, `@platform/Typography` |
-| 4 | `GenericCard.tsx` | `src/stories/genericCard/` | `@platform/CardTitle`, `@platform/Button`, `@platform/Typography` |
-| 5 | `GenericCards.tsx` | `src/stories/genericCards/` | `@platform/GenericCard` |
-| 6 | `GenericTableCard.tsx` | `src/stories/genericTableCard/` | `@platform/Pagination`, `@platform/Typography` |
-| 7 | `OwnerCard.tsx` | `src/stories/ownerCard/` | `@platform/GenericCard`, `@platform/Button` |
-| 8 | `PlotCard.tsx` | `src/stories/plotCard/` | `@platform/GenericCard`, `@platform/Button` |
-| 9 | `ViewOwnerDetail.tsx` | `src/stories/viewOwnerDetail/` | `@platform/Typography` |
-| 10 | `ApplicationDetail.tsx` | `src/ranch/` | `@platform/CardTitle`, `@platform/TextInput` |
-| 11 | `ApplicationMessage.tsx` | `src/stories/applicationMessage/` | `@platform/Button`, `@platform/Typography` |
-| 12 | `Table.tsx` | `src/stories/table/` | `@platform/GenericCard`, `@platform/Typography` |
-| 13 | `TestComponent.tsx` | `src/revamp/testComponent/` | `@platform/TextInput`, `@platform/Button` |
+| # | File | Source (current) | `@platform` Imports Used | Status |
+|---|------|-----------------|--------------------------|--------|
+| 1 | `ModalTitle.tsx` | `src/stories/modalTitle/` | `@platform/Typography` | ✅ Migrated |
+| 2 | `ModalSteps.tsx` | `src/stories/modalSteps/` | `@platform/Typography` | ✅ Migrated |
+| 3 | `CardTitle.tsx` | `src/revamp/cardTitle/` | `@platform/Button`, `@platform/Typography` | ✅ Migrated |
+| 4 | `GenericCard.tsx` | `src/stories/genericCard/` | `@platform/CardTitle`, `@platform/Button`, `@platform/Typography` | ✅ Migrated |
+| 5 | `GenericCards.tsx` | `src/stories/genericCards/` | `@platform/GenericCard` | ✅ Migrated |
+| 6 | `GenericTableCard.tsx` | `src/stories/genericTableCard/` | `@platform/Pagination`, `@platform/Typography` | ✅ Migrated |
+| 7 | `OwnerCard.tsx` | `src/stories/ownerCard/` | `@platform/GenericCard`, `@platform/Button` | ✅ Migrated |
+| 8 | `PlotCard.tsx` | `src/stories/plotCard/` | `@platform/GenericCard`, `@platform/Button` | ✅ Migrated |
+| 9 | `ViewOwnerDetail.tsx` | `src/stories/viewOwnerDetail/` | `@platform/Typography` | ✅ Migrated |
+| 10 | `ApplicationDetail.tsx` | `src/ranch/` | `@platform/CardTitle`, `@platform/TextInput` | ✅ Migrated |
+| 11 | `ApplicationMessage.tsx` | `src/stories/applicationMessage/` | `@platform/Button`, `@platform/Typography` | ✅ Migrated |
+| 12 | `Table.tsx` | `src/stories/table/` | `@platform/GenericCard`, `@platform/Typography` | ✅ Migrated |
+| 13 | `TestComponent.tsx` | `src/revamp/testComponent/` | `@platform/TextInput`, `@platform/Button` | ✅ Migrated |
 
 ---
 
 ## shared/configs/ — 45 files
-> All `.config.ts` files. Pure data — zero platform-specific code. Move as-is.
+> All `.config.ts` files. Pure data — zero platform-specific code. **All 45 configs migrated** (32 service + 12 form + 1 registry).
 
 ### Service Component Configs (32)
 
 | # | File | Source (current) | Status |
 |---|------|-----------------|--------|
 | 1 | `button.config.ts` | `src/stories/buttons/buttons.configs.ts` | ✅ Migrated |
-| 2 | `cardTitle.config.ts` | `src/revamp/cardTitle/cardTitle.config.ts` | |
+| 2 | `cardTitle.config.ts` | `src/revamp/cardTitle/cardTitle.config.ts` | ✅ Migrated |
 | 3 | `breadcrumb.config.ts` | `src/stories/breadcrumb/breadcrumb.config.ts` | ✅ Migrated |
-| 4 | `table.config.ts` | `src/stories/table/table.config.ts` | |
+| 4 | `table.config.ts` | `src/stories/table/table.config.ts` | ✅ Migrated |
 | 5 | `pagination.config.ts` | `src/stories/pagination/pagination.config.ts` | ✅ Migrated |
 | 6 | `titleBar.config.ts` | `src/stories/titles/titleBar.config.ts` | ✅ Migrated |
 | 7 | `ownerSearch.config.ts` | `src/stories/NewApplicationSearchOwner/NewApplicationSearchOwner.config.ts` | ✅ Migrated |
-| 8 | `modalTitle.config.ts` | `src/stories/modalTitle/modalTitle.config.ts` | |
-| 9 | `modalSteps.config.ts` | `src/stories/modalSteps/modalSteps.config.ts` | |
+| 8 | `modalTitle.config.ts` | `src/stories/modalTitle/modalTitle.config.ts` | ✅ Migrated |
+| 9 | `modalSteps.config.ts` | `src/stories/modalSteps/modalSteps.config.ts` | ✅ Migrated |
 | 10 | `addMoreButton.config.ts` | `src/stories/addMoreButton/addMoreButton.config.ts` | ✅ Migrated |
-| 11 | `ownerCard.config.ts` | `src/stories/ownerCard/ownerCard.config.ts` | |
+| 11 | `ownerCard.config.ts` | `src/stories/ownerCard/ownerCard.config.ts` | ✅ Migrated |
 | 12 | `filterBar.config.ts` | `src/stories/filterbar/filterbar.config.ts` | ✅ Migrated |
-| 13 | `plotCard.config.ts` | `src/stories/plotCard/plotCard.config.ts` | |
+| 13 | `plotCard.config.ts` | `src/stories/plotCard/plotCard.config.ts` | ✅ Migrated |
 | 14 | `searchPlot.config.ts` | `src/stories/searchPlot/searchPlot.config.ts` | ✅ Migrated |
 | 15 | `payment.config.ts` | `src/stories/payment/payment.config.ts` | ✅ Migrated |
-| 16 | `applicationDetail.config.ts` | `src/ranch/applicationDetail.config.ts` | |
+| 16 | `applicationDetail.config.ts` | `src/ranch/applicationDetail.config.ts` | ✅ Migrated |
 | 17 | `auditRemarks.config.ts` | `src/stories/auditRemarks/auditRemarks.config.ts` | ✅ Migrated |
 | 18 | `signature.config.ts` | `src/stories/signature/signature.config.ts` | ✅ Migrated |
 | 19 | `uploadDocuments.config.ts` | `src/stories/uploadDocuments/uploadDocuments.config.ts` | ✅ Migrated |
-| 20 | `viewOwnerDetail.config.ts` | `src/stories/viewOwnerDetail/viewOwnerDetail.config.ts` | |
+| 20 | `viewOwnerDetail.config.ts` | `src/stories/viewOwnerDetail/viewOwnerDetail.config.ts` | ✅ Migrated |
 | 21 | `viewPlotDetail.config.ts` | `src/stories/viewPlotDetail/viewPlotDetail.config.ts` | ✅ Migrated |
 | 22 | `prompt.config.ts` | `src/stories/prompt/prompt.config.ts` | ✅ Migrated |
 | 23 | `typography.config.ts` | `src/revamp/typography/typography.config.ts` | ✅ Migrated |
 | 24 | `newApplicationSummary.config.ts` | `src/revamp/newApplicationSummary/newApplicationSummary.config.ts` | ✅ Migrated |
 | 25 | `paymentDetails.config.ts` | `src/stories/paymentDetails/paymentDetails.config.ts` | ✅ Migrated |
-| 26 | `testComponent.config.ts` | `src/revamp/testComponent/TestComponent.config.ts` | |
+| 26 | `testComponent.config.ts` | `src/revamp/testComponent/TestComponent.config.ts` | ✅ Migrated |
 | 27 | `screenLoader.config.ts` | `src/stories/screenLoader/ScreenLoader.config.ts` | ✅ Migrated |
-| 28 | `applicationMessage.config.ts` | `src/stories/applicationMessage/applicationMessage.config.ts` | |
+| 28 | `applicationMessage.config.ts` | `src/stories/applicationMessage/applicationMessage.config.ts` | ✅ Migrated |
 | 29 | `applicationSummary.config.ts` | `src/stories/applicationSummary/applicationSummary.config.ts` | ✅ Migrated |
-| 30 | `genericCard.config.ts` | `src/stories/genericCard/genericCard.config.ts` | |
-| 31 | `genericCards.config.ts` | `src/stories/genericCards/genericCards.config.ts` | |
-| 32 | `genericTableCard.config.ts` | `src/stories/genericTableCard/genericTableCard.config.ts` | |
+| 30 | `genericCard.config.ts` | `src/stories/genericCard/genericCard.config.ts` | ✅ Migrated |
+| 31 | `genericCards.config.ts` | `src/stories/genericCards/genericCards.config.ts` | ✅ Migrated |
+| 32 | `genericTableCard.config.ts` | `src/stories/genericTableCard/genericTableCard.config.ts` | ✅ Migrated |
 
 ### Form Component Configs (12)
 

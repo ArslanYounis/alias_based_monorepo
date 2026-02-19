@@ -6,6 +6,18 @@
 
 ---
 
+## Migration status (updated)
+
+| Area | Status |
+|------|--------|
+| **Tier 1** — Platform primitives (19) | ✅ Migrated (web + mobile) |
+| **Tier 2** — Shared composed components (13) | ✅ Migrated (ModalTitle, ModalSteps, CardTitle, GenericCard, GenericCards, GenericTableCard, OwnerCard, PlotCard, ViewOwnerDetail, ApplicationDetail, ApplicationMessage, Table, TestComponent) |
+| **Tier 3** — API-dependent (10) | ✅ Migrated (web + mobile) |
+| **Shared configs** (45) | ✅ All migrated to `shared/configs/` |
+| **Layout** (1 per platform) | Per-platform (not shared) |
+
+---
+
 ## 1. Executive Summary
 
 This report analyzes all **44 exposed components** from the ADREC Component Library and classifies them for migration into an alias-based monorepo structure where:
@@ -23,7 +35,7 @@ The `@platform` alias resolves to `/web` or `/mobile` at build time, allowing sh
 | Total exposed components | **44** |
 | Web-only implementations needed | **30** |
 | Mobile-only implementations needed | **30** |
-| Shared components (via alias) | **14** |
+| Shared components (via alias) | **13** (all migrated) |
 | Shared logic modules (hooks, schemas, configs) | **44** (all configs) + extracted logic |
 
 ---
@@ -128,28 +140,27 @@ These are atomic UI components that directly render platform-specific elements. 
 
 ---
 
-### 4.2 TIER 2 — Composed Components — Shared via Alias (14 components)
+### 4.2 TIER 2 — Composed Components — Shared via Alias (13 components)
 
 These components **compose Tier 1 primitives** and contain business logic. After refactoring to import primitives via `@platform/` alias, they live in the **shared** folder and work on **both platforms with a single codebase**.
 
-| # | Component | Depends On (via @platform alias) | Shared Business Logic | Refactor Effort |
-|---|-----------|----------------------------------|----------------------|-----------------|
-| 1 | **ModalTitle** | Typography | Bilingual title formatting | Low |
-| 2 | **ModalSteps** | Typography | Step state management | Low |
-| 3 | **CardTitle** | Buttons, Typography, Icon | Expand/collapse state, badge logic | Medium |
-| 4 | **GenericCard** | CardTitle, Buttons, Typography | Expand/collapse, row rendering | Medium |
-| 5 | **GenericCards** | GenericCard | Grid/list state, shared expansion | Low |
-| 6 | **GenericTableCard** | Pagination, Typography | Row/column rendering, pagination state | Medium |
-| 7 | **OwnerCard** | GenericCard, Buttons | Owner data mapping, action handlers | Low |
-| 8 | **PlotCard** | GenericCard, Buttons | Plot data mapping, action handlers | Low |
-| 9 | **ViewOwnerDetail** | Typography | Owner detail display, bilingual | Low |
-| 10 | **ApplicationDetail** | CardTitle, TextInput | Detail display, reference editing | Low |
-| 11 | **ApplicationMessage** | Buttons, Typography, Icon | Status type switching (success/error/info) | Medium |
-| 12 | **Table** | GenericCard, Typography | Grid column/row data rendering | Medium |
-| 13 | **TestComponent** | TextInput, Buttons | Demo form logic | Low |
-| 14 | **CardTitle** *(revamp)* | Buttons, Typography, Icon | Expand/collapse, variants | Medium |
+| # | Component | Depends On (via @platform alias) | Shared Business Logic | Status |
+|---|-----------|----------------------------------|----------------------|--------|
+| 1 | **ModalTitle** | Typography | Bilingual title formatting | ✅ Migrated |
+| 2 | **ModalSteps** | Typography | Step state management | ✅ Migrated |
+| 3 | **CardTitle** | Buttons, Typography | Expand/collapse state, badge logic | ✅ Migrated |
+| 4 | **GenericCard** | CardTitle, Buttons, Typography | Expand/collapse, row rendering | ✅ Migrated |
+| 5 | **GenericCards** | GenericCard | Grid/list state, shared expansion | ✅ Migrated |
+| 6 | **GenericTableCard** | Pagination, Typography | Row/column rendering, pagination state | ✅ Migrated |
+| 7 | **OwnerCard** | GenericCard, Buttons | Owner data mapping, action handlers | ✅ Migrated |
+| 8 | **PlotCard** | GenericCard, Buttons | Plot data mapping, action handlers | ✅ Migrated |
+| 9 | **ViewOwnerDetail** | Typography | Owner detail display, bilingual | ✅ Migrated |
+| 10 | **ApplicationDetail** | CardTitle, TextInput | Detail display, reference editing | ✅ Migrated |
+| 11 | **ApplicationMessage** | Buttons, Typography | Status type switching (success/error/info) | ✅ Migrated |
+| 12 | **Table** | GenericCard, Typography | Grid column/row data rendering | ✅ Migrated |
+| 13 | **TestComponent** | TextInput, Buttons | Demo form logic | ✅ Migrated |
 
-> **Subtotal:** 14 components in `shared/` — **built once, runs on both platforms**
+> **Subtotal:** 13 components in `shared/` — **built once, runs on both platforms** — **all migrated**
 
 **How this works in practice:**
 
@@ -226,10 +237,10 @@ These two components benefit the most from TanStack Form + Zod being cross-platf
 | Category | Components | Web Builds | Mobile Builds | Shared (Alias) | Shared Logic |
 |----------|-----------|------------|---------------|-----------------|-------------|
 | **Tier 1** — Primitives | 19 | 19 | 19 | — | Configs + Schemas |
-| **Tier 2** — Composed | 14 | —* | —* | **14** | Full component |
+| **Tier 2** — Composed | 13 | —* | —* | **13** ✅ | Full component (all migrated) |
 | **Tier 3** — API Dependent | 10 | 10 | 10 | — | Forms + Hooks + Schemas |
 | **Layout** | 1 | 1 | 1 | — | — |
-| **Totals** | **44** | **30** | **30** | **14** | See below |
+| **Totals** | **43** | **30** | **30** | **13** ✅ | See below |
 
 *\*Tier 2 components live in `shared/` — built once, consumed on both platforms via alias.*
 
