@@ -25,40 +25,28 @@ export const Bot: React.FC<BotProps> = ({
     onClick?.(newStatus);
   };
 
-  const isRTL = language === "ar";
-
   return (
     <TouchableOpacity
       onPress={handleClick}
       activeOpacity={0.8}
-      className={`flex items-start relative ${
-        isRTL ? "flex-row-reverse" : "flex-row"
-      }`}
+      className="flex items-start relative flex-row"
     >
       {currentStatus === "open" && message.length > 0 && (
-        <View
-          className={`absolute bottom-18 bg-structure-primary-0 px-6 py-4 rounded-lg rounded-bl-none shadow-lg z-30 ${
-            isRTL ? "text-right" : "text-left"
-          } min-w-[320px]`}
-        >
+        <View className="absolute bottom-18 left-0 bg-structure-primary-0 px-6 py-4 rounded-lg rounded-bl-none shadow-lg z-30 text-left min-w-[320px]">
           <SharedLanguageSwitchRenderer
             language={language}
             value={message}
             value_ar={message_ar}
           />
 
-          {/* Triangle arrow */}
-          <View
-            className={`absolute -bottom-6 w-0 h-0 border-t-[24px] border-t-structure-primary-0 border-l-[24px] border-l-transparent ${
-              isRTL ? "left-16 -rotate-90" : "right-16 rotate-0"
-            }`}
-          />
+          {/* Triangle arrow — direction managed by platform */}
+          <View className="absolute -bottom-6 right-16 w-0 h-0 border-t-[24px] border-t-structure-primary-0 border-l-[24px] border-l-transparent rotate-0" />
         </View>
       )}
 
       <SvgUri
         uri="https://adrec-images.mastermind-mindset.com/dmtIocn.svg"
-        className={`w-16 h-16 rounded-full z-40 ${isRTL ? "ml-5" : "mr-5"}`}
+        className="w-16 h-16 rounded-full z-40 mr-5"
       />
     </TouchableOpacity>
   );

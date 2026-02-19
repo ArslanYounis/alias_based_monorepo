@@ -213,7 +213,7 @@ export const Fields: React.FC<FormFieldProps> = ({
 
   if (type === "textarea") {
     return (
-      <View style={{ direction: language === "en" ? "ltr" : "rtl" }}>
+      <View>
         <TextInput
           multiline
           id={id}
@@ -288,7 +288,7 @@ export const Fields: React.FC<FormFieldProps> = ({
         : placeholder_ar ?? placeholder;
 
     return (
-      <View style={{ direction: language === "en" ? "ltr" : "rtl" }}>
+      <View>
         <View className="relative flex flex-row items-center gap-xs">
           <TouchableOpacity
             onPress={disabled ? undefined : () => setIsOpen(true)}
@@ -412,14 +412,10 @@ export const Fields: React.FC<FormFieldProps> = ({
       ...uaeIdInputProps
     } = inputProps;
     return (
-      <View style={{ direction: language === "en" ? "ltr" : "rtl" }}>
+      <View>
         <View className="relative flex-row items-center">
           {icon && (
-            <View
-              className={`absolute z-50 ${
-                language === "en" ? "left-4" : "right-4"
-              } top-1/2 -translate-y-1/2`}
-            >
+            <View className="absolute z-50 left-4 top-1/2 -translate-y-1/2">
               {renderIcon(icon)}
             </View>
           )}
@@ -448,23 +444,14 @@ export const Fields: React.FC<FormFieldProps> = ({
   if (type === "currency" || type === "phone") {
     const prefix = type === "currency" ? currencySymbol : phoneCode;
     return (
-      <View style={{ direction: language === "en" ? "ltr" : "rtl" }}>
+      <View>
         <View className="relative flex-row items-center">
           {icon ? (
-            <View
-              className={`absolute z-50 ${
-                language === "en" ? "left-4" : "right-4"
-              } top-1/2 -translate-y-1/2`}
-            >
+            <View className="absolute z-50 left-4 top-1/2 -translate-y-1/2">
               {renderIcon(icon)}
             </View>
           ) : (
-            <View
-              className={`absolute z-50 ${
-                language === "en" ? "left-4" : "right-4"
-              } top-1/2 -translate-y-1/2`}
-              style={{ direction: "ltr" }}
-            >
+            <View className="absolute z-50 left-4 top-1/2 -translate-y-1/2">
               {renderPrefix(prefix)}
             </View>
           )}
@@ -485,14 +472,10 @@ export const Fields: React.FC<FormFieldProps> = ({
 
   if (type === "number") {
     return (
-      <View style={{ direction: language === "en" ? "ltr" : "rtl" }}>
+      <View>
         <View className="relative flex-row items-center">
           {icon && (
-            <View
-              className={`absolute z-50 ${
-                language === "en" ? "left-4" : "right-4"
-              } top-1/2 -translate-y-1/2`}
-            >
+            <View className="absolute z-50 left-4 top-1/2 -translate-y-1/2">
               {renderIcon(icon)}
             </View>
           )}
@@ -514,14 +497,10 @@ export const Fields: React.FC<FormFieldProps> = ({
   }
 
   return (
-    <View style={{ direction: language === "en" ? "ltr" : "rtl" }}>
+    <View>
       <View className="relative flex flex-row items-center">
         {icon && (
-          <View
-            className={`absolute z-50 ${
-              language === "en" ? "left-4" : "right-4"
-            } top-1/2 -translate-y-1/2`}
-          >
+          <View className="absolute z-50 left-4 top-1/2 -translate-y-1/2">
             {renderIcon(icon)}
           </View>
         )}

@@ -19,12 +19,7 @@ export const CheckRadioLabel: React.FC<CheckRadioLabelProps> = ({
 
   return (
     <TouchableOpacity disabled={disabled} onPress={onClick} className="flex">
-      <Text
-        className={`text-bold-m ${colorClass}`}
-        style={{
-          writingDirection: language === "en" ? "ltr" : "rtl",
-        }}
-      >
+      <Text className={`text-bold-m ${colorClass}`}>
         <SharedLanguageSwitchRenderer
           language={language}
           value={label}

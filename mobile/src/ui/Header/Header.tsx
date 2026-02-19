@@ -27,8 +27,6 @@ export const Header: React.FC<HeaderProps> = ({
   breadcrumbItems = [],
   onAvatarPress,
 }) => {
-  const isRTL = language === "ar";
-
   return (
     <View
       className={`bg-white px-4 pt-4 pb-3 ${isEditing ? "opacity-50" : ""}`}
@@ -40,12 +38,8 @@ export const Header: React.FC<HeaderProps> = ({
         </View>
       )}
 
-      {/* Header Row */}
-      <View
-        className={`flex-row items-center justify-between ${
-          isRTL ? "flex-row-reverse" : ""
-        }`}
-      >
+      {/* Header Row — direction managed by platform */}
+      <View className="flex-row items-center justify-between">
         {/* Left Icons */}
         <View className="flex-row items-center gap-3">
           <IconButton icon={<Settings className="text-text-default" />} />
@@ -53,11 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
         </View>
 
         {/* Right Section */}
-        <View
-          className={`flex-row items-center gap-3 ${
-            isRTL ? "flex-row-reverse" : ""
-          }`}
-        >
+        <View className="flex-row items-center gap-3">
           {/* Language Button */}
           <Buttons
             title={`English`}
@@ -78,9 +68,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Avatar */}
           <Pressable
             onPress={onAvatarPress}
-            className={`flex-row items-center gap-2 ${
-              isRTL ? "flex-row-reverse" : ""
-            }`}
+            className="flex-row items-center gap-2"
           >
             <Avatar imageUrl={avatarUrl} status="complete" />
             <Text className="text-base font-bold text-text-default">

@@ -26,6 +26,18 @@
 | **RadioField** | ✅ Migrated (web + mobile) |
 | **RadioInput** | ✅ Migrated (web + mobile) |
 | **PhoneInput** | ✅ Migrated (web + mobile) |
+| **TitleBar** | ✅ Migrated (web + mobile) |
+| **FilterBar** | ✅ Migrated (web + mobile) |
+| **Signature** | ✅ Migrated (web + mobile) |
+| **UploadDocuments** | ✅ Migrated (web + mobile) |
+| **PaymentDetails** | ✅ Migrated (web + mobile) |
+| **AuditRemarks** | ✅ Migrated (web + mobile) |
+| **ViewPlotDetail** | ✅ Migrated (web + mobile) |
+| **OwnerSearch** | ✅ Migrated (web + mobile) |
+| **SearchPlot** | ✅ Migrated (web + mobile) |
+| **Payment** | ✅ Migrated (web + mobile) |
+| **NewApplicationSummary** | ✅ Migrated (web + mobile) |
+| **ApplicationSummary** | ✅ Migrated (web + mobile) |
 
 ---
 
@@ -110,20 +122,20 @@ alias_based_monorepo/
 ## web/src/components/ — 12 components
 > Complex components with browser-specific APIs. Not aliased — web only.
 
-| # | File | Source (current) | Browser API Used |
-|---|------|-----------------|-----------------|
-| 1 | `TitleBar.tsx` | `src/stories/titles/` | `window.innerWidth`, `resize` listener |
-| 2 | `FilterBar.tsx` | `src/stories/filterbar/` | Radix Popover, HTML `<input>` |
-| 3 | `Signature.tsx` | `src/stories/signature/` | Canvas API, `MutationObserver`, `getComputedStyle` |
-| 4 | `UploadDocuments.tsx` | `src/stories/uploadDocuments/` | `URL.createObjectURL`, `Blob`, `document.createElement` |
-| 5 | `PaymentDetails.tsx` | `src/stories/paymentDetails/` | `URL.createObjectURL`, `Blob` download link |
-| 6 | `AuditRemarks.tsx` | `src/stories/auditRemarks/` | `window.open()` for document downloads |
-| 7 | `ViewPlotDetail.tsx` | `src/stories/viewPlotDetail/` | `URL.createObjectURL` for blob images |
-| 8 | `OwnerSearch.tsx` | `src/stories/NewApplicationSearchOwner/` | RadioCard (web), web form composition |
-| 9 | `SearchPlot.tsx` | `src/stories/searchPlot/` | Radix tabs, web form layout |
-| 10 | `Payment.tsx` | `src/stories/payment/` | Multi-step HTML `<form>` elements |
-| 11 | `NewApplicationSummary.tsx` | `src/revamp/newApplicationSummary/` | HTML checkbox, CSS expand/collapse |
-| 12 | `ApplicationSummary.tsx` | `src/stories/applicationSummary/` | CSS Grid, HTML form elements |
+| # | File | Source (current) | Browser API Used | Status |
+|---|------|-----------------|-----------------|--------|
+| 1 | `TitleBar.tsx` | `src/stories/titles/` | `window.innerWidth`, `resize` listener | ✅ Migrated |
+| 2 | `FilterBar.tsx` | `src/stories/filterbar/` | Radix Popover, HTML `<input>` | ✅ Migrated |
+| 3 | `Signature.tsx` | `src/stories/signature/` | Canvas API, `MutationObserver`, `getComputedStyle` | ✅ Migrated |
+| 4 | `UploadDocuments.tsx` | `src/stories/uploadDocuments/` | `URL.createObjectURL`, `Blob`, `document.createElement` | ✅ Migrated |
+| 5 | `PaymentDetails.tsx` | `src/stories/paymentDetails/` | `URL.createObjectURL`, `Blob` download link | ✅ Migrated |
+| 6 | `AuditRemarks.tsx` | `src/stories/auditRemarks/` | `window.open()` for document downloads | ✅ Migrated |
+| 7 | `ViewPlotDetail.tsx` | `src/stories/viewPlotDetail/` | `URL.createObjectURL` for blob images | ✅ Migrated |
+| 8 | `OwnerSearch.tsx` | `src/stories/NewApplicationSearchOwner/` | RadioCard (web), web form composition | ✅ Migrated |
+| 9 | `SearchPlot.tsx` | `src/stories/searchPlot/` | Radix tabs, web form layout | ✅ Migrated |
+| 10 | `Payment.tsx` | `src/stories/payment/` | Multi-step HTML `<form>` elements | ✅ Migrated |
+| 11 | `NewApplicationSummary.tsx` | `src/revamp/newApplicationSummary/` | HTML checkbox, CSS expand/collapse | ✅ Migrated |
+| 12 | `ApplicationSummary.tsx` | `src/stories/applicationSummary/` | CSS Grid, HTML form elements | ✅ Migrated |
 
 ---
 
@@ -174,20 +186,20 @@ alias_based_monorepo/
 ## mobile/src/components/ — 12 components
 > Mirror of `web/src/components/` with React Native APIs. Not aliased — mobile only.
 
-| # | File | `web/src/components/` counterpart | React Native API |
-|---|------|----------------------------------|-----------------|
-| 1 | `TitleBar.tsx` | `TitleBar.tsx` | `useWindowDimensions` hook |
-| 2 | `FilterBar.tsx` | `FilterBar.tsx` | Bottom Sheet |
-| 3 | `Signature.tsx` | `Signature.tsx` | `react-native-signature-canvas` (SVG) |
-| 4 | `UploadDocuments.tsx` | `UploadDocuments.tsx` | `DocumentPicker` + `expo-file-system` |
-| 5 | `PaymentDetails.tsx` | `PaymentDetails.tsx` | `Share` API + `FileSystem` |
-| 6 | `AuditRemarks.tsx` | `AuditRemarks.tsx` | `Linking.openURL` / `Share` |
-| 7 | `ViewPlotDetail.tsx` | `ViewPlotDetail.tsx` | RN `<Image source={{ uri }}>` |
-| 8 | `OwnerSearch.tsx` | `OwnerSearch.tsx` | RN RadioButton group |
-| 9 | `SearchPlot.tsx` | `SearchPlot.tsx` | `react-native-tab-view` |
-| 10 | `Payment.tsx` | `Payment.tsx` | RN `<View>` step form |
-| 11 | `NewApplicationSummary.tsx` | `NewApplicationSummary.tsx` | RN `<Switch>` + `<View>` collapse |
-| 12 | `ApplicationSummary.tsx` | `ApplicationSummary.tsx` | RN `<SectionList>` / `<FlatList>` |
+| # | File | `web/src/components/` counterpart | React Native API | Status |
+|---|------|----------------------------------|-----------------|--------|
+| 1 | `TitleBar.tsx` | `TitleBar.tsx` | `useWindowDimensions` hook | ✅ Migrated |
+| 2 | `FilterBar.tsx` | `FilterBar.tsx` | Bottom Sheet | ✅ Migrated |
+| 3 | `Signature.tsx` | `Signature.tsx` | `react-native-signature-canvas` (SVG) | ✅ Migrated |
+| 4 | `UploadDocuments.tsx` | `UploadDocuments.tsx` | `DocumentPicker` + `expo-file-system` | ✅ Migrated |
+| 5 | `PaymentDetails.tsx` | `PaymentDetails.tsx` | `Share` API + `FileSystem` | ✅ Migrated |
+| 6 | `AuditRemarks.tsx` | `AuditRemarks.tsx` | `Linking.openURL` / `Share` | ✅ Migrated |
+| 7 | `ViewPlotDetail.tsx` | `ViewPlotDetail.tsx` | RN `<Image source={{ uri }}>` | ✅ Migrated |
+| 8 | `OwnerSearch.tsx` | `OwnerSearch.tsx` | RN RadioButton group | ✅ Migrated |
+| 9 | `SearchPlot.tsx` | `SearchPlot.tsx` | `react-native-tab-view` | ✅ Migrated |
+| 10 | `Payment.tsx` | `Payment.tsx` | RN `<View>` step form | ✅ Migrated |
+| 11 | `NewApplicationSummary.tsx` | `NewApplicationSummary.tsx` | RN `<Switch>` + `<View>` collapse | ✅ Migrated |
+| 12 | `ApplicationSummary.tsx` | `ApplicationSummary.tsx` | RN `<SectionList>` / `<FlatList>` | ✅ Migrated |
 
 ---
 
@@ -227,40 +239,40 @@ alias_based_monorepo/
 
 ### Service Component Configs (32)
 
-| # | File | Source (current) |
-|---|------|-----------------|
-| 1 | `button.config.ts` | `src/stories/buttons/buttons.configs.ts` |
-| 2 | `cardTitle.config.ts` | `src/revamp/cardTitle/cardTitle.config.ts` |
-| 3 | `breadcrumb.config.ts` | `src/stories/breadcrumb/breadcrumb.config.ts` |
-| 4 | `table.config.ts` | `src/stories/table/table.config.ts` |
-| 5 | `pagination.config.ts` | `src/stories/pagination/pagination.config.ts` |
-| 6 | `titleBar.config.ts` | `src/stories/titles/titleBar.config.ts` |
-| 7 | `ownerSearch.config.ts` | `src/stories/NewApplicationSearchOwner/NewApplicationSearchOwner.config.ts` |
-| 8 | `modalTitle.config.ts` | `src/stories/modalTitle/modalTitle.config.ts` |
-| 9 | `modalSteps.config.ts` | `src/stories/modalSteps/modalSteps.config.ts` |
-| 10 | `addMoreButton.config.ts` | `src/stories/addMoreButton/addMoreButton.config.ts` |
-| 11 | `ownerCard.config.ts` | `src/stories/ownerCard/ownerCard.config.ts` |
-| 12 | `filterBar.config.ts` | `src/stories/filterbar/filterbar.config.ts` |
-| 13 | `plotCard.config.ts` | `src/stories/plotCard/plotCard.config.ts` |
-| 14 | `searchPlot.config.ts` | `src/stories/searchPlot/searchPlot.config.ts` |
-| 15 | `payment.config.ts` | `src/stories/payment/payment.config.ts` |
-| 16 | `applicationDetail.config.ts` | `src/ranch/applicationDetail.config.ts` |
-| 17 | `auditRemarks.config.ts` | `src/stories/auditRemarks/auditRemarks.config.ts` |
-| 18 | `signature.config.ts` | `src/stories/signature/signature.config.ts` |
-| 19 | `uploadDocuments.config.ts` | `src/stories/uploadDocuments/uploadDocuments.config.ts` |
-| 20 | `viewOwnerDetail.config.ts` | `src/stories/viewOwnerDetail/viewOwnerDetail.config.ts` |
-| 21 | `viewPlotDetail.config.ts` | `src/stories/viewPlotDetail/viewPlotDetail.config.ts` |
-| 22 | `prompt.config.ts` | `src/stories/prompt/prompt.config.ts` |
-| 23 | `typography.config.ts` | `src/revamp/typography/typography.config.ts` |
-| 24 | `newApplicationSummary.config.ts` | `src/revamp/newApplicationSummary/newApplicationSummary.config.ts` |
-| 25 | `paymentDetails.config.ts` | `src/stories/paymentDetails/paymentDetails.config.ts` |
-| 26 | `testComponent.config.ts` | `src/revamp/testComponent/TestComponent.config.ts` |
-| 27 | `screenLoader.config.ts` | `src/stories/screenLoader/ScreenLoader.config.ts` |
-| 28 | `applicationMessage.config.ts` | `src/stories/applicationMessage/applicationMessage.config.ts` |
-| 29 | `applicationSummary.config.ts` | `src/stories/applicationSummary/applicationSummary.config.ts` |
-| 30 | `genericCard.config.ts` | `src/stories/genericCard/genericCard.config.ts` |
-| 31 | `genericCards.config.ts` | `src/stories/genericCards/genericCards.config.ts` |
-| 32 | `genericTableCard.config.ts` | `src/stories/genericTableCard/genericTableCard.config.ts` |
+| # | File | Source (current) | Status |
+|---|------|-----------------|--------|
+| 1 | `button.config.ts` | `src/stories/buttons/buttons.configs.ts` | ✅ Migrated |
+| 2 | `cardTitle.config.ts` | `src/revamp/cardTitle/cardTitle.config.ts` | |
+| 3 | `breadcrumb.config.ts` | `src/stories/breadcrumb/breadcrumb.config.ts` | ✅ Migrated |
+| 4 | `table.config.ts` | `src/stories/table/table.config.ts` | |
+| 5 | `pagination.config.ts` | `src/stories/pagination/pagination.config.ts` | ✅ Migrated |
+| 6 | `titleBar.config.ts` | `src/stories/titles/titleBar.config.ts` | ✅ Migrated |
+| 7 | `ownerSearch.config.ts` | `src/stories/NewApplicationSearchOwner/NewApplicationSearchOwner.config.ts` | ✅ Migrated |
+| 8 | `modalTitle.config.ts` | `src/stories/modalTitle/modalTitle.config.ts` | |
+| 9 | `modalSteps.config.ts` | `src/stories/modalSteps/modalSteps.config.ts` | |
+| 10 | `addMoreButton.config.ts` | `src/stories/addMoreButton/addMoreButton.config.ts` | ✅ Migrated |
+| 11 | `ownerCard.config.ts` | `src/stories/ownerCard/ownerCard.config.ts` | |
+| 12 | `filterBar.config.ts` | `src/stories/filterbar/filterbar.config.ts` | ✅ Migrated |
+| 13 | `plotCard.config.ts` | `src/stories/plotCard/plotCard.config.ts` | |
+| 14 | `searchPlot.config.ts` | `src/stories/searchPlot/searchPlot.config.ts` | ✅ Migrated |
+| 15 | `payment.config.ts` | `src/stories/payment/payment.config.ts` | ✅ Migrated |
+| 16 | `applicationDetail.config.ts` | `src/ranch/applicationDetail.config.ts` | |
+| 17 | `auditRemarks.config.ts` | `src/stories/auditRemarks/auditRemarks.config.ts` | ✅ Migrated |
+| 18 | `signature.config.ts` | `src/stories/signature/signature.config.ts` | ✅ Migrated |
+| 19 | `uploadDocuments.config.ts` | `src/stories/uploadDocuments/uploadDocuments.config.ts` | ✅ Migrated |
+| 20 | `viewOwnerDetail.config.ts` | `src/stories/viewOwnerDetail/viewOwnerDetail.config.ts` | |
+| 21 | `viewPlotDetail.config.ts` | `src/stories/viewPlotDetail/viewPlotDetail.config.ts` | ✅ Migrated |
+| 22 | `prompt.config.ts` | `src/stories/prompt/prompt.config.ts` | ✅ Migrated |
+| 23 | `typography.config.ts` | `src/revamp/typography/typography.config.ts` | ✅ Migrated |
+| 24 | `newApplicationSummary.config.ts` | `src/revamp/newApplicationSummary/newApplicationSummary.config.ts` | ✅ Migrated |
+| 25 | `paymentDetails.config.ts` | `src/stories/paymentDetails/paymentDetails.config.ts` | ✅ Migrated |
+| 26 | `testComponent.config.ts` | `src/revamp/testComponent/TestComponent.config.ts` | |
+| 27 | `screenLoader.config.ts` | `src/stories/screenLoader/ScreenLoader.config.ts` | ✅ Migrated |
+| 28 | `applicationMessage.config.ts` | `src/stories/applicationMessage/applicationMessage.config.ts` | |
+| 29 | `applicationSummary.config.ts` | `src/stories/applicationSummary/applicationSummary.config.ts` | ✅ Migrated |
+| 30 | `genericCard.config.ts` | `src/stories/genericCard/genericCard.config.ts` | |
+| 31 | `genericCards.config.ts` | `src/stories/genericCards/genericCards.config.ts` | |
+| 32 | `genericTableCard.config.ts` | `src/stories/genericTableCard/genericTableCard.config.ts` | |
 
 ### Form Component Configs (12)
 

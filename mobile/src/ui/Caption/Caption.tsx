@@ -16,8 +16,6 @@ export const Caption: React.FC<CaptionProps> = ({
   errorMessage_ar,
   language = "en",
 }) => {
-  const isEnglish = language === "en";
-
   const textColor = disabled
     ? "text-text-dimmed"
     : "text-form-fields-captions-text-color";
@@ -26,9 +24,7 @@ export const Caption: React.FC<CaptionProps> = ({
     <View className="flex flex-col">
       {(captionLeft || captionLeft_ar || captionRight || captionRight_ar) && (
         <View
-          className={`flex ${
-            isEnglish ? "flex-row" : "flex-row-reverse"
-          } justify-between items-center text-bold-xs ${textColor}`}
+          className={`flex flex-row justify-between items-center text-bold-xs ${textColor}`}
           style={{ minHeight: 16 }}
         >
           <View>

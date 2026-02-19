@@ -12,4 +12,5 @@ export interface BaseComponentProps {
 }
 
 export * from "./ui";
+export * from "./components";
 

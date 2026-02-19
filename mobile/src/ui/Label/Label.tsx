@@ -25,11 +25,7 @@ export const Label: React.FC<LabelProps> = ({
     : "text-form-fields-label-text";
 
   return (
-    <View
-      className={`flex-row items-center gap-xxs ${
-        language === "ar" ? "flex-row-reverse" : ""
-      }`}
-    >
+    <View className="flex-row items-center gap-xxs">
       <View className={`text-bold-xs ${textColorClass}`}>
         <SharedLanguageSwitchRenderer
           language={language}
