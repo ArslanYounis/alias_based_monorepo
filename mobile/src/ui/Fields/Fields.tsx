@@ -19,7 +19,7 @@ import {
 
 import { Checkbox } from "../Checkbox";
 import { AddButton } from "../AddButton";
-import { DateInput } from "../DateInput";
+import { Bk_DateInput } from "../bk_DateInput";
 import { CheckRadioLabel } from "../CheckRadioLabel";
 import SelectArrow from "~/assets/svg/icons/SelectArrow";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
@@ -237,7 +237,7 @@ export const Fields: React.FC<FormFieldProps> = ({
 
   if (type === "date") {
     return (
-      <DateInput
+      <Bk_DateInput
         value={value}
         testId={testId}
         hasError={hasError}

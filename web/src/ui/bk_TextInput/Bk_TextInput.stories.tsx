@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { TextInput } from "./TextInput";
+import { Bk_TextInput } from "./Bk_TextInput";
 
-const meta: Meta<typeof TextInput> = {
-  component: TextInput,
-  title: "UI/TextInput",
+const meta: Meta<typeof Bk_TextInput> = {
+  component: Bk_TextInput,
+  title: "UI/bk_TextInput",
 };
 export default meta;
 
-type Story = StoryObj<typeof TextInput>;
+type Story = StoryObj<typeof Bk_TextInput>;
 
 export const Default: Story = {
   args: { label: "Label", placeholder: "Enter text" },

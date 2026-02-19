@@ -1,12 +1,12 @@
-import type { TextInputProps } from "@shared/types";
+import type { MultiSelectProps } from "@shared/types";
 import React from "react";
 import { Label } from "../Label";
 import { Fields } from "../Fields";
 import { Caption } from "../Caption";
 
-export type { TextInputProps };
+export type { MultiSelectProps };
 
-export const TextInput: React.FC<TextInputProps> = ({
+export const MultiSelect: React.FC<MultiSelectProps> = ({
   label = "",
   label_ar = "",
   required = false,
@@ -15,22 +15,22 @@ export const TextInput: React.FC<TextInputProps> = ({
   tooltipText_ar = "",
   placeholder = "",
   placeholder_ar = "",
-  value = "",
+  value,
   onChange = () => {},
   hasError = false,
   errorMessage = "",
   errorMessage_ar = "",
-  icon = null,
   disabled = false,
   captionLeft = "",
   captionLeft_ar = "",
   captionRight = "",
   captionRight_ar = "",
   language = "en",
-  fieldType = "text",
   options = [],
-  selectType = "single",
+  maxSelection,
+  showAddButton = false,
 }) => {
+  const valueStr = Array.isArray(value) ? value.join(",") : value ?? "";
   return (
     <div className="flex flex-col gap-[10px]">
       <Label
@@ -45,19 +45,19 @@ export const TextInput: React.FC<TextInputProps> = ({
         language={language}
       />
       <Fields
-        type={fieldType}
+        type="select"
+        selectType="multi"
         placeholder={
           language === "en" ? placeholder : placeholder_ar || placeholder
         }
-        value={value}
-        onChange={onChange}
+        value={valueStr}
+        onChange={(v) => onChange(typeof v === "string" ? (v ? v.split(",") : []) : v)}
         hasError={hasError}
         errorMessage=""
-        icon={icon}
         disabled={disabled}
         language={language}
         options={options}
-        selectType={selectType}
+        showAddButton={showAddButton}
       />
       {(captionLeft ||
         captionRight ||

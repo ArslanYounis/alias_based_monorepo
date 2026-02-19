@@ -15,7 +15,7 @@ import {
 
 export type { DateInputProps };
 
-export const DateInput: React.FC<DateInputProps> = ({
+export const Bk_DateInput: React.FC<DateInputProps> = ({
   placeholder = "Select date",
   placeholder_ar = "اختر التاريخ",
   hasError,
@@ -35,11 +35,9 @@ export const DateInput: React.FC<DateInputProps> = ({
   value,
   testId,
 }) => {
-  // If value is provided, use it as the source of truth
   const controlledDate = value ? new Date(value) : undefined;
   const [date, setDate] = React.useState<Date | undefined>(controlledDate);
 
-  // Keep internal state in sync with value prop
   React.useEffect(() => {
     if (value) {
       const newDate = new Date(value);
@@ -56,7 +54,6 @@ export const DateInput: React.FC<DateInputProps> = ({
     onDateChange?.(selectedDate);
   };
 
-  // Format date for display
   let displayDate = "";
   if (date) {
     if (language === "ar") {
@@ -117,8 +114,8 @@ export const DateInput: React.FC<DateInputProps> = ({
             <span
               className={cn(
                 date
-                  ? "text-text-default" // black text when date is selected
-                  : "text-form-fields-input-form-placeholder", // placeholder color
+                  ? "text-text-default"
+                  : "text-form-fields-input-form-placeholder",
                 !date && hasError && "text-form-fields-error"
               )}
             >

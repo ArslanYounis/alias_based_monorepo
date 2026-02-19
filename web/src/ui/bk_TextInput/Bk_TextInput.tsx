@@ -6,7 +6,7 @@ import { Caption } from "../Caption";
 
 export type { TextInputProps };
 
-export const TextInput: React.FC<TextInputProps> = ({
+export const Bk_TextInput: React.FC<TextInputProps> = ({
   label = "",
   label_ar = "",
   required = false,

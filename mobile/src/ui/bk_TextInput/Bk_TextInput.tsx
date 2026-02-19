@@ -1,12 +1,13 @@
 import type { TextInputProps } from "@shared/types";
 import React from "react";
+import { View } from "react-native";
 import { Label } from "../Label";
 import { Fields } from "../Fields";
 import { Caption } from "../Caption";
 
 export type { TextInputProps };
 
-export const TextInput: React.FC<TextInputProps> = ({
+export const Bk_TextInput: React.FC<TextInputProps> = ({
   label = "",
   label_ar = "",
   required = false,
@@ -32,7 +33,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   selectType = "single",
 }) => {
   return (
-    <div className="flex flex-col gap-[10px]">
+    <View className="flex flex-col gap-[10px]">
       <Label
         label={label}
         label_ar={label_ar}
@@ -76,6 +77,6 @@ export const TextInput: React.FC<TextInputProps> = ({
           disabled={disabled}
         />
       )}
-    </div>
+    </View>
   );
 };

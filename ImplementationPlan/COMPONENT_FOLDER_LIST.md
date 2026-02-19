@@ -14,6 +14,18 @@
 | **ScreenLoader** | ✅ Migrated (web + mobile) |
 | **Prompt** | ✅ Migrated (web + mobile) |
 | **AddMoreButton** | ✅ Migrated (web + mobile) |
+| **TextInput** | ✅ Migrated (web + mobile) |
+| **TextArea** | ✅ Migrated (web + mobile) |
+| **Select** | ✅ Migrated (web + mobile) |
+| **MultiSelect** | ✅ Migrated (web + mobile) |
+| **CurrencyInput** | ✅ Migrated (web + mobile) |
+| **NumberInput** | ✅ Migrated (web + mobile) |
+| **DateSelect** | ✅ Migrated (web + mobile) |
+| **CheckboxField** | ✅ Migrated (web + mobile) |
+| **CheckboxInput** | ✅ Migrated (web + mobile) |
+| **RadioField** | ✅ Migrated (web + mobile) |
+| **RadioInput** | ✅ Migrated (web + mobile) |
+| **PhoneInput** | ✅ Migrated (web + mobile) |
 
 ---
 
@@ -78,20 +90,20 @@ alias_based_monorepo/
 
 ### Form Primitives (12)
 
-| # | File | Source (current) | Web Implementation |
-|---|------|-----------------|-------------------|
-| 8 | `TextInput.tsx` | `src/stories/textInput/` | HTML `<input>` + Label + Caption |
-| 9 | `TextArea.tsx` | `src/stories/TextAreaFormElemet/` | HTML `<textarea>` + Label + Caption |
-| 10 | `Select.tsx` | `src/stories/DropdownSingleSelect/` | Radix Select / HTML `<select>` |
-| 11 | `MultiSelect.tsx` | `src/stories/DropdownMultiSelect/` | Radix multi-select dropdown |
-| 12 | `CurrencyInput.tsx` | `src/stories/CurrencyFormElement/` | Styled `<input>` with currency formatting |
-| 13 | `NumberInput.tsx` | `src/stories/numberFormElemet/` | `<input type="number">` |
-| 14 | `DateSelect.tsx` | `src/stories/dateSelect/` | react-day-picker + HTML date input |
-| 15 | `CheckboxField.tsx` | `src/stories/checkboxField/` | Radix Checkbox (single) |
-| 16 | `CheckboxInput.tsx` | `src/stories/CheckboxInput/` | Radix Checkbox group with Label/Caption |
-| 17 | `RadioField.tsx` | `src/stories/RadioField/` | Radix Radio (single) |
-| 18 | `RadioInput.tsx` | `src/stories/RadioInput/` | Radix Radio group with Label/Caption |
-| 19 | `PhoneInput.tsx` | `src/stories/phoneField/` | Styled `<input>` + country code select |
+| # | File | Source (current) | Web Implementation | Status |
+|---|------|-----------------|-------------------|--------|
+| 8 | `TextInput.tsx` | `src/stories/textInput/` | HTML `<input>` + Label + Caption | ✅ Migrated |
+| 9 | `TextArea.tsx` | `src/stories/TextAreaFormElemet/` | HTML `<textarea>` + Label + Caption | ✅ Migrated |
+| 10 | `Select.tsx` | `src/stories/DropdownSingleSelect/` | Radix Select / HTML `<select>` | ✅ Migrated |
+| 11 | `MultiSelect.tsx` | `src/stories/DropdownMultiSelect/` | Radix multi-select dropdown | ✅ Migrated |
+| 12 | `CurrencyInput.tsx` | `src/stories/CurrencyFormElement/` | Styled `<input>` with currency formatting | ✅ Migrated |
+| 13 | `NumberInput.tsx` | `src/stories/numberFormElemet/` | `<input type="number">` | ✅ Migrated |
+| 14 | `DateSelect.tsx` | `src/stories/dateSelect/` | react-day-picker + HTML date input | ✅ Migrated |
+| 15 | `CheckboxField.tsx` | `src/stories/checkboxField/` | Radix Checkbox (single) | ✅ Migrated |
+| 16 | `CheckboxInput.tsx` | `src/stories/CheckboxInput/` | Radix Checkbox group with Label/Caption | ✅ Migrated |
+| 17 | `RadioField.tsx` | `src/stories/RadioField/` | Radix Radio (single) | ✅ Migrated |
+| 18 | `RadioInput.tsx` | `src/stories/RadioInput/` | Radix Radio group with Label/Caption | ✅ Migrated |
+| 19 | `PhoneInput.tsx` | `src/stories/phoneField/` | Styled `<input>` + country code select | ✅ Migrated |
 
 ---
 
@@ -142,20 +154,20 @@ alias_based_monorepo/
 
 ### Form Primitives (12)
 
-| # | File | `web/src/ui/` counterpart | React Native Implementation |
-|---|------|--------------------------|----------------------------|
-| 8 | `TextInput.tsx` | `TextInput.tsx` | RN `<TextInput>` + Label + Caption |
-| 9 | `TextArea.tsx` | `TextArea.tsx` | RN `<TextInput multiline>` |
-| 10 | `Select.tsx` | `Select.tsx` | RN Picker / Bottom Sheet |
-| 11 | `MultiSelect.tsx` | `MultiSelect.tsx` | Multi-select modal / Bottom Sheet |
-| 12 | `CurrencyInput.tsx` | `CurrencyInput.tsx` | RN `<TextInput>` with currency mask |
-| 13 | `NumberInput.tsx` | `NumberInput.tsx` | RN `<TextInput keyboardType="numeric">` |
-| 14 | `DateSelect.tsx` | `DateSelect.tsx` | RN `DateTimePicker` |
-| 15 | `CheckboxField.tsx` | `CheckboxField.tsx` | RN Checkbox or custom `<Pressable>` |
-| 16 | `CheckboxInput.tsx` | `CheckboxInput.tsx` | RN Checkbox group |
-| 17 | `RadioField.tsx` | `RadioField.tsx` | RN Radio or custom `<Pressable>` |
-| 18 | `RadioInput.tsx` | `RadioInput.tsx` | RN Radio group |
-| 19 | `PhoneInput.tsx` | `PhoneInput.tsx` | RN `<TextInput>` + country picker modal |
+| # | File | `web/src/ui/` counterpart | React Native Implementation | Status |
+|---|------|--------------------------|----------------------------|--------|
+| 8 | `TextInput.tsx` | `TextInput.tsx` | RN `<TextInput>` + Label + Caption | ✅ Migrated |
+| 9 | `TextArea.tsx` | `TextArea.tsx` | RN `<TextInput multiline>` | ✅ Migrated |
+| 10 | `Select.tsx` | `Select.tsx` | RN Picker / Bottom Sheet | ✅ Migrated |
+| 11 | `MultiSelect.tsx` | `MultiSelect.tsx` | Multi-select modal / Bottom Sheet | ✅ Migrated |
+| 12 | `CurrencyInput.tsx` | `CurrencyInput.tsx` | RN `<TextInput>` with currency mask | ✅ Migrated |
+| 13 | `NumberInput.tsx` | `NumberInput.tsx` | RN `<TextInput keyboardType="numeric">` | ✅ Migrated |
+| 14 | `DateSelect.tsx` | `DateSelect.tsx` | RN `DateTimePicker` | ✅ Migrated |
+| 15 | `CheckboxField.tsx` | `CheckboxField.tsx` | RN Checkbox or custom `<Pressable>` | ✅ Migrated |
+| 16 | `CheckboxInput.tsx` | `CheckboxInput.tsx` | RN Checkbox group | ✅ Migrated |
+| 17 | `RadioField.tsx` | `RadioField.tsx` | RN Radio or custom `<Pressable>` | ✅ Migrated |
+| 18 | `RadioInput.tsx` | `RadioInput.tsx` | RN Radio group | ✅ Migrated |
+| 19 | `PhoneInput.tsx` | `PhoneInput.tsx` | RN `<TextInput>` + country picker modal | ✅ Migrated |
 
 ---
 
@@ -252,20 +264,20 @@ alias_based_monorepo/
 
 ### Form Component Configs (12)
 
-| # | File | Source (current) |
-|---|------|-----------------|
-| 33 | `textInput.config.ts` | `src/stories/textInput/textInput.configs.ts` |
-| 34 | `phoneInput.config.ts` | `src/stories/phoneField/phoneField.config.ts` |
-| 35 | `textArea.config.ts` | `src/stories/TextAreaFormElemet/textArea.configs.ts` |
-| 36 | `select.config.ts` | `src/stories/DropdownSingleSelect/select.configs.ts` |
-| 37 | `multiSelect.config.ts` | `src/stories/DropdownMultiSelect/multiSelect.configs.ts` |
-| 38 | `currency.config.ts` | `src/stories/CurrencyFormElement/currency.configs.ts` |
-| 39 | `number.config.ts` | `src/stories/numberFormElemet/number.configs.ts` |
-| 40 | `dateSelect.config.ts` | `src/stories/dateSelect/dateSelect.configs.ts` |
-| 41 | `checkboxField.config.ts` | `src/stories/checkboxField/checkboxField.configs.ts` |
-| 42 | `checkboxInput.config.ts` | `src/stories/CheckboxInput/checkboxInput.configs.ts` |
-| 43 | `radioField.config.ts` | `src/stories/RadioField/radioField.configs.ts` |
-| 44 | `radioInput.config.ts` | `src/stories/RadioInput/radioInput.configs.ts` |
+| # | File | Source (current) | Status |
+|---|------|-----------------|--------|
+| 33 | `textInput.config.ts` | `src/stories/textInput/textInput.configs.ts` | ✅ Migrated |
+| 34 | `phoneInput.config.ts` | `src/stories/phoneField/phoneField.config.ts` | ✅ Migrated |
+| 35 | `textArea.config.ts` | `src/stories/TextAreaFormElemet/textArea.configs.ts` | ✅ Migrated |
+| 36 | `select.config.ts` | `src/stories/DropdownSingleSelect/select.configs.ts` | ✅ Migrated |
+| 37 | `multiSelect.config.ts` | `src/stories/DropdownMultiSelect/multiSelect.configs.ts` | ✅ Migrated |
+| 38 | `currency.config.ts` | `src/stories/CurrencyFormElement/currency.configs.ts` | ✅ Migrated |
+| 39 | `number.config.ts` | `src/stories/numberFormElemet/number.configs.ts` | ✅ Migrated |
+| 40 | `dateSelect.config.ts` | `src/stories/dateSelect/dateSelect.configs.ts` | ✅ Migrated |
+| 41 | `checkboxField.config.ts` | `src/stories/checkboxField/checkboxField.configs.ts` | ✅ Migrated |
+| 42 | `checkboxInput.config.ts` | `src/stories/CheckboxInput/checkboxInput.configs.ts` | ✅ Migrated |
+| 43 | `radioField.config.ts` | `src/stories/RadioField/radioField.configs.ts` | ✅ Migrated |
+| 44 | `radioInput.config.ts` | `src/stories/RadioInput/radioInput.configs.ts` | ✅ Migrated |
 
 ### Registry Config (1)
 

@@ -1,12 +1,12 @@
-import type { TextInputProps } from "@shared/types";
+import type { TextAreaProps } from "@shared/types";
 import React from "react";
 import { Label } from "../Label";
 import { Fields } from "../Fields";
 import { Caption } from "../Caption";
 
-export type { TextInputProps };
+export type { TextAreaProps };
 
-export const TextInput: React.FC<TextInputProps> = ({
+export const TextArea: React.FC<TextAreaProps> = ({
   label = "",
   label_ar = "",
   required = false,
@@ -20,16 +20,12 @@ export const TextInput: React.FC<TextInputProps> = ({
   hasError = false,
   errorMessage = "",
   errorMessage_ar = "",
-  icon = null,
   disabled = false,
   captionLeft = "",
   captionLeft_ar = "",
   captionRight = "",
   captionRight_ar = "",
   language = "en",
-  fieldType = "text",
-  options = [],
-  selectType = "single",
 }) => {
   return (
     <div className="flex flex-col gap-[10px]">
@@ -45,7 +41,7 @@ export const TextInput: React.FC<TextInputProps> = ({
         language={language}
       />
       <Fields
-        type={fieldType}
+        type="textarea"
         placeholder={
           language === "en" ? placeholder : placeholder_ar || placeholder
         }
@@ -53,11 +49,8 @@ export const TextInput: React.FC<TextInputProps> = ({
         onChange={onChange}
         hasError={hasError}
         errorMessage=""
-        icon={icon}
         disabled={disabled}
         language={language}
-        options={options}
-        selectType={selectType}
       />
       {(captionLeft ||
         captionRight ||

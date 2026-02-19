@@ -34,7 +34,6 @@ export const TextInput: React.FC<TextInputProps> = ({
 }) => {
   return (
     <View className="flex flex-col gap-[10px]">
-      {/* Label */}
       <Label
         label={label}
         label_ar={label_ar}
@@ -46,8 +45,6 @@ export const TextInput: React.FC<TextInputProps> = ({
         tooltipDirection={language === "en" ? "left-center" : "right-center"}
         language={language}
       />
-
-      {/* Fields component used here */}
       <Fields
         type={fieldType}
         placeholder={
@@ -63,8 +60,6 @@ export const TextInput: React.FC<TextInputProps> = ({
         options={options}
         selectType={selectType}
       />
-
-      {/* Caption or Error */}
       {(captionLeft ||
         captionRight ||
         captionLeft_ar ||

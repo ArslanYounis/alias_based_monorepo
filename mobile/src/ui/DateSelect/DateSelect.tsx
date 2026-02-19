@@ -1,4 +1,4 @@
-import type { DateInputProps } from "@shared/types";
+import type { DateSelectProps } from "@shared/types";
 import DateTimePicker, {
   type DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
@@ -8,9 +8,9 @@ import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwit
 import InfoSVG from "~/assets/svg/icons/Info";
 import SelectArrow from "~/assets/svg/icons/SelectArrow";
 
-export type { DateInputProps };
+export type { DateSelectProps };
 
-export const DateInput: React.FC<DateInputProps> = ({
+export const DateSelect: React.FC<DateSelectProps> = ({
   placeholder = "Select date",
   placeholder_ar = "اختر التاريخ",
   hasError = false,
@@ -30,8 +30,6 @@ export const DateInput: React.FC<DateInputProps> = ({
   value,
   testId,
 }) => {
-  const isRTL = language === "ar";
-
   const controlledDate = value ? new Date(value) : undefined;
   const [date, setDate] = useState<Date | undefined>(controlledDate);
   const [showPicker, setShowPicker] = useState(false);
@@ -50,7 +48,6 @@ export const DateInput: React.FC<DateInputProps> = ({
 
   const handleChange = (_: DateTimePickerEvent, selected?: Date) => {
     setShowPicker(false);
-
     if (selected) {
       setDate(selected);
       onDateChange?.(selected);
@@ -58,7 +55,7 @@ export const DateInput: React.FC<DateInputProps> = ({
   };
 
   const displayDate = date
-    ? isRTL
+    ? language === "ar"
       ? date.toLocaleDateString("ar-EG", {
           year: "numeric",
           month: "long",
@@ -72,11 +69,7 @@ export const DateInput: React.FC<DateInputProps> = ({
     : "";
 
   return (
-    <View
-      className={`flex flex-col gap-[10px] ${isRTL ? "rtl" : "ltr"}`}
-      testID={testId}
-    >
-      {/* LABEL */}
+    <View className="flex flex-col gap-[10px]" testID={testId}>
       {label && (
         <View className="flex flex-row items-center gap-1">
           <SharedLanguageSwitchRenderer
@@ -84,11 +77,9 @@ export const DateInput: React.FC<DateInputProps> = ({
             value={label}
             value_ar={label_ar}
           />
-
           {required && (
             <Text className="text-form-fields-error text-xs">*</Text>
           )}
-
           {infoText && (
             <Pressable onPress={() => setShowInfo((v) => !v)}>
               <InfoSVG width={14} height={14} />
@@ -96,8 +87,6 @@ export const DateInput: React.FC<DateInputProps> = ({
           )}
         </View>
       )}
-
-      {/* INFO TOOLTIP */}
       {showInfo && infoText && (
         <View className="bg-filter-dropdown-bg px-2 py-1 rounded">
           <SharedLanguageSwitchRenderer
@@ -107,8 +96,6 @@ export const DateInput: React.FC<DateInputProps> = ({
           />
         </View>
       )}
-
-      {/* INPUT */}
       <Pressable
         disabled={disabled}
         onPress={() => setShowPicker(true)}
@@ -135,15 +122,12 @@ export const DateInput: React.FC<DateInputProps> = ({
         >
           {date
             ? displayDate
-            : isRTL
+            : language === "ar"
             ? placeholder_ar || placeholder
             : placeholder}
         </Text>
-
         <SelectArrow color="#6B7280" />
       </Pressable>
-
-      {/* DATE PICKER MODAL */}
       <Modal
         visible={showPicker}
         transparent
@@ -160,11 +144,10 @@ export const DateInput: React.FC<DateInputProps> = ({
             onPress={() => {}}
             className="max-h-[70%] rounded-t-xl bg-white p-l dark:bg-neutral-900"
           >
-            {/* Selected date shown in modal */}
             <Text className="mb-m text-bold-l text-text-default">
               {date
                 ? displayDate
-                : isRTL
+                : language === "ar"
                 ? placeholder_ar || placeholder
                 : placeholder}
             </Text>
@@ -182,15 +165,13 @@ export const DateInput: React.FC<DateInputProps> = ({
                 activeOpacity={0.7}
               >
                 <Text className="text-center text-m font-medium text-text-default">
-                  {isRTL ? "تم" : "Done"}
+                  {language === "ar" ? "تم" : "Done"}
                 </Text>
               </TouchableOpacity>
             )}
           </TouchableOpacity>
         </TouchableOpacity>
       </Modal>
-
-      {/* ERROR */}
       {hasError && errMessage && (
         <Text className="text-xs text-form-fields-error">
           <SharedLanguageSwitchRenderer
@@ -200,8 +181,6 @@ export const DateInput: React.FC<DateInputProps> = ({
           />
         </Text>
       )}
-
-      {/* CAPTION */}
       {caption && (
         <Text
           className={`text-bold-xs ${

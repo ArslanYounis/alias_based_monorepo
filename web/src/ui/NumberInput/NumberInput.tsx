@@ -1,12 +1,12 @@
-import type { TextInputProps } from "@shared/types";
+import type { NumberInputProps } from "@shared/types";
 import React from "react";
 import { Label } from "../Label";
 import { Fields } from "../Fields";
 import { Caption } from "../Caption";
 
-export type { TextInputProps };
+export type { NumberInputProps };
 
-export const TextInput: React.FC<TextInputProps> = ({
+export const NumberInput: React.FC<NumberInputProps> = ({
   label = "",
   label_ar = "",
   required = false,
@@ -20,17 +20,15 @@ export const TextInput: React.FC<TextInputProps> = ({
   hasError = false,
   errorMessage = "",
   errorMessage_ar = "",
-  icon = null,
   disabled = false,
   captionLeft = "",
   captionLeft_ar = "",
   captionRight = "",
   captionRight_ar = "",
   language = "en",
-  fieldType = "text",
-  options = [],
-  selectType = "single",
+  icon = null,
 }) => {
+  const valueStr = typeof value === "number" ? String(value) : value ?? "";
   return (
     <div className="flex flex-col gap-[10px]">
       <Label
@@ -45,19 +43,17 @@ export const TextInput: React.FC<TextInputProps> = ({
         language={language}
       />
       <Fields
-        type={fieldType}
+        type="number"
         placeholder={
           language === "en" ? placeholder : placeholder_ar || placeholder
         }
-        value={value}
+        value={valueStr}
         onChange={onChange}
         hasError={hasError}
         errorMessage=""
-        icon={icon}
         disabled={disabled}
         language={language}
-        options={options}
-        selectType={selectType}
+        icon={icon}
       />
       {(captionLeft ||
         captionRight ||
