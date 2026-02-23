@@ -5,11 +5,13 @@ export const Container: React.FC<ContainerProps> = ({
   children,
   className = "",
   style,
+  dir,
+  onClick,
 }) => {
   const containerClassName = `${className}`.trim();
 
   return (
-    <div className={containerClassName} style={style}>
+    <div className={containerClassName} style={style} dir={dir} onClick={onClick} role={onClick ? "button" : undefined}>
       {children}
     </div>
   );

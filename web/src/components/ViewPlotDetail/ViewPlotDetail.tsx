@@ -1,4 +1,5 @@
 import type { ViewPlotDetailProps } from "@shared/types";
+import { useViewPlotDetail } from "@shared/hooks";
 import React from "react";
 
 export type { ViewPlotDetailProps };
@@ -13,6 +14,8 @@ export const ViewPlotDetail: React.FC<ViewPlotDetailProps> = ({
   theme = "dark",
   language = "en",
 }) => {
+  const singleId = plotIds?.length === 1 ? plotIds[0] : undefined;
+  const { data: plotDetail, isPending } = useViewPlotDetail(singleId);
   return (
     <div
       className={`rounded-lg p-4 ${theme === "dark" ? "bg-neutral-800" : "bg-neutral-100"}`}
@@ -21,6 +24,16 @@ export const ViewPlotDetail: React.FC<ViewPlotDetailProps> = ({
       <h3 className="text-lg font-bold text-text-default mb-4">
         {language === "ar" ? plotTitle_ar ?? plotTitle : plotTitle}
       </h3>
+      {isPending && (
+        <p className="text-sm text-text-dimmed mb-2">
+          {language === "ar" ? "جاري التحميل..." : "Loading..."}
+        </p>
+      )}
+      {plotDetail?.plotNumber != null && (
+        <p className="text-sm text-text-dimmed mb-2">
+          {language === "ar" ? "رقم القطعة" : "Plot"}: {plotDetail.plotNumber}
+        </p>
+      )}
       {plotIds.length > 0 && (
         <p className="text-sm text-text-dimmed mb-2">
           IDs: {plotIds.join(", ")}

@@ -3,6 +3,7 @@ import type {
   ControlsConfig,
   IconType,
 } from "@shared/types/dls.types";
+import type { OwnerCardProps as OwnerCardComponentProps } from "@shared/components/OwnerCard";
 import type { ComponentType } from "react";
 
 export interface OwnerCardProps {
@@ -14,7 +15,7 @@ export interface OwnerCardProps {
   showEditButton?: boolean;
   showDeleteButton?: boolean;
   itemsPerRow?: string;
-  owners?: unknown[];
+  owners?: OwnerCardComponentProps["owners"];
   defaultShowMore?: boolean;
   onPressAction?: (eventData: unknown) => void;
 }

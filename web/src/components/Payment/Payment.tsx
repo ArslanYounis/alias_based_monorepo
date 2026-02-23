@@ -1,4 +1,6 @@
 import type { PaymentProps } from "@shared/types";
+import { usePayment } from "@shared/hooks";
+import { getPaymentDefaultValues, PAYMENT_STEP_COUNT, type PaymentStepId } from "@shared/forms";
 import React, { useState } from "react";
 import { Buttons } from "../../ui/Buttons";
 
@@ -6,8 +8,8 @@ export type { PaymentProps };
 
 export const Payment: React.FC<PaymentProps> = ({
   applicationId,
-  stepInfo,
-  isStepInfoPending = false,
+  stepInfo: stepInfoProp,
+  isStepInfoPending: isStepInfoPendingProp = false,
   isPaymentSubmitting = false,
   onPaymentSubmit,
   onSubmit,
@@ -15,7 +17,11 @@ export const Payment: React.FC<PaymentProps> = ({
   onSaveDraft,
   language = "en",
 }) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<PaymentStepId>(0);
+  const { data: stepInfoFromHook, isPending: isStepInfoPendingFromHook } = usePayment(applicationId);
+  const stepInfo = stepInfoProp ?? stepInfoFromHook;
+  const isStepInfoPending = isStepInfoPendingProp || (!!applicationId && isStepInfoPendingFromHook);
+  const _defaultValues = getPaymentDefaultValues();
 
   if (isStepInfoPending) {
     return (
@@ -36,20 +42,16 @@ export const Payment: React.FC<PaymentProps> = ({
         </p>
       )}
       <div className="flex gap-2 mb-4">
-        <button
-          type="button"
-          className={`px-3 py-1 rounded ${step === 1 ? "bg-structure-primary-5 text-white" : "bg-neutral-200 dark:bg-neutral-700"}`}
-          onClick={() => setStep(1)}
-        >
-          1
-        </button>
-        <button
-          type="button"
-          className={`px-3 py-1 rounded ${step === 2 ? "bg-structure-primary-5 text-white" : "bg-neutral-200 dark:bg-neutral-700"}`}
-          onClick={() => setStep(2)}
-        >
-          2
-        </button>
+        {Array.from({ length: PAYMENT_STEP_COUNT }, (_, i) => i as PaymentStepId).map((s) => (
+          <button
+            key={s}
+            type="button"
+            className={`px-3 py-1 rounded ${step === s ? "bg-structure-primary-5 text-white" : "bg-neutral-200 dark:bg-neutral-700"}`}
+            onClick={() => setStep(s)}
+          >
+            {s + 1}
+          </button>
+        ))}
       </div>
       <div className="mb-4">
         {step === 1 && (

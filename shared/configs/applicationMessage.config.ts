@@ -3,13 +3,14 @@ import type {
   ControlsConfig,
   IconType,
 } from "@shared/types/dls.types";
+import type { ApplicationMessageInputType } from "@shared/components/ApplicationMessage";
 import type { ComponentType } from "react";
 
 export interface ApplicationMessageProps {
   title?: string;
   description?: string;
   status?: "success" | "error" | "information" | "action";
-  type?: string;
+  type?: ApplicationMessageInputType;
   fieldType?: string;
   selectType?: string;
   label?: string;

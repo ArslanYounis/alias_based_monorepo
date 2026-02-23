@@ -1,9 +1,9 @@
 import type { SearchPlotProps } from "@shared/types";
+import { SEARCH_PLOT_TABS, getSearchPlotDefaultValues, getSearchPlotValidator } from "@shared/forms";
+import type { SearchPlotTabKey } from "@shared/schemas";
 import React, { useState } from "react";
 
 export type { SearchPlotProps };
-
-type TabKey = "plot" | "company" | "owner";
 
 export const SearchPlot: React.FC<SearchPlotProps> = ({
   title = "Search Plot",
@@ -16,7 +16,9 @@ export const SearchPlot: React.FC<SearchPlotProps> = ({
   onSubmit,
   language = "en",
 }) => {
-  const [activeTab, setActiveTab] = useState<TabKey>(initialOwnerType);
+  const [activeTab, setActiveTab] = useState<SearchPlotTabKey>(initialOwnerType);
+  const _defaultValues = getSearchPlotDefaultValues(activeTab);
+  const _validator = getSearchPlotValidator(activeTab);
 
   const plotLabel =
     language === "ar"

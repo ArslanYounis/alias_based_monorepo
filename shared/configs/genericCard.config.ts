@@ -3,6 +3,7 @@ import type {
   ControlsConfig,
   IconType,
 } from "@shared/types/dls.types";
+import type { RowDataItem } from "@shared/components/GenericCard";
 import type { ComponentType } from "react";
 
 export interface GenericCardProps {
@@ -36,7 +37,7 @@ export interface GenericCardProps {
   isUploaded?: boolean;
   buttons?: unknown[];
   titleButtons?: unknown[];
-  rowsData?: unknown[];
+  rowsData?: RowDataItem[];
   documentButtons?: unknown[];
   documents?: unknown[];
   showFooterButtons?: boolean;

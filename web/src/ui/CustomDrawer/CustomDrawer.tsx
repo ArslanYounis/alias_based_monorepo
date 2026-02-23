@@ -58,8 +58,8 @@ export const CustomDrawer: React.FC<CustomDrawerProps> = ({
     <Drawer
       open={open}
       onOpenChange={onOpenChange}
-      dismissible={dismissible}
       direction={dir}
+      dismissible={dismissible}
     >
       <DrawerContent
         className={`${bgClass} ${className ?? "border-none"}`}

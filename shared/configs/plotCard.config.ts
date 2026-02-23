@@ -3,6 +3,7 @@ import type {
   ControlsConfig,
   IconType,
 } from "@shared/types/dls.types";
+import type { PlotCardProps as PlotCardComponentProps } from "@shared/components/PlotCard";
 import type { ComponentType } from "react";
 
 export interface PlotCardProps {
@@ -11,7 +12,7 @@ export interface PlotCardProps {
   showViewButton?: boolean;
   showOwnersButton?: boolean;
   showChangePlotButton?: boolean;
-  plots?: unknown[];
+  plots?: PlotCardComponentProps["plots"];
   defaultShowMore?: boolean;
   onPressView?: (eventData: unknown) => void;
   onPressPlotChange?: (eventData: unknown) => void;

@@ -3,6 +3,7 @@ import type {
   ControlsConfig,
   IconType,
 } from "@shared/types/dls.types";
+import type { ButtonType } from "@shared/components/CardTitle";
 import type { ComponentType } from "react";
 
 export interface CardTitleProps {
@@ -20,9 +21,9 @@ export interface CardTitleProps {
   status?: string;
   status_ar?: string;
   showButtons?: boolean;
-  buttons?: unknown[];
+  buttons?: ButtonType[];
   showTitleButtons?: boolean;
-  titleButtons?: unknown[];
+  titleButtons?: ButtonType[];
   showBorder?: boolean;
 }
 

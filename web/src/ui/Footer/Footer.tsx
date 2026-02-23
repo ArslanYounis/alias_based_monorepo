@@ -34,8 +34,8 @@ export const Footer: React.FC<FooterProps> = ({
   const [open, setOpen] = useState(false);
   const [botStatus, setBotStatus] = useState<"open" | "close">("close");
   return (
-    <div className="flex items-center justify-between p-m h-[98px]">
-      <div className="!hidden sm:!flex items-center space-x-4">
+    <footer className="flex items-center justify-between p-4 h-[98px]" role="contentinfo">
+      <div className="!hidden sm:!flex items-center space-x-4 shrink-0">
         {showLogo && (
           <Logo
             type={logoType}
@@ -45,7 +45,7 @@ export const Footer: React.FC<FooterProps> = ({
           />
         )}
       </div>
-      <div className="!hidden sm:!flex">
+      <div className="!hidden sm:!flex shrink-0">
         {showBot && (
           <Bot
             language={language}
@@ -58,23 +58,23 @@ export const Footer: React.FC<FooterProps> = ({
         )}
       </div>
       <div className="sm:!hidden !flex flex-col items-center w-full">
-        <div onClick={() => setOpen(!open)} className="cursor-pointer mb-2">
+        <button type="button" onClick={() => setOpen(!open)} className="cursor-pointer mb-2 p-1" aria-expanded={open} aria-label={open ? "Collapse footer" : "Expand footer"}>
           {open ? <PullyUpIconSvg /> : <PullyDownIconSvg />}
-        </div>
+        </button>
         {open && (
           <div className="flex items-center justify-between w-full">
-            <div className="h-12 w-12">
-              {showLogo && (
+            {showLogo && (
+              <div className="h-12 w-12 shrink-0">
                 <Logo
                   type={isMobile ? "icon" : logoType}
                   className={logoClassName}
                   width={isMobile ? 60 : logoWidth}
                   height={isMobile ? 60 : logoHeight}
                 />
-              )}
-            </div>
-            <div>
-              {showBot && (
+              </div>
+            )}
+            {showBot && (
+              <div>
                 <Bot
                   language={language}
                   message={botMessage}
@@ -83,11 +83,11 @@ export const Footer: React.FC<FooterProps> = ({
                   className={botClassName}
                   onClick={(newStatus) => setBotStatus(newStatus)}
                 />
-              )}
-            </div>
+              </div>
+            )}
           </div>
         )}
       </div>
-    </div>
+    </footer>
   );
 };

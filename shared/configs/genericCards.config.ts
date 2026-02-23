@@ -8,7 +8,7 @@ import type { ComponentType } from "react";
 export interface GenericCardsProps {
   title?: string;
   title_ar?: string;
-  itemsPerRow?: string;
+  itemsPerRow?: "1" | "2" | "3";
   isExpandable?: boolean;
   showBorder?: boolean;
   showButtons?: boolean;

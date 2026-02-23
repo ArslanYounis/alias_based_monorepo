@@ -3,6 +3,7 @@ import type {
   ControlsConfig,
   IconType,
 } from "@shared/types/dls.types";
+import type { ColumnItem } from "@shared/components/GenericTableCard";
 import type { ComponentType } from "react";
 
 export interface GenericTableCardProps {
@@ -24,7 +25,7 @@ export interface GenericTableCardProps {
   cardTitleValue_ar?: string;
   buttons?: unknown[];
   titleButtons?: unknown[];
-  columnsData?: unknown[];
+  columnsData?: ColumnItem[];
   rowsData?: unknown[];
   showFooterButtons?: boolean;
   footerButton?: unknown[];

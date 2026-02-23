@@ -1,6 +1,6 @@
 import type { CustomDrawerProps, DrawerSize } from "@shared/types";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
-import { View } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import { BottomSheetModal, BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 
 export type { CustomDrawerProps, DrawerSize };
@@ -18,6 +18,7 @@ export const CustomDrawer: React.FC<CustomDrawerProps> = ({
   backgroundClassName,
   className,
   dismissible = false,
+  showCloseButton = true,
   children,
   language = "en",
   header,
@@ -62,6 +63,15 @@ export const CustomDrawer: React.FC<CustomDrawerProps> = ({
           ${className ?? ""}
         `}
       >
+        {showCloseButton && (
+          <TouchableOpacity
+            onPress={() => onOpenChange?.(false)}
+            style={{ alignSelf: language === "ar" ? "flex-start" : "flex-end", margin: 16 }}
+            accessibilityLabel={language === "ar" ? "إغلاق" : "Close"}
+          >
+            <Text style={{ fontSize: 18, fontWeight: "600" }}>✕</Text>
+          </TouchableOpacity>
+        )}
         {header && <View className="px-xxxl pb-lg">{header}</View>}
 
         <View className="flex-1 px-xxxl gap-xl overflow-y-auto pb-xl">

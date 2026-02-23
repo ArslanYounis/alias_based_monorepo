@@ -17,12 +17,20 @@ export type {
   AuditRemarksPlot,
   AuditRemarksOwner,
 } from "./AuditRemarks";
-export type { ViewPlotDetailProps } from "./ViewPlotDetail";
+export type { ViewPlotDetailProps, PlotInfoItem, OwnerInfo } from "./ViewPlotDetail";
 export type { OwnerSearchProps, OwnerSearchOwnerTypeOptions } from "./OwnerSearch";
 export type {
   SearchPlotProps,
   SearchPlotOwnerTypeOptions,
+  SearchPlotResult,
+  SearchPlotOwnerType,
+  SearchPlotEnabledTabs,
 } from "./SearchPlot";
-export type { PaymentProps, PaymentStepInfo } from "./Payment";
+export type {
+  PaymentProps,
+  PaymentStepInfo,
+  PaymentSubmitPayload,
+  TenancyContractInfo,
+} from "./Payment";
 export type { NewApplicationSummaryProps } from "./NewApplicationSummary";
 export type { ApplicationSummaryProps } from "./ApplicationSummary";

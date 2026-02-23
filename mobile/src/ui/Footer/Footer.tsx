@@ -25,24 +25,29 @@ export const Footer = ({
   const [botStatus, setBotStatus] = useState<"open" | "close">("close");
 
   return (
-    <View className="w-full bg-white">
-      <View className="w-full items-center p-2">
-        <Pressable onPress={() => setOpen(!open)} className="mb-2">
+    <View className="w-full bg-white border-t border-neutral-200 min-h-[80px] py-2">
+      <View className="w-full items-center px-2">
+        <Pressable onPress={() => setOpen(!open)} className="mb-2 p-1" accessibilityRole="button" accessibilityLabel={open ? "Collapse footer" : "Expand footer"} accessibilityState={{ expanded: open }}>
           {open ? <PullyUp /> : <PullyDown />}
         </Pressable>
 
         {open && (
-          <View className="w-full flex-row justify-between items-center px-2">
-            {showLogo && <Logo type="icon" width={48} height={48} className={logoClassName} />}
-
+          <View className="w-full flex-row justify-between items-center px-2 gap-4">
+            {showLogo && (
+              <View className="flex-shrink-0">
+                <Logo type="icon" width={48} height={48} className={logoClassName} />
+              </View>
+            )}
             {showBot && (
-              <Bot
-                language={language}
-                message={botMessage}
-                message_ar={botMessage_ar}
-                status={botStatus}
-                onClick={setBotStatus}
-              />
+              <View className="flex-1 min-w-0 justify-end">
+                <Bot
+                  language={language}
+                  message={botMessage}
+                  message_ar={botMessage_ar}
+                  status={botStatus}
+                  onClick={setBotStatus}
+                />
+              </View>
             )}
           </View>
         )}
