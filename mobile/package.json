@@ -5,7 +5,7 @@
   "publishConfig": {
     "registry": "https://y8ko0gcw88o8g0o4w4ocs4sk.mastermind-mindset.com/"
   },
-  "main": "dist/lib-index.js",
+  "main": "index.ts",
   "module": "dist/lib-index.js",
   "types": "dist/lib-index.d.ts",
   "react-native": "dist/lib-index.js",
@@ -68,10 +68,11 @@
     "@rn-primitives/types": "^1.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.2.0",
     "expo": "~54.0.33",
     "react": "19.1.0",
-    "react-native": "0.81.5"
+    "react-native": "0.81.5",
+    "react-native-screens": "~4.16.0",
+    "tailwind-merge": "^3.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

@@ -7,5 +7,6 @@ export interface CaptionProps {
   disabled?: boolean;
   errorMessage?: string;
   errorMessage_ar?: string;
+  theme?: "light" | "dark";
   language?: "en" | "ar";
 }

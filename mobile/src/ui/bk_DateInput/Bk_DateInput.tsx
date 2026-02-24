@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Pressable, Platform, Modal, TouchableOpacity } from "react-native";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 import InfoSVG from "~/assets/svg/icons/Info";
-import SelectArrow from "~/assets/svg/icons/SelectArrow";
+import CalendarIcon from "~/assets/svg/icons/Calendar";
 
 export type { DateInputProps };
 
@@ -126,7 +126,7 @@ export const Bk_DateInput: React.FC<DateInputProps> = ({
             ? placeholder_ar || placeholder
             : placeholder}
         </Text>
-        <SelectArrow color="#6B7280" />
+        <CalendarIcon color={hasError ? "#ee3e43" : "#414149"} />
       </Pressable>
       <Modal
         visible={showPicker}

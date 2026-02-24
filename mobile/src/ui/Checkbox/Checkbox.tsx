@@ -31,7 +31,8 @@ export const Checkbox = ({
     onChange?.(id, !isChecked);
   };
 
-  const baseStyles = "border border-form-fields-checkbox-radio-cbr-border";
+  const baseStyles =
+    "border-2 border-form-fields-checkbox-radio-cbr-border bg-base-white";
 
   const disabledStyles =
     "bg-form-fields-checkbox-radio-cbr-select-disable border-form-fields-checkbox-radio-cbr-select-disable";

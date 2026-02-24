@@ -20,22 +20,26 @@ export const Caption: React.FC<CaptionProps> = ({
     ? "text-text-dimmed"
     : "text-form-fields-captions-text-color";
 
+  const isRtl = language === "ar";
+
   return (
     <View className="flex flex-col">
       {(captionLeft || captionLeft_ar || captionRight || captionRight_ar) && (
         <View
-          className={`flex flex-row justify-between items-center text-bold-xs ${textColor}`}
-          style={{ minHeight: 16 }}
+          className={`text-bold-xs flex justify-between items-center ${textColor}`}
+          style={{
+            minHeight: 16,
+            flexDirection: isRtl ? "row-reverse" : "row",
+          }}
         >
-          <View>
+          <View style={{ flex: 1, alignItems: isRtl ? "flex-end" : "flex-start" }}>
             <SharedLanguageSwitchRenderer
               language={language}
               value={captionLeft || ""}
               value_ar={captionLeft_ar}
             />
           </View>
-
-          <View>
+          <View style={{ flex: 1, alignItems: isRtl ? "flex-start" : "flex-end" }}>
             <SharedLanguageSwitchRenderer
               language={language}
               value={captionRight || ""}
@@ -46,7 +50,7 @@ export const Caption: React.FC<CaptionProps> = ({
       )}
 
       {!disabled && hasError && (errorMessage || errorMessage_ar) && (
-        <View>
+        <View style={{ alignSelf: isRtl ? "flex-end" : "flex-start" }}>
           <SharedLanguageSwitchRenderer
             language={language}
             value={errorMessage || ""}

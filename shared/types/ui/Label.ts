@@ -21,6 +21,7 @@ export interface LabelProps {
   tooltipText_ar?: string;
   tooltipDirection?: TooltipDirection;
   disabled?: boolean;
+  theme?: "light" | "dark";
   language?: "en" | "ar";
   htmlFor?: string;
 }

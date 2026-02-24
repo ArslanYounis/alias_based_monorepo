@@ -1,285 +1,424 @@
 import { useState } from "react";
-import {
-  AddButton,
-  Avatar,
-  Bot,
-  Breadcrumb,
-  Buttons,
-  Caption,
-  Checkbox,
-  CheckRadioLabel,
-  Container,
-  CustomDrawer,
-  DateInput,
-  DummyComponent,
-  Fields,
-  Footer,
-  Header,
-  IconButton,
-  LargeComponent,
-  Layout,
-  Label,
-  Logo,
-  PlotSearch,
-  ProfileIconStatus,
-  RadioCard,
-  Text,
-  TextInput,
-  Tooltip,
-} from "../../index";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Label } from "@/ui/Label";
+import { Caption } from "@/ui/Caption";
+import { Tooltip } from "@/ui/Tooltip";
+import { Checkbox } from "@/ui/Checkbox";
+import { Radio } from "@/ui/Radio";
+import { CheckRadioLabel } from "@/ui/CheckRadioLabel";
+import { AddButton } from "@/ui/AddButton";
+import { DateInput } from "@/ui/DateInput";
+import { Fields } from "@/ui/Fields";
+import { Toast } from "@/ui/Toast";
+import type { TooltipDirectionType } from "@shared/types";
+
+const SECTION_TITLE = "text-bold-l text-text-default mb-2";
 
 function App() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [language, setLanguage] = useState<"en" | "ar">("en");
+  const [captionError, setCaptionError] = useState(false);
+  const [captionDisabled, setCaptionDisabled] = useState(false);
+  const [tooltipDirection, setTooltipDirection] =
+    useState<TooltipDirectionType>("bottom-center");
   const [checkboxChecked, setCheckboxChecked] = useState(false);
-  const [fieldsValue, setFieldsValue] = useState("");
-  const [textInputValue, setTextInputValue] = useState("");
-  const [radioCardClicked, setRadioCardClicked] = useState(false);
+  const [checkboxDisabled, setCheckboxDisabled] = useState(false);
+  const [checkboxError, setCheckboxError] = useState(false);
+  const [radioSelected, setRadioSelected] = useState<string>("opt1");
+  const [addButtonClicks, setAddButtonClicks] = useState(0);
+  const [addButtonDisabled, setAddButtonDisabled] = useState(false);
+  const [dateValue, setDateValue] = useState<string>("");
+  const [fieldText, setFieldText] = useState("");
+  const [fieldTextArea, setFieldTextArea] = useState("");
+  const [fieldSelect, setFieldSelect] = useState("");
+  const [fieldMultiSelect, setFieldMultiSelect] = useState("");
+  const [fieldNumber, setFieldNumber] = useState("");
+  const [fieldCurrency, setFieldCurrency] = useState("");
+  const [fieldPhone, setFieldPhone] = useState("");
+  const [fieldDate, setFieldDate] = useState("");
+  const [fieldUaeId, setFieldUaeId] = useState("");
+  const [fieldsError, setFieldsError] = useState(false);
+  const selectOptions = [
+    { value: "a", label: "Option A", label_ar: "الخيار أ" },
+    { value: "b", label: "Option B", label_ar: "الخيار ب" },
+    { value: "c", label: "Option C", label_ar: "الخيار ج" },
+  ];
 
   return (
     <QueryClientProvider client={new QueryClient()}>
-      <Layout>
-        <div
-          style={{
-            padding: "20px",
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            gap: "24px",
-          }}
-        >
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Header
-            </h2>
-            <Header
-              breadcrumbItems={[
-                { label: "Home", label_ar: "الرئيسية", onClick: () => {} },
-                {
-                  label: "Level 1",
-                  label_ar: "المستوى 1",
-                  onClick: () => {},
-                },
-              ]}
-            />
-          </section>
+      <div className="p-6 flex flex-col gap-10 max-w-2xl">
+        {/* 0.1 Label */}
+        <section className="flex flex-col gap-3">
+          <h2 className={SECTION_TITLE}>0.1 Label</h2>
+          <Label
+            label="Field label"
+            label_ar="تسمية الحقل"
+            required
+            htmlFor="label-demo"
+          />
+          <Label
+            label="With info icon"
+            label_ar="مع أيقونة المعلومات"
+            showInfoIcon
+            tooltipText="Extra information here"
+            tooltipText_ar="معلومات إضافية"
+            tooltipDirection={language === "ar" ? "top-right" : "top-left"}
+          />
+          <Label
+            label="Disabled label"
+            label_ar="تسمية معطلة"
+            disabled
+            language={language}
+          />
+        </section>
 
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Footer
-            </h2>
-            <Footer />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Bot
-            </h2>
-            <Bot />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Logo
-            </h2>
-            <Logo type="full" />
-            <Logo type="icon" />
-            <Logo type="hub" />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Text
-            </h2>
-            <Text>Dummy text</Text>
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Label
-            </h2>
-            <Label label="Dummy label" />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Fields
-            </h2>
-            <Fields
-              type="text"
-              value={fieldsValue}
-              onChange={setFieldsValue}
-              placeholder="Enter text"
-            />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Avatar
-            </h2>
-            <Avatar initials="AB" />
-            <Avatar
-              imageUrl="https://adrec-images.mastermind-mindset.com/DefaultImg.png"
-            />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Buttons
-            </h2>
-            <Buttons title="Primary" type="primary" />
-            <Buttons title="Secondary" type="secondary" />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              AddButton
-            </h2>
-            <AddButton onClick={() => {}} />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Tooltip
-            </h2>
-            <Tooltip text="Dummy tooltip" direction="bottom-center" />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Caption
-            </h2>
-            <Caption captionLeft="Left" captionRight="Right" />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Checkbox
-            </h2>
-            <Checkbox
-              id="demo-checkbox"
-              checked={checkboxChecked}
-              onChange={(_id, checked) => setCheckboxChecked(checked)}
-            />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              TextInput
-            </h2>
-            <TextInput
-              label="Field label"
-              value={textInputValue}
-              onChange={setTextInputValue}
-              placeholder="Placeholder"
-            />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              DateInput
-            </h2>
-            <DateInput />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              RadioCard
-            </h2>
-            <RadioCard
-              label="Option A"
-              clicked={radioCardClicked}
-              onClick={() => setRadioCardClicked(!radioCardClicked)}
-            />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Breadcrumb
-            </h2>
-            <Breadcrumb
-              items={[
-                { label: "Home", onClick: () => {} },
-                { label: "Level 1", onClick: () => {} },
-                { label: "Current", onClick: () => {} },
-              ]}
-              selectedItemIndex={2}
-            />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              IconButton
-            </h2>
-            <IconButton icon={<span>⚙</span>} />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              CheckRadioLabel
-            </h2>
-            <CheckRadioLabel label="Checkbox label" />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              ProfileIconStatus
-            </h2>
-            <ProfileIconStatus status="complete" />
-            <ProfileIconStatus status="inProgress" />
-            <ProfileIconStatus status="pending" />
-            <ProfileIconStatus status="failed" />
-          </section>
-
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              CustomDrawer (trigger)
-            </h2>
-            <Buttons
-              title={drawerOpen ? "Close drawer" : "Open drawer"}
-              type="primary"
-              onClick={() => setDrawerOpen(!drawerOpen)}
-            />
-            <CustomDrawer
-              open={drawerOpen}
-              onOpenChange={setDrawerOpen}
-              dismissible
+        {/* 0.2 Caption */}
+        <section className="flex flex-col gap-3">
+          <h2 className={SECTION_TITLE}>0.2 Caption</h2>
+          <Caption
+            captionLeft="Left caption"
+            captionLeft_ar="تسمية يسرى"
+            captionRight="Right caption"
+            captionRight_ar="تسمية يمنى"
+            language={language}
+          />
+          <Caption
+            captionLeft="With error"
+            captionRight="Right"
+            hasError={captionError}
+            errorMessage={captionError ? "This field has an error" : undefined}
+            errorMessage_ar={captionError ? "هذا الحقل به خطأ" : undefined}
+            language={language}
+          />
+          <Caption
+            captionLeft="Disabled state"
+            captionRight="Right"
+            disabled={captionDisabled}
+            language={language}
+          />
+          <div className="flex gap-2 flex-wrap">
+            <button
+              type="button"
+              className="text-xs px-2 py-1 border rounded"
+              onClick={() => setCaptionError((e) => !e)}
             >
-              <p>Drawer content</p>
-            </CustomDrawer>
-          </section>
+              Toggle error
+            </button>
+            <button
+              type="button"
+              className="text-xs px-2 py-1 border rounded"
+              onClick={() => setCaptionDisabled((d) => !d)}
+            >
+              Toggle disabled
+            </button>
+            <button
+              type="button"
+              className="text-xs px-2 py-1 border rounded"
+              onClick={() => setLanguage((l) => (l === "en" ? "ar" : "en"))}
+            >
+              {language === "en" ? "العربية" : "English"}
+            </button>
+          </div>
+        </section>
 
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              Container
-            </h2>
-            <Container>
-              <p>Container children</p>
-            </Container>
-          </section>
+        {/* 0.3 Tooltip */}
+        <section className="flex flex-col gap-3">
+          <h2 className={SECTION_TITLE}>0.3 Tooltip</h2>
+          <div className="flex flex-wrap gap-4 items-center">
+            <div className="relative">
+              <Tooltip
+                text="Tooltip text"
+                text_ar="نص التلميح"
+                language={language}
+                direction="none"
+              />
+            </div>
+            <div className="relative">
+              <Tooltip
+                text="Top center"
+                direction="top-center"
+                language={language}
+              />
+            </div>
+            <div className="relative">
+              <Tooltip
+                text="Bottom center"
+                direction="bottom-center"
+                language={language}
+              />
+            </div>
+            <div className="relative">
+              <Tooltip
+                text="Right center"
+                direction="right-center"
+                language={language}
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-bold-xs">Direction:</span>
+            <select
+              value={tooltipDirection}
+              onChange={(e) =>
+                setTooltipDirection(e.target.value as TooltipDirectionType)
+              }
+              className="text-sm border rounded px-2 py-1"
+            >
+              <option value="none">none</option>
+              <option value="top-left">top-left</option>
+              <option value="top-center">top-center</option>
+              <option value="top-right">top-right</option>
+              <option value="bottom-left">bottom-left</option>
+              <option value="bottom-center">bottom-center</option>
+              <option value="bottom-right">bottom-right</option>
+              <option value="left-top">left-top</option>
+              <option value="left-center">left-center</option>
+              <option value="left-bottom">left-bottom</option>
+              <option value="right-top">right-top</option>
+              <option value="right-center">right-center</option>
+              <option value="right-bottom">right-bottom</option>
+            </select>
+            <div className="relative">
+              <Tooltip text="Dynamic direction" direction={tooltipDirection} />
+            </div>
+          </div>
+        </section>
 
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              DummyComponent
-            </h2>
-            <DummyComponent title="Dummy title" />
-          </section>
+        {/* 0.4 Checkbox */}
+        <section className="flex flex-col gap-3">
+          <h2 className={SECTION_TITLE}>0.4 Checkbox</h2>
+          <div className="flex flex-wrap gap-4 items-center">
+            <Checkbox
+              id="cb-controlled"
+              checked={checkboxChecked}
+              onChange={(_, checked) => setCheckboxChecked(checked)}
+            />
+            <span className="text-bold-xs">
+              Controlled ({checkboxChecked ? "checked" : "unchecked"})
+            </span>
+            <Checkbox id="cb-uncontrolled" onChange={() => {}} />
+            <span className="text-bold-xs">Uncontrolled</span>
+            <Checkbox
+              id="cb-disabled"
+              disabled={checkboxDisabled}
+              onChange={() => {}}
+            />
+            <span className="text-bold-xs">Disabled</span>
+            <Checkbox id="cb-error" hasError={checkboxError} onChange={() => {}} />
+            <span className="text-bold-xs">Error</span>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            <button
+              type="button"
+              className="text-xs px-2 py-1 border rounded"
+              onClick={() => setCheckboxChecked((c) => !c)}
+            >
+              Toggle checked
+            </button>
+            <button
+              type="button"
+              className="text-xs px-2 py-1 border rounded"
+              onClick={() => setCheckboxDisabled((d) => !d)}
+            >
+              Toggle disabled
+            </button>
+            <button
+              type="button"
+              className="text-xs px-2 py-1 border rounded"
+              onClick={() => setCheckboxError((e) => !e)}
+            >
+              Toggle error
+            </button>
+          </div>
+        </section>
 
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              LargeComponent
-            </h2>
-            <LargeComponent />
-          </section>
+        {/* 0.5 Radio */}
+        <section className="flex flex-col gap-3">
+          <h2 className={SECTION_TITLE}>0.5 Radio</h2>
+          <div className="flex flex-wrap gap-4 items-center">
+            {["opt1", "opt2", "opt3"].map((id) => (
+              <Radio
+                key={id}
+                id={id}
+                name="radio-group"
+                checked={radioSelected === id}
+                onChange={(id) => setRadioSelected(id)}
+              />
+            ))}
+            <Radio id="r-disabled" disabled onChange={() => {}} />
+            <span className="text-bold-xs">Disabled</span>
+            <Radio id="r-error" hasError onChange={() => {}} />
+            <span className="text-bold-xs">Error</span>
+          </div>
+          <p className="text-bold-xs text-text-dimmed">
+            Selected: {radioSelected}
+          </p>
+        </section>
 
-          <section>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: 8 }}>
-              PlotSearch
-            </h2>
-            <PlotSearch />
-          </section>
-        </div>
-      </Layout>
+        {/* 0.6 CheckRadioLabel */}
+        <section className="flex flex-col gap-3">
+          <h2 className={SECTION_TITLE}>0.6 CheckRadioLabel</h2>
+          <div className="flex flex-col gap-2">
+            <CheckRadioLabel
+              label="Option label"
+              label_ar="تسمية الخيار"
+              language={language}
+              htmlFor="crl-1"
+            />
+            <CheckRadioLabel
+              label="Disabled label"
+              label_ar="تسمية معطلة"
+              disabled
+              language={language}
+            />
+          </div>
+        </section>
+
+        {/* 0.7 AddButton */}
+        <section className="flex flex-col gap-3">
+          <h2 className={SECTION_TITLE}>0.7 AddButton</h2>
+          <div className="flex gap-4 items-center">
+            <AddButton onClick={() => setAddButtonClicks((c) => c + 1)} />
+            <AddButton
+              disabled={addButtonDisabled}
+              onClick={() => setAddButtonClicks((c) => c + 1)}
+            />
+            <span className="text-bold-xs">
+              Clicks: {addButtonClicks} | Disabled:{" "}
+              {addButtonDisabled ? "yes" : "no"}
+            </span>
+          </div>
+          <button
+            type="button"
+            className="text-xs px-2 py-1 border rounded w-fit"
+            onClick={() => setAddButtonDisabled((d) => !d)}
+          >
+            Toggle disabled
+          </button>
+        </section>
+
+        {/* 0.8 DateInput */}
+        <section className="flex flex-col gap-3">
+          <h2 className={SECTION_TITLE}>0.8 DateInput</h2>
+          <DateInput
+            placeholder="Select date"
+            placeholder_ar="اختر التاريخ"
+            label="Date field"
+            label_ar="حقل التاريخ"
+            value={dateValue}
+            onDateChange={(d) =>
+              setDateValue(d ? d.toISOString().slice(0, 10) : "")
+            }
+            hasError={false}
+            required
+            infoText="Pick a date"
+            infoText_ar="اختر تاريخاً"
+            caption="Optional caption"
+            caption_ar="تسمية اختيارية"
+            captionPosition="left"
+            language={language}
+            testId="date-input-demo"
+          />
+          <p className="text-bold-xs text-text-dimmed">Value: {dateValue || "—"}</p>
+        </section>
+
+        {/* 0.9 Fields */}
+        <section className="flex flex-col gap-4">
+          <h2 className={SECTION_TITLE}>0.9 Fields</h2>
+          <Fields
+            type="text"
+            placeholder="Text placeholder"
+            value={fieldText}
+            onChange={setFieldText}
+            hasError={fieldsError}
+            errorMessage="Invalid value"
+            language={language}
+            testId="field-text"
+          />
+          <Fields
+            type="textarea"
+            placeholder="Textarea placeholder"
+            value={fieldTextArea}
+            onChange={setFieldTextArea}
+            language={language}
+          />
+          <Fields
+            type="select"
+            placeholder="Select..."
+            value={fieldSelect}
+            onChange={setFieldSelect}
+            options={selectOptions}
+            selectType="single"
+            language={language}
+          />
+          <Fields
+            type="select"
+            placeholder="Multi select..."
+            value={fieldMultiSelect}
+            onChange={setFieldMultiSelect}
+            options={selectOptions}
+            selectType="multi"
+            language={language}
+          />
+          <Fields
+            type="number"
+            placeholder="Number"
+            value={fieldNumber}
+            onChange={setFieldNumber}
+            language={language}
+          />
+          <Fields
+            type="currency"
+            placeholder="0.00"
+            value={fieldCurrency}
+            onChange={setFieldCurrency}
+            currencySymbol="AED"
+            language={language}
+          />
+          <Fields
+            type="phone"
+            placeholder="Phone"
+            value={fieldPhone}
+            onChange={setFieldPhone}
+            phoneCode="+971"
+            language={language}
+          />
+          <Fields
+            type="date"
+            placeholder="Select date"
+            value={fieldDate}
+            onChange={setFieldDate}
+            language={language}
+          />
+          <Fields
+            type="uaeid"
+            placeholder="000-0000-0000000-0"
+            value={fieldUaeId}
+            onChange={setFieldUaeId}
+            language={language}
+          />
+          <button
+            type="button"
+            className="text-xs px-2 py-1 border rounded w-fit"
+            onClick={() => setFieldsError((e) => !e)}
+          >
+            Toggle Fields error
+          </button>
+        </section>
+
+        {/* 0.10 Toast */}
+        <section className="flex flex-col gap-3">
+          <h2 className={SECTION_TITLE}>0.10 Toast</h2>
+          <div className="flex flex-col gap-2">
+            <Toast message="Success: operation completed" status="success" />
+            <Toast message="Error: something went wrong" status="error" />
+            <Toast message="Information: please review" status="information" />
+            <Toast message="Action: confirm to continue" status="action" />
+          </div>
+          <p className="text-bold-xs text-text-dimmed">
+            Toasts auto-hide in 5s or close via icon. Refresh to show again.
+          </p>
+        </section>
+      </div>
     </QueryClientProvider>
   );
 }

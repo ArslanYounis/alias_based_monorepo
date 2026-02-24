@@ -1,8 +1,13 @@
 import type { LabelProps } from "@shared/types";
-import React, { useState } from "react";
+import React from "react";
 import { View, Pressable } from "react-native";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 import InfoIcon from "~/assets/svg/icons/Info";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "~/components/ui/popover";
 import { Tooltip } from "../Tooltip";
 
 export type { LabelProps };
@@ -18,8 +23,6 @@ export const Label: React.FC<LabelProps> = ({
   disabled = false,
   language = "en",
 }) => {
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-
   const textColorClass = disabled
     ? "text-text-dimmed"
     : "text-form-fields-label-text";
@@ -41,39 +44,43 @@ export const Label: React.FC<LabelProps> = ({
       )}
 
       {showInfoIcon && (
-        <View className="relative">
-          <Pressable
-            disabled={disabled}
-            onPress={() => setIsTooltipVisible((prev) => !prev)}
-            className="flex items-center justify-center"
-          >
-            <InfoIcon
-              width={14}
-              height={14}
-              className={
-                disabled
-                  ? "text-form-fields-label-disabled"
-                  : "text-form-fields-label-icon"
-              }
-            />
-          </Pressable>
-
-          {isTooltipVisible && !disabled && (
-            <View className="absolute z-50">
-              <Tooltip
-                text={
-                  language === "en"
-                    ? tooltipText
-                    : tooltipText_ar || tooltipText
-                }
-                direction={
-                  tooltipDirection ||
-                  (language === "en" ? "top-left" : "top-right")
+        <Popover>
+          <PopoverTrigger asChild disabled={disabled}>
+            <Pressable
+              className="flex items-center justify-center"
+              style={({ pressed }) => ({
+                opacity: disabled ? 1 : pressed ? 0.7 : 1,
+              })}
+            >
+              <InfoIcon
+                width={14}
+                height={14}
+                className={
+                  disabled
+                    ? "text-form-fields-label-disabled"
+                    : "text-form-fields-label-icon"
                 }
               />
-            </View>
-          )}
-        </View>
+            </Pressable>
+          </PopoverTrigger>
+          <PopoverContent
+            align="start"
+            side="top"
+            sideOffset={8}
+            className="w-fit border-none p-0"
+          >
+            {/* TODO: Tooltip in mobile may need to be updated (styling/behavior for popover context). */}
+            <Tooltip
+              text={
+                language === "en" ? tooltipText : tooltipText_ar || tooltipText
+              }
+              direction={
+                tooltipDirection ??
+                (language === "en" ? "top-left" : "top-right")
+              }
+            />
+          </PopoverContent>
+        </Popover>
       )}
     </View>
   );

@@ -187,13 +187,15 @@ export const Fields: React.FC<FormFieldProps> = ({
 
   const renderError = () =>
     hasError && errorMessage ? (
-      <Text className="text-form-fields-error text-xs mt-1 font-medium">
-        <SharedLanguageSwitchRenderer
-          language={language}
-          value={errorMessage}
-          value_ar={errorMessage_ar}
-        />
-      </Text>
+      <View className="mt-1 w-full">
+        <Text className="text-form-fields-error text-xs font-medium">
+          <SharedLanguageSwitchRenderer
+            language={language}
+            value={errorMessage}
+            value_ar={errorMessage_ar}
+          />
+        </Text>
+      </View>
     ) : null;
 
   const inputProps = {
@@ -435,8 +437,8 @@ export const Fields: React.FC<FormFieldProps> = ({
               icon ? "px-xxl" : ""
             }`}
           />
-          {renderError()}
         </View>
+        {renderError()}
       </View>
     );
   }
@@ -464,8 +466,8 @@ export const Fields: React.FC<FormFieldProps> = ({
             value={value ? value : internalValue}
             className={`${baseInputClass} ${getInputClasses()} px-xxxl`}
           />
-          {renderError()}
         </View>
+        {renderError()}
       </View>
     );
   }
@@ -490,8 +492,8 @@ export const Fields: React.FC<FormFieldProps> = ({
               icon ? "px-xxl" : ""
             }`}
           />
-          {renderError()}
         </View>
+        {renderError()}
       </View>
     );
   }
@@ -514,8 +516,8 @@ export const Fields: React.FC<FormFieldProps> = ({
             language === "en" ? placeholder : placeholder_ar ?? placeholder
           }
         />
-        {renderError()}
       </View>
+      {renderError()}
     </View>
   );
 };

@@ -1,26 +1,86 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { Label } from "./Label";
 
 const meta: Meta<typeof Label> = {
-  component: Label,
   title: "UI/Label",
-};
-export default meta;
-
-type Story = StoryObj<typeof Label>;
-
-export const Default: Story = {
-  args: { label: "Field label" },
-};
-
-export const Required: Story = {
-  args: { label: "Required field", required: true },
-};
-
-export const WithInfo: Story = {
-  args: {
-    label: "With info",
-    showInfoIcon: true,
-    tooltipText: "Additional information",
+  component: Label,
+  tags: ["autodocs"],
+  argTypes: {
+    label: { control: "text" },
+    required: { control: "boolean" },
+    showInfoIcon: { control: "boolean" },
+    tooltipText: { control: "text" },
+    tooltipDirection: {
+      control: "select",
+      options: [
+        "top-left",
+        "top-center",
+        "top-right",
+        "bottom-left",
+        "bottom-center",
+        "bottom-right",
+        "left-top",
+        "left-center",
+        "left-bottom",
+        "right-top",
+        "right-center",
+        "right-bottom",
+      ],
+    },
+    disabled: { control: "boolean" },
   },
 };
+
+export default meta;
+
+const Template: StoryFn<typeof Label> = (args) => <Label {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  label: "Label",
+  required: true,
+  showInfoIcon: true,
+  tooltipText: "tooltip",
+  tooltipDirection: "left-center",
+  disabled: false,
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  label: "Label",
+  required: true,
+  showInfoIcon: true,
+  tooltipText: "tooltip",
+  tooltipDirection: "left-center",
+  disabled: true,
+};
+
+export const ArabicLight: StoryFn<typeof Label> = (args) => (
+  <Label
+    {...args}
+    label="الاسم الكامل"
+    label_ar="الاسم الكامل"
+    required={true}
+    showInfoIcon={true}
+    tooltipText="معلومات إضافية"
+    tooltipText_ar="معلومات إضافية"
+    tooltipDirection="right-center"
+    theme="light"
+    language="ar"
+  />
+);
+
+export const ArabicDark: StoryFn<typeof Label> = (args) => (
+  <Label
+    {...args}
+    label="الاسم الكامل"
+    label_ar="الاسم الكامل"
+    required={true}
+    showInfoIcon={true}
+    tooltipText="معلومات إضافية"
+    tooltipText_ar="معلومات إضافية"
+    tooltipDirection="right-center"
+    theme="dark"
+    language="ar"
+  />
+);
