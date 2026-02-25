@@ -1,6 +1,6 @@
 import type { FooterProps } from "@shared/types";
 import React, { useState } from "react";
-import { View, Pressable } from "react-native";
+import { View, Pressable, useWindowDimensions } from "react-native";
 
 import { Bot } from "../Bot";
 import { Logo } from "../Logo";
@@ -9,44 +9,93 @@ import PullyDown from "~/assets/svg/icons/PullyDown";
 
 export type { FooterProps };
 
-export const Footer = ({
+const BREAKPOINT_SM = 640;
+
+function useIsMobile() {
+  const { width } = useWindowDimensions();
+  return width < BREAKPOINT_SM;
+}
+
+export const Footer: React.FC<FooterProps> = ({
   showLogo = true,
   logoType = "full",
-  logoWidth = 120,
-  logoHeight = 40,
-  logoClassName,
+  logoClassName = "",
+  logoWidth,
+  logoHeight,
   showBot = true,
   language = "en",
   botMessage = "Hello! How can I help you today?",
   botMessage_ar = "مرحبا! كيف يمكنني مساعدتك اليوم؟",
-  botClassName,
-}: FooterProps) => {
+  botClassName = "",
+}) => {
+  const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
   const [botStatus, setBotStatus] = useState<"open" | "close">("close");
 
   return (
-    <View className="w-full bg-white">
-      <View className="w-full items-center p-2">
-        <Pressable onPress={() => setOpen(!open)} className="mb-2">
-          {open ? <PullyUp /> : <PullyDown />}
-        </Pressable>
-
-        {open && (
-          <View className="w-full flex-row justify-between items-center px-2">
-            {showLogo && <Logo type="icon" width={48} height={48} className={logoClassName} />}
-
+    <View className="flex flex-row items-center justify-between p-m min-h-[98px]">
+      {/* Desktop: Logo left, Bot right (same as web sm and up) */}
+      {!isMobile && (
+        <>
+          <View className="flex flex-row items-center gap-4">
+            {showLogo && (
+              <Logo
+                type={logoType}
+                className={logoClassName}
+                width={logoWidth}
+                height={logoHeight}
+              />
+            )}
+          </View>
+          <View>
             {showBot && (
               <Bot
                 language={language}
                 message={botMessage}
                 message_ar={botMessage_ar}
                 status={botStatus}
-                onClick={setBotStatus}
+                className={botClassName}
+                onClick={(newStatus) => setBotStatus(newStatus)}
               />
             )}
           </View>
-        )}
-      </View>
+        </>
+      )}
+
+      {/* Mobile: pully + expandable row (same as web below sm) */}
+      {isMobile && (
+        <View className="flex flex-col items-center w-full">
+          <Pressable onPress={() => setOpen(!open)} className="mb-2">
+            {open ? <PullyUp /> : <PullyDown />}
+          </Pressable>
+          {open && (
+            <View className="flex flex-row justify-between items-center w-full">
+              <View className="w-12 h-12">
+                {showLogo && (
+                  <Logo
+                    type="icon"
+                    className={logoClassName}
+                    width={60}
+                    height={60}
+                  />
+                )}
+              </View>
+              <View>
+                {showBot && (
+                  <Bot
+                    language={language}
+                    message={botMessage}
+                    message_ar={botMessage_ar}
+                    status={botStatus}
+                    className={botClassName}
+                    onClick={(newStatus) => setBotStatus(newStatus)}
+                  />
+                )}
+              </View>
+            </View>
+          )}
+        </View>
+      )}
     </View>
   );
 };

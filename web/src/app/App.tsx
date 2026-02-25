@@ -10,6 +10,7 @@ import { AddButton } from "@/ui/AddButton";
 import { DateInput } from "@/ui/DateInput";
 import { Fields } from "@/ui/Fields";
 import { Toast } from "@/ui/Toast";
+import { Layout } from "@/ui/Layout";
 import type { TooltipDirectionType } from "@shared/types";
 
 const SECTION_TITLE = "text-bold-l text-text-default mb-2";
@@ -37,6 +38,18 @@ function App() {
   const [fieldDate, setFieldDate] = useState("");
   const [fieldUaeId, setFieldUaeId] = useState("");
   const [fieldsError, setFieldsError] = useState(false);
+  const [layoutToast, setLayoutToast] = useState<{ message: string; status: "success" | "error" | "information" | "action" }>({
+    message: "",
+    status: "success",
+  });
+  const layoutMenuItems = [
+    { label: "Profile", label_ar: "الملف الشخصي", onClick: () => {} },
+    { label: "Logout", label_ar: "تسجيل الخروج", onClick: () => {} },
+  ];
+  const layoutBreadcrumbItems = [
+    { label: "Home", label_ar: "الرئيسية", onClick: () => {} },
+    { label: "Group 1", label_ar: "المجموعة ١", onClick: () => {} },
+  ];
   const selectOptions = [
     { value: "a", label: "Option A", label_ar: "الخيار أ" },
     { value: "b", label: "Option B", label_ar: "الخيار ب" },
@@ -45,8 +58,30 @@ function App() {
 
   return (
     <QueryClientProvider client={new QueryClient()}>
-      <div className="p-6 flex flex-col gap-10 max-w-2xl">
-        {/* 0.1 Label */}
+      {/* Group 1 — Layout (full app shell for verification) */}
+      <Layout
+        language={language}
+        theme="light"
+        onToggleLanguage={() => setLanguage((l) => (l === "en" ? "ar" : "en"))}
+        isEditing={false}
+        menuItems={layoutMenuItems}
+        breadcrumbItems={layoutBreadcrumbItems}
+        showHeader
+        showSidebar
+        showFooter
+        toast={layoutToast.message ? layoutToast : { message: "", status: "success" }}
+      >
+        <div className="p-6 flex flex-col gap-10 max-w-2xl">
+          <button
+            type="button"
+            className="text-sm px-3 py-1.5 border rounded mb-4"
+            onClick={() =>
+              setLayoutToast({ message: "Layout toast message", status: "success" })
+            }
+          >
+            Show toast in Layout
+          </button>
+          {/* 0.1 Label */}
         <section className="flex flex-col gap-3">
           <h2 className={SECTION_TITLE}>0.1 Label</h2>
           <Label
@@ -418,7 +453,8 @@ function App() {
             Toasts auto-hide in 5s or close via icon. Refresh to show again.
           </p>
         </section>
-      </div>
+        </div>
+      </Layout>
     </QueryClientProvider>
   );
 }

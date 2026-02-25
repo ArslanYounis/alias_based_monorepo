@@ -54,3 +54,10 @@ export type {
   TypographyVariant,
 } from "./Typography";
 export type { ToastProps, ToastStatus } from "./Toast";
+export type {
+  LayoutProps,
+  LayoutSlots,
+  LayoutPropsWithSlots,
+  LayoutContainerProps,
+  LayoutSidebarProps,
+} from "./Layout";

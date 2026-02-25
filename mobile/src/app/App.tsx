@@ -19,6 +19,7 @@ import { AddButton } from "~/src/ui/AddButton";
 import { DateInput } from "~/src/ui/DateInput";
 import { Fields } from "~/src/ui/Fields";
 import { Toast } from "~/src/ui/Toast";
+import { Layout } from "~/src/ui/Layout";
 import type { TooltipDirectionType } from "@shared/types";
 
 const sectionTitleStyle = { marginBottom: 8, fontSize: 18, fontWeight: "600" as const };
@@ -46,6 +47,21 @@ export default function App() {
   const [fieldDate, setFieldDate] = useState("");
   const [fieldUaeId, setFieldUaeId] = useState("");
   const [fieldsError, setFieldsError] = useState(false);
+  const [layoutToast, setLayoutToast] = useState<{
+    message: string;
+    status: "success" | "error" | "information" | "action";
+  }>({
+    message: "",
+    status: "success",
+  });
+  const layoutMenuItems = [
+    { label: "Profile", label_ar: "الملف الشخصي", onClick: () => {} },
+    { label: "Logout", label_ar: "تسجيل الخروج", onClick: () => {} },
+  ];
+  const layoutBreadcrumbItems = [
+    { label: "Home", label_ar: "الرئيسية", onClick: () => {} },
+    { label: "Group 1", label_ar: "المجموعة ١", onClick: () => {} },
+  ];
 
   const selectOptions = [
     { value: "a", label: "Option A", label_ar: "الخيار أ" },
@@ -56,11 +72,34 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1, marginTop: 50 }}>
       <QueryClientProvider client={new QueryClient()}>
+        {/* <Layout
+          language={language}
+          theme="light"
+          onToggleLanguage={() => setLanguage((l) => (l === "en" ? "ar" : "en"))}
+          isEditing={false}
+          menuItems={layoutMenuItems}
+          breadcrumbItems={layoutBreadcrumbItems}
+          showHeader
+          showSidebar
+          showFooter
+          toast={layoutToast.message ? layoutToast : { message: "", status: "success" }}
+        > */}
         <ScrollView
           style={styles.scroll}
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
+          <Pressable
+            style={[styles.toggleBtn, { marginBottom: 16 }]}
+            onPress={() =>
+              setLayoutToast({
+                message: "Layout toast message",
+                status: "success",
+              })
+            }
+          >
+            <Text style={styles.toggleBtnText}>Show toast in Layout</Text>
+          </Pressable>
           {/* 0.1 Label */}
           <View style={styles.section}>
             <Text style={sectionTitleStyle}>0.1 Label</Text>
@@ -101,7 +140,9 @@ export default function App() {
               captionLeft="With error"
               captionRight="Right"
               hasError={captionError}
-              errorMessage={captionError ? "This field has an error" : undefined}
+              errorMessage={
+                captionError ? "This field has an error" : undefined
+              }
               errorMessage_ar={captionError ? "هذا الحقل به خطأ" : undefined}
               language={language}
             />
@@ -112,14 +153,25 @@ export default function App() {
               language={language}
             />
             <View style={styles.buttonRow}>
-              <Pressable style={styles.toggleBtn} onPress={() => setCaptionError((e) => !e)}>
+              <Pressable
+                style={styles.toggleBtn}
+                onPress={() => setCaptionError((e) => !e)}
+              >
                 <Text style={styles.toggleBtnText}>Toggle error</Text>
               </Pressable>
-              <Pressable style={styles.toggleBtn} onPress={() => setCaptionDisabled((d) => !d)}>
+              <Pressable
+                style={styles.toggleBtn}
+                onPress={() => setCaptionDisabled((d) => !d)}
+              >
                 <Text style={styles.toggleBtnText}>Toggle disabled</Text>
               </Pressable>
-              <Pressable style={styles.toggleBtn} onPress={() => setLanguage((l) => (l === "en" ? "ar" : "en"))}>
-                <Text style={styles.toggleBtnText}>{language === "en" ? "العربية" : "English"}</Text>
+              <Pressable
+                style={styles.toggleBtn}
+                onPress={() => setLanguage((l) => (l === "en" ? "ar" : "en"))}
+              >
+                <Text style={styles.toggleBtnText}>
+                  {language === "en" ? "العربية" : "English"}
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -129,16 +181,33 @@ export default function App() {
             <Text style={sectionTitleStyle}>0.3 Tooltip</Text>
             <View style={styles.rowWrap}>
               <View style={styles.tooltipWrap}>
-                <Tooltip text="Tooltip text" text_ar="نص التلميح" language={language} direction="none" />
+                <Tooltip
+                  text="Tooltip text"
+                  text_ar="نص التلميح"
+                  language={language}
+                  direction="none"
+                />
               </View>
               <View style={styles.tooltipWrap}>
-                <Tooltip text="Top center" direction="top-center" language={language} />
+                <Tooltip
+                  text="Top center"
+                  direction="top-center"
+                  language={language}
+                />
               </View>
               <View style={styles.tooltipWrap}>
-                <Tooltip text="Bottom center" direction="bottom-center" language={language} />
+                <Tooltip
+                  text="Bottom center"
+                  direction="bottom-center"
+                  language={language}
+                />
               </View>
               <View style={styles.tooltipWrap}>
-                <Tooltip text="Dynamic" direction={tooltipDirection} language={language} />
+                <Tooltip
+                  text="Dynamic"
+                  direction={tooltipDirection}
+                  language={language}
+                />
               </View>
             </View>
           </View>
@@ -152,22 +221,41 @@ export default function App() {
                 checked={checkboxChecked}
                 onChange={(_, checked) => setCheckboxChecked(!!checked)}
               />
-              <Text style={styles.hint}>Controlled ({checkboxChecked ? "checked" : "unchecked"})</Text>
+              <Text style={styles.hint}>
+                Controlled ({checkboxChecked ? "checked" : "unchecked"})
+              </Text>
               <Checkbox id="cb-uncontrolled" onChange={() => {}} />
               <Text style={styles.hint}>Uncontrolled</Text>
-              <Checkbox id="cb-disabled" disabled={checkboxDisabled} onChange={() => {}} />
+              <Checkbox
+                id="cb-disabled"
+                disabled={checkboxDisabled}
+                onChange={() => {}}
+              />
               <Text style={styles.hint}>Disabled</Text>
-              <Checkbox id="cb-error" hasError={checkboxError} onChange={() => {}} />
+              <Checkbox
+                id="cb-error"
+                hasError={checkboxError}
+                onChange={() => {}}
+              />
               <Text style={styles.hint}>Error</Text>
             </View>
             <View style={styles.buttonRow}>
-              <Pressable style={styles.toggleBtn} onPress={() => setCheckboxChecked((c) => !c)}>
+              <Pressable
+                style={styles.toggleBtn}
+                onPress={() => setCheckboxChecked((c) => !c)}
+              >
                 <Text style={styles.toggleBtnText}>Toggle checked</Text>
               </Pressable>
-              <Pressable style={styles.toggleBtn} onPress={() => setCheckboxDisabled((d) => !d)}>
+              <Pressable
+                style={styles.toggleBtn}
+                onPress={() => setCheckboxDisabled((d) => !d)}
+              >
                 <Text style={styles.toggleBtnText}>Toggle disabled</Text>
               </Pressable>
-              <Pressable style={styles.toggleBtn} onPress={() => setCheckboxError((e) => !e)}>
+              <Pressable
+                style={styles.toggleBtn}
+                onPress={() => setCheckboxError((e) => !e)}
+              >
                 <Text style={styles.toggleBtnText}>Toggle error</Text>
               </Pressable>
             </View>
@@ -196,8 +284,17 @@ export default function App() {
           {/* 0.6 CheckRadioLabel */}
           <View style={styles.section}>
             <Text style={sectionTitleStyle}>0.6 CheckRadioLabel</Text>
-            <CheckRadioLabel label="Option label" label_ar="تسمية الخيار" language={language} />
-            <CheckRadioLabel label="Disabled label" label_ar="تسمية معطلة" disabled language={language} />
+            <CheckRadioLabel
+              label="Option label"
+              label_ar="تسمية الخيار"
+              language={language}
+            />
+            <CheckRadioLabel
+              label="Disabled label"
+              label_ar="تسمية معطلة"
+              disabled
+              language={language}
+            />
           </View>
 
           {/* 0.7 AddButton */}
@@ -209,9 +306,15 @@ export default function App() {
                 disabled={addButtonDisabled}
                 onClick={() => setAddButtonClicks((c) => c + 1)}
               />
-              <Text style={styles.hint}>Clicks: {addButtonClicks} | Disabled: {addButtonDisabled ? "yes" : "no"}</Text>
+              <Text style={styles.hint}>
+                Clicks: {addButtonClicks} | Disabled:{" "}
+                {addButtonDisabled ? "yes" : "no"}
+              </Text>
             </View>
-            <Pressable style={styles.toggleBtn} onPress={() => setAddButtonDisabled((d) => !d)}>
+            <Pressable
+              style={styles.toggleBtn}
+              onPress={() => setAddButtonDisabled((d) => !d)}
+            >
               <Text style={styles.toggleBtnText}>Toggle disabled</Text>
             </Pressable>
           </View>
@@ -225,7 +328,9 @@ export default function App() {
               label="Date field"
               label_ar="حقل التاريخ"
               value={dateValue}
-              onDateChange={(d) => setDateValue(d ? d.toISOString().slice(0, 10) : "")}
+              onDateChange={(d) =>
+                setDateValue(d ? d.toISOString().slice(0, 10) : "")
+              }
               required
               infoText="Pick a date"
               infoText_ar="اختر تاريخاً"
@@ -241,16 +346,82 @@ export default function App() {
           {/* 0.9 Fields */}
           <View style={styles.section}>
             <Text style={sectionTitleStyle}>0.9 Fields</Text>
-            <Fields type="text" placeholder="Text placeholder" value={fieldText} onChange={setFieldText} hasError={fieldsError} errorMessage="Invalid value" language={language} testId="field-text" />
-            <Fields type="textarea" placeholder="Textarea placeholder" value={fieldTextArea} onChange={setFieldTextArea} language={language} />
-            <Fields type="select" placeholder="Select..." value={fieldSelect} onChange={setFieldSelect} options={selectOptions} selectType="single" language={language} />
-            <Fields type="select" placeholder="Multi select..." value={fieldMultiSelect} onChange={setFieldMultiSelect} options={selectOptions} selectType="multi" language={language} />
-            <Fields type="number" placeholder="Number" value={fieldNumber} onChange={setFieldNumber} language={language} />
-            <Fields type="currency" placeholder="0.00" value={fieldCurrency} onChange={setFieldCurrency} currencySymbol="AED" language={language} />
-            <Fields type="phone" placeholder="Phone" value={fieldPhone} onChange={setFieldPhone} phoneCode="+971" language={language} />
-            <Fields type="date" placeholder="Select date" value={fieldDate} onChange={setFieldDate} language={language} />
-            <Fields type="uaeid" placeholder="000-0000-0000000-0" value={fieldUaeId} onChange={setFieldUaeId} language={language} />
-            <Pressable style={styles.toggleBtn} onPress={() => setFieldsError((e) => !e)}>
+            <Fields
+              type="text"
+              placeholder="Text placeholder"
+              value={fieldText}
+              onChange={setFieldText}
+              hasError={fieldsError}
+              errorMessage="Invalid value"
+              language={language}
+              testId="field-text"
+            />
+            <Fields
+              type="textarea"
+              placeholder="Textarea placeholder"
+              value={fieldTextArea}
+              onChange={setFieldTextArea}
+              language={language}
+            />
+            <Fields
+              type="select"
+              placeholder="Select..."
+              value={fieldSelect}
+              onChange={setFieldSelect}
+              options={selectOptions}
+              selectType="single"
+              language={language}
+            />
+            <Fields
+              type="select"
+              placeholder="Multi select..."
+              value={fieldMultiSelect}
+              onChange={setFieldMultiSelect}
+              options={selectOptions}
+              selectType="multi"
+              language={language}
+            />
+            <Fields
+              type="number"
+              placeholder="Number"
+              value={fieldNumber}
+              onChange={setFieldNumber}
+              language={language}
+            />
+            <Fields
+              type="currency"
+              placeholder="0.00"
+              value={fieldCurrency}
+              onChange={setFieldCurrency}
+              currencySymbol="AED"
+              language={language}
+            />
+            <Fields
+              type="phone"
+              placeholder="Phone"
+              value={fieldPhone}
+              onChange={setFieldPhone}
+              phoneCode="+971"
+              language={language}
+            />
+            <Fields
+              type="date"
+              placeholder="Select date"
+              value={fieldDate}
+              onChange={setFieldDate}
+              language={language}
+            />
+            <Fields
+              type="uaeid"
+              placeholder="000-0000-0000000-0"
+              value={fieldUaeId}
+              onChange={setFieldUaeId}
+              language={language}
+            />
+            <Pressable
+              style={styles.toggleBtn}
+              onPress={() => setFieldsError((e) => !e)}
+            >
               <Text style={styles.toggleBtnText}>Toggle Fields error</Text>
             </Pressable>
           </View>
@@ -262,9 +433,12 @@ export default function App() {
             <Toast message="Error: something went wrong" status="error" />
             <Toast message="Information: please review" status="information" />
             <Toast message="Action: confirm to continue" status="action" />
-            <Text style={styles.hint}>Toasts auto-hide in 5s or close via ×</Text>
+            <Text style={styles.hint}>
+              Toasts auto-hide in 5s or close via ×
+            </Text>
           </View>
         </ScrollView>
+        {/* </Layout> */}
       </QueryClientProvider>
     </GestureHandlerRootView>
   );
