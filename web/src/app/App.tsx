@@ -30,6 +30,8 @@ import { Pagination } from "@/ui/Pagination";
 import { AddMoreButton } from "@/ui/AddMoreButton";
 import { Prompt } from "@/ui/Prompt";
 import { ScreenLoader } from "@/ui/ScreenLoader";
+import TitleBar from "@/components/TitleBar";
+import OwnerSearch from "@/components/OwnerSearch";
 import type { TooltipDirectionType } from "@shared/types";
 
 const SECTION_TITLE = "text-bold-l text-text-default mb-2";
@@ -615,6 +617,68 @@ function App() {
             Toggle ScreenLoader
           </button>
           <ScreenLoader isLoading={showScreenLoader} alt="Loading..." />
+        </section>
+
+        {/* Group 4 — TitleBar (G-4.1) */}
+        <section className="flex flex-col gap-6">
+          <h2 className={SECTION_TITLE}>Group 4 — TitleBar (G-4.1)</h2>
+          <TitleBar
+            language={language}
+            showTitle={true}
+            title="Land Allocation"
+            title_ar="تخصيص الأراضي"
+            showAcronym={true}
+            acronym="LA"
+            acronym_ar="LA"
+            showButton={true}
+            buttonLabel="New Application"
+            buttonLabel_ar="طلب جديد"
+            buttonType="primary"
+            onClick={() => {}}
+          />
+          <TitleBar
+            language={language}
+            showTitle={true}
+            title="Page Title"
+            title_ar="عنوان الصفحة"
+            showAcronym={false}
+            showButton={false}
+          />
+          <TitleBar
+            language={language}
+            showTitle={true}
+            title="With Secondary Button"
+            title_ar="مع زر ثانوي"
+            showAcronym={true}
+            acronym="WSB"
+            showButton={true}
+            buttonLabel="Secondary CTA"
+            buttonLabel_ar="إجراء ثانوي"
+            buttonType="secondary"
+            onClick={() => {}}
+          />
+        </section>
+
+        {/* Group 4 — OwnerSearch (G-4.2) */}
+        <section className="flex flex-col gap-6">
+          <h2 className={SECTION_TITLE}>Group 4 — OwnerSearch (G-4.2)</h2>
+          <OwnerSearch
+            language={language}
+            title="New Application"
+            title_ar="طلب جديد"
+            subtitle="Search Owner"
+            subtitle_ar="بحث عن مالك"
+            ownerTypeOptions={{
+              company: "By Company Owner",
+              company_ar: "حسب مالك الشركة",
+              owner: "By Owner",
+              owner_ar: "حسب المالك",
+            }}
+            initialOwnerType="company"
+            theme="dark"
+            selected={[]}
+            onSubmit={(val) => console.log("OwnerSearch onSubmit", val)}
+          />
         </section>
 
         {/* 0.10 Toast */}

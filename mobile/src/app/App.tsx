@@ -8,6 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Label } from "~/src/ui/Label";
 import { Caption } from "~/src/ui/Caption";
@@ -39,6 +40,8 @@ import { Pagination } from "~/src/ui/Pagination";
 import { AddMoreButton } from "~/src/ui/AddMoreButton";
 import { Prompt } from "~/src/ui/Prompt";
 import { ScreenLoader } from "~/src/ui/ScreenLoader";
+import TitleBar from "~/src/components/TitleBar";
+import OwnerSearch from "~/src/components/OwnerSearch";
 import type { TooltipDirectionType } from "@shared/types";
 
 const sectionTitleStyle = { marginBottom: 8, fontSize: 18, fontWeight: "600" as const };
@@ -96,6 +99,7 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1, marginTop: 50 }}>
+      <BottomSheetModalProvider>
       <QueryClientProvider client={new QueryClient()}>
         {/* <Layout
           language={language}
@@ -629,6 +633,68 @@ export default function App() {
             <ScreenLoader isLoading={showScreenLoader} alt="Loading..." />
           </View>
 
+          {/* Group 4 — TitleBar (G-4.1) */}
+          <View style={styles.section}>
+            <Text style={sectionTitleStyle}>Group 4 — TitleBar (G-4.1)</Text>
+            <TitleBar
+              language={language}
+              showTitle={true}
+              title="Land Allocation"
+              title_ar="تخصيص الأراضي"
+              showAcronym={true}
+              acronym="LA"
+              acronym_ar="LA"
+              showButton={true}
+              buttonLabel="New Application"
+              buttonLabel_ar="طلب جديد"
+              buttonType="primary"
+              onClick={() => {}}
+            />
+            <TitleBar
+              language={language}
+              showTitle={true}
+              title="Page Title"
+              title_ar="عنوان الصفحة"
+              showAcronym={false}
+              showButton={false}
+            />
+            <TitleBar
+              language={language}
+              showTitle={true}
+              title="With Secondary Button"
+              title_ar="مع زر ثانوي"
+              showAcronym={true}
+              acronym="WSB"
+              showButton={true}
+              buttonLabel="Secondary CTA"
+              buttonLabel_ar="إجراء ثانوي"
+              buttonType="secondary"
+              onClick={() => {}}
+            />
+          </View>
+
+          {/* Group 4 — OwnerSearch (G-4.2) */}
+          <View style={styles.section}>
+            <Text style={sectionTitleStyle}>Group 4 — OwnerSearch (G-4.2)</Text>
+            <OwnerSearch
+              language={language}
+              title="New Application"
+              title_ar="طلب جديد"
+              subtitle="Search Owner"
+              subtitle_ar="بحث عن مالك"
+              ownerTypeOptions={{
+                company: "By Company Owner",
+                company_ar: "حسب مالك الشركة",
+                owner: "By Owner",
+                owner_ar: "حسب المالك",
+              }}
+              initialOwnerType="company"
+              theme="dark"
+              selected={[]}
+              onSubmit={(val) => console.log("OwnerSearch onSubmit", val)}
+            />
+          </View>
+
           {/* 0.10 Toast */}
           <View style={styles.section}>
             <Text style={sectionTitleStyle}>0.10 Toast</Text>
@@ -643,6 +709,7 @@ export default function App() {
         </ScrollView>
         {/* </Layout> */}
       </QueryClientProvider>
+    </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
 }

@@ -2,6 +2,18 @@ export type {
   AddButtonProps,
 } from "./AddButton";
 export type {
+  IOwnerSearchResult,
+  OwnerTypeOptions,
+  OwnerSearchProps as OwnerSearchMainProps,
+  SearchByOwnerProps,
+  SearchByCompanyOwnerProps,
+  OwnerSearchResultProps,
+  SearchByOwnerPayload,
+  SearchByCompanyOwnerPayload,
+  SearchByOwnerResponse,
+  SearchByCompanyOwnerResponse,
+} from "./OwnerSearch";
+export type {
   AvatarProps,
   StatusType,
 } from "./Avatar";
