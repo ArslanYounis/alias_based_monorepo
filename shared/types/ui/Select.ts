@@ -27,4 +27,6 @@ export interface SelectProps {
   captionRight_ar?: string;
   language?: "en" | "ar";
   options?: SelectOption[];
+  title?: string;
+  title_ar?: string;
 }

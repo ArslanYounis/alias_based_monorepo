@@ -27,9 +27,14 @@ export const Select: React.FC<SelectProps> = ({
   captionRight_ar = "",
   language = "en",
   options = [],
+  title,
+  title_ar,
 }) => {
   return (
-    <div className="flex flex-col gap-[10px]">
+    <div
+      className="flex flex-col gap-2 w-full relative"
+      dir={language === "ar" ? "rtl" : "ltr"}
+    >
       <Label
         label={label}
         label_ar={label_ar}
@@ -54,6 +59,8 @@ export const Select: React.FC<SelectProps> = ({
         disabled={disabled}
         language={language}
         options={options}
+        title={title}
+        title_ar={title_ar}
       />
       {(captionLeft ||
         captionRight ||

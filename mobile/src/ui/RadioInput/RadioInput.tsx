@@ -2,7 +2,8 @@ import type { RadioInputProps } from "@shared/types";
 import React from "react";
 import { View } from "react-native";
 import { Label } from "../Label";
-import { CheckRadioLabel } from "../CheckRadioLabel";
+import { Caption } from "../Caption";
+import { RadioField } from "../RadioField";
 
 export type { RadioInputProps };
 
@@ -10,32 +11,82 @@ export const RadioInput: React.FC<RadioInputProps> = ({
   label = "",
   label_ar = "",
   required = false,
+  showInfoIcon = false,
+  tooltipText = "",
+  tooltipText_ar = "",
   value = "",
   onChange = () => {},
-  disabled = false,
   options = [],
+  disabled = false,
+  hasError = false,
+  errorMessage = "",
+  errorMessage_ar = "",
+  captionLeft = "",
+  captionLeft_ar = "",
+  captionRight = "",
+  captionRight_ar = "",
   language = "en",
 }) => {
+  const handleRadioChange = (selectedValue: string) => {
+    onChange(selectedValue);
+  };
+
   return (
-    <View className="flex flex-col gap-[10px]">
+    <View style={{ gap: 8 }}>
       <Label
         label={label}
         label_ar={label_ar}
         required={required}
+        showInfoIcon={showInfoIcon}
+        tooltipText={tooltipText}
+        tooltipText_ar={tooltipText_ar}
+        disabled={disabled}
+        tooltipDirection={language === "en" ? "left-center" : "right-center"}
         language={language}
       />
-      <View className="flex flex-col gap-2">
-        {options.map((opt) => (
-          <View key={opt.value} className="flex flex-row items-center gap-2">
-            <CheckRadioLabel
-              label={opt.label}
-              label_ar={opt.label_ar}
-              language={language}
+
+      <View style={{ gap: 8 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            gap: 16,
+          }}
+        >
+          {options.map((option) => (
+            <RadioField
+              key={option.value}
+              id={option.value}
+              value={option.value}
+              label={option.label}
+              label_ar={option.label_ar}
+              checked={value === option.value}
               disabled={disabled}
-              onClick={() => onChange?.(opt.value)}
+              hasError={hasError}
+              onChange={handleRadioChange}
+              language={language}
             />
-          </View>
-        ))}
+          ))}
+        </View>
+
+        {(captionLeft ||
+          captionRight ||
+          captionLeft_ar ||
+          captionRight_ar ||
+          (hasError && (errorMessage || errorMessage_ar))) && (
+          <Caption
+            language={language}
+            captionLeft={captionLeft}
+            captionLeft_ar={captionLeft_ar}
+            captionRight={captionRight}
+            captionRight_ar={captionRight_ar}
+            hasError={hasError}
+            errorMessage={errorMessage}
+            errorMessage_ar={errorMessage_ar}
+            disabled={disabled}
+          />
+        )}
       </View>
     </View>
   );

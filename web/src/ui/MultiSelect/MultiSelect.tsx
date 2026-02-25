@@ -29,10 +29,15 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   options = [],
   maxSelection,
   showAddButton = false,
+  title,
+  title_ar,
 }) => {
   const valueStr = Array.isArray(value) ? value.join(",") : value ?? "";
   return (
-    <div className="flex flex-col gap-[10px]">
+    <div
+      className="flex flex-col gap-2 w-full"
+      dir={language === "ar" ? "rtl" : "ltr"}
+    >
       <Label
         label={label}
         label_ar={label_ar}
@@ -58,6 +63,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         language={language}
         options={options}
         showAddButton={showAddButton}
+        title={title}
+        title_ar={title_ar}
       />
       {(captionLeft ||
         captionRight ||

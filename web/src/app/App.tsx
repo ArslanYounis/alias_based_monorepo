@@ -11,6 +11,25 @@ import { DateInput } from "@/ui/DateInput";
 import { Fields } from "@/ui/Fields";
 import { Toast } from "@/ui/Toast";
 import { Layout } from "@/ui/Layout";
+import { TextInput } from "@/ui/TextInput";
+import { PhoneInput } from "@/ui/PhoneInput";
+import { TextArea } from "@/ui/TextArea";
+import { Select } from "@/ui/Select";
+import { MultiSelect } from "@/ui/MultiSelect";
+import { CurrencyInput } from "@/ui/CurrencyInput";
+import { NumberInput } from "@/ui/NumberInput";
+import { DateSelect } from "@/ui/DateSelect";
+import { CheckboxField } from "@/ui/CheckboxField";
+import { CheckboxInput } from "@/ui/CheckboxInput";
+import { RadioField } from "@/ui/RadioField";
+import { RadioInput } from "@/ui/RadioInput";
+import { Buttons } from "@/ui/Buttons";
+import { Typography } from "@/ui/Typography";
+import { Breadcrumb } from "@/ui/Breadcrumb";
+import { Pagination } from "@/ui/Pagination";
+import { AddMoreButton } from "@/ui/AddMoreButton";
+import { Prompt } from "@/ui/Prompt";
+import { ScreenLoader } from "@/ui/ScreenLoader";
 import type { TooltipDirectionType } from "@shared/types";
 
 const SECTION_TITLE = "text-bold-l text-text-default mb-2";
@@ -42,6 +61,12 @@ function App() {
     message: "",
     status: "success",
   });
+  const [checkboxFieldChecked, setCheckboxFieldChecked] = useState(false);
+  const [radioInputVal, setRadioInputVal] = useState("a");
+  const [checkboxInputVal, setCheckboxInputVal] = useState<string[]>([]);
+  const [paginationPage, setPaginationPage] = useState(1);
+  const [showPrompt, setShowPrompt] = useState(false);
+  const [showScreenLoader, setShowScreenLoader] = useState(false);
   const layoutMenuItems = [
     { label: "Profile", label_ar: "الملف الشخصي", onClick: () => {} },
     { label: "Logout", label_ar: "تسجيل الخروج", onClick: () => {} },
@@ -438,6 +463,158 @@ function App() {
           >
             Toggle Fields error
           </button>
+        </section>
+
+        {/* Group 2 — Form Components (all states: normal, error, disabled) */}
+        <section className="flex flex-col gap-6">
+          <h2 className={SECTION_TITLE}>Group 2 — Form Components</h2>
+          <p className="text-bold-xs text-text-dimmed mb-1">
+            Each input shown in Normal, Error, and Disabled states.
+          </p>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">TextInput</h3>
+            <TextInput label="Normal" placeholder="Enter text" value={fieldText} onChange={setFieldText} language={language} />
+            <TextInput label="With error" placeholder="Enter text" value={fieldText} onChange={setFieldText} hasError errorMessage="This field is required" language={language} />
+            <TextInput label="Disabled" placeholder="Enter text" value={fieldText} onChange={setFieldText} disabled language={language} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">PhoneInput</h3>
+            <PhoneInput label="Normal" placeholder="Phone" value={fieldPhone} onChange={setFieldPhone} phoneCode="+971" language={language} />
+            <PhoneInput label="With error" placeholder="Phone" value={fieldPhone} onChange={setFieldPhone} phoneCode="+971" hasError errorMessage="Invalid phone number" language={language} />
+            <PhoneInput label="Disabled" placeholder="Phone" value={fieldPhone} onChange={setFieldPhone} phoneCode="+971" disabled language={language} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">TextArea</h3>
+            <TextArea label="Normal" placeholder="Multi-line text" value={fieldTextArea} onChange={setFieldTextArea} language={language} />
+            <TextArea label="With error" placeholder="Multi-line text" value={fieldTextArea} onChange={setFieldTextArea} hasError errorMessage="Max 500 characters" language={language} />
+            <TextArea label="Disabled" placeholder="Multi-line text" value={fieldTextArea} onChange={setFieldTextArea} disabled language={language} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">Select</h3>
+            <Select label="Normal" placeholder="Choose..." value={fieldSelect} onChange={setFieldSelect} options={selectOptions} language={language} />
+            <Select label="With error" placeholder="Choose..." value={fieldSelect} onChange={setFieldSelect} options={selectOptions} hasError errorMessage="Please select an option" language={language} />
+            <Select label="Disabled" placeholder="Choose..." value={fieldSelect} onChange={setFieldSelect} options={selectOptions} disabled language={language} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">MultiSelect</h3>
+            <MultiSelect label="Normal" placeholder="Choose multiple..." value={fieldMultiSelect} onChange={setFieldMultiSelect} options={selectOptions} language={language} />
+            <MultiSelect label="With error" placeholder="Choose multiple..." value={fieldMultiSelect} onChange={setFieldMultiSelect} options={selectOptions} hasError errorMessage="Select at least one" language={language} />
+            <MultiSelect label="Disabled" placeholder="Choose multiple..." value={fieldMultiSelect} onChange={setFieldMultiSelect} options={selectOptions} disabled language={language} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">CurrencyInput</h3>
+            <CurrencyInput label="Normal" value={fieldCurrency} onChange={setFieldCurrency} currencySymbol="AED" language={language} />
+            <CurrencyInput label="With error" value={fieldCurrency} onChange={setFieldCurrency} currencySymbol="AED" hasError errorMessage="Invalid amount" language={language} />
+            <CurrencyInput label="Disabled" value={fieldCurrency} onChange={setFieldCurrency} currencySymbol="AED" disabled language={language} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">NumberInput</h3>
+            <NumberInput label="Normal" value={fieldNumber} onChange={setFieldNumber} language={language} />
+            <NumberInput label="With error" value={fieldNumber} onChange={setFieldNumber} hasError errorMessage="Must be a number" language={language} />
+            <NumberInput label="Disabled" value={fieldNumber} onChange={setFieldNumber} disabled language={language} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">DateSelect</h3>
+            <DateSelect label="Normal" placeholder="Select date" value={fieldDate} onDateChange={(d) => setFieldDate(d ? d.toISOString().slice(0, 10) : "")} language={language} />
+            <DateSelect label="With error" placeholder="Select date" value={fieldDate} onDateChange={(d) => setFieldDate(d ? d.toISOString().slice(0, 10) : "")} hasError errMessage="Invalid date" language={language} />
+            <DateSelect label="Disabled" placeholder="Select date" value={fieldDate} onDateChange={(d) => setFieldDate(d ? d.toISOString().slice(0, 10) : "")} disabled language={language} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">CheckboxField</h3>
+            <CheckboxField label="Normal" checked={checkboxFieldChecked} onChange={(v) => setCheckboxFieldChecked(!!v)} language={language} />
+            <CheckboxField label="With error" checked={checkboxFieldChecked} onChange={(v) => setCheckboxFieldChecked(!!v)} language={language} />
+            <CheckboxField label="Disabled" checked={checkboxFieldChecked} onChange={(v) => setCheckboxFieldChecked(!!v)} disabled language={language} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">CheckboxInput</h3>
+            <CheckboxInput label="Normal" options={selectOptions as { value: string; label?: string; label_ar?: string }[]} value={checkboxInputVal} onChange={setCheckboxInputVal} language={language} />
+            <CheckboxInput label="With error" options={selectOptions as { value: string; label?: string; label_ar?: string }[]} value={checkboxInputVal} onChange={setCheckboxInputVal} language={language} />
+            <CheckboxInput label="Disabled" options={selectOptions as { value: string; label?: string; label_ar?: string }[]} value={checkboxInputVal} onChange={setCheckboxInputVal} disabled language={language} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">RadioField</h3>
+            <RadioField label="Normal" value="opt1" checked={radioInputVal === "opt1"} onChange={(v) => setRadioInputVal(v)} language={language} />
+            <RadioField label="Disabled" value="opt1" checked={radioInputVal === "opt1"} onChange={(v) => setRadioInputVal(v)} disabled language={language} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-bold-sm text-text-default">RadioInput</h3>
+            <RadioInput label="Normal" options={selectOptions} value={radioInputVal} onChange={setRadioInputVal} language={language} />
+            <RadioInput label="With error" options={selectOptions} value={radioInputVal} onChange={setRadioInputVal} hasError errorMessage="Please select an option" language={language} />
+            <RadioInput label="Disabled" options={selectOptions} value={radioInputVal} onChange={setRadioInputVal} disabled language={language} />
+          </div>
+        </section>
+
+        {/* Group 3 — UI Primitives */}
+        <section className="flex flex-col gap-4">
+          <h2 className={SECTION_TITLE}>Group 3 — UI Primitives</h2>
+          <div className="flex flex-wrap gap-2">
+            <Buttons title="Primary" type="primary" onClick={() => {}} language={language} />
+            <Buttons title="Secondary" type="secondary" onClick={() => {}} language={language} />
+            <Buttons title="Tertiary" type="tertiary" onClick={() => {}} language={language} />
+            <Buttons title="Text link" type="text-link" onClick={() => {}} language={language} />
+            <Buttons title="Delete" type="delete" onClick={() => {}} language={language} />
+            <Buttons title="Disabled" disabled onClick={() => {}} language={language} />
+          </div>
+          <Typography variant="h2" text="Typography H2" text_ar="العنوان" language={language} />
+          <Typography variant="text-md" text="Body text" color="dimmed" language={language} />
+          <Breadcrumb
+            items={layoutBreadcrumbItems}
+            selectedItemIndex={0}
+            language={language}
+          />
+          <Pagination
+            currentPage={paginationPage}
+            totalPages={10}
+            pageSize={10}
+            onPageChange={setPaginationPage}
+            language={language}
+          />
+          <AddMoreButton
+            title="Add more"
+            title_ar="إضافة المزيد"
+            onClick={() => {}}
+            language={language}
+          />
+          <button
+            type="button"
+            className="text-xs px-2 py-1 border rounded"
+            onClick={() => setShowPrompt(true)}
+          >
+            Show Prompt
+          </button>
+          {showPrompt && (
+            <Prompt
+              title="Confirm action"
+              title_ar="تأكيد"
+              subtiltle="Are you sure?"
+              subtiltle_ar="هل أنت متأكد؟"
+              yesText="Yes"
+              noText="No"
+              onYesClick={() => setShowPrompt(false)}
+              onNoClick={() => setShowPrompt(false)}
+              language={language}
+            />
+          )}
+          <button
+            type="button"
+            className="text-xs px-2 py-1 border rounded"
+            onClick={() => setShowScreenLoader((v) => !v)}
+          >
+            Toggle ScreenLoader
+          </button>
+          <ScreenLoader isLoading={showScreenLoader} alt="Loading..." />
         </section>
 
         {/* 0.10 Toast */}

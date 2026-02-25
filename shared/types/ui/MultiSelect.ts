@@ -23,4 +23,6 @@ export interface MultiSelectProps {
   options?: SelectOption[];
   maxSelection?: number;
   showAddButton?: boolean;
+  title?: string;
+  title_ar?: string;
 }
