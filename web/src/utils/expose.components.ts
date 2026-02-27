@@ -8,6 +8,7 @@ import PromptConfigs from "@/ui/Prompt/prompt.config";
 import ScreenLoaderConfigs from "@/ui/ScreenLoader/screenLoader.config";
 import TypographyConfigs from "@/ui/Typography/typography.config";
 import TestComponentConfigs from "@/ui/configs/TestComponent.config";
+import FilterBarConfigs from "@/ui/FilterBar/filterBar.config";
 
 /**
  * Array of all component configurations to be exposed to service-builder.
@@ -24,6 +25,7 @@ const exposeComponents = [
   ScreenLoaderConfigs,
   TypographyConfigs,
   TestComponentConfigs,
+  FilterBarConfigs,
 ];
 
 export default exposeComponents;

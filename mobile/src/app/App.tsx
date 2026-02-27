@@ -41,7 +41,25 @@ import { AddMoreButton } from "~/src/ui/AddMoreButton";
 import { Prompt } from "~/src/ui/Prompt";
 import { ScreenLoader } from "~/src/ui/ScreenLoader";
 import TitleBar from "~/src/components/TitleBar";
-import OwnerSearch from "~/src/components/OwnerSearch";
+import { OwnerSearch } from "@shared/components/OwnerSearch";
+import Signature from "~/src/components/Signature";
+import UploadDocuments from "~/src/components/UploadDocuments";
+import PaymentDetails from "@shared/components/PaymentDetails";
+import { FilterBar } from "~/src/ui/FilterBar";
+import CardTitle from "@shared/components/CardTitle";
+import ModalTitle from "@shared/components/ModalTitle";
+import ModalSteps from "@shared/components/ModalSteps";
+import GenericCard from "@shared/components/GenericCard";
+import OwnerCard from "@shared/components/OwnerCard";
+import PlotCard from "@shared/components/PlotCard";
+import Table from "@shared/components/Table";
+import ApplicationDetail from "@shared/components/ApplicationDetail";
+import ApplicationMessage from "@shared/components/ApplicationMessage";
+import ViewOwnerDetail from "@shared/components/ViewOwnerDetail";
+import { SearchPlot } from "@shared/components/SearchPlot";
+import { Check, Send } from "lucide-react-native";
+import DocumentIcon from "~/assets/svg/icons/Document";
+import { Linking } from "react-native";
 import type { TooltipDirectionType } from "@shared/types";
 
 const sectionTitleStyle = { marginBottom: 8, fontSize: 18, fontWeight: "600" as const };
@@ -82,6 +100,8 @@ export default function App() {
   const [paginationPage, setPaginationPage] = useState(1);
   const [showPrompt, setShowPrompt] = useState(false);
   const [showScreenLoader, setShowScreenLoader] = useState(false);
+  const [filterBarSearch, setFilterBarSearch] = useState("");
+  const [filterBarColumns, setFilterBarColumns] = useState<string[]>([]);
   const layoutMenuItems = [
     { label: "Profile", label_ar: "الملف الشخصي", onClick: () => {} },
     { label: "Logout", label_ar: "تسجيل الخروج", onClick: () => {} },
@@ -673,6 +693,175 @@ export default function App() {
             />
           </View>
 
+          {/* Group 5 — Shared Components (migrated) */}
+          <View style={styles.section}>
+            <Text style={sectionTitleStyle}>Group 5 — Shared Components</Text>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>CardTitle (G-5.9)</Text>
+              <CardTitle
+                title="Card Title"
+                title_ar="عنوان البطاقة"
+                description="Card description"
+                description_ar="وصف البطاقة"
+                language={language}
+                variant="medium"
+                showBorder
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>ModalTitle (G-5.4)</Text>
+              <ModalTitle label="Modal Title" label_ar="عنوان النافذة" language={language} />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>ModalSteps (G-5.5)</Text>
+              <ModalSteps
+                title="Step 1 of 3"
+                title_ar="الخطوة ١ من ٣"
+                subText="Sub text"
+                subText_ar="نص فرعي"
+                language={language}
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>GenericCard (G-5.6)</Text>
+              <GenericCard
+                title="Generic Card"
+                title_ar="بطاقة عامة"
+                variant="small"
+                language={language}
+                rowsData={[
+                  { label: "Label 1", value: "Value 1" },
+                  { label: "Label 2", value: "Value 2" },
+                ]}
+                showTitleSection
+                showBorder
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>OwnerCard (G-5.2)</Text>
+              <OwnerCard
+                owners={[
+                  {
+                    ownerId: "1",
+                    ownerArgs: "",
+                    name: "Owner Name",
+                    name_ar: "اسم المالك",
+                    fields: [
+                      { label: "Field A", value: "Value A" },
+                      { label: "Field B", value: "Value B" },
+                    ],
+                  },
+                ]}
+                title="Owners"
+                title_ar="المالكون"
+                language={language}
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>PlotCard (G-5.3)</Text>
+              <PlotCard
+                plots={[
+                  {
+                    plotId: "1",
+                    plotArgs: "",
+                    plotNumber: "Plot 101",
+                    plotNumber_ar: "قطعة ١٠١",
+                    fields: [
+                      { label: "Area", value: "100 sqm" },
+                      { label: "Location", value: "Abu Dhabi" },
+                    ],
+                  },
+                ]}
+                title="Plots"
+                title_ar="القطع"
+                language={language}
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>Table (G-5.1)</Text>
+              <Table
+                language={language}
+                columns={[
+                  { header: "Application", header_ar: "الطلب", accessorKey: "app" },
+                  { header: "Status", header_ar: "الحالة", accessorKey: "status" },
+                ]}
+                data={[
+                  {
+                    id: "2025001",
+                    applicationTitle: "New Application",
+                    applicationTitle_ar: "طلب جديد",
+                    location: "Abu Dhabi",
+                    location_ar: "أبوظبي",
+                    timeDate: "21/06/2025",
+                    daysRemaining: "5 Days",
+                    daysRemaining_ar: "٥ أيام",
+                    currentStep: 2,
+                    additionalColumns: [
+                      {
+                        action: "Pending",
+                        stepName: "Approval",
+                        type: "pending",
+                        version: "multi-row",
+                      },
+                    ],
+                  },
+                ]}
+              />
+            </View>
+          </View>
+
+          {/* Group 5 — ApplicationDetail (G-5.11) */}
+          <View style={styles.section}>
+            <Text style={sectionTitleStyle}>Group 5 — ApplicationDetail (G-5.11)</Text>
+            <ApplicationDetail
+              applicationId=""
+              applicationTitle="Application Details"
+              applicationTitle_ar="تفاصيل الطلب"
+              language={language}
+              theme="dark"
+              onOwnerClick={(data) => console.log("ownerClick", data)}
+              onPlotClick={(data) => console.log("plotClick", data)}
+              onDocumentOpen={(url) => Linking.openURL(url)}
+              documentIcon={<DocumentIcon width={24} height={24} />}
+              checkIcon={<Check color="#ffffff" size={20} />}
+              sendIcon={<Send color="#ffffff" size={20} />}
+            />
+          </View>
+
+          {/* Group 5 — ViewOwnerDetail (G-5.10) */}
+          <View style={styles.section}>
+            <Text style={sectionTitleStyle}>Group 5 — ViewOwnerDetail (G-5.10)</Text>
+            <ViewOwnerDetail
+              language={language}
+              mainTitle="Owner Detail"
+              mainTitle_ar="تفاصيل المالك"
+              plotCode="0-222-000-RCH9999"
+              plotCode_ar="0-222-000-RCH9999"
+              ownerText="Owner"
+              ownerText_ar="المالك"
+              viewButtonText="View"
+              viewButtonText_ar="عرض"
+              documentsText="Documents"
+              documentsText_ar="المستندات"
+              uaeIdText="UAE National Identity"
+              uaeIdText_ar="الهوية الوطنية الإماراتية"
+              passportText="Passport"
+              passportText_ar="جواز السفر"
+              owner={{
+                name: "Talal Ahmed Salem",
+                details: [
+                  { label: "UAE National ID", label_ar: "الهوية الوطنية الإماراتية", value: "78273890399292" },
+                  { label: "MOI Unified Number", label_ar: "رقم وزارة الداخلية الموحد", value: "330928" },
+                  { label: "Archive Number", label_ar: "رقم الأرشيف", value: "7921" },
+                  { label: "Nationality", label_ar: "الجنسية", value: "United Arab Emirates" },
+                  { label: "Special Nationality", label_ar: "الجنسية الخاصة", value: "No" },
+                  { label: "Share", label_ar: "الحصة", value: "100% Allotment 50% Share" },
+                  { label: "Right Hold Type", label_ar: "نوع حق الحيازة", value: "Ownership Musataha" },
+                ],
+              }}
+            />
+          </View>
+
           {/* Group 4 — OwnerSearch (G-4.2) */}
           <View style={styles.section}>
             <Text style={sectionTitleStyle}>Group 4 — OwnerSearch (G-4.2)</Text>
@@ -692,6 +881,345 @@ export default function App() {
               theme="dark"
               selected={[]}
               onSubmit={(val) => console.log("OwnerSearch onSubmit", val)}
+            />
+          </View>
+
+          {/* Group 4 — FilterBar (G-4.3) */}
+          <View style={styles.section}>
+            <Text style={sectionTitleStyle}>Group 4 — FilterBar (G-4.3)</Text>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>Light / English</Text>
+              <FilterBar
+                language={language}
+                theme="light"
+                searchValue={filterBarSearch}
+                onSearchChange={(text) => setFilterBarSearch(text)}
+                selectedSearchColumns={filterBarColumns}
+                onSearchColumnsChange={setFilterBarColumns}
+                searchColumns={["Column 1", "Column 2", "Column 3"]}
+                filterOptions={["Actions", "Critical"]}
+                sortOptions={["Newest First", "Oldest First"]}
+                applicationOptions={["My Applications", "All Applications"]}
+                filterButtonLabel="All Filters"
+                filterButtonLabel_ar="جميع المرشحات"
+                resetButtonLabel="Default Filter"
+                resetButtonLabel_ar="المرشح الافتراضي"
+                mobileColumnTitle="View Column"
+                mobileColumnTitle_ar="عرض العمود"
+                showResetButton
+              />
+            </View>
+            <View style={[styles.g2Block, { backgroundColor: "#12121B", padding: 16, borderRadius: 8 }]}>
+              <Text style={[styles.g2ComponentTitle, { color: "#fff" }]}>Dark / Arabic</Text>
+              <FilterBar
+                language="ar"
+                theme="dark"
+                searchColumns={["العمود 1", "العمود 2", "العمود 3"]}
+                filterOptions={["الإجراءات", "حرج"]}
+                sortOptions={["الأحدث أولاً", "الأقدم أولاً"]}
+                applicationOptions={["طلباتي", "جميع الطلبات"]}
+                filterButtonLabel_ar="جميع المرشحات"
+                resetButtonLabel_ar="المرشح الافتراضي"
+                searchPlaceholder_ar="بحث"
+                mobileColumnTitle_ar="عرض العمود"
+                showResetButton
+              />
+            </View>
+          </View>
+
+          {/* Group 4 — Signature (G-4.6) */}
+          <View style={styles.section}>
+            <Text style={sectionTitleStyle}>Group 4 — Signature (G-4.6)</Text>
+            <View style={[styles.g2Block, { backgroundColor: "#2A2A32", padding: 16, borderRadius: 8 }]}>
+              <Text style={[styles.g2ComponentTitle, { color: "#fff", marginBottom: 12 }]}>Dark theme / English</Text>
+              <Signature
+                language={language}
+                title="Sign to Approve"
+                title_ar="وقع للموافقة"
+                buttonText="Approve"
+                buttonText_ar="موافق"
+                theme="dark"
+                onSubmit={(val) => console.log("Signature (dark/en) submitted", val.signature.slice(0, 50))}
+              />
+            </View>
+            <View style={[styles.g2Block, { backgroundColor: "#fff", padding: 16, borderRadius: 8, borderWidth: 1, borderColor: "#eee" }]}>
+              <Text style={[styles.g2ComponentTitle, { marginBottom: 12 }]}>Light theme / English</Text>
+              <Signature
+                language={language}
+                title="Sign to Approve"
+                title_ar="وقع للموافقة"
+                buttonText="Approve"
+                buttonText_ar="موافق"
+                theme="light"
+                onSubmit={(val) => console.log("Signature (light/en) submitted", val.signature.slice(0, 50))}
+              />
+            </View>
+            <View style={[styles.g2Block, { backgroundColor: "#12121B", padding: 16, borderRadius: 8 }]}>
+              <Text style={[styles.g2ComponentTitle, { color: "#fff", marginBottom: 12 }]}>Dark theme / Arabic</Text>
+              <Signature
+                language="ar"
+                title="Sign to Approve"
+                title_ar="وقع للموافقة"
+                buttonText="Approve"
+                buttonText_ar="موافق"
+                theme="dark"
+                onSubmit={(val) => console.log("Signature (dark/ar) submitted", val.signature.slice(0, 50))}
+              />
+            </View>
+          </View>
+
+          {/* Group 4 — UploadDocuments (G-4.7) */}
+          <View style={styles.section}>
+            <Text style={sectionTitleStyle}>Group 4 — UploadDocuments (G-4.7)</Text>
+            <View style={[styles.g2Block, { backgroundColor: "#2A2A32", padding: 16, borderRadius: 8 }]}>
+              <Text style={[styles.g2ComponentTitle, { color: "#fff", marginBottom: 12 }]}>Default type / English</Text>
+              <UploadDocuments
+                language="en"
+                theme="dark"
+                type="default"
+                documents={[
+                  { documentName: "Passport", documentName_ar: "جواز السفر" },
+                  {
+                    documentName: "National ID",
+                    documentName_ar: "الهوية الوطنية",
+                    allowedTypes: ["pdf", "jpg", "png"],
+                    fileTypeErrorMessage: "Only PDF, JPG, or PNG accepted.",
+                    fileTypeErrorMessage_ar: "يُقبل PDF أو JPG أو PNG فقط.",
+                  },
+                  {
+                    documentName: "Proof of Address",
+                    documentName_ar: "إثبات العنوان",
+                    fileSize: 500000,
+                    fileSizeErrorMessage: "File must be less than 500 KB.",
+                    fileSizeErrorMessage_ar: "يجب أن يكون الملف أقل من 500 كيلوبايت.",
+                  },
+                ]}
+                onFileChange={(val) =>
+                  console.log("UploadDocuments onFileChange", val.uploadUrl, val.file)
+                }
+              />
+            </View>
+            <View style={[styles.g2Block, { backgroundColor: "#1E1E26", padding: 16, borderRadius: 8 }]}>
+              <Text style={[styles.g2ComponentTitle, { color: "#fff", marginBottom: 12 }]}>Base type / Arabic (RTL)</Text>
+              <UploadDocuments
+                language="ar"
+                theme="dark"
+                type="base"
+                documents={[
+                  { documentName: "Contract", documentName_ar: "العقد", isUploaded: true },
+                  {
+                    documentName: "Invoice",
+                    documentName_ar: "الفاتورة",
+                    allowedTypes: ["PDF"],
+                    fileTypeErrorMessage: "Only PDF accepted.",
+                    fileTypeErrorMessage_ar: "يُقبل PDF فقط.",
+                  },
+                ]}
+                onFileChange={(val) =>
+                  console.log("UploadDocuments (ar) onFileChange", val)
+                }
+              />
+            </View>
+          </View>
+
+          {/* Group 4 — PaymentDetails (G-4.10) */}
+          <View style={styles.section}>
+            <Text style={sectionTitleStyle}>Group 4 — PaymentDetails (G-4.10)</Text>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>Pending payment (no receipt) — en</Text>
+              <PaymentDetails
+                language={language}
+                applicationId="APP-001"
+                variant="medium"
+                drawerSize="layer1"
+                payments={[
+                  {
+                    applicationPaymentId: 1,
+                    municipalityId: 101,
+                    paymentDescriptionE: "Building Permit Fee",
+                    paymentDescriptionA: "رسوم تصريح البناء",
+                    municipalityNameE: "Dubai Municipality",
+                    municipalityNameA: "بلدية دبي",
+                    paidByName: "John Doe",
+                    receiptNumber: "",
+                    receiptDate: "",
+                    amountDue: "500 AED",
+                    amountInWords: "Five Hundred Dirhams",
+                    vatAmount: "25 AED",
+                  },
+                  {
+                    applicationPaymentId: 2,
+                    municipalityId: 102,
+                    paymentDescriptionE: "Inspection Fee",
+                    paymentDescriptionA: "رسوم التفتيش",
+                    municipalityNameE: "Abu Dhabi Municipality",
+                    municipalityNameA: "بلدية أبوظبي",
+                    paidByName: "John Doe",
+                    receiptNumber: "REC123",
+                    receiptDate: "2025-02-01",
+                    amountDue: "300 AED",
+                    amountInWords: "Three Hundred Dirhams",
+                    vatAmount: "15 AED",
+                  },
+                ]}
+                isLoading={false}
+                showButtons
+                buttons={[
+                  {
+                    title: "Back",
+                    title_ar: "رجوع",
+                    type: "secondary",
+                    onClick: () => console.log("PaymentDetails Back clicked"),
+                  },
+                  {
+                    title: "Submit",
+                    title_ar: "إرسال",
+                    type: "primary",
+                    onClick: () => console.log("PaymentDetails Submit clicked"),
+                  },
+                ]}
+                onVerifyComplete={() =>
+                  console.log("PaymentDetails verify complete")
+                }
+                onOverrideComplete={() =>
+                  console.log("PaymentDetails override complete")
+                }
+                onDownloadFile={(url) =>
+                  console.log("PaymentDetails download (mobile — implement with RN FileSystem):", url)
+                }
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>Loading state</Text>
+              <PaymentDetails
+                language={language}
+                applicationId="APP-002"
+                payments={[]}
+                isLoading
+              />
+            </View>
+          </View>
+
+          {/* Group 5 — ApplicationMessage (G-5.12) */}
+          <View style={styles.section}>
+            <Text style={sectionTitleStyle}>Group 5 — ApplicationMessage (G-5.12)</Text>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>Success (default)</Text>
+              <ApplicationMessage
+                status="success"
+                title="Application Submitted Successfully"
+                description="Your application has been submitted and is under review."
+                language={language}
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>Error</Text>
+              <ApplicationMessage
+                status="error"
+                title="Submission Failed"
+                description="There was an error while submitting your application. Please try again."
+                language={language}
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>Information with text input</Text>
+              <ApplicationMessage
+                status="information"
+                title="Additional Information Required"
+                description="Please provide the missing details to continue."
+                type="text"
+                fieldType="text"
+                label="Reference Number"
+                label_ar="رقم المرجع"
+                value=""
+                onInputChange={(value) => console.log("ApplicationMessage input:", value)}
+                language={language}
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>Action with checkbox</Text>
+              <ApplicationMessage
+                status="action"
+                title="Confirm Declaration"
+                description="Please confirm the following before proceeding."
+                type="checkbox"
+                label="I agree to the terms"
+                label_ar="أوافق على الشروط"
+                value={[]}
+                options={[
+                  { label: "Terms & Conditions", label_ar: "الشروط والأحكام", value: "terms" },
+                  { label: "Privacy Policy", label_ar: "سياسة الخصوصية", value: "privacy" },
+                ]}
+                onInputChange={(value) => console.log("ApplicationMessage checkbox:", value)}
+                language={language}
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>Action with radio</Text>
+              <ApplicationMessage
+                status="action"
+                title="Choose an Option"
+                description="Please select one of the following options to proceed."
+                type="radio"
+                label="Decision"
+                label_ar="القرار"
+                value="approve"
+                options={[
+                  { label: "Approve", label_ar: "موافقة", value: "approve" },
+                  { label: "Reject", label_ar: "رفض", value: "reject" },
+                ]}
+                onInputChange={(value) => console.log("ApplicationMessage radio:", value)}
+                language={language}
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>Action with button</Text>
+              <ApplicationMessage
+                status="action"
+                title="Next Step Required"
+                description="Click the button below to continue to the next step."
+                type="button"
+                label="Continue"
+                label_ar="متابعة"
+                onClick={() => console.log("ApplicationMessage button clicked")}
+                language={language}
+              />
+            </View>
+            <View style={styles.g2Block}>
+              <Text style={styles.g2ComponentTitle}>Arabic RTL</Text>
+              <ApplicationMessage
+                language="ar"
+                status="success"
+                title="تم إرسال الطلب بنجاح"
+                description="تم إرسال طلبك وهو الآن قيد المراجعة."
+                type="button"
+                label="حسناً"
+              />
+            </View>
+          </View>
+
+          {/* G-5.14 SearchPlot */}
+          <View style={styles.section}>
+            <Text style={sectionTitleStyle}>G-5.14 SearchPlot</Text>
+            <SearchPlot
+              language={language}
+              title="Search Plot"
+              title_ar="العثور على قطعة أرض"
+              subtitle=""
+              initialOwnerType="plot"
+              enabledTabs={{ plot: true, company: true, owner: true }}
+              ownerTypeOptions={{
+                plot: "By Plot",
+                plot_ar: "حسب قطعة الأرض",
+                company: "By Company Owner",
+                company_ar: "حسب مالك الشركة",
+                owner: "By Owner",
+                owner_ar: "حسب المالك",
+                randomAllocation: "Random Allocation",
+                randomAllocation_ar: "التخصيص العشوائي",
+              }}
+              selected={[]}
+              onSubmit={(val) => console.log("SearchPlot onSubmit", val)}
             />
           </View>
 
