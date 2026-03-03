@@ -1,8 +1,8 @@
 import type { ComponentProps, FC } from "react";
-import type { Bk_DateInput as WebBk_DateInput } from "../../web/src/ui/bk_DateInput";
-import type { Bk_DateInput as MobileBk_DateInput } from "../../mobile/src/ui/bk_DateInput";
+import type { DateInput as WebDateInput } from "../../web/src/ui/DateInput";
+import type { DateInput as MobileDateInput } from "../../mobile/src/ui/DateInput";
 
 export type DateInputProps =
-  | ComponentProps<typeof WebBk_DateInput>
-  | ComponentProps<typeof MobileBk_DateInput>;
+  | ComponentProps<typeof WebDateInput>
+  | ComponentProps<typeof MobileDateInput>;
 export const DateInput: FC<DateInputProps>;

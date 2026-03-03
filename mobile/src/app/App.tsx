@@ -4,1240 +4,217 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
   Pressable,
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Label } from "~/src/ui/Label";
-import { Caption } from "~/src/ui/Caption";
-import { Tooltip } from "~/src/ui/Tooltip";
-import { Checkbox } from "~/src/ui/Checkbox";
-import { Radio } from "~/src/ui/Radio";
-import { CheckRadioLabel } from "~/src/ui/CheckRadioLabel";
-import { AddButton } from "~/src/ui/AddButton";
-import { DateInput } from "~/src/ui/DateInput";
-import { Fields } from "~/src/ui/Fields";
-import { Toast } from "~/src/ui/Toast";
-import { Layout } from "~/src/ui/Layout";
-import { TextInput } from "~/src/ui/TextInput";
-import { PhoneInput } from "~/src/ui/PhoneInput";
-import { TextArea } from "~/src/ui/TextArea";
-import { Select } from "~/src/ui/Select";
-import { MultiSelect } from "~/src/ui/MultiSelect";
-import { CurrencyInput } from "~/src/ui/CurrencyInput";
-import { NumberInput } from "~/src/ui/NumberInput";
-import { DateSelect } from "~/src/ui/DateSelect";
-import { CheckboxField } from "~/src/ui/CheckboxField";
-import { CheckboxInput } from "~/src/ui/CheckboxInput";
-import { RadioField } from "~/src/ui/RadioField";
-import { RadioInput } from "~/src/ui/RadioInput";
-import { Buttons } from "~/src/ui/Buttons";
-import { Typography } from "~/src/ui/Typography";
-import { Breadcrumb } from "~/src/ui/Breadcrumb";
-import { Pagination } from "~/src/ui/Pagination";
-import { AddMoreButton } from "~/src/ui/AddMoreButton";
-import { Prompt } from "~/src/ui/Prompt";
-import { ScreenLoader } from "~/src/ui/ScreenLoader";
-import TitleBar from "~/src/components/TitleBar";
-import { OwnerSearch } from "@shared/components/OwnerSearch";
-import Signature from "~/src/components/Signature";
-import UploadDocuments from "~/src/components/UploadDocuments";
-import PaymentDetails from "@shared/components/PaymentDetails";
-import { FilterBar } from "~/src/ui/FilterBar";
-import CardTitle from "@shared/components/CardTitle";
-import ModalTitle from "@shared/components/ModalTitle";
-import ModalSteps from "@shared/components/ModalSteps";
-import GenericCard from "@shared/components/GenericCard";
-import OwnerCard from "@shared/components/OwnerCard";
-import PlotCard from "@shared/components/PlotCard";
-import Table from "@shared/components/Table";
-import ApplicationDetail from "@shared/components/ApplicationDetail";
-import ApplicationMessage from "@shared/components/ApplicationMessage";
-import ViewOwnerDetail from "@shared/components/ViewOwnerDetail";
-import { SearchPlot } from "@shared/components/SearchPlot";
-import { Check, Send } from "lucide-react-native";
-import DocumentIcon from "~/assets/svg/icons/Document";
-import { Linking } from "react-native";
-import type { TooltipDirectionType } from "@shared/types";
+import Payment from "@shared/components/Payment";
+import type { StepInfo } from "@shared/components/Payment";
 
-const sectionTitleStyle = { marginBottom: 8, fontSize: 18, fontWeight: "600" as const };
+const sectionTitleStyle = {
+  marginBottom: 8,
+  fontSize: 18,
+  fontWeight: "600" as const,
+};
+
+const stepInfo: StepInfo = {
+  result: {
+    tenancyContract: {
+      type: "New Tenancy",
+      contractDate: "2024-01-01",
+      contractNumber: "CONTRACT-123",
+      ranchTenancyRegistrationFee: "500",
+      ranchTenancyRegistrationFeeInWord: "Five Hundred",
+      startDate: "2024-01-01",
+      endDate: "2024-12-31",
+      unitTypeValue: "M",
+      requestLandClassificationId: 1,
+      plotId: 1,
+      tenancyContractId: 1,
+      contractDuration: 12,
+    },
+    ranchInsuranceFee: "100",
+    ranchInsuranceFeeInWord: "One Hundred",
+  },
+};
+
+const renewStepInfo: StepInfo = {
+  result: {
+    tenancyContract: {
+      type: "Renew Tenancy",
+      contractDate: "2023-06-15",
+      contractNumber: "CONTRACT-789",
+      ranchTenancyRegistrationFee: "750",
+      ranchTenancyRegistrationFeeInWord: "Seven Hundred Fifty",
+      startDate: "2023-06-15",
+      endDate: "2025-06-14",
+      unitTypeValue: "M",
+      requestLandClassificationId: 2,
+      plotId: 5,
+      tenancyContractId: 3,
+      contractDuration: 24,
+    },
+    ranchInsuranceFee: "200",
+    ranchInsuranceFeeInWord: "Two Hundred",
+  },
+};
 
 export default function App() {
   const [language, setLanguage] = useState<"en" | "ar">("en");
-  const [captionError, setCaptionError] = useState(false);
-  const [captionDisabled, setCaptionDisabled] = useState(false);
-  const [tooltipDirection, setTooltipDirection] =
-    useState<TooltipDirectionType>("bottom-center");
-  const [checkboxChecked, setCheckboxChecked] = useState(false);
-  const [checkboxDisabled, setCheckboxDisabled] = useState(false);
-  const [checkboxError, setCheckboxError] = useState(false);
-  const [radioSelected, setRadioSelected] = useState<string>("opt1");
-  const [addButtonClicks, setAddButtonClicks] = useState(0);
-  const [addButtonDisabled, setAddButtonDisabled] = useState(false);
-  const [dateValue, setDateValue] = useState<string>("");
-  const [fieldText, setFieldText] = useState("");
-  const [fieldTextArea, setFieldTextArea] = useState("");
-  const [fieldSelect, setFieldSelect] = useState("");
-  const [fieldMultiSelect, setFieldMultiSelect] = useState("");
-  const [fieldNumber, setFieldNumber] = useState("");
-  const [fieldCurrency, setFieldCurrency] = useState("");
-  const [fieldPhone, setFieldPhone] = useState("");
-  const [fieldDate, setFieldDate] = useState("");
-  const [fieldUaeId, setFieldUaeId] = useState("");
-  const [fieldsError, setFieldsError] = useState(false);
-  const [layoutToast, setLayoutToast] = useState<{
-    message: string;
-    status: "success" | "error" | "information" | "action";
-  }>({
-    message: "",
-    status: "success",
-  });
-  const [checkboxFieldChecked, setCheckboxFieldChecked] = useState(false);
-  const [radioInputVal, setRadioInputVal] = useState("a");
-  const [checkboxInputVal, setCheckboxInputVal] = useState<string[]>([]);
-  const [paginationPage, setPaginationPage] = useState(1);
-  const [showPrompt, setShowPrompt] = useState(false);
-  const [showScreenLoader, setShowScreenLoader] = useState(false);
-  const [filterBarSearch, setFilterBarSearch] = useState("");
-  const [filterBarColumns, setFilterBarColumns] = useState<string[]>([]);
-  const layoutMenuItems = [
-    { label: "Profile", label_ar: "الملف الشخصي", onClick: () => {} },
-    { label: "Logout", label_ar: "تسجيل الخروج", onClick: () => {} },
-  ];
-  const layoutBreadcrumbItems = [
-    { label: "Home", label_ar: "الرئيسية", onClick: () => {} },
-    { label: "Group 1", label_ar: "المجموعة ١", onClick: () => {} },
-  ];
 
-  const selectOptions = [
-    { value: "a", label: "Option A", label_ar: "الخيار أ" },
-    { value: "b", label: "Option B", label_ar: "الخيار ب" },
-    { value: "c", label: "Option C", label_ar: "الخيار ج" },
-  ];
+  const handleSubmit = (data: unknown) => {
+    console.log("Payment submit:", data);
+  };
+
+  const handlePaymentSubmit = (val: unknown) => {
+    console.log("Payment API payload:", val);
+  };
+
+  const handleSaveDraft = () => {
+    console.log("Save draft clicked");
+  };
 
   return (
     <GestureHandlerRootView style={{ flex: 1, marginTop: 50 }}>
       <BottomSheetModalProvider>
-      <QueryClientProvider client={new QueryClient()}>
-        {/* <Layout
-          language={language}
-          theme="light"
-          onToggleLanguage={() => setLanguage((l) => (l === "en" ? "ar" : "en"))}
-          isEditing={false}
-          menuItems={layoutMenuItems}
-          breadcrumbItems={layoutBreadcrumbItems}
-          showHeader
-          showSidebar
-          showFooter
-          toast={layoutToast.message ? layoutToast : { message: "", status: "success" }}
-        > */}
-        <ScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.content}
-          showsVerticalScrollIndicator={false}
-        >
-          <Pressable
-            style={[styles.toggleBtn, { marginBottom: 16 }]}
-            onPress={() =>
-              setLayoutToast({
-                message: "Layout toast message",
-                status: "success",
-              })
-            }
+        <QueryClientProvider client={new QueryClient()}>
+          <ScrollView
+            style={styles.scroll}
+            contentContainerStyle={styles.content}
+            showsVerticalScrollIndicator={false}
           >
-            <Text style={styles.toggleBtnText}>Show toast in Layout</Text>
-          </Pressable>
-          {/* 0.1 Label */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>0.1 Label</Text>
-            <Label
-              label="Field label"
-              label_ar="تسمية الحقل"
-              required
-              language={language}
-            />
-            <Label
-              label="With info icon"
-              label_ar="مع أيقونة المعلومات"
-              showInfoIcon
-              tooltipText="Extra information here"
-              tooltipText_ar="معلومات إضافية"
-              tooltipDirection={language === "ar" ? "top-right" : "top-left"}
-              language={language}
-            />
-            <Label
-              label="Disabled label"
-              label_ar="تسمية معطلة"
-              disabled
-              language={language}
-            />
-          </View>
-
-          {/* 0.2 Caption */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>0.2 Caption</Text>
-            <Caption
-              captionLeft="Left caption"
-              captionLeft_ar="تسمية يسرى"
-              captionRight="Right caption"
-              captionRight_ar="تسمية يمنى"
-              language={language}
-            />
-            <Caption
-              captionLeft="With error"
-              captionRight="Right"
-              hasError={captionError}
-              errorMessage={
-                captionError ? "This field has an error" : undefined
-              }
-              errorMessage_ar={captionError ? "هذا الحقل به خطأ" : undefined}
-              language={language}
-            />
-            <Caption
-              captionLeft="Disabled state"
-              captionRight="Right"
-              disabled={captionDisabled}
-              language={language}
-            />
-            <View style={styles.buttonRow}>
-              <Pressable
-                style={styles.toggleBtn}
-                onPress={() => setCaptionError((e) => !e)}
-              >
-                <Text style={styles.toggleBtnText}>Toggle error</Text>
-              </Pressable>
-              <Pressable
-                style={styles.toggleBtn}
-                onPress={() => setCaptionDisabled((d) => !d)}
-              >
-                <Text style={styles.toggleBtnText}>Toggle disabled</Text>
-              </Pressable>
-              <Pressable
-                style={styles.toggleBtn}
-                onPress={() => setLanguage((l) => (l === "en" ? "ar" : "en"))}
-              >
-                <Text style={styles.toggleBtnText}>
-                  {language === "en" ? "العربية" : "English"}
-                </Text>
-              </Pressable>
-            </View>
-          </View>
-
-          {/* 0.3 Tooltip */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>0.3 Tooltip</Text>
-            <View style={styles.rowWrap}>
-              <View style={styles.tooltipWrap}>
-                <Tooltip
-                  text="Tooltip text"
-                  text_ar="نص التلميح"
-                  language={language}
-                  direction="none"
-                />
-              </View>
-              <View style={styles.tooltipWrap}>
-                <Tooltip
-                  text="Top center"
-                  direction="top-center"
-                  language={language}
-                />
-              </View>
-              <View style={styles.tooltipWrap}>
-                <Tooltip
-                  text="Bottom center"
-                  direction="bottom-center"
-                  language={language}
-                />
-              </View>
-              <View style={styles.tooltipWrap}>
-                <Tooltip
-                  text="Dynamic"
-                  direction={tooltipDirection}
-                  language={language}
-                />
-              </View>
-            </View>
-          </View>
-
-          {/* 0.4 Checkbox */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>0.4 Checkbox</Text>
-            <View style={styles.rowWrap}>
-              <Checkbox
-                id="cb-controlled"
-                checked={checkboxChecked}
-                onChange={(_, checked) => setCheckboxChecked(!!checked)}
-              />
-              <Text style={styles.hint}>
-                Controlled ({checkboxChecked ? "checked" : "unchecked"})
+            <Pressable
+              style={[styles.toggleBtn, { marginBottom: 16 }]}
+              onPress={() => setLanguage((l) => (l === "en" ? "ar" : "en"))}
+            >
+              <Text style={styles.toggleBtnText}>
+                Toggle Language ({language})
               </Text>
-              <Checkbox id="cb-uncontrolled" onChange={() => {}} />
-              <Text style={styles.hint}>Uncontrolled</Text>
-              <Checkbox
-                id="cb-disabled"
-                disabled={checkboxDisabled}
-                onChange={() => {}}
-              />
-              <Text style={styles.hint}>Disabled</Text>
-              <Checkbox
-                id="cb-error"
-                hasError={checkboxError}
-                onChange={() => {}}
-              />
-              <Text style={styles.hint}>Error</Text>
-            </View>
-            <View style={styles.buttonRow}>
-              <Pressable
-                style={styles.toggleBtn}
-                onPress={() => setCheckboxChecked((c) => !c)}
-              >
-                <Text style={styles.toggleBtnText}>Toggle checked</Text>
-              </Pressable>
-              <Pressable
-                style={styles.toggleBtn}
-                onPress={() => setCheckboxDisabled((d) => !d)}
-              >
-                <Text style={styles.toggleBtnText}>Toggle disabled</Text>
-              </Pressable>
-              <Pressable
-                style={styles.toggleBtn}
-                onPress={() => setCheckboxError((e) => !e)}
-              >
-                <Text style={styles.toggleBtnText}>Toggle error</Text>
-              </Pressable>
-            </View>
-          </View>
+            </Pressable>
 
-          {/* 0.5 Radio */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>0.5 Radio</Text>
-            <View style={styles.rowWrap}>
-              {["opt1", "opt2", "opt3"].map((id) => (
-                <Radio
-                  key={id}
-                  id={id}
-                  checked={radioSelected === id}
-                  onChange={(id) => setRadioSelected(id)}
-                />
-              ))}
-              <Radio id="r-disabled" disabled onChange={() => {}} />
-              <Text style={styles.hint}>Disabled</Text>
-              <Radio id="r-error" hasError onChange={() => {}} />
-              <Text style={styles.hint}>Error</Text>
-            </View>
-            <Text style={styles.hint}>Selected: {radioSelected}</Text>
-          </View>
-
-          {/* 0.6 CheckRadioLabel */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>0.6 CheckRadioLabel</Text>
-            <CheckRadioLabel
-              label="Option label"
-              label_ar="تسمية الخيار"
-              language={language}
-            />
-            <CheckRadioLabel
-              label="Disabled label"
-              label_ar="تسمية معطلة"
-              disabled
-              language={language}
-            />
-          </View>
-
-          {/* 0.7 AddButton */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>0.7 AddButton</Text>
-            <View style={styles.rowWrap}>
-              <AddButton onClick={() => setAddButtonClicks((c) => c + 1)} />
-              <AddButton
-                disabled={addButtonDisabled}
-                onClick={() => setAddButtonClicks((c) => c + 1)}
-              />
-              <Text style={styles.hint}>
-                Clicks: {addButtonClicks} | Disabled:{" "}
-                {addButtonDisabled ? "yes" : "no"}
+            {/* G-4.4 Payment — English, New Tenancy */}
+            <View style={styles.section}>
+              <Text style={sectionTitleStyle}>
+                G-4.4 — Payment — English / New Tenancy
               </Text>
-            </View>
-            <Pressable
-              style={styles.toggleBtn}
-              onPress={() => setAddButtonDisabled((d) => !d)}
-            >
-              <Text style={styles.toggleBtnText}>Toggle disabled</Text>
-            </Pressable>
-          </View>
-
-          {/* 0.8 DateInput */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>0.8 DateInput</Text>
-            <DateInput
-              placeholder="Select date"
-              placeholder_ar="اختر التاريخ"
-              label="Date field"
-              label_ar="حقل التاريخ"
-              value={dateValue}
-              onDateChange={(d) =>
-                setDateValue(d ? d.toISOString().slice(0, 10) : "")
-              }
-              required
-              infoText="Pick a date"
-              infoText_ar="اختر تاريخاً"
-              caption="Optional caption"
-              caption_ar="تسمية اختيارية"
-              captionPosition="left"
-              language={language}
-              testId="date-input-demo"
-            />
-            <Text style={styles.hint}>Value: {dateValue || "—"}</Text>
-          </View>
-
-          {/* 0.9 Fields */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>0.9 Fields</Text>
-            <Fields
-              type="text"
-              placeholder="Text placeholder"
-              value={fieldText}
-              onChange={setFieldText}
-              hasError={fieldsError}
-              errorMessage="Invalid value"
-              language={language}
-              testId="field-text"
-            />
-            <Fields
-              type="textarea"
-              placeholder="Textarea placeholder"
-              value={fieldTextArea}
-              onChange={setFieldTextArea}
-              language={language}
-            />
-            <Fields
-              type="select"
-              placeholder="Select..."
-              value={fieldSelect}
-              onChange={setFieldSelect}
-              options={selectOptions}
-              selectType="single"
-              language={language}
-            />
-            <Fields
-              type="select"
-              placeholder="Multi select..."
-              value={fieldMultiSelect}
-              onChange={setFieldMultiSelect}
-              options={selectOptions}
-              selectType="multi"
-              language={language}
-            />
-            <Fields
-              type="number"
-              placeholder="Number"
-              value={fieldNumber}
-              onChange={setFieldNumber}
-              language={language}
-            />
-            <Fields
-              type="currency"
-              placeholder="0.00"
-              value={fieldCurrency}
-              onChange={setFieldCurrency}
-              currencySymbol="AED"
-              language={language}
-            />
-            <Fields
-              type="phone"
-              placeholder="Phone"
-              value={fieldPhone}
-              onChange={setFieldPhone}
-              phoneCode="+971"
-              language={language}
-            />
-            <Fields
-              type="date"
-              placeholder="Select date"
-              value={fieldDate}
-              onChange={setFieldDate}
-              language={language}
-            />
-            <Fields
-              type="uaeid"
-              placeholder="000-0000-0000000-0"
-              value={fieldUaeId}
-              onChange={setFieldUaeId}
-              language={language}
-            />
-            <Pressable
-              style={styles.toggleBtn}
-              onPress={() => setFieldsError((e) => !e)}
-            >
-              <Text style={styles.toggleBtnText}>Toggle Fields error</Text>
-            </Pressable>
-          </View>
-
-          {/* Group 2 — Form Components (all states: normal, error, disabled) */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 2 — Form Components</Text>
-            <Text style={[styles.hint, { marginBottom: 8 }]}>
-              Each input shown in Normal, Error, and Disabled states.
-            </Text>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>TextInput</Text>
-              <TextInput label="Normal" placeholder="Enter text" value={fieldText} onChange={setFieldText} language={language} />
-              <TextInput label="With error" placeholder="Enter text" value={fieldText} onChange={setFieldText} hasError errorMessage="This field is required" language={language} />
-              <TextInput label="Disabled" placeholder="Enter text" value={fieldText} onChange={setFieldText} disabled language={language} />
-            </View>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>PhoneInput</Text>
-              <PhoneInput label="Normal" placeholder="Phone" value={fieldPhone} onChange={setFieldPhone} phoneCode="+971" language={language} />
-              <PhoneInput label="With error" placeholder="Phone" value={fieldPhone} onChange={setFieldPhone} phoneCode="+971" hasError errorMessage="Invalid phone number" language={language} />
-              <PhoneInput label="Disabled" placeholder="Phone" value={fieldPhone} onChange={setFieldPhone} phoneCode="+971" disabled language={language} />
-            </View>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>TextArea</Text>
-              <TextArea label="Normal" placeholder="Multi-line text" value={fieldTextArea} onChange={setFieldTextArea} language={language} />
-              <TextArea label="With error" placeholder="Multi-line text" value={fieldTextArea} onChange={setFieldTextArea} hasError errorMessage="Max 500 characters" language={language} />
-              <TextArea label="Disabled" placeholder="Multi-line text" value={fieldTextArea} onChange={setFieldTextArea} disabled language={language} />
-            </View>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Select</Text>
-              <Select label="Normal" placeholder="Choose..." value={fieldSelect} onChange={setFieldSelect} options={selectOptions} language={language} />
-              <Select label="With error" placeholder="Choose..." value={fieldSelect} onChange={setFieldSelect} options={selectOptions} hasError errorMessage="Please select an option" language={language} />
-              <Select label="Disabled" placeholder="Choose..." value={fieldSelect} onChange={setFieldSelect} options={selectOptions} disabled language={language} />
-            </View>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>MultiSelect</Text>
-              <MultiSelect label="Normal" placeholder="Choose multiple..." value={fieldMultiSelect} onChange={(v) => setFieldMultiSelect(Array.isArray(v) ? v.join(", ") : v ?? "")} options={selectOptions} language={language} />
-              <MultiSelect label="With error" placeholder="Choose multiple..." value={fieldMultiSelect} onChange={(v) => setFieldMultiSelect(Array.isArray(v) ? v.join(", ") : v ?? "")} options={selectOptions} hasError errorMessage="Select at least one" language={language} />
-              <MultiSelect label="Disabled" placeholder="Choose multiple..." value={fieldMultiSelect} onChange={(v) => setFieldMultiSelect(Array.isArray(v) ? v.join(", ") : v ?? "")} options={selectOptions} disabled language={language} />
-            </View>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>CurrencyInput</Text>
-              <CurrencyInput label="Normal" value={fieldCurrency} onChange={setFieldCurrency} currencySymbol="AED" language={language} />
-              <CurrencyInput label="With error" value={fieldCurrency} onChange={setFieldCurrency} currencySymbol="AED" hasError errorMessage="Invalid amount" language={language} />
-              <CurrencyInput label="Disabled" value={fieldCurrency} onChange={setFieldCurrency} currencySymbol="AED" disabled language={language} />
-            </View>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>NumberInput</Text>
-              <NumberInput label="Normal" value={fieldNumber} onChange={setFieldNumber} language={language} />
-              <NumberInput label="With error" value={fieldNumber} onChange={setFieldNumber} hasError errorMessage="Must be a number" language={language} />
-              <NumberInput label="Disabled" value={fieldNumber} onChange={setFieldNumber} disabled language={language} />
-            </View>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>DateSelect</Text>
-              <DateSelect label="Normal" placeholder="Select date" value={fieldDate} onDateChange={(d) => setFieldDate(d ? d.toISOString().slice(0, 10) : "")} language={language} />
-              <DateSelect label="With error" placeholder="Select date" value={fieldDate} onDateChange={(d) => setFieldDate(d ? d.toISOString().slice(0, 10) : "")} hasError errMessage="Invalid date" language={language} />
-              <DateSelect label="Disabled" placeholder="Select date" value={fieldDate} onDateChange={(d) => setFieldDate(d ? d.toISOString().slice(0, 10) : "")} disabled language={language} />
-            </View>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>CheckboxField</Text>
-              <CheckboxField label="Normal" checked={checkboxFieldChecked} onChange={(v) => setCheckboxFieldChecked(!!v)} language={language} />
-              <CheckboxField label="With error" checked={checkboxFieldChecked} onChange={(v) => setCheckboxFieldChecked(!!v)} language={language} />
-              <CheckboxField label="Disabled" checked={checkboxFieldChecked} onChange={(v) => setCheckboxFieldChecked(!!v)} disabled language={language} />
-            </View>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>CheckboxInput</Text>
-              <CheckboxInput label="Normal" options={selectOptions as { value: string; label?: string; label_ar?: string }[]} value={checkboxInputVal} onChange={setCheckboxInputVal} language={language} />
-              <CheckboxInput label="With error" options={selectOptions as { value: string; label?: string; label_ar?: string }[]} value={checkboxInputVal} onChange={setCheckboxInputVal} language={language} />
-              <CheckboxInput label="Disabled" options={selectOptions as { value: string; label?: string; label_ar?: string }[]} value={checkboxInputVal} onChange={setCheckboxInputVal} disabled language={language} />
-            </View>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>RadioField</Text>
-              <RadioField label="Normal" value="opt1" checked={radioInputVal === "opt1"} onChange={(v) => setRadioInputVal(v)} language={language} />
-              <RadioField label="Disabled" value="opt1" checked={radioInputVal === "opt1"} onChange={(v) => setRadioInputVal(v)} disabled language={language} />
-            </View>
-
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>RadioInput</Text>
-              <RadioInput label="Normal" options={selectOptions} value={radioInputVal} onChange={setRadioInputVal} language={language} />
-              <RadioInput label="With error" options={selectOptions} value={radioInputVal} onChange={setRadioInputVal} hasError errorMessage="Please select an option" language={language} />
-              <RadioInput label="Disabled" options={selectOptions} value={radioInputVal} onChange={setRadioInputVal} disabled language={language} />
-            </View>
-          </View>
-
-          {/* Group 3 — UI Primitives */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 3 — UI Primitives</Text>
-            <View style={styles.rowWrap}>
-              <Buttons
-                title="Primary"
-                type="primary"
-                onClick={() => {}}
-                language={language}
-              />
-              <Buttons
-                title="Secondary"
-                type="secondary"
-                onClick={() => {}}
-                language={language}
-              />
-              <Buttons
-                title="Tertiary"
-                type="tertiary"
-                onClick={() => {}}
-                language={language}
-              />
-              <Buttons
-                title="Disabled"
-                disabled
-                onClick={() => {}}
-                language={language}
-              />
-            </View>
-            <Typography
-              variant="h2"
-              text="Typography H2"
-              text_ar="العنوان"
-              language={language}
-            />
-            <Typography
-              variant="text-md"
-              text="Body text"
-              color="dimmed"
-              language={language}
-            />
-            <Breadcrumb
-              items={layoutBreadcrumbItems}
-              selectedItemIndex={0}
-              language={language}
-            />
-            <Pagination
-              currentPage={paginationPage}
-              totalPages={10}
-              pageSize={10}
-              onPageChange={setPaginationPage}
-              language={language}
-            />
-            <AddMoreButton
-              title="Add more"
-              title_ar="إضافة المزيد"
-              onClick={() => {}}
-              language={language}
-            />
-            <Pressable
-              style={styles.toggleBtn}
-              onPress={() => setShowPrompt(true)}
-            >
-              <Text style={styles.toggleBtnText}>Show Prompt</Text>
-            </Pressable>
-            {showPrompt && (
-              <Prompt
-                title="Confirm action"
-                title_ar="تأكيد"
-                subtiltle="Are you sure?"
-                subtiltle_ar="هل أنت متأكد؟"
-                yesText="Yes"
-                noText="No"
-                onYesClick={() => setShowPrompt(false)}
-                onNoClick={() => setShowPrompt(false)}
-                language={language}
-              />
-            )}
-            <Pressable
-              style={styles.toggleBtn}
-              onPress={() => setShowScreenLoader((v) => !v)}
-            >
-              <Text style={styles.toggleBtnText}>Toggle ScreenLoader</Text>
-            </Pressable>
-            <ScreenLoader isLoading={showScreenLoader} alt="Loading..." />
-          </View>
-
-          {/* Group 4 — TitleBar (G-4.1) */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 4 — TitleBar (G-4.1)</Text>
-            <TitleBar
-              language={language}
-              showTitle={true}
-              title="Land Allocation"
-              title_ar="تخصيص الأراضي"
-              showAcronym={true}
-              acronym="LA"
-              acronym_ar="LA"
-              showButton={true}
-              buttonLabel="New Application"
-              buttonLabel_ar="طلب جديد"
-              buttonType="primary"
-              onClick={() => {}}
-            />
-            <TitleBar
-              language={language}
-              showTitle={true}
-              title="Page Title"
-              title_ar="عنوان الصفحة"
-              showAcronym={false}
-              showButton={false}
-            />
-            <TitleBar
-              language={language}
-              showTitle={true}
-              title="With Secondary Button"
-              title_ar="مع زر ثانوي"
-              showAcronym={true}
-              acronym="WSB"
-              showButton={true}
-              buttonLabel="Secondary CTA"
-              buttonLabel_ar="إجراء ثانوي"
-              buttonType="secondary"
-              onClick={() => {}}
-            />
-          </View>
-
-          {/* Group 5 — Shared Components (migrated) */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 5 — Shared Components</Text>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>CardTitle (G-5.9)</Text>
-              <CardTitle
-                title="Card Title"
-                title_ar="عنوان البطاقة"
-                description="Card description"
-                description_ar="وصف البطاقة"
-                language={language}
-                variant="medium"
-                showBorder
-              />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>ModalTitle (G-5.4)</Text>
-              <ModalTitle label="Modal Title" label_ar="عنوان النافذة" language={language} />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>ModalSteps (G-5.5)</Text>
-              <ModalSteps
-                title="Step 1 of 3"
-                title_ar="الخطوة ١ من ٣"
-                subText="Sub text"
-                subText_ar="نص فرعي"
-                language={language}
-              />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>GenericCard (G-5.6)</Text>
-              <GenericCard
-                title="Generic Card"
-                title_ar="بطاقة عامة"
-                variant="small"
-                language={language}
-                rowsData={[
-                  { label: "Label 1", value: "Value 1" },
-                  { label: "Label 2", value: "Value 2" },
-                ]}
-                showTitleSection
-                showBorder
-              />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>OwnerCard (G-5.2)</Text>
-              <OwnerCard
-                owners={[
-                  {
-                    ownerId: "1",
-                    ownerArgs: "",
-                    name: "Owner Name",
-                    name_ar: "اسم المالك",
-                    fields: [
-                      { label: "Field A", value: "Value A" },
-                      { label: "Field B", value: "Value B" },
-                    ],
-                  },
-                ]}
-                title="Owners"
-                title_ar="المالكون"
-                language={language}
-              />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>PlotCard (G-5.3)</Text>
-              <PlotCard
-                plots={[
-                  {
-                    plotId: "1",
-                    plotArgs: "",
-                    plotNumber: "Plot 101",
-                    plotNumber_ar: "قطعة ١٠١",
-                    fields: [
-                      { label: "Area", value: "100 sqm" },
-                      { label: "Location", value: "Abu Dhabi" },
-                    ],
-                  },
-                ]}
-                title="Plots"
-                title_ar="القطع"
-                language={language}
-              />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Table (G-5.1)</Text>
-              <Table
-                language={language}
-                columns={[
-                  { header: "Application", header_ar: "الطلب", accessorKey: "app" },
-                  { header: "Status", header_ar: "الحالة", accessorKey: "status" },
-                ]}
-                data={[
-                  {
-                    id: "2025001",
-                    applicationTitle: "New Application",
-                    applicationTitle_ar: "طلب جديد",
-                    location: "Abu Dhabi",
-                    location_ar: "أبوظبي",
-                    timeDate: "21/06/2025",
-                    daysRemaining: "5 Days",
-                    daysRemaining_ar: "٥ أيام",
-                    currentStep: 2,
-                    additionalColumns: [
-                      {
-                        action: "Pending",
-                        stepName: "Approval",
-                        type: "pending",
-                        version: "multi-row",
-                      },
-                    ],
-                  },
-                ]}
-              />
-            </View>
-          </View>
-
-          {/* Group 5 — ApplicationDetail (G-5.11) */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 5 — ApplicationDetail (G-5.11)</Text>
-            <ApplicationDetail
-              applicationId=""
-              applicationTitle="Application Details"
-              applicationTitle_ar="تفاصيل الطلب"
-              language={language}
-              theme="dark"
-              onOwnerClick={(data) => console.log("ownerClick", data)}
-              onPlotClick={(data) => console.log("plotClick", data)}
-              onDocumentOpen={(url) => Linking.openURL(url)}
-              documentIcon={<DocumentIcon width={24} height={24} />}
-              checkIcon={<Check color="#ffffff" size={20} />}
-              sendIcon={<Send color="#ffffff" size={20} />}
-            />
-          </View>
-
-          {/* Group 5 — ViewOwnerDetail (G-5.10) */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 5 — ViewOwnerDetail (G-5.10)</Text>
-            <ViewOwnerDetail
-              language={language}
-              mainTitle="Owner Detail"
-              mainTitle_ar="تفاصيل المالك"
-              plotCode="0-222-000-RCH9999"
-              plotCode_ar="0-222-000-RCH9999"
-              ownerText="Owner"
-              ownerText_ar="المالك"
-              viewButtonText="View"
-              viewButtonText_ar="عرض"
-              documentsText="Documents"
-              documentsText_ar="المستندات"
-              uaeIdText="UAE National Identity"
-              uaeIdText_ar="الهوية الوطنية الإماراتية"
-              passportText="Passport"
-              passportText_ar="جواز السفر"
-              owner={{
-                name: "Talal Ahmed Salem",
-                details: [
-                  { label: "UAE National ID", label_ar: "الهوية الوطنية الإماراتية", value: "78273890399292" },
-                  { label: "MOI Unified Number", label_ar: "رقم وزارة الداخلية الموحد", value: "330928" },
-                  { label: "Archive Number", label_ar: "رقم الأرشيف", value: "7921" },
-                  { label: "Nationality", label_ar: "الجنسية", value: "United Arab Emirates" },
-                  { label: "Special Nationality", label_ar: "الجنسية الخاصة", value: "No" },
-                  { label: "Share", label_ar: "الحصة", value: "100% Allotment 50% Share" },
-                  { label: "Right Hold Type", label_ar: "نوع حق الحيازة", value: "Ownership Musataha" },
-                ],
-              }}
-            />
-          </View>
-
-          {/* Group 4 — OwnerSearch (G-4.2) */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 4 — OwnerSearch (G-4.2)</Text>
-            <OwnerSearch
-              language={language}
-              title="New Application"
-              title_ar="طلب جديد"
-              subtitle="Search Owner"
-              subtitle_ar="بحث عن مالك"
-              ownerTypeOptions={{
-                company: "By Company Owner",
-                company_ar: "حسب مالك الشركة",
-                owner: "By Owner",
-                owner_ar: "حسب المالك",
-              }}
-              initialOwnerType="company"
-              theme="dark"
-              selected={[]}
-              onSubmit={(val) => console.log("OwnerSearch onSubmit", val)}
-            />
-          </View>
-
-          {/* Group 4 — FilterBar (G-4.3) */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 4 — FilterBar (G-4.3)</Text>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Light / English</Text>
-              <FilterBar
-                language={language}
-                theme="light"
-                searchValue={filterBarSearch}
-                onSearchChange={(text) => setFilterBarSearch(text)}
-                selectedSearchColumns={filterBarColumns}
-                onSearchColumnsChange={setFilterBarColumns}
-                searchColumns={["Column 1", "Column 2", "Column 3"]}
-                filterOptions={["Actions", "Critical"]}
-                sortOptions={["Newest First", "Oldest First"]}
-                applicationOptions={["My Applications", "All Applications"]}
-                filterButtonLabel="All Filters"
-                filterButtonLabel_ar="جميع المرشحات"
-                resetButtonLabel="Default Filter"
-                resetButtonLabel_ar="المرشح الافتراضي"
-                mobileColumnTitle="View Column"
-                mobileColumnTitle_ar="عرض العمود"
-                showResetButton
-              />
-            </View>
-            <View style={[styles.g2Block, { backgroundColor: "#12121B", padding: 16, borderRadius: 8 }]}>
-              <Text style={[styles.g2ComponentTitle, { color: "#fff" }]}>Dark / Arabic</Text>
-              <FilterBar
-                language="ar"
-                theme="dark"
-                searchColumns={["العمود 1", "العمود 2", "العمود 3"]}
-                filterOptions={["الإجراءات", "حرج"]}
-                sortOptions={["الأحدث أولاً", "الأقدم أولاً"]}
-                applicationOptions={["طلباتي", "جميع الطلبات"]}
-                filterButtonLabel_ar="جميع المرشحات"
-                resetButtonLabel_ar="المرشح الافتراضي"
-                searchPlaceholder_ar="بحث"
-                mobileColumnTitle_ar="عرض العمود"
-                showResetButton
-              />
-            </View>
-          </View>
-
-          {/* Group 4 — Signature (G-4.6) */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 4 — Signature (G-4.6)</Text>
-            <View style={[styles.g2Block, { backgroundColor: "#2A2A32", padding: 16, borderRadius: 8 }]}>
-              <Text style={[styles.g2ComponentTitle, { color: "#fff", marginBottom: 12 }]}>Dark theme / English</Text>
-              <Signature
-                language={language}
-                title="Sign to Approve"
-                title_ar="وقع للموافقة"
-                buttonText="Approve"
-                buttonText_ar="موافق"
-                theme="dark"
-                onSubmit={(val) => console.log("Signature (dark/en) submitted", val.signature.slice(0, 50))}
-              />
-            </View>
-            <View style={[styles.g2Block, { backgroundColor: "#fff", padding: 16, borderRadius: 8, borderWidth: 1, borderColor: "#eee" }]}>
-              <Text style={[styles.g2ComponentTitle, { marginBottom: 12 }]}>Light theme / English</Text>
-              <Signature
-                language={language}
-                title="Sign to Approve"
-                title_ar="وقع للموافقة"
-                buttonText="Approve"
-                buttonText_ar="موافق"
-                theme="light"
-                onSubmit={(val) => console.log("Signature (light/en) submitted", val.signature.slice(0, 50))}
-              />
-            </View>
-            <View style={[styles.g2Block, { backgroundColor: "#12121B", padding: 16, borderRadius: 8 }]}>
-              <Text style={[styles.g2ComponentTitle, { color: "#fff", marginBottom: 12 }]}>Dark theme / Arabic</Text>
-              <Signature
-                language="ar"
-                title="Sign to Approve"
-                title_ar="وقع للموافقة"
-                buttonText="Approve"
-                buttonText_ar="موافق"
-                theme="dark"
-                onSubmit={(val) => console.log("Signature (dark/ar) submitted", val.signature.slice(0, 50))}
-              />
-            </View>
-          </View>
-
-          {/* Group 4 — UploadDocuments (G-4.7) */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 4 — UploadDocuments (G-4.7)</Text>
-            <View style={[styles.g2Block, { backgroundColor: "#2A2A32", padding: 16, borderRadius: 8 }]}>
-              <Text style={[styles.g2ComponentTitle, { color: "#fff", marginBottom: 12 }]}>Default type / English</Text>
-              <UploadDocuments
+              <Payment
                 language="en"
-                theme="dark"
-                type="default"
-                documents={[
-                  { documentName: "Passport", documentName_ar: "جواز السفر" },
-                  {
-                    documentName: "National ID",
-                    documentName_ar: "الهوية الوطنية",
-                    allowedTypes: ["pdf", "jpg", "png"],
-                    fileTypeErrorMessage: "Only PDF, JPG, or PNG accepted.",
-                    fileTypeErrorMessage_ar: "يُقبل PDF أو JPG أو PNG فقط.",
-                  },
-                  {
-                    documentName: "Proof of Address",
-                    documentName_ar: "إثبات العنوان",
-                    fileSize: 500000,
-                    fileSizeErrorMessage: "File must be less than 500 KB.",
-                    fileSizeErrorMessage_ar: "يجب أن يكون الملف أقل من 500 كيلوبايت.",
-                  },
-                ]}
-                onFileChange={(val) =>
-                  console.log("UploadDocuments onFileChange", val.uploadUrl, val.file)
-                }
-              />
-            </View>
-            <View style={[styles.g2Block, { backgroundColor: "#1E1E26", padding: 16, borderRadius: 8 }]}>
-              <Text style={[styles.g2ComponentTitle, { color: "#fff", marginBottom: 12 }]}>Base type / Arabic (RTL)</Text>
-              <UploadDocuments
-                language="ar"
-                theme="dark"
-                type="base"
-                documents={[
-                  { documentName: "Contract", documentName_ar: "العقد", isUploaded: true },
-                  {
-                    documentName: "Invoice",
-                    documentName_ar: "الفاتورة",
-                    allowedTypes: ["PDF"],
-                    fileTypeErrorMessage: "Only PDF accepted.",
-                    fileTypeErrorMessage_ar: "يُقبل PDF فقط.",
-                  },
-                ]}
-                onFileChange={(val) =>
-                  console.log("UploadDocuments (ar) onFileChange", val)
-                }
-              />
-            </View>
-          </View>
-
-          {/* Group 4 — PaymentDetails (G-4.10) */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 4 — PaymentDetails (G-4.10)</Text>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Pending payment (no receipt) — en</Text>
-              <PaymentDetails
-                language={language}
                 applicationId="APP-001"
-                variant="medium"
-                drawerSize="layer1"
-                payments={[
-                  {
-                    applicationPaymentId: 1,
-                    municipalityId: 101,
-                    paymentDescriptionE: "Building Permit Fee",
-                    paymentDescriptionA: "رسوم تصريح البناء",
-                    municipalityNameE: "Dubai Municipality",
-                    municipalityNameA: "بلدية دبي",
-                    paidByName: "John Doe",
-                    receiptNumber: "",
-                    receiptDate: "",
-                    amountDue: "500 AED",
-                    amountInWords: "Five Hundred Dirhams",
-                    vatAmount: "25 AED",
-                  },
-                  {
-                    applicationPaymentId: 2,
-                    municipalityId: 102,
-                    paymentDescriptionE: "Inspection Fee",
-                    paymentDescriptionA: "رسوم التفتيش",
-                    municipalityNameE: "Abu Dhabi Municipality",
-                    municipalityNameA: "بلدية أبوظبي",
-                    paidByName: "John Doe",
-                    receiptNumber: "REC123",
-                    receiptDate: "2025-02-01",
-                    amountDue: "300 AED",
-                    amountInWords: "Three Hundred Dirhams",
-                    vatAmount: "15 AED",
-                  },
-                ]}
-                isLoading={false}
-                showButtons
-                buttons={[
-                  {
-                    title: "Back",
-                    title_ar: "رجوع",
-                    type: "secondary",
-                    onClick: () => console.log("PaymentDetails Back clicked"),
-                  },
-                  {
-                    title: "Submit",
-                    title_ar: "إرسال",
-                    type: "primary",
-                    onClick: () => console.log("PaymentDetails Submit clicked"),
-                  },
-                ]}
-                onVerifyComplete={() =>
-                  console.log("PaymentDetails verify complete")
-                }
-                onOverrideComplete={() =>
-                  console.log("PaymentDetails override complete")
-                }
-                onDownloadFile={(url) =>
-                  console.log("PaymentDetails download (mobile — implement with RN FileSystem):", url)
-                }
+                stepInfo={stepInfo}
+                isStepInfoPending={false}
+                isPaymentSubmitting={false}
+                onSubmit={handleSubmit}
+                onPaymentSubmit={handlePaymentSubmit}
+                onSaveDraft={handleSaveDraft}
               />
             </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Loading state</Text>
-              <PaymentDetails
-                language={language}
-                applicationId="APP-002"
-                payments={[]}
-                isLoading
-              />
-            </View>
-          </View>
 
-          {/* Group 5 — ApplicationMessage (G-5.12) */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>Group 5 — ApplicationMessage (G-5.12)</Text>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Success (default)</Text>
-              <ApplicationMessage
-                status="success"
-                title="Application Submitted Successfully"
-                description="Your application has been submitted and is under review."
-                language={language}
-              />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Error</Text>
-              <ApplicationMessage
-                status="error"
-                title="Submission Failed"
-                description="There was an error while submitting your application. Please try again."
-                language={language}
-              />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Information with text input</Text>
-              <ApplicationMessage
-                status="information"
-                title="Additional Information Required"
-                description="Please provide the missing details to continue."
-                type="text"
-                fieldType="text"
-                label="Reference Number"
-                label_ar="رقم المرجع"
-                value=""
-                onInputChange={(value) => console.log("ApplicationMessage input:", value)}
-                language={language}
-              />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Action with checkbox</Text>
-              <ApplicationMessage
-                status="action"
-                title="Confirm Declaration"
-                description="Please confirm the following before proceeding."
-                type="checkbox"
-                label="I agree to the terms"
-                label_ar="أوافق على الشروط"
-                value={[]}
-                options={[
-                  { label: "Terms & Conditions", label_ar: "الشروط والأحكام", value: "terms" },
-                  { label: "Privacy Policy", label_ar: "سياسة الخصوصية", value: "privacy" },
-                ]}
-                onInputChange={(value) => console.log("ApplicationMessage checkbox:", value)}
-                language={language}
-              />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Action with radio</Text>
-              <ApplicationMessage
-                status="action"
-                title="Choose an Option"
-                description="Please select one of the following options to proceed."
-                type="radio"
-                label="Decision"
-                label_ar="القرار"
-                value="approve"
-                options={[
-                  { label: "Approve", label_ar: "موافقة", value: "approve" },
-                  { label: "Reject", label_ar: "رفض", value: "reject" },
-                ]}
-                onInputChange={(value) => console.log("ApplicationMessage radio:", value)}
-                language={language}
-              />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Action with button</Text>
-              <ApplicationMessage
-                status="action"
-                title="Next Step Required"
-                description="Click the button below to continue to the next step."
-                type="button"
-                label="Continue"
-                label_ar="متابعة"
-                onClick={() => console.log("ApplicationMessage button clicked")}
-                language={language}
-              />
-            </View>
-            <View style={styles.g2Block}>
-              <Text style={styles.g2ComponentTitle}>Arabic RTL</Text>
-              <ApplicationMessage
+            {/* G-4.4 Payment — Arabic, New Tenancy */}
+            <View style={styles.section}>
+              <Text style={sectionTitleStyle}>
+                G-4.4 — Payment — Arabic / New Tenancy
+              </Text>
+              <Payment
                 language="ar"
-                status="success"
-                title="تم إرسال الطلب بنجاح"
-                description="تم إرسال طلبك وهو الآن قيد المراجعة."
-                type="button"
-                label="حسناً"
+                applicationId="APP-002"
+                stepInfo={stepInfo}
+                isStepInfoPending={false}
+                isPaymentSubmitting={false}
+                onSubmit={handleSubmit}
+                onPaymentSubmit={handlePaymentSubmit}
+                onSaveDraft={handleSaveDraft}
               />
             </View>
-          </View>
 
-          {/* G-5.14 SearchPlot */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>G-5.14 SearchPlot</Text>
-            <SearchPlot
-              language={language}
-              title="Search Plot"
-              title_ar="العثور على قطعة أرض"
-              subtitle=""
-              initialOwnerType="plot"
-              enabledTabs={{ plot: true, company: true, owner: true }}
-              ownerTypeOptions={{
-                plot: "By Plot",
-                plot_ar: "حسب قطعة الأرض",
-                company: "By Company Owner",
-                company_ar: "حسب مالك الشركة",
-                owner: "By Owner",
-                owner_ar: "حسب المالك",
-                randomAllocation: "Random Allocation",
-                randomAllocation_ar: "التخصيص العشوائي",
-              }}
-              selected={[]}
-              onSubmit={(val) => console.log("SearchPlot onSubmit", val)}
-            />
-          </View>
+            {/* G-4.4 Payment — English, Renew Tenancy */}
+            <View style={styles.section}>
+              <Text style={sectionTitleStyle}>
+                G-4.4 — Payment — English / Renew Tenancy
+              </Text>
+              <Payment
+                language="en"
+                applicationId="APP-003"
+                stepInfo={renewStepInfo}
+                isStepInfoPending={false}
+                isPaymentSubmitting={false}
+                onSubmit={handleSubmit}
+                onPaymentSubmit={handlePaymentSubmit}
+                onSaveDraft={handleSaveDraft}
+              />
+            </View>
 
-          {/* 0.10 Toast */}
-          <View style={styles.section}>
-            <Text style={sectionTitleStyle}>0.10 Toast</Text>
-            <Toast message="Success: operation completed" status="success" />
-            <Toast message="Error: something went wrong" status="error" />
-            <Toast message="Information: please review" status="information" />
-            <Toast message="Action: confirm to continue" status="action" />
-            <Text style={styles.hint}>
-              Toasts auto-hide in 5s or close via ×
-            </Text>
-          </View>
-        </ScrollView>
-        {/* </Layout> */}
-      </QueryClientProvider>
-    </BottomSheetModalProvider>
+            {/* G-4.4 Payment — Arabic, Renew Tenancy */}
+            <View style={styles.section}>
+              <Text style={sectionTitleStyle}>
+                G-4.4 — Payment — Arabic / Renew Tenancy
+              </Text>
+              <Payment
+                language="ar"
+                applicationId="APP-004"
+                stepInfo={renewStepInfo}
+                isStepInfoPending={false}
+                isPaymentSubmitting={false}
+                onSubmit={handleSubmit}
+                onPaymentSubmit={handlePaymentSubmit}
+                onSaveDraft={handleSaveDraft}
+              />
+            </View>
+
+            {/* G-4.4 Payment — Loading State (isStepInfoPending) */}
+            <View style={styles.section}>
+              <Text style={sectionTitleStyle}>
+                G-4.4 — Payment — Loading State (isStepInfoPending=true)
+              </Text>
+              <Payment
+                language={language}
+                applicationId="APP-005"
+                stepInfo={undefined}
+                isStepInfoPending={true}
+                isPaymentSubmitting={false}
+                onSubmit={handleSubmit}
+                onPaymentSubmit={handlePaymentSubmit}
+                onSaveDraft={handleSaveDraft}
+              />
+            </View>
+
+            {/* G-4.4 Payment — Submitting State (isPaymentSubmitting) */}
+            <View style={styles.section}>
+              <Text style={sectionTitleStyle}>
+                G-4.4 — Payment — Submitting State (isPaymentSubmitting=true)
+              </Text>
+              <Payment
+                language={language}
+                applicationId="APP-006"
+                stepInfo={stepInfo}
+                isStepInfoPending={false}
+                isPaymentSubmitting={true}
+                onSubmit={handleSubmit}
+                onPaymentSubmit={handlePaymentSubmit}
+                onSaveDraft={handleSaveDraft}
+              />
+            </View>
+
+            {/* G-4.4 Payment — Toggle Language */}
+            <View style={styles.section}>
+              <Text style={sectionTitleStyle}>
+                G-4.4 — Payment — Toggle Language ({language})
+              </Text>
+              <Payment
+                language={language}
+                applicationId="APP-007"
+                stepInfo={stepInfo}
+                isStepInfoPending={false}
+                isPaymentSubmitting={false}
+                onSubmit={handleSubmit}
+                onPaymentSubmit={handlePaymentSubmit}
+                onSaveDraft={handleSaveDraft}
+              />
+            </View>
+
+          </ScrollView>
+        </QueryClientProvider>
+      </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
 }
@@ -1245,13 +222,13 @@ export default function App() {
 const styles = StyleSheet.create({
   scroll: { flex: 1 },
   content: { padding: 16, paddingBottom: 48 },
-  section: { marginBottom: 28 },
-  rowWrap: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 12, marginBottom: 8 },
-  tooltipWrap: { marginRight: 8, marginBottom: 8 },
-  buttonRow: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 4 },
-  toggleBtn: { paddingHorizontal: 12, paddingVertical: 8, borderWidth: 1, borderColor: "#ccc", borderRadius: 6 },
+  section: { marginBottom: 40 },
+  toggleBtn: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 6,
+  },
   toggleBtnText: { fontSize: 12 },
-  hint: { fontSize: 12, color: "#666", marginTop: 4 },
-  g2Block: { marginBottom: 24 },
-  g2ComponentTitle: { fontSize: 14, fontWeight: "600", color: "#111", marginBottom: 12 },
 });

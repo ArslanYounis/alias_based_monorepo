@@ -6,6 +6,7 @@ import { Buttons } from "@platform/Buttons";
 import { RadioCard } from "@platform/RadioCard";
 import { Label } from "@platform/Label";
 import { Container } from "@platform/Container";
+import { PaymentIcon, NoPaymentIcon } from "@platform/icons";
 import { Text } from "@platform/Text";
 import Rent, { type RentValues } from "./Rent";
 import Contract, { type ContractValues } from "./Contract";
@@ -21,21 +22,6 @@ import {
   MeasurementSchema,
 } from "./helper";
 import type { SimpleForm, RentFeesResponse } from "./types";
-
-const PaymentIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21 4H3C1.89543 4 1 4.89543 1 6V18C1 19.1046 1.89543 20 3 20H21C22.1046 20 23 19.1046 23 18V6C23 4.89543 22.1046 4 21 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M1 10H23" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const NoPaymentIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21 4H3C1.89543 4 1 4.89543 1 6V18C1 19.1046 1.89543 20 3 20H21C22.1046 20 23 19.1046 23 18V6C23 4.89543 22.1046 4 21 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M1 10H23" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M4 4L20 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-  </svg>
-);
 
 const totalSteps = 4;
 type StepId = 0 | 1 | 2 | 3;
@@ -120,10 +106,10 @@ const Payment: React.FC<PaymentProps> = ({
   >("Payment");
 
   const [rentFeesResult, setRentFeesResult] = useState<RentFeesResponse | null>(
-    null
+    null,
   );
   const [remarksError, setRemarksError] = useState<string | undefined>(
-    undefined
+    undefined,
   );
 
   const initialValues: CombinedForm = {
@@ -189,7 +175,7 @@ const Payment: React.FC<PaymentProps> = ({
     if (!isPayment) {
       if (!values?.tenancyRemarks?.trim()) {
         setRemarksError(
-          language === "ar" ? "الملاحظات مطلوبة" : "Remarks are required"
+          language === "ar" ? "الملاحظات مطلوبة" : "Remarks are required",
         );
         return;
       }
@@ -207,14 +193,14 @@ const Payment: React.FC<PaymentProps> = ({
     // Build shared payload only once
     const basePayload: PaymentSubmitPayload = {
       ranchLandClassificationId: Number(
-        stepInfo?.result?.tenancyContract?.requestLandClassificationId ?? 0
+        stepInfo?.result?.tenancyContract?.requestLandClassificationId ?? 0,
       ),
       plotId: Number(stepInfo?.result?.tenancyContract?.plotId ?? 0),
       tenancyContractId: Number(
-        stepInfo?.result?.tenancyContract?.tenancyContractId ?? 0
+        stepInfo?.result?.tenancyContract?.tenancyContractId ?? 0,
       ),
       contractDuration: String(
-        stepInfo?.result?.tenancyContract?.contractDuration
+        stepInfo?.result?.tenancyContract?.contractDuration,
       ),
       isFirstYearFreeOfPayment: values?.isFirstYearFreeOfPayment ? 1 : 0,
       isSkipPayment: !isPayment,
@@ -311,27 +297,27 @@ const Payment: React.FC<PaymentProps> = ({
                 step === 0
                   ? "Contract"
                   : step === 1
-                  ? "Measurement"
-                  : step === 2
-                  ? "Insurance"
-                  : step === 3
-                  ? "Rent"
-                  : ""
+                    ? "Measurement"
+                    : step === 2
+                      ? "Insurance"
+                      : step === 3
+                        ? "Rent"
+                        : ""
               }
               title_ar={
                 step === 0
                   ? "العقد"
                   : step === 1
-                  ? "القياسات"
-                  : step === 2
-                  ? "التأمين"
-                  : step === 3
-                  ? "الإيجار"
-                  : ""
+                    ? "القياسات"
+                    : step === 2
+                      ? "التأمين"
+                      : step === 3
+                        ? "الإيجار"
+                        : ""
               }
               subText={`Step ${step + 1} of ${totalSteps}`}
               subText_ar={`الخطوة ${toArabicDigits(
-                step + 1
+                step + 1,
               )} من ${toArabicDigits(totalSteps)}`}
               variant="large"
               language={language}
@@ -379,7 +365,7 @@ const Payment: React.FC<PaymentProps> = ({
                     } catch (err) {
                       console.warn(
                         "Failed to set form values via setValue:",
-                        err
+                        err,
                       );
                     }
                   }}
