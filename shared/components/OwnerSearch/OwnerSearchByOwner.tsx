@@ -8,6 +8,7 @@ import { TextInput } from "@platform/TextInput";
 import { NumberInput } from "@platform/NumberInput";
 import { Buttons } from "@platform/Buttons";
 import { CustomDrawer } from "@platform/CustomDrawer";
+import { SearchIcon, PersonIcon, UAENationalIcon } from "@platform/icons";
 import { getSearchByOwner } from "../../hooks/useGetSearchByOwner";
 import type { IOwnerSearchResult } from "./OwnerSearchResult";
 import OwnerSearchResult from "./OwnerSearchResult";
@@ -44,116 +45,6 @@ const ALWAYS_INCLUDE_KEYS = [
   "matchType",
   "resultsDisplay",
 ] as const;
-
-const SearchIconSvg = () => (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="text-button-primary-default-bg"
-  >
-    <path
-      d="M21 21L16.657 16.657M16.657 16.657A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const PersonSvgIcon = ({ className }: { className?: string }) => (
-  <svg
-    width="22"
-    height="21"
-    viewBox="0 0 22 21"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
-    <path
-      d="M20.2805 17.0813C19.7752 15.9343 19.0419 14.8924 18.1216 14.0137C17.204 13.1325 16.117 12.4299 14.9207 11.9448C14.9099 11.9396 14.8992 11.9371 14.8885 11.9319C16.5573 10.7768 17.6421 8.8952 17.6421 6.77232C17.6421 3.25558 14.6689 0.40625 10.9992 0.40625C7.32959 0.40625 4.35637 3.25558 4.35637 6.77232C4.35637 8.8952 5.44119 10.7768 7.10994 11.9345C7.09923 11.9396 7.08852 11.9422 7.0778 11.9473C5.8778 12.4325 4.80102 13.1281 3.87691 14.0163C2.95738 14.8957 2.22424 15.9373 1.71798 17.0838C1.22063 18.2062 0.952396 19.4096 0.927801 20.6288C0.927086 20.6562 0.932101 20.6835 0.942549 20.709C0.952997 20.7345 0.968668 20.7577 0.988638 20.7773C1.00861 20.797 1.03247 20.8125 1.05883 20.8232C1.08518 20.8338 1.11349 20.8393 1.14209 20.8393H2.74923C2.86709 20.8393 2.96084 20.7494 2.96352 20.6391C3.01709 18.6574 3.84744 16.8015 5.3153 15.3948C6.83405 13.9393 8.85102 13.1384 10.9992 13.1384C13.1474 13.1384 15.1644 13.9393 16.6832 15.3948C18.151 16.8015 18.9814 18.6574 19.0349 20.6391C19.0376 20.752 19.1314 20.8393 19.2492 20.8393H20.8564C20.885 20.8393 20.9133 20.8338 20.9396 20.8232C20.966 20.8125 20.9899 20.797 21.0098 20.7773C21.0298 20.7577 21.0455 20.7345 21.0559 20.709C21.0664 20.6835 21.0714 20.6562 21.0707 20.6288C21.0439 19.4018 20.7787 18.2081 20.2805 17.0813ZM10.9992 11.1875C9.76977 11.1875 8.61262 10.728 7.74209 9.89375C6.87155 9.05949 6.39209 7.95056 6.39209 6.77232C6.39209 5.59409 6.87155 4.48516 7.74209 3.65089C8.61262 2.81663 9.76977 2.35714 10.9992 2.35714C12.2287 2.35714 13.3858 2.81663 14.2564 3.65089C15.1269 4.48516 15.6064 5.59409 15.6064 6.77232C15.6064 7.95056 15.1269 9.05949 14.2564 9.89375C13.3858 10.728 12.2287 11.1875 10.9992 11.1875Z"
-      fill="currentColor"
-    />
-  </svg>
-);
-
-const UAENationalSvgIcon = ({ className }: { className?: string }) => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
-    <path
-      d="M7 3.49342C8.4301 2.57603 10.1499 2.04102 12 2.04102C16.1031 2.04102 19.5649 4.67233 20.6482 8.27018"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M21 21.2077V13.541"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M3 21.2077V10.666C3 9.65794 3.18046 8.69026 3.51212 7.79102"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M18 21.2077V10.9535C18 7.6191 15.3137 4.91602 12 4.91602C8.68629 4.91602 6 7.6191 6 10.9535V13.541"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M6 21.2083V17.375"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M9 21.2077V10.8098C9 9.14256 10.3431 7.79102 12 7.79102C12.8653 7.79102 13.645 8.15964 14.1926 8.74935"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M15 21.2077V13.541"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M12 21.2077V17.8535"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M12 10.666V13.541"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 const OwnerSearchByOwner = ({
   args = "",
@@ -298,7 +189,7 @@ const OwnerSearchByOwner = ({
     <Container className="flex flex-col w-full">
       <Container className="flex flex-1 flex-col gap-l">
         {/* Row 1: National Number & Owner Name */}
-        <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
+        <Container className="flex flex-col sm:flex-row sm:flex-wrap gap-l w-full">
           <form.Field
             name="nationalNumber"
             children={(field) => (
@@ -315,7 +206,7 @@ const OwnerSearchByOwner = ({
                 errorMessage={field.state.meta.errors?.[0]?.message}
                 errorMessage_ar={field.state.meta.errors?.[0]?.message}
                 language={language}
-                icon={<UAENationalSvgIcon className="text-text-default" />}
+                icon={<UAENationalIcon className="text-text-default" />}
               />
             )}
           />
@@ -335,14 +226,14 @@ const OwnerSearchByOwner = ({
                 errorMessage={field.state.meta.errors?.[0]?.message}
                 errorMessage_ar={field.state.meta.errors?.[0]?.message}
                 language={language}
-                icon={<PersonSvgIcon className="text-text-default" />}
+                icon={<PersonIcon className="text-text-default" />}
               />
             )}
           />
         </Container>
 
         {/* Row 2: Family Name */}
-        <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
+        <Container className="flex flex-col sm:flex-row sm:flex-wrap gap-l w-full">
           <form.Field
             name="familyName"
             children={(field) => (
@@ -359,7 +250,7 @@ const OwnerSearchByOwner = ({
                 errorMessage={field.state.meta.errors?.[0]?.message}
                 errorMessage_ar={field.state.meta.errors?.[0]?.message}
                 language={language}
-                icon={<PersonSvgIcon className="text-text-default" />}
+                icon={<PersonIcon className="text-text-default" />}
               />
             )}
           />
@@ -368,7 +259,7 @@ const OwnerSearchByOwner = ({
 
         {/* Dynamic optional fields */}
         {visibleFields?.length > 0 && (
-          <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
+          <Container className="flex flex-col sm:flex-row sm:flex-wrap gap-l w-full">
             {visibleFields.includes("passportNumber") && (
               <form.Field
                 name="passportNumber"
@@ -491,47 +382,51 @@ const OwnerSearchByOwner = ({
         )}
 
         {/* Row: Match Type & Results Display + MultiSelect */}
-        <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l pt-m w-full border-t border-border-light">
-          <Container className="grid grid-cols-2 gap-l">
-            <form.Field
-              name="matchType"
-              children={(field) => (
-                <Select
-                  checked={field.state.value}
-                  onChange={field.handleChange}
-                  label="Match Type"
-                  label_ar="نوع المطابقة"
-                  placeholder="Choose a Match Type"
-                  placeholder_ar="اختر نوع المطابقة"
-                  captionLeft=""
-                  captionRight=""
-                  errorMessage={field.state.meta.errors?.[0]?.message}
-                  options={MatchTypeOptions}
-                  language={language}
-                />
-              )}
-            />
-            <form.Field
-              name="resultsDisplay"
-              children={(field) => (
-                <Select
-                  checked={field.state.value}
-                  onChange={field.handleChange}
-                  label="Results to Display"
-                  label_ar="النتائج المعروضة"
-                  placeholder="Choose Results"
-                  placeholder_ar="اختر النتائج"
-                  captionLeft=""
-                  captionRight=""
-                  errorMessage={field.state.meta.errors?.[0]?.message}
-                  errorMessage_ar={field.state.meta.errors?.[0]?.message}
-                  options={ResultsDisplayOptions}
-                  language={language}
-                />
-              )}
-            />
+        <Container className="flex flex-col sm:flex-row sm:flex-wrap gap-l pt-m w-full border-t border-border-light">
+          <Container className="flex flex-row gap-l sm:flex-1">
+            <Container className="flex-1">
+              <form.Field
+                name="matchType"
+                children={(field) => (
+                  <Select
+                    checked={field.state.value}
+                    onChange={field.handleChange}
+                    label="Match Type"
+                    label_ar="نوع المطابقة"
+                    placeholder="Choose a Match Type"
+                    placeholder_ar="اختر نوع المطابقة"
+                    captionLeft=""
+                    captionRight=""
+                    errorMessage={field.state.meta.errors?.[0]?.message}
+                    options={MatchTypeOptions}
+                    language={language}
+                  />
+                )}
+              />
+            </Container>
+            <Container className="flex-1">
+              <form.Field
+                name="resultsDisplay"
+                children={(field) => (
+                  <Select
+                    checked={field.state.value}
+                    onChange={field.handleChange}
+                    label="Results to Display"
+                    label_ar="النتائج المعروضة"
+                    placeholder="Choose Results"
+                    placeholder_ar="اختر النتائج"
+                    captionLeft=""
+                    captionRight=""
+                    errorMessage={field.state.meta.errors?.[0]?.message}
+                    errorMessage_ar={field.state.meta.errors?.[0]?.message}
+                    options={ResultsDisplayOptions}
+                    language={language}
+                  />
+                )}
+              />
+            </Container>
           </Container>
-          <Container className="pt-m">
+          <Container className="pt-m sm:flex-1">
             <MultiSelect
               placeholder="Add search type"
               placeholder_ar="أضف نوع البحث"
@@ -552,7 +447,7 @@ const OwnerSearchByOwner = ({
             title={isPending ? "Searching..." : "Search"}
             title_ar={isPending ? "جاري البحث" : "بحث"}
             language={language}
-            leftIcon={<SearchIconSvg />}
+            leftIcon={<SearchIcon className="text-button-primary-default-bg" />}
             disabled={isPending}
             onClick={() => form.handleSubmit()}
           />

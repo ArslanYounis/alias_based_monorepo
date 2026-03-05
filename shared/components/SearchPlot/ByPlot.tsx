@@ -8,6 +8,7 @@ import { TextInput } from "@platform/TextInput";
 import { NumberInput } from "@platform/NumberInput";
 import { Buttons } from "@platform/Buttons";
 import { CustomDrawer } from "@platform/CustomDrawer";
+import { SearchIcon } from "@platform/icons";
 import { getSearchByPlot, type PlotSearchResult } from "../../hooks/useGetSearchByPlot";
 import { useGetMunicipality } from "../../hooks/useGetMunicipality";
 import { useGetDistrict } from "../../hooks/useGetDistrict";
@@ -57,26 +58,6 @@ const ALWAYS_INCLUDE_KEYS = [
   "resultsDisplay",
 ] as const;
 
-// ─── Search Icon ─────────────────────────────────────────────────────────────
-
-const SearchIconSvg = () => (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="text-button-primary-default-bg"
-  >
-    <path
-      d="M21 21L16.657 16.657M16.657 16.657A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 const mapToSearchResult = (item: PlotSearchResult): SearchResult => ({
   plotId: String(item.plotId ?? ""),
@@ -475,7 +456,7 @@ const ByPlot = ({
             buttonType="submit"
             title="Search"
             title_ar="بحث"
-            leftIcon={<SearchIconSvg />}
+            leftIcon={<SearchIcon className="text-button-primary-default-bg" />}
             language={language}
             disabled={isPending}
             onClick={() => form.handleSubmit()}

@@ -69,10 +69,4 @@ export interface ApplicationDetailProps {
   }) => void;
   /** Platform-injected: replaces window.open for document download links */
   onDocumentOpen?: (url: string) => void;
-  /** Platform-injected: document file icon (web: SVG, mobile: react-native-svg) */
-  documentIcon?: React.ReactNode;
-  /** Platform-injected: check/completed icon */
-  checkIcon?: React.ReactNode;
-  /** Platform-injected: send/in-progress icon */
-  sendIcon?: React.ReactNode;
 }

@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Buttons } from "@platform/Buttons";
+import { ChevronDownIcon, ChevronUpIcon } from "@platform/icons";
 import CardTitle from "../CardTitle";
 import Agent from "../Agent";
 import PlotCard from "../PlotCard";
@@ -27,37 +28,6 @@ import type {
   ApplicationSummaryProps,
   UploadDocumentsProps,
 } from "./ApplicationSummary.types";
-
-/* Inline SVG chevron icons (platform-agnostic) */
-const ChevronUpIcon = () => (
-  <svg
-    width={20}
-    height={20}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polyline points="18 15 12 9 6 15" />
-  </svg>
-);
-
-const ChevronDownIcon = () => (
-  <svg
-    width={20}
-    height={20}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polyline points="6 9 12 15 18 9" />
-  </svg>
-);
 
 /* Component */
 const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
@@ -222,7 +192,6 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
   return (
     <Container
       className="bg-grey-form-back border border-grey-form-border py-m px-l w-full"
-      // @ts-expect-error dir is not in LayoutContainerProps but works on web
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Header */}
@@ -242,7 +211,6 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
               {/* Toggle track — click handled by wrapping Container following existing project pattern */}
               <Container
                 className="relative inline-flex items-center cursor-pointer"
-                // @ts-expect-error onClick not in LayoutContainerProps but works on web
                 onClick={handleToggle}
               >
                 <Container className="w-[48px] h-[24px] border border-text-dimmed bg-Base-White rounded-full transition-colors duration-300" />
@@ -283,11 +251,11 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
             leftIcon={
               isExpanded ? (
                 <Text className="text-text-default">
-                  <ChevronUpIcon />
+                  <ChevronUpIcon size={20} />
                 </Text>
               ) : (
                 <Text className="text-text-default">
-                  <ChevronDownIcon />
+                  <ChevronDownIcon size={20} />
                 </Text>
               )
             }

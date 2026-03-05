@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Buttons } from "@platform/Buttons";
+import { CheckIcon, SendIcon, DocumentIcon } from "@platform/icons";
 import ProcessStatusRows from "../ProcessStatusRows";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 import { useGetApplicationDetails } from "../../hooks/useGetApplicationDetails";
@@ -29,9 +30,6 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
   onOwnerClick,
   onPlotClick,
   onDocumentOpen,
-  documentIcon,
-  checkIcon,
-  sendIcon,
 }) => {
   const { data, isLoading, isError } = useGetApplicationDetails(applicationId);
 
@@ -121,7 +119,7 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
               {document.title}
             </Text>
           </Container>
-          {documentIcon ?? null}
+          <DocumentIcon />
         </Container>
       </Container>
     );
@@ -188,7 +186,7 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
           <Container
             className={`flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-full border ${isCompleted ? "border-Green-9" : "border-Teal-9"}`}
           >
-            {isCompleted ? (checkIcon ?? null) : (sendIcon ?? null)}
+            {isCompleted ? <CheckIcon /> : <SendIcon />}
           </Container>
 
           {/* Card content */}

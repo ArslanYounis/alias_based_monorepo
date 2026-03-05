@@ -1,10 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import ApplicationMessage from "./ApplicationMessage";
-import ApplicationSuccess from "@/assets/svg/applicationMessage/success";
-import ApplicationError from "@/assets/svg/applicationMessage/error";
-import ApplicationInformation from "@/assets/svg/applicationMessage/information";
-import ApplicationAction from "@/assets/svg/applicationMessage/action";
 
 const meta: Meta<typeof ApplicationMessage> = {
   title: "ExtraComponents/ApplicationMessage",
@@ -22,6 +18,8 @@ It supports:
 - Optional interactive inputs (text, checkbox, radio, select, button)
 - Bilingual support (English / Arabic)
 - RTL layout handling for Arabic content
+
+Status icons are imported internally from @platform/icons (no need to pass as props).
 
 This component is commonly used to guide users during application workflows
 and request additional input or actions when needed.
@@ -57,10 +55,6 @@ export const Default: Story = {
       {...args}
       title="Application Submitted Successfully"
       description="Your application has been submitted and is under review."
-      successIcon={<ApplicationSuccess className="text-status-success-solid" />}
-      errorIcon={<ApplicationError className="text-status-failed-solid" />}
-      informationIcon={<ApplicationInformation className="text-status-pending-solid" />}
-      actionIcon={<ApplicationAction className="text-status-action-solid" />}
     />
   ),
 };
@@ -71,7 +65,6 @@ export const ErrorMessage: Story = {
       status="error"
       title="Submission Failed"
       description="There was an error while submitting your application. Please try again."
-      errorIcon={<ApplicationError className="text-status-failed-solid" />}
     />
   ),
 };
@@ -88,7 +81,6 @@ export const InformationWithTextInput: Story = {
       label_ar="رقم المرجع"
       value=""
       onInputChange={(value) => console.log(value)}
-      informationIcon={<ApplicationInformation className="text-status-pending-solid" />}
     />
   ),
 };
@@ -116,7 +108,6 @@ export const ActionWithCheckbox: Story = {
         },
       ]}
       onInputChange={(value) => console.log(value)}
-      actionIcon={<ApplicationAction className="text-status-action-solid" />}
     />
   ),
 };
@@ -136,7 +127,6 @@ export const ActionWithRadio: Story = {
         { label: "Reject", label_ar: "رفض", value: "reject" },
       ]}
       onInputChange={(value) => console.log(value)}
-      actionIcon={<ApplicationAction className="text-status-action-solid" />}
     />
   ),
 };
@@ -151,7 +141,6 @@ export const ActionWithButton: Story = {
       label="Continue"
       label_ar="متابعة"
       onClick={() => console.log("Button clicked")}
-      actionIcon={<ApplicationAction className="text-status-action-solid" />}
     />
   ),
 };
@@ -165,7 +154,6 @@ export const ArabicRTL: Story = {
       description="تم إرسال طلبك وهو الآن قيد المراجعة."
       type="button"
       label="حسناً"
-      successIcon={<ApplicationSuccess className="text-status-success-solid" />}
     />
   ),
 };

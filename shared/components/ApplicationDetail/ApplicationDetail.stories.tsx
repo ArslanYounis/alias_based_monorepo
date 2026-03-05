@@ -1,8 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Check, Send } from "lucide-react";
-import Document from "@/assets/svg/document";
 import ApplicationDetail from "./ApplicationDetail";
 import type { ApplicationDetailProps } from "../../types";
 
@@ -29,8 +27,8 @@ The \`ApplicationDetail\` component displays comprehensive application informati
 
 Accepts platform-injected props:
 - \`onDocumentOpen\`: replaces \`window.open\` — web passes \`(url) => window.open(url, '_blank')\`; mobile passes \`Linking.openURL\`
-- \`documentIcon\`: platform-appropriate document icon
-- \`checkIcon\` / \`sendIcon\`: platform-appropriate status icons
+
+Icons (\`DocumentIcon\`, \`CheckIcon\`, \`SendIcon\`) are now imported internally from \`@platform/icons\`.
         `,
       },
     },
@@ -101,9 +99,6 @@ const sharedArgs: Partial<ApplicationDetailProps> = {
   language: "en",
   theme: "dark",
   onDocumentOpen: (url) => window.open(url, "_blank"),
-  documentIcon: <Document width={24} height={24} />,
-  checkIcon: <Check className="text-text-default" />,
-  sendIcon: <Send className="text-text-default" />,
 };
 
 export const Dark: Story = {

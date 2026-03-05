@@ -8,6 +8,7 @@ import { TextInput } from "@platform/TextInput";
 import { NumberInput } from "@platform/NumberInput";
 import { Buttons } from "@platform/Buttons";
 import { CustomDrawer } from "@platform/CustomDrawer";
+import { SearchIcon } from "@platform/icons";
 import { getSearchByCompanyOwner } from "../../hooks/useGetSearchByCompanyOwner";
 import type { IOwnerSearchResult } from "./OwnerSearchResult";
 import OwnerSearchResult from "./OwnerSearchResult";
@@ -37,25 +38,6 @@ interface DrawerData {
   matchType?: string | number;
   searchPayload: Record<string, unknown>;
 }
-
-const SearchIconSvg = () => (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="text-button-primary-default-bg"
-  >
-    <path
-      d="M21 21L16.657 16.657M16.657 16.657A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 const OwnerSearchByCompanyOwner = ({
   args: _args = "",
@@ -182,7 +164,7 @@ const OwnerSearchByCompanyOwner = ({
     <Container className="flex flex-col w-full">
       <Container className="flex flex-1 flex-col gap-l">
         {/* Row 1: Company Name & Certificate Number */}
-        <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
+        <Container className="flex flex-col sm:flex-row sm:flex-wrap gap-l w-full">
           <form.Field
             name="companyName"
             children={(field) => (
@@ -225,7 +207,7 @@ const OwnerSearchByCompanyOwner = ({
 
         {/* Dynamic optional fields */}
         {visibleFields?.length > 0 && (
-          <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
+          <Container className="flex flex-col sm:flex-row sm:flex-wrap gap-l w-full">
             {visibleFields.includes("tradeLicense") && (
               <form.Field
                 name="tradeLicense"
@@ -306,47 +288,51 @@ const OwnerSearchByCompanyOwner = ({
         )}
 
         {/* Row: Match Type & Results Display + MultiSelect */}
-        <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l pt-m w-full border-t border-border-light">
-          <Container className="grid grid-cols-2 gap-l">
-            <form.Field
-              name="matchType"
-              children={(field) => (
-                <Select
-                  checked={field.state.value}
-                  onChange={field.handleChange}
-                  label="Match Type"
-                  label_ar="نوع المطابقة"
-                  placeholder="Choose a Match Type"
-                  placeholder_ar="اختر نوع المطابقة"
-                  captionLeft=""
-                  captionRight=""
-                  errorMessage={field.state.meta.errors?.[0]?.message}
-                  options={MatchTypeOptions}
-                  language={language}
-                />
-              )}
-            />
-            <form.Field
-              name="resultsDisplay"
-              children={(field) => (
-                <Select
-                  checked={field.state.value}
-                  onChange={field.handleChange}
-                  label="Results to Display"
-                  label_ar="النتائج المعروضة"
-                  placeholder="Choose Results"
-                  placeholder_ar="اختر النتائج"
-                  captionLeft=""
-                  captionRight=""
-                  errorMessage={field.state.meta.errors?.[0]?.message}
-                  errorMessage_ar={field.state.meta.errors?.[0]?.message}
-                  options={ResultsDisplayOptions}
-                  language={language}
-                />
-              )}
-            />
+        <Container className="flex flex-col sm:flex-row sm:flex-wrap gap-l pt-m w-full border-t border-border-light">
+          <Container className="flex flex-row gap-l sm:flex-1">
+            <Container className="flex-1">
+              <form.Field
+                name="matchType"
+                children={(field) => (
+                  <Select
+                    checked={field.state.value}
+                    onChange={field.handleChange}
+                    label="Match Type"
+                    label_ar="نوع المطابقة"
+                    placeholder="Choose a Match Type"
+                    placeholder_ar="اختر نوع المطابقة"
+                    captionLeft=""
+                    captionRight=""
+                    errorMessage={field.state.meta.errors?.[0]?.message}
+                    options={MatchTypeOptions}
+                    language={language}
+                  />
+                )}
+              />
+            </Container>
+            <Container className="flex-1">
+              <form.Field
+                name="resultsDisplay"
+                children={(field) => (
+                  <Select
+                    checked={field.state.value}
+                    onChange={field.handleChange}
+                    label="Results to Display"
+                    label_ar="النتائج المعروضة"
+                    placeholder="Choose Results"
+                    placeholder_ar="اختر النتائج"
+                    captionLeft=""
+                    captionRight=""
+                    errorMessage={field.state.meta.errors?.[0]?.message}
+                    errorMessage_ar={field.state.meta.errors?.[0]?.message}
+                    options={ResultsDisplayOptions}
+                    language={language}
+                  />
+                )}
+              />
+            </Container>
           </Container>
-          <Container className="pt-m">
+          <Container className="pt-m sm:flex-1">
             <MultiSelect
               placeholder="Add search type"
               placeholder_ar="أضف نوع البحث"
@@ -367,7 +353,7 @@ const OwnerSearchByCompanyOwner = ({
             title={isPending ? "Searching..." : "Search"}
             title_ar={isPending ? "جاري البحث" : "بحث"}
             language={language}
-            leftIcon={<SearchIconSvg />}
+            leftIcon={<SearchIcon className="text-button-primary-default-bg" />}
             disabled={isPending}
             onClick={() => form.handleSubmit()}
           />

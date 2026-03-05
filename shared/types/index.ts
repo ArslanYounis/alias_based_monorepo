@@ -4,6 +4,15 @@ export interface ContainerProps {
   children: ReactNode;
   className?: string;
   style?: Record<string, unknown>;
+  onClick?: () => void;
+  dir?: "ltr" | "rtl";
+}
+
+export interface ScrollContainerProps {
+  children: ReactNode;
+  className?: string;
+  style?: Record<string, unknown>;
+  horizontal?: boolean;
 }
 
 export interface BaseComponentProps {

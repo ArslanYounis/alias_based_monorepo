@@ -3,6 +3,7 @@ import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Buttons } from "@platform/Buttons";
 import { Fields } from "@platform/Fields";
+import { ChevronDownIcon, ChevronUpIcon } from "@platform/icons";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 import type { ButtonType } from "../CardTitle";
 
@@ -63,16 +64,6 @@ export interface ICardRowProps {
   button?: ButtonType;
 }
 
-const ChevronDownIcon = () => (
-  <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-    <polyline points="6 9 12 15 18 9" />
-  </svg>
-);
-const ChevronUpIcon = () => (
-  <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-    <polyline points="18 15 12 9 6 15" />
-  </svg>
-);
 
 const Label = ({
   l,
@@ -244,7 +235,7 @@ const CardRow: React.FC<ICardRowProps> = ({
             language={language}
             title={isMoreShown ? "Less" : "More"}
             title_ar={isMoreShown ? "أقل" : "أكثر"}
-            rightIcon={isMoreShown ? <ChevronUpIcon /> : <ChevronDownIcon />}
+            rightIcon={isMoreShown ? <ChevronUpIcon size={16} /> : <ChevronDownIcon size={16} />}
             onClick={onToggleMore}
           />
         </Container>

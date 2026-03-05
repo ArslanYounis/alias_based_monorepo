@@ -1,6 +1,6 @@
 import React from "react";
-import { View } from "react-native";
-import type { LayoutContainerProps } from "@shared/types";
+import { View, Pressable } from "react-native";
+import type { ContainerProps } from "@shared/types";
 
 const containerClassMap: Record<string, string> = {
   "layout-root": "flex-1",
@@ -12,12 +12,22 @@ const containerClassMap: Record<string, string> = {
     "w-full py-4 px-4 border-t border-structure-stroke-default",
 };
 
-export const Container: React.FC<LayoutContainerProps> = ({
+export const Container: React.FC<ContainerProps> = ({
   children,
   className = "",
   style,
+  onClick,
 }) => {
   const tw = containerClassMap[className] ?? className;
+
+  if (onClick) {
+    return (
+      <Pressable className={tw} style={style as object} onPress={onClick}>
+        {children}
+      </Pressable>
+    );
+  }
+
   return (
     <View className={tw} style={style as object}>
       {children}

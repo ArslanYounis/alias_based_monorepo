@@ -5,6 +5,12 @@ import { Buttons } from "@platform/Buttons";
 import { TextInput } from "@platform/TextInput";
 import { CheckboxInput } from "@platform/CheckboxInput";
 import { RadioInput } from "@platform/RadioInput";
+import {
+  AppMessageSuccessIcon,
+  AppMessageErrorIcon,
+  AppMessageInformationIcon,
+  AppMessageActionIcon,
+} from "@platform/icons";
 
 type ApplicationStatus = "success" | "error" | "information" | "action";
 type InputType = "text" | "checkbox" | "radio" | "button";
@@ -50,11 +56,6 @@ export interface ApplicationMessageProps {
   onClick?: () => void;
   onInputChange?: (value: string | string[]) => void;
 
-  /* Platform-injected status icons (optional; pass the icon node for current platform) */
-  successIcon?: React.ReactNode;
-  errorIcon?: React.ReactNode;
-  informationIcon?: React.ReactNode;
-  actionIcon?: React.ReactNode;
 }
 
 const ApplicationMessage: React.FC<ApplicationMessageProps> = ({
@@ -79,10 +80,6 @@ const ApplicationMessage: React.FC<ApplicationMessageProps> = ({
   errorMessage_ar,
   onClick,
   onInputChange,
-  successIcon,
-  errorIcon,
-  informationIcon,
-  actionIcon,
 }) => {
   const getStyles = () => {
     switch (status) {
@@ -90,25 +87,25 @@ const ApplicationMessage: React.FC<ApplicationMessageProps> = ({
         return {
           bg: "bg-status-success-light",
           border: "border border-solid border-status-success-solid",
-          icon: successIcon ?? null,
+          icon: <AppMessageSuccessIcon />,
         };
       case "error":
         return {
           bg: "bg-status-failed-light",
           border: "border border-solid border-status-failed-solid",
-          icon: errorIcon ?? null,
+          icon: <AppMessageErrorIcon />,
         };
       case "information":
         return {
           bg: "bg-status-pending-light",
           border: "border border-solid border-status-pending-solid",
-          icon: informationIcon ?? null,
+          icon: <AppMessageInformationIcon />,
         };
       case "action":
         return {
           bg: "bg-status-action-light",
           border: "border border-solid border-status-action-solid",
-          icon: actionIcon ?? null,
+          icon: <AppMessageActionIcon />,
         };
       default:
         return {

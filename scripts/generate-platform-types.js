@@ -54,7 +54,100 @@ function pascalToPropsName(name) {
   return name + "Props";
 }
 
+/**
+ * Parse named exports from a .tsx/.ts file.
+ * Looks for patterns like: export const Foo, export function Foo, export { Foo }
+ */
+function parseNamedExports(filePath) {
+  if (!fs.existsSync(filePath)) return [];
+  const content = fs.readFileSync(filePath, "utf8");
+  const exports = new Set();
+
+  // Match: export const/let/var/function/class Name
+  const declRegex = /export\s+(?:const|let|var|function|class)\s+([A-Z]\w*)/g;
+  let match;
+  while ((match = declRegex.exec(content)) !== null) {
+    exports.add(match[1]);
+  }
+
+  return [...exports];
+}
+
+/**
+ * Get the entry file for a component folder (index.tsx/ts or ComponentName.tsx).
+ */
+function getEntryFile(platformDir, componentName) {
+  const dir = path.join(platformDir, componentName);
+  for (const candidate of [
+    path.join(dir, "index.tsx"),
+    path.join(dir, "index.ts"),
+    path.join(dir, `${componentName}.tsx`),
+  ]) {
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  // flat file
+  const flat = path.join(platformDir, `${componentName}.tsx`);
+  if (fs.existsSync(flat)) return flat;
+  return null;
+}
+
+/**
+ * Check if a module exports multiple named components (not matching folder name).
+ * Returns the list of named exports if multi-export, otherwise null.
+ */
+function getMultiExports(componentName) {
+  const webEntry = getEntryFile(WEB_UI, componentName);
+  const mobileEntry = getEntryFile(MOBILE_UI, componentName);
+  if (!webEntry || !mobileEntry) return null;
+
+  const webExports = parseNamedExports(webEntry);
+  const mobileExports = parseNamedExports(mobileEntry);
+
+  // If the module exports the folder name itself, use the standard single-export stub
+  if (webExports.includes(componentName)) return null;
+
+  // Find common named exports across both platforms
+  const mobileSet = new Set(mobileExports);
+  const common = webExports.filter((e) => mobileSet.has(e));
+
+  if (common.length > 0) return common;
+  return null;
+}
+
 function generateStub(componentName) {
+  const multiExports = getMultiExports(componentName);
+
+  if (multiExports) {
+    // Multi-export module: generate a stub for each named export
+    const webImports = multiExports
+      .map((e) => `  ${e} as Web${e}`)
+      .join(",\n");
+    const mobileImports = multiExports
+      .map((e) => `  ${e} as Mobile${e}`)
+      .join(",\n");
+    const typeAndExport = multiExports
+      .map((e) => {
+        const propsName = pascalToPropsName(e);
+        return `export type ${propsName} =
+  | ComponentProps<typeof Web${e}>
+  | ComponentProps<typeof Mobile${e}>;
+export const ${e}: FC<${propsName}>;`;
+      })
+      .join("\n\n");
+
+    return `import type { ComponentProps, FC } from "react";
+import type {
+${webImports}
+} from "../../web/src/ui/${componentName}";
+import type {
+${mobileImports}
+} from "../../mobile/src/ui/${componentName}";
+
+${typeAndExport}
+`;
+  }
+
+  // Standard single-export module
   const propsName = pascalToPropsName(componentName);
   return `import type { ComponentProps, FC } from "react";
 import type { ${componentName} as Web${componentName} } from "../../web/src/ui/${componentName}";
