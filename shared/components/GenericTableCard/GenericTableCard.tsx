@@ -4,6 +4,8 @@ import { Pagination } from "@platform/Pagination";
 import CardRow, { type ICardRowProps } from "../CardRow";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 import CardTitle, { type ButtonType, type ICardTitleProps } from "../CardTitle";
+import { Container } from "@platform/Container";
+import { Text } from "@platform/Text";
 
 export interface ICardColProps {
   key?: string;
@@ -111,7 +113,7 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
   }, [handlePaginationInternally, rowsData?.length]);
 
   return (
-    <div className="w-full" dir={language === "ar" ? "rtl" : "ltr"}>
+    <Container className="w-full" dir={language === "ar" ? "rtl" : "ltr"}>
       {showTitleSection && (
         <CardTitle
           title={title}
@@ -126,16 +128,16 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
         />
       )}
       {isExpanded ? (
-        <div className="rounded-xs bg-cards-base-l1 text-text-default px-l py-m border border-cards-stroke">
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal min-w-0">
+        <Container className="rounded-xs bg-cards-base-l1 text-text-default px-l py-m border border-cards-stroke">
+          <Container className="flex justify-between items-center mb-3">
+            <Text className="text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal min-w-0">
               <SharedLanguageSwitchRenderer
                 language={language}
                 value={cardTitleValue}
                 value_ar={cardTitleValue_ar}
               />
-            </h3>
-            <div className="flex gap-s">
+            </Text>
+            <Container className="flex gap-s">
               {showButtons &&
                 buttons?.map((button) => (
                   <Buttons
@@ -146,25 +148,25 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
                     language={language}
                   />
                 ))}
-            </div>
-          </div>
+            </Container>
+          </Container>
           {currentButtonLayout && columnsData && columnsData.length > 0 && (
-            <div
+            <Container
               className={`gap-xxs py-s grid ${headerColsClass} items-center text-text-default border-b border-border-dimmed`}
             >
               {columnsData
                 .slice(0, (currentButtonLayout?.valueCount ?? 0) + 1)
                 .map((column, idx) => (
-                  <div key={column.key ?? idx} className="text-bold-m">
+                  <Container key={column.key ?? idx} className="text-bold-m">
                     <SharedLanguageSwitchRenderer
                       language={language}
                       value={column.label}
                       value_ar={column.label_ar}
                     />
-                  </div>
+                  </Container>
                 ))}
-              {showRowButtons && <div />}
-            </div>
+              {showRowButtons && <Container />}
+            </Container>
           )}
           {rowsToShow.map((row, idx) => {
             const button: ButtonType = {
@@ -184,42 +186,47 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
             );
           })}
           {showPagination && (
-            <div className="flex justify-end py-s">
+            <Container className="flex justify-end py-s">
               <Pagination
-                currentPage={handlePaginationInternally ? internalPage : currentPage}
-                totalPages={handlePaginationInternally ? internalTotalPages : totalPages}
-                pageSize={handlePaginationInternally ? INTERNAL_PAGE_SIZE : pageSize}
-                onPageChange={handlePaginationInternally ? setInternalPage : onPageChange}
+                currentPage={
+                  handlePaginationInternally ? internalPage : currentPage
+                }
+                totalPages={
+                  handlePaginationInternally ? internalTotalPages : totalPages
+                }
+                pageSize={
+                  handlePaginationInternally ? INTERNAL_PAGE_SIZE : pageSize
+                }
+                onPageChange={
+                  handlePaginationInternally ? setInternalPage : onPageChange
+                }
                 showBottomText={false}
               />
-            </div>
+            </Container>
           )}
-        </div>
+        </Container>
       ) : (
-        <div
+        <Container
           className="rounded-xs bg-cards-base-l1 text-text-default border border-cards-stroke px-l py-m gap-l flex justify-between items-center cursor-pointer"
           onClick={onToggleExpand}
-          onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onToggleExpand()}
-          role="button"
-          tabIndex={0}
         >
-          <div className="text-bold-m">
+          <Container className="text-bold-m">
             <SharedLanguageSwitchRenderer
               language={language}
               value={cardTitleLabel}
               value_ar={cardTitleLabel_ar}
             />
-          </div>
-          <div className="text-m">
+          </Container>
+          <Container className="text-m">
             <SharedLanguageSwitchRenderer
               language={language}
               value={cardTitleValue}
               value_ar={cardTitleValue_ar}
             />
-          </div>
-        </div>
+          </Container>
+        </Container>
       )}
-      <div className="flex gap-s my-s">
+      <Container className="flex gap-s my-s">
         {showFooterButtons &&
           footerButton?.map((button) => (
             <Buttons
@@ -230,8 +237,8 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
               language={language}
             />
           ))}
-      </div>
-    </div>
+      </Container>
+    </Container>
   );
 };
 

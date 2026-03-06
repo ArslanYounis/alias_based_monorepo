@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import GenericCard, { type IGenericCardProps } from "../GenericCard";
 import type { ICardRowProps } from "../CardRow";
 import type { ButtonType } from "../CardTitle";
+import { Container } from "@platform/Container";
 
 export type GenericCardsButtonType = Omit<ButtonType, "onClick"> & {
   onClick?: (card: IGenericCardItem, index: number) => void;
@@ -70,16 +71,22 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
     itemsPerRow === "3" ? "grid-cols-3" : itemsPerRow === "2" ? "grid-cols-2" : "grid-cols-1";
 
   return (
-    <div className="w-full flex flex-col shrink-0" dir={language === "ar" ? "rtl" : "ltr"}>
-      <div
+    <Container
+      className="w-full flex flex-col shrink-0"
+      dir={language === "ar" ? "rtl" : "ltr"}
+    >
+      <Container
         className={`grid gap-8 ${gridCols}`}
         style={itemsPerRow !== "1" ? { gridAutoFlow: "dense" } : undefined}
       >
         {cardsData?.map((card, idx) => {
           const isExpanded = expandedIndices.includes(idx);
-          const buttonsForCard: IGenericCardProps["buttons"] = (buttons ?? []).map((btn) => ({
+          const buttonsForCard: IGenericCardProps["buttons"] = (
+            buttons ?? []
+          ).map((btn) => ({
             ...btn,
-            onClick: btn.onClick != null ? () => btn.onClick!(card, idx) : undefined,
+            onClick:
+              btn.onClick != null ? () => btn.onClick!(card, idx) : undefined,
           }));
           const cardProps: IGenericCardProps = {
             title,
@@ -100,8 +107,8 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
           };
           return <GenericCard key={card.id ?? idx} {...cardProps} />;
         })}
-      </div>
-    </div>
+      </Container>
+    </Container>
   );
 };
 
