@@ -1,6 +1,6 @@
 import type { LabelProps } from "@shared/types";
 import React from "react";
-import { View, Pressable } from "react-native";
+import { View, Pressable, Text } from "react-native";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 import InfoIcon from "~/assets/svg/icons/Info";
 import {
@@ -38,9 +38,9 @@ export const Label: React.FC<LabelProps> = ({
       </View>
 
       {required && (
-        <View className="text-form-fields-error text-xs">
+        <Text className="text-form-fields-error text-xs">
           <SharedLanguageSwitchRenderer language={language} value="*" />
-        </View>
+        </Text>
       )}
 
       {showInfoIcon && (
