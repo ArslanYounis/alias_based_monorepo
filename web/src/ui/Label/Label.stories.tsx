@@ -2,7 +2,7 @@ import type { Meta, StoryFn } from "@storybook/react";
 import { Label } from "./Label";
 
 const meta: Meta<typeof Label> = {
-  title: "UI/Label",
+  title: "Components/InputAndFormElements/Label",
   component: Label,
   tags: ["autodocs"],
   argTypes: {
@@ -56,31 +56,31 @@ Disabled.args = {
 };
 
 export const ArabicLight: StoryFn<typeof Label> = (args) => (
-  <Label
-    {...args}
-    label="الاسم الكامل"
-    label_ar="الاسم الكامل"
-    required={true}
-    showInfoIcon={true}
-    tooltipText="معلومات إضافية"
-    tooltipText_ar="معلومات إضافية"
-    tooltipDirection="right-center"
-    theme="light"
-    language="ar"
-  />
+    <Label
+      {...args}
+      label="الاسم الكامل"
+      label_ar="الاسم الكامل"
+      required={true}
+      showInfoIcon={true}
+      tooltipText="معلومات إضافية"
+      tooltipText_ar="معلومات إضافية"
+      tooltipDirection="right-center"
+      theme="light"
+      language="ar"
+    />
 );
 
 export const ArabicDark: StoryFn<typeof Label> = (args) => (
-  <Label
-    {...args}
-    label="الاسم الكامل"
-    label_ar="الاسم الكامل"
-    required={true}
-    showInfoIcon={true}
-    tooltipText="معلومات إضافية"
-    tooltipText_ar="معلومات إضافية"
-    tooltipDirection="right-center"
-    theme="dark"
-    language="ar"
-  />
+    <Label
+      {...args}
+      label="الاسم الكامل"
+      label_ar="الاسم الكامل"
+      required={true}
+      showInfoIcon={true}
+      tooltipText="معلومات إضافية"
+      tooltipText_ar="معلومات إضافية"
+      tooltipDirection="right-center"
+      theme="dark"
+      language="ar"
+    />
 );

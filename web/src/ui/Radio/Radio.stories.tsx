@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 import { Radio } from "./Radio";
+import { action } from "storybook/actions";
 
 const meta: Meta<typeof Radio> = {
   title: "Components/InputAndFormElements/Radio",
@@ -11,21 +11,18 @@ const meta: Meta<typeof Radio> = {
     checked: { control: "boolean" },
     disabled: { control: "boolean" },
     hasError: { control: "boolean" },
-    theme: {
-      control: { type: "select" },
-      options: ["light", "dark"],
-      defaultValue: "light",
-    },
+    theme: { control: { type: "select" }, options: ["light", "dark"], defaultValue: "light" },
     onChange: {
       action: "changed",
       description: "Function called when radio selection changes",
-      table: { category: "Events" },
+      table: {
+        category: "Events",
+      },
     },
   },
 };
 
 export default meta;
-
 type Story = StoryObj<typeof Radio>;
 
 export const Checked: Story = {

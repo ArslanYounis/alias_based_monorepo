@@ -9,11 +9,13 @@ const meta: Meta<typeof Toast> = {
     docs: {
       description: {
         component: `
-The **Toast** component displays temporary status messages. Auto-hides after 5 seconds; user can dismiss via close icon.
+The **Toast** component displays temporary status messages to inform users of application state changes.
+Supports bilingual content (English/Arabic) with RTL layout support.
 
 ### Props:
-- \`status\`: \`success\`, \`error\`, \`information\`, \`action\`
-- \`message\`: Message text
+- \`status\`: Defines the toast type — \`success\`, \`error\`, \`information\`, \`action\`, or \`pending\`.
+- \`message\`: Message displayed below the title in the toast (English).
+- \`language\`: Language setting ('en' or 'ar') for the component.
         `,
       },
     },
@@ -21,27 +23,30 @@ The **Toast** component displays temporary status messages. Auto-hides after 5 s
   argTypes: {
     status: {
       control: "select",
-      options: ["success", "error", "information", "action"],
+      options: ["success", "error", "information", "pending", "action"],
+      description: "Status of the toast message",
     },
-    message: { control: "text" },
+    message: {
+      control: "text",
+      description: "Message to display below the title in the toast (English)",
+    },
   },
 };
 
 export default meta;
-
 type Story = StoryObj<typeof Toast>;
-
-export const SuccessToast: Story = {
-  args: {
-    status: "success",
-    message: "Well done! That was a complete success",
-  },
-};
 
 export const ErrorToast: Story = {
   args: {
     status: "error",
     message: "Oh No! There is a problem",
+  },
+};
+
+export const SuccessToast: Story = {
+  args: {
+    status: "success",
+    message: "Well done! That was a complete success",
   },
 };
 
@@ -53,6 +58,34 @@ export const InformationToast: Story = {
 };
 
 export const ActionToast: Story = {
+  args: {
+    status: "action",
+    message: "Ok! We need some more action",
+  },
+};
+
+export const ArabicError: Story = {
+  args: {
+    status: "error",
+    message: "Oh No! There is a problem",
+  },
+};
+
+export const ArabicSuccess: Story = {
+  args: {
+    status: "success",
+    message: "Well done! That was a complete success",
+  },
+};
+
+export const ArabicInformation: Story = {
+  args: {
+    status: "information",
+    message: "Ok! We need some more information",
+  },
+};
+
+export const ArabicAction: Story = {
   args: {
     status: "action",
     message: "Ok! We need some more action",
