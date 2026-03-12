@@ -31,6 +31,7 @@ export interface IGenericCardsProps {
   buttons?: GenericCardsButtonType[];
   variant?: IGenericCardProps["variant"];
   showTitleSection?: boolean;
+  platform?: "web" | "mobile";
 }
 
 const GenericCards: React.FC<IGenericCardsProps> = ({
@@ -46,6 +47,7 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
   buttons = [],
   variant = "small",
   showTitleSection = true,
+  platform = "web",
 }) => {
   const [expandedIndices, setExpandedIndices] = useState<number[]>(
     cardsData?.map((_, idx) => idx) ?? []
@@ -68,7 +70,11 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
   };
 
   const gridCols =
-    itemsPerRow === "3" ? "grid-cols-3" : itemsPerRow === "2" ? "grid-cols-2" : "grid-cols-1";
+    itemsPerRow === "3"
+      ? "grid-cols-3"
+      : itemsPerRow === "2"
+      ? "grid-cols-2"
+      : "grid-cols-1";
 
   return (
     <Container
@@ -104,6 +110,7 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
             showMoreButton: (card.rowsData?.length ?? 0) > 3,
             ...card,
             rowsData: card.rowsData,
+            platform,
           };
           return <GenericCard key={card.id ?? idx} {...cardProps} />;
         })}

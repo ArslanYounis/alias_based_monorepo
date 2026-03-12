@@ -49,12 +49,13 @@ import TitleBar from "../components/TitleBar";
 import { FilterBar } from "../ui/FilterBar";
 import Signature from "../components/Signature";
 import { UploadDocuments } from "@platform/UploadDocuments";
-import Table from "../../../shared/components/Table";
-import OwnerCard from "../../../shared/components/OwnerCard";
-import PlotCard from "../../../shared/components/PlotCard";
-import ModalTitle from "../../../shared/components/ModalTitle";
-import ModalSteps from "../../../shared/components/ModalSteps";
+import Table from "@shared/components/Table";
+import OwnerCard from "@shared/components/OwnerCard";
+import PlotCard from "@shared/components/PlotCard";
+import ModalTitle from "@shared/components/ModalTitle";
+import ModalSteps from "@shared/components/ModalSteps";
 import GenericCard from "@shared/components/GenericCard";
+import GenericCards from "@shared/components/GenericCards";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -3327,6 +3328,183 @@ export default function App() {
                   { label: "الموقع", value: "دبي" },
                 ]}
                 language="ar"
+              />
+            </View>
+            {/* ── G-5.7 GenericCards ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-5.7 — GenericCards</Text>
+
+              {/* Default - Single Card */}
+              <Text style={styles.variantLabel}>Single Card</Text>
+              <GenericCards
+                language="en"
+                title="Application"
+                platform="mobile"
+                cardsData={[
+                  {
+                    id: "1",
+                    cardTitleLabel: "Application ID",
+                    cardTitleValue: "APP-001",
+                    rowsData: [
+                      { label: "Applicant", value: "John Doe" },
+                      { label: "Status", value: "Pending" },
+                      { label: "Location", value: "Dubai" },
+                    ],
+                  },
+                ]}
+              />
+
+              {/* Two Cards Per Row */}
+              <Text style={styles.variantLabel}>Two Cards Per Row</Text>
+              <GenericCards
+                language="en"
+                title="Applications"
+                itemsPerRow="2"
+                platform="mobile"
+                cardsData={[
+                  {
+                    id: "2",
+                    cardTitleLabel: "Application ID",
+                    cardTitleValue: "APP-002",
+                    rowsData: [
+                      { label: "Applicant", value: "Jane Smith" },
+                      { label: "Status", value: "Approved" },
+                      { label: "Location", value: "Abu Dhabi" },
+                    ],
+                  },
+                  {
+                    id: "3",
+                    cardTitleLabel: "Application ID",
+                    cardTitleValue: "APP-003",
+                    rowsData: [
+                      { label: "Applicant", value: "Michael Brown" },
+                      { label: "Status", value: "Pending" },
+                      { label: "Location", value: "Sharjah" },
+                    ],
+                  },
+                ]}
+              />
+
+              {/* Three Cards Grid */}
+              <Text style={styles.variantLabel}>Three Cards Grid</Text>
+              <GenericCards
+                language="en"
+                title="Plots"
+                itemsPerRow="3"
+                platform="mobile"
+                cardsData={[
+                  {
+                    id: "4",
+                    cardTitleLabel: "Plot",
+                    cardTitleValue: "PL-001",
+                    rowsData: [
+                      { label: "Area", value: "500 sqm" },
+                      { label: "Status", value: "Active" },
+                    ],
+                  },
+                  {
+                    id: "5",
+                    cardTitleLabel: "Plot",
+                    cardTitleValue: "PL-002",
+                    rowsData: [
+                      { label: "Area", value: "620 sqm" },
+                      { label: "Status", value: "Pending" },
+                    ],
+                  },
+                  {
+                    id: "6",
+                    cardTitleLabel: "Plot",
+                    cardTitleValue: "PL-003",
+                    rowsData: [
+                      { label: "Area", value: "700 sqm" },
+                      { label: "Status", value: "Approved" },
+                    ],
+                  },
+                ]}
+              />
+
+              {/* With Action Buttons */}
+              <Text style={styles.variantLabel}>Cards With Buttons</Text>
+              <GenericCards
+                language="en"
+                title="Owners"
+                platform="mobile"
+                showButtons
+                buttons={[
+                  {
+                    title: "View",
+                    onClick: (card) => console.log("View:", card),
+                  },
+                  {
+                    title: "Edit",
+                    onClick: (card) => console.log("Edit:", card),
+                  },
+                ]}
+                cardsData={[
+                  {
+                    id: "7",
+                    cardTitleLabel: "Owner",
+                    cardTitleValue: "John Doe",
+                    rowsData: [
+                      { label: "Email", value: "john@example.com" },
+                      { label: "Phone", value: "+971 50 111 2222" },
+                      { label: "Role", value: "Primary Owner" },
+                    ],
+                  },
+                  {
+                    id: "8",
+                    cardTitleLabel: "Owner",
+                    cardTitleValue: "Jane Smith",
+                    rowsData: [
+                      { label: "Email", value: "jane@example.com" },
+                      { label: "Phone", value: "+971 55 333 4444" },
+                      { label: "Role", value: "Co Owner" },
+                    ],
+                  },
+                ]}
+              />
+
+              {/* Expandable Cards */}
+              <Text style={styles.variantLabel}>Expandable Cards</Text>
+              <GenericCards
+                language="en"
+                title="Plot Details"
+                platform="mobile"
+                cardsData={[
+                  {
+                    id: "9",
+                    cardTitleLabel: "Plot Number",
+                    cardTitleValue: "PL-010",
+                    rowsData: [
+                      { label: "Location", value: "Dubai Marina" },
+                      { label: "Area", value: "900 sqm" },
+                      { label: "Status", value: "Active" },
+                      { label: "Category", value: "Residential" },
+                      { label: "Ownership", value: "Private" },
+                    ],
+                  },
+                ]}
+              />
+
+              {/* Arabic RTL */}
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+              <GenericCards
+                language="ar"
+                title="الطلبات"
+                title_ar="الطلبات"
+                platform="mobile"
+                cardsData={[
+                  {
+                    id: "10",
+                    cardTitleLabel: "رقم الطلب",
+                    cardTitleValue: "APP-010",
+                    rowsData: [
+                      { label: "الاسم", value: "أحمد علي" },
+                      { label: "الحالة", value: "قيد المراجعة" },
+                      { label: "الموقع", value: "دبي" },
+                    ],
+                  },
+                ]}
               />
             </View>
           </ScrollView>

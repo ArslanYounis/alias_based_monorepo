@@ -37,7 +37,7 @@ import { ScreenLoader } from "@/ui/ScreenLoader";
 import TitleBar from "@/components/TitleBar";
 import { FilterBar } from "@/ui/FilterBar";
 import Signature from "@/components/Signature";
-import UploadDocuments from "@/ui/UploadDocuments";
+import { UploadDocuments } from "@platform/UploadDocuments";
 import axios from "axios";
 import { ViewPlotDetail } from "@shared/components/ViewPlotDetail";
 import Table from "@shared/components/Table";
@@ -46,6 +46,7 @@ import PlotCard from "@shared/components/PlotCard";
 import ModalTitle from "@shared/components/ModalTitle";
 import ModalSteps from "@shared/components/ModalSteps";
 import GenericCard from "@shared/components/GenericCard";
+import GenericCards from "@shared/components/GenericCards";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -4306,6 +4307,203 @@ function App() {
                 { label: "رقم الهوية", value: "784-1988-1234567-1" },
               ]}
               showMoreButton
+            />
+          </div>
+        </section>
+
+        {/* ══════════════════════════ G-5.7 Generic Cards Grid ══════════════════════════ */}
+        <section className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold">G-5.7 — Generic Cards</h2>
+
+          {/* 1 Card Per Row */}
+          <div>
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Single Column
+            </h3>
+
+            <GenericCards
+              title="Owner Information"
+              cardsData={[
+                {
+                  id: "1",
+                  cardTitleLabel: "Owner",
+                  cardTitleValue: "Ahmed Khalid",
+                  rowsData: [
+                    { label: "Nationality", value: "UAE" },
+                    { label: "Share", value: "50%" },
+                    { label: "ID Number", value: "784-1988-1234567-1" },
+                    { label: "Archive Number", value: "AR-001" },
+                  ],
+                },
+                {
+                  id: "2",
+                  cardTitleLabel: "Owner",
+                  cardTitleValue: "Mohammed Ali",
+                  rowsData: [
+                    { label: "Nationality", value: "UAE" },
+                    { label: "Share", value: "50%" },
+                    { label: "ID Number", value: "784-1990-9876543-1" },
+                  ],
+                },
+              ]}
+            />
+          </div>
+
+          {/* 2 Cards Per Row */}
+          <div>
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Two Cards Per Row
+            </h3>
+
+            <GenericCards
+              title="Plot Information"
+              itemsPerRow="2"
+              cardsData={[
+                {
+                  id: "1",
+                  cardTitleLabel: "Plot Number",
+                  cardTitleValue: "P-1001",
+                  rowsData: [
+                    { label: "Zone", value: "Dubai Marina" },
+                    { label: "Area", value: "4200 sq.ft" },
+                    { label: "Land Use", value: "Residential" },
+                  ],
+                },
+                {
+                  id: "2",
+                  cardTitleLabel: "Plot Number",
+                  cardTitleValue: "P-1002",
+                  rowsData: [
+                    { label: "Zone", value: "Palm Jumeirah" },
+                    { label: "Area", value: "5100 sq.ft" },
+                    { label: "Land Use", value: "Commercial" },
+                  ],
+                },
+              ]}
+            />
+          </div>
+
+          {/* 3 Cards Per Row */}
+          <div>
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Three Cards Per Row
+            </h3>
+
+            <GenericCards
+              title="Application Records"
+              itemsPerRow="3"
+              cardsData={[
+                {
+                  id: "1",
+                  cardTitleLabel: "Application ID",
+                  cardTitleValue: "APP-001",
+                  rowsData: [
+                    { label: "Type", value: "Plot Allocation" },
+                    { label: "Status", value: "Pending" },
+                    { label: "Submitted", value: "10 Jan 2025" },
+                  ],
+                },
+                {
+                  id: "2",
+                  cardTitleLabel: "Application ID",
+                  cardTitleValue: "APP-002",
+                  rowsData: [
+                    { label: "Type", value: "Ownership Transfer" },
+                    { label: "Status", value: "Approved" },
+                    { label: "Submitted", value: "14 Jan 2025" },
+                  ],
+                },
+                {
+                  id: "3",
+                  cardTitleLabel: "Application ID",
+                  cardTitleValue: "APP-003",
+                  rowsData: [
+                    { label: "Type", value: "Plot Merge" },
+                    { label: "Status", value: "In Progress" },
+                    { label: "Submitted", value: "20 Jan 2025" },
+                  ],
+                },
+              ]}
+            />
+          </div>
+
+          {/* Cards With Buttons */}
+          <div>
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Cards With Actions
+            </h3>
+
+            <GenericCards
+              title="Owners"
+              itemsPerRow="2"
+              showButtons
+              buttons={[
+                {
+                  title: "View",
+                  onClick: (card) => alert(`Viewing ${card.cardTitleValue}`),
+                },
+                {
+                  title: "Edit",
+                  onClick: (card) => alert(`Editing ${card.cardTitleValue}`),
+                },
+              ]}
+              cardsData={[
+                {
+                  id: "1",
+                  cardTitleLabel: "Owner",
+                  cardTitleValue: "Ahmed Khalid",
+                  rowsData: [
+                    { label: "Nationality", value: "UAE" },
+                    { label: "Share", value: "50%" },
+                    { label: "ID Number", value: "784-1234567-1" },
+                  ],
+                },
+                {
+                  id: "2",
+                  cardTitleLabel: "Owner",
+                  cardTitleValue: "Sara Ahmed",
+                  rowsData: [
+                    { label: "Nationality", value: "UAE" },
+                    { label: "Share", value: "50%" },
+                    { label: "ID Number", value: "784-9876543-1" },
+                  ],
+                },
+              ]}
+            />
+          </div>
+
+          {/* Arabic RTL */}
+          <div dir="rtl">
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Arabic (RTL)
+            </h3>
+
+            <GenericCards
+              language="ar"
+              title="معلومات المالك"
+              itemsPerRow="2"
+              cardsData={[
+                {
+                  id: "1",
+                  cardTitleLabel: "الاسم",
+                  cardTitleValue: "محمد علي",
+                  rowsData: [
+                    { label: "الجنسية", value: "الإمارات" },
+                    { label: "الحصة", value: "50%" },
+                    { label: "رقم الهوية", value: "784-1234567-1" },
+                  ],
+                },
+                {
+                  id: "2",
+                  cardTitleLabel: "الاسم",
+                  cardTitleValue: "أحمد خالد",
+                  rowsData: [
+                    { label: "الجنسية", value: "الإمارات" },
+                    { label: "الحصة", value: "50%" },
+                    { label: "رقم الهوية", value: "784-7654321-1" },
+                  ],
+                },
+              ]}
             />
           </div>
         </section>
