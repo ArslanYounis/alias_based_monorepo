@@ -35,6 +35,7 @@ export interface ICardTitleProps {
   showTitleButtons?: boolean;
   titleButtons?: ButtonType[];
   showBorder?: boolean;
+  platform?: "web" | "mobile";
 }
 
 const CardTitle: React.FC<ICardTitleProps> = ({
@@ -56,6 +57,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
   buttons = [],
   titleButtons = [],
   showBorder = true,
+  platform = "web",
 }) => {
   const variantStyles = {
     large: { title: "text-heading-h3", subText: "text-m" },
@@ -65,7 +67,11 @@ const CardTitle: React.FC<ICardTitleProps> = ({
 
   const shouldShowBorder =
     showBorder &&
-    (!!subText || !!subText_ar || !!status || !!status_ar || (isExpandable && !isExpanded));
+    (!!subText ||
+      !!subText_ar ||
+      !!status ||
+      !!status_ar ||
+      (isExpandable && !isExpanded));
 
   return (
     <Container
@@ -74,7 +80,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
       }`}
     >
       <Container
-        className={`flex flex-1 ${
+        className={`flex flex-row flex-1 ${
           description || description_ar ? "items-start" : "items-center"
         } justify-between`}
       >
@@ -119,7 +125,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
             </Container>
           )}
           {showButtons && buttons?.length > 0 && (
-            <Container className="flex items-center justify-between gap-xs">
+            <Container className="flex flex-row flex-wrap items-center justify-between gap-xs">
               {buttons?.map((btn: ButtonType, idx: number) => (
                 <Buttons
                   // Buttons is platform-specific; we rely on it for clickability
@@ -136,18 +142,36 @@ const CardTitle: React.FC<ICardTitleProps> = ({
               ))}
             </Container>
           )}
-          {isExpandable && (
-            <Buttons
-              size="s"
-              type="tertiary"
-              language={language}
-              title=""
-              onClick={onToggleExpand}
-              leftIcon={isExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
-            />
-          )}
+          {isExpandable &&
+            (platform === "web" ? (
+              <button
+                type="button"
+                onClick={onToggleExpand}
+                aria-expanded={isExpanded}
+                aria-label={isExpanded ? "Collapse" : "Expand"}
+                className="cursor-pointer focus:outline-none"
+                tabIndex={-1}
+              >
+                {isExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
+              </button>
+            ) : (
+              <Buttons
+                size="s"
+                type="secondary"
+                language={language}
+                title=""
+                onClick={onToggleExpand}
+                leftIcon={
+                  isExpanded ? (
+                    <ChevronUpIcon color="#008DCB" />
+                  ) : (
+                    <ChevronDownIcon color="#008DCB" />
+                  )
+                }
+              />
+            ))}
           {!isExpandable && showTitleButtons && titleButtons?.length > 0 && (
-            <Container className="flex items-center justify-between gap-xs">
+            <Container className="flex flex-row flex-wrap items-center justify-between gap-xs">
               {titleButtons?.map((btn: ButtonType, idx: number) => (
                 <Buttons
                   key={idx}

@@ -126,7 +126,7 @@ export const Fields: React.FC<FormFieldProps> = ({
       : type === "textarea"
       ? "p-m gap-m !h-[100px]"
       : "p-m gap-m !h-[50px]"
-  } font-normal text-m text-text-default rounded-[5px] focus:outline-none placeholder:text-form-fields-input-form-placeholder`;
+  } font-normal text-s text-text-default rounded-[5px] focus:outline-none placeholder:text-form-fields-input-form-placeholder`;
 
   const getInputClasses = () => {
     if (disabled) {

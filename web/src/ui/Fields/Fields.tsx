@@ -523,7 +523,9 @@ export const Fields: React.FC<FormFieldProps> = ({
             id={id}
             aria-label={ariaLabel}
             value={value ? value : internalValue}
-            className={`${baseInputClass} ${getInputClasses()} px-xxxl`}
+            className={`${baseInputClass} ${getInputClasses()} ${
+              language === "en" ? "pl-xxxl" : "pr-xxxl"
+            }`}
             data-testid={testId}
           />
         </div>

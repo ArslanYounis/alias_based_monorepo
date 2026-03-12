@@ -20,11 +20,15 @@ export interface IOwnerCardProps {
   showPlotsButton?: boolean;
   showEditButton?: boolean;
   showDeleteButton?: boolean;
-  onPressAction?: (params: { action: "view" | "plot" | "edit" | "delete"; owner: Owner }) => void;
+  onPressAction?: (params: {
+    action: "view" | "plot" | "edit" | "delete";
+    owner: Owner;
+  }) => void;
   language?: "en" | "ar";
   itemsPerRow?: "1" | "2";
   defaultShowMore?: boolean;
   isExpandable?: boolean;
+  platform?: "web" | "mobile";
 }
 
 const OwnerCard: React.FC<IOwnerCardProps> = ({
@@ -40,6 +44,7 @@ const OwnerCard: React.FC<IOwnerCardProps> = ({
   language = "en",
   itemsPerRow = "1",
   defaultShowMore = false,
+  platform,
 }) => {
   const [expandedIndices, setExpandedIndices] = useState<number[]>(
     owners?.map((_, idx) => idx) ?? []
@@ -55,7 +60,10 @@ const OwnerCard: React.FC<IOwnerCardProps> = ({
     }
   }, [owners]);
 
-  const handleAction = (action: "view" | "plot" | "edit" | "delete", owner: Owner) => {
+  const handleAction = (
+    action: "view" | "plot" | "edit" | "delete",
+    owner: Owner
+  ) => {
     onPressAction({ action, owner });
   };
 
@@ -71,20 +79,40 @@ const OwnerCard: React.FC<IOwnerCardProps> = ({
   return (
     <Container className="w-full flex flex-col shrink-0">
       <Container
-        className={`grid gap-8 ${itemsPerRow === "2" ? "grid-cols-2" : "grid-cols-1"}`}
+        className={`grid gap-8 ${
+          itemsPerRow === "2" ? "grid-cols-2" : "grid-cols-1"
+        }`}
         style={itemsPerRow === "2" ? { gridAutoFlow: "dense" } : undefined}
       >
         {owners?.map((owner, idx) => {
           const isExpanded = expandedIndices.includes(idx);
           const buttons: ButtonType[] = [
             ...(showViewButton
-              ? [{ title: "View", title_ar: "المشاهدة", onClick: () => handleAction("view", owner) }]
+              ? [
+                  {
+                    title: "View",
+                    title_ar: "المشاهدة",
+                    onClick: () => handleAction("view", owner),
+                  },
+                ]
               : []),
             ...(showPlotsButton
-              ? [{ title: "Plots", title_ar: "قطعة الأرض", onClick: () => handleAction("plot", owner) }]
+              ? [
+                  {
+                    title: "Plots",
+                    title_ar: "قطعة الأرض",
+                    onClick: () => handleAction("plot", owner),
+                  },
+                ]
               : []),
             ...(showEditButton
-              ? [{ title: "Edit", title_ar: "تعديل", onClick: () => handleAction("edit", owner) }]
+              ? [
+                  {
+                    title: "Edit",
+                    title_ar: "تعديل",
+                    onClick: () => handleAction("edit", owner),
+                  },
+                ]
               : []),
             ...(showDeleteButton
               ? [
@@ -117,6 +145,7 @@ const OwnerCard: React.FC<IOwnerCardProps> = ({
               buttons={showButton ? buttons : []}
               showBorder
               defaultShowMore={defaultShowMore}
+              platform={platform}
             />
           );
         })}

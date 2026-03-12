@@ -1,28 +1,27 @@
 import type { HeaderProps } from "@shared/types";
 import React from "react";
 import { Avatar } from "../Avatar";
-import { Buttons } from "../Buttons";
 import { IconButton } from "../IconButton";
 import { Breadcrumb } from "../Breadcrumb";
 import StatusUp from "~/assets/svg/icons/StatusUp";
 import Settings from "~/assets/svg/icons/Settings";
-import { View, Text, Pressable } from "react-native";
-import SelectArrow from "~/assets/svg/icons/SelectArrow";
-import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
+import { View, Pressable } from "react-native";
+// import SelectArrow from "~/assets/svg/icons/SelectArrow";
+// import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
 export type { HeaderProps };
 export type { HeaderMenuItem } from "@shared/types";
 
 export const Header: React.FC<HeaderProps> = ({
   language = "en",
-  checkinButtonText = "Checkin",
-  checkinButtonText_ar = "تسجيل الحضور",
-  userName = "Farzana",
-  userName_ar = "فرزانه",
+  // checkinButtonText = "Checkin",
+  // checkinButtonText_ar = "تسجيل الحضور",
+  // userName = "Farzana",
+  // userName_ar = "فرزانه",
   avatarUrl,
-  languageText = "Language:",
-  languageText_ar = "اللغة:",
-  onToggleLanguage,
+  // languageText = "Language:",
+  // languageText_ar = "اللغة:",
+  // onToggleLanguage,
   isEditing = false,
   breadcrumbItems = [],
   onAvatarPress,
@@ -49,21 +48,21 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Right Section */}
         <View className="flex-row items-center gap-3">
           {/* Language Button */}
-          <Buttons
+          {/* <Buttons
             title={`English`}
             title_ar={`العربية`}
             size="s"
             type="primary"
             language={language}
             onClick={onToggleLanguage}
-          />
+          /> */}
 
           {/* Check-in Button */}
-          <Buttons
+          {/* <Buttons
             title={language === "ar" ? checkinButtonText_ar : checkinButtonText}
             size="s"
             type="secondary"
-          />
+          /> */}
 
           {/* Avatar */}
           <Pressable
@@ -71,14 +70,14 @@ export const Header: React.FC<HeaderProps> = ({
             className="flex-row items-center gap-2"
           >
             <Avatar imageUrl={avatarUrl} status="complete" />
-            <Text className="text-base font-bold text-text-default">
+            {/* <Text className="text-base font-bold text-text-default">
               <SharedLanguageSwitchRenderer
                 language={language}
                 value={userName}
                 value_ar={userName_ar}
               />
-            </Text>
-            <SelectArrow className="text-text-default" />
+            </Text> */}
+            {/* <SelectArrow className="text-text-default" /> */}
           </Pressable>
         </View>
       </View>

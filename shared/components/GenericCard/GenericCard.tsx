@@ -44,6 +44,7 @@ export interface IGenericCardProps extends ICardTitleProps {
   documentButtons?: ButtonType[];
   showFooterButtons?: boolean;
   footerButton?: ButtonType[];
+  platform?: "web" | "mobile";
 }
 
 const GenericCard: React.FC<IGenericCardProps> = ({
@@ -85,6 +86,7 @@ const GenericCard: React.FC<IGenericCardProps> = ({
   documentButtons = [],
   showFooterButtons = false,
   footerButton = [],
+  platform,
 }) => {
   const [internalExpanded, setInternalExpanded] = useState(true);
   const [isMoreShown, setIsMoreShown] = useState(defaultShowMore);
@@ -99,7 +101,10 @@ const GenericCard: React.FC<IGenericCardProps> = ({
   }, [expanded, defaultShowMore]);
 
   return (
-    <Container className="w-full flex flex-col shrink-0">
+    <Container
+      className="w-full flex flex-col shrink-0"
+      dir={language === "ar" ? "rtl" : "ltr"}
+    >
       {showTitleSection && (
         <CardTitle
           title={expanded ? title : cardTitleLabel}
@@ -109,7 +114,9 @@ const GenericCard: React.FC<IGenericCardProps> = ({
           variant={variant}
           isExpandable={expanded ? isExpandable : false}
           isExpanded={expanded}
-          onToggleExpand={handleToggleInternally ? handleToggleExpand : onToggleExpand}
+          onToggleExpand={
+            handleToggleInternally ? handleToggleExpand : onToggleExpand
+          }
           subText={subText}
           subText_ar={subText_ar}
           status={status}
@@ -120,12 +127,13 @@ const GenericCard: React.FC<IGenericCardProps> = ({
           language={language}
           showTitleButtons={showTitleButtons}
           titleButtons={titleButtons}
+          platform={platform}
         />
       )}
       {expanded ? (
         <Container className="rounded-xs bg-cards-base-l1 text-text-default px-l py-m border border-cards-stroke">
           {(cardTitleLabel || cardTitleLabel_ar || showButtons) && (
-            <Container className="flex justify-between items-center mb-3">
+            <Container className="flex flex-row justify-between items-center mb-3">
               <Text className="text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal min-w-0">
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -133,7 +141,7 @@ const GenericCard: React.FC<IGenericCardProps> = ({
                   value_ar={cardTitleLabel_ar}
                 />
               </Text>
-              <Container className="flex gap-s">
+              <Container className="flex flex-row gap-s flex-wrap">
                 {showButtons &&
                   buttons?.map((button) => (
                     <Buttons
@@ -184,7 +192,9 @@ const GenericCard: React.FC<IGenericCardProps> = ({
                       <SharedLanguageSwitchRenderer
                         language={language}
                         value={document?.documentName}
-                        value_ar={document?.documentName_ar ?? document?.documentName}
+                        value_ar={
+                          document?.documentName_ar ?? document?.documentName
+                        }
                       />
                     </Text>
                     {document?.onDownloadClick && (
@@ -203,7 +213,10 @@ const GenericCard: React.FC<IGenericCardProps> = ({
           )}
         </Container>
       ) : (
-        <Container className="rounded-xs bg-cards-base-l1 text-text-default border border-cards-stroke px-l py-m gap-l flex justify-between items-center">
+        <Container
+          className="rounded-xs bg-cards-base-l1 text-text-default border border-cards-stroke px-l py-m gap-l flex flex-row justify-between items-center cursor-pointer"
+          onClick={handleToggleExpand}
+        >
           <Text className="text-bold-m">
             <SharedLanguageSwitchRenderer
               language={language}
@@ -221,7 +234,7 @@ const GenericCard: React.FC<IGenericCardProps> = ({
         </Container>
       )}
       {showFooterButtons && (
-        <Container className="flex gap-s my-s">
+        <Container className="flex flex-row gap-s my-s">
           {footerButton?.map((button) => (
             <Buttons
               key={button.title}

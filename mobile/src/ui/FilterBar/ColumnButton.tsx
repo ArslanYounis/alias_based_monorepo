@@ -59,10 +59,10 @@ const ColumnButton: React.FC<ColumnButtonProps> = ({
     <View className="relative">
       <Pressable
         className="flex-row items-center gap-s px-m py-xxs rounded-xxs"
-        style={{ width: 178, height: 50 }}
+        style={{ width: "auto", maxWidth: 150, height: 50 }}
         onPress={handleButtonClick}
       >
-        <Text className="text-Dark-6 flex-1">{label}</Text>
+        <Text className="text-Dark-6">{label}</Text>
         <ChevronDown size={18} color="#374151" />
       </Pressable>
 
@@ -73,21 +73,26 @@ const ColumnButton: React.FC<ColumnButtonProps> = ({
         onRequestClose={() => setDropdownOpen(false)}
       >
         <TouchableWithoutFeedback onPress={() => setDropdownOpen(false)}>
-          <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.2)" }}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "rgba(0,0,0,0.2)",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <TouchableWithoutFeedback onPress={() => {}}>
               <View
                 className="rounded-xs p-l bg-filter-dropdown-bg"
                 style={{
-                  position: "absolute",
-                  top: 120,
-                  left: 16,
-                  width: 320,
+                  width: "95%",
                   maxHeight: 280,
                 }}
               >
                 <Text className="text-bold-l mb-[24px] text-text-default">
                   {title}
                 </Text>
+
                 <ScrollView>
                   {columns?.map((col) => (
                     <View key={col} className="mb-2">

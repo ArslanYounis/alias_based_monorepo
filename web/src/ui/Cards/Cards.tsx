@@ -1,10 +1,10 @@
 import React from "react";
-import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Avatar } from "@platform/Avatar";
+import { PaymentCard } from "@platform/PaymentCard";
+import { Container } from "@platform/Container";
 import { ProfileIconStatus } from "@platform/ProfileIconStatus";
-import PaymentCard from "../PaymentCard";
-import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
+import SharedLanguageSwitchRenderer from "@shared/components/SharedLanguageSwitchRenderer";
 
 export type StatusCardProps = {
   type?: "pending" | "action" | "action-other" | "failed" | "success" | string;
@@ -79,7 +79,7 @@ const getStateStyles = (state: StatusCardProps["type"]) => {
   }
 };
 
-const Cards: React.FC<StatusCardProps> = ({
+export const Cards: React.FC<StatusCardProps> = ({
   type,
   version,
   direction = "horizontal",
@@ -109,11 +109,11 @@ const Cards: React.FC<StatusCardProps> = ({
         } shadow-md rounded-xs flex border-b-2 ${borderColor} overflow-hidden`}
       >
         <Container className="w-1/2 h-[96px]">
-          {/* <img
+          <img
             src={imageURL}
             alt="Location"
             className="w-full h-full object-cover rounded-l-xs"
-          /> */}
+          />
         </Container>
         <Container
           className={`w-1/2 flex flex-col justify-center px-2 ${bgColor}`}
@@ -200,5 +200,3 @@ const Cards: React.FC<StatusCardProps> = ({
     </Container>
   );
 };
-
-export default Cards;

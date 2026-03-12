@@ -1,2 +1,2 @@
-export { default } from "./ApplicationCard";
+export { ApplicationCard } from "./ApplicationCard";
 export type { ApplicationCardProps } from "./ApplicationCard";

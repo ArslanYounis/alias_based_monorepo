@@ -1,10 +1,10 @@
 import React from "react";
-import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Avatar } from "@platform/Avatar";
+import { Container } from "@platform/Container";
 import { ProfileIconStatus } from "@platform/ProfileIconStatus";
-import ProcessStatusRows from "../ProcessStatusRows";
-import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
+import ProcessStatusRows from "@shared/components/ProcessStatusRows";
+import SharedLanguageSwitchRenderer from "@shared/components/SharedLanguageSwitchRenderer";
 
 export type PaymentCardType =
   | "pending"
@@ -32,7 +32,12 @@ export interface PaymentCardProps {
   onCardClick?: () => void;
   totalSteps?: number;
   completedSteps?: number;
-  currentStepStatus?: "pending" | "failed" | "complete" | "inProgress" | "fixed";
+  currentStepStatus?:
+    | "pending"
+    | "failed"
+    | "complete"
+    | "inProgress"
+    | "fixed";
 }
 
 const getStateStyles = (state: PaymentCardType) => {
@@ -82,7 +87,7 @@ const getStateStyles = (state: PaymentCardType) => {
   }
 };
 
-const PaymentCard: React.FC<PaymentCardProps> = (props) => {
+export const PaymentCard: React.FC<PaymentCardProps> = (props) => {
   const {
     type,
     version = "multi-row",
@@ -103,30 +108,37 @@ const PaymentCard: React.FC<PaymentCardProps> = (props) => {
     currentStepStatus = "pending",
   } = props;
 
-  const { bgColor, borderColor, textColor, status } = getStateStyles(type ?? "pending");
+  const { bgColor, borderColor, textColor, status } = getStateStyles(
+    type ?? "pending"
+  );
   const dir = language === "en" ? "ltr" : "rtl";
   const hybridLeftBg = type === "failed" ? "bg-status-failed-fade" : bgColor;
   const hybridRightBg =
     type === "failed"
       ? "bg-status-failed-light"
       : type === "success"
-        ? "bg-status-success-light"
-        : type === "action-other" || type === "action"
-          ? "bg-status-pending-fade"
-          : "";
-  const hybridRightText = type === "action" ? "text-process-card-text-dark" : textColor;
+      ? "bg-status-success-light"
+      : type === "action-other" || type === "action"
+      ? "bg-status-pending-fade"
+      : "";
+  const hybridRightText =
+    type === "action" ? "text-process-card-text-dark" : textColor;
 
   if (type === "pending" && version === "hybrid") {
     return (
       <Container
         dir={dir}
-        className={`${bgColor} flex cursor-pointer items-center w-full min-w-auto h-24 rounded-xs py-xs px-s overflow-hidden flex-col border-b-2 ${borderColor}`}
+        className={`${bgColor} flex cursor-pointer items-center w-full min-w-[173px] h-[90.53px] rounded-xs py-xs px-s overflow-hidden flex-col border-b-2 ${borderColor}`}
         onClick={onCardClick}
         style={{ boxShadow: "0px 2px 4px 0px #00000033" }}
       >
         <Container className="flex flex-col items-center justify-center h-full">
           <Text className={`text-bold-s mb-2 ${textColor}`}>
-            <SharedLanguageSwitchRenderer language={language} value={action} value_ar={action_ar} />
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={action}
+              value_ar={action_ar}
+            />
           </Text>
           <ProcessStatusRows
             totalSteps={totalSteps ?? 0}
@@ -142,13 +154,17 @@ const PaymentCard: React.FC<PaymentCardProps> = (props) => {
     return (
       <Container
         dir={dir}
-        className={`${bgColor} flex cursor-pointer items-center w-full min-w-auto h-24 rounded-xs py-xs px-s overflow-hidden flex-col border-b-2 ${borderColor}`}
+        className={`${bgColor} flex cursor-pointer items-center w-full min-w-[173px] h-[90.53px] rounded-xs py-xs px-s overflow-hidden flex-col border-b-2 ${borderColor}`}
         onClick={onCardClick}
         style={{ boxShadow: "0px 2px 4px 0px #00000033" }}
       >
         <Container className="flex flex-col items-center justify-center h-full">
           <Text className={`text-bold-s mb-2 ${textColor}`}>
-            <SharedLanguageSwitchRenderer language={language} value={action} value_ar={action_ar} />
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={action}
+              value_ar={action_ar}
+            />
           </Text>
           <ProcessStatusRows
             totalSteps={totalSteps ?? 0}
@@ -165,35 +181,59 @@ const PaymentCard: React.FC<PaymentCardProps> = (props) => {
       <Container
         dir={dir}
         onClick={onCardClick}
-        className={`flex w-full min-w-auto h-24 rounded-xs overflow-hidden shadow-md cursor-pointer border-b-2 ${borderColor}`}
+        className={`flex flex-row w-full min-w-[173px] h-[90.53px] rounded-xs overflow-hidden shadow-md cursor-pointer border-b-2 ${borderColor}`}
       >
-        <Container className={`w-1/2 ${hybridLeftBg}`}>
-          <Container className="flex items-center gap-3 px-2 py-[6.25px]">
-            <Container className="w-8 h-8">
-              <ProfileIconStatus status={status} width={32} height={32} />
-            </Container>
+        <Container
+          className={`w-1/2 flex flex-col items-center justify-center ${hybridLeftBg}`}
+        >
+          <Container className="flex flex-col items-center gap-3 px-2 py-[3px]">
+            {/* <Container className="w-7 h-7">
+              <ProfileIconStatus status={status} width={26} height={26} />
+            </Container> */}
             <Container className="flex flex-start flex-col items-start">
               <Text className={`text-bold-xxs ${textColor} break-all`}>
-                <SharedLanguageSwitchRenderer language={language} value={action} value_ar={action_ar} />
+                <SharedLanguageSwitchRenderer
+                  language={language}
+                  value={action}
+                  value_ar={action_ar}
+                />
               </Text>
-              <Text className={`text-xxs font-normal ${textColor} line-clamp-1`}>
-                <SharedLanguageSwitchRenderer language={language} value={stepName} value_ar={stepName_ar} />
-              </Text>
+              {/* <Text
+                className={`text-xxs font-normal ${textColor} line-clamp-1`}
+              >
+                <SharedLanguageSwitchRenderer
+                  language={language}
+                  value={stepName}
+                  value_ar={stepName_ar}
+                />
+              </Text> */}
             </Container>
           </Container>
-          <Container className="flex items-center gap-4 py-[6.25px] px-2">
-            <Avatar imageUrl={imageURL} avatarSize={28} />
+          <Container className="flex flex-col items-center gap-3 py-[3px] px-2">
+            {/* <Avatar imageUrl={imageURL} avatarSize={26} /> */}
             <Container className="flex flex-start flex-col items-start">
-              <Text className={`text-bold-s font-bold line-clamp-1 ${textColor}`}>
-                <SharedLanguageSwitchRenderer language={language} value={userName} value_ar={userName_ar} />
+              <Text
+                className={`text-bold-s font-bold line-clamp-1 ${textColor}`}
+              >
+                <SharedLanguageSwitchRenderer
+                  language={language}
+                  value={userName}
+                  value_ar={userName_ar}
+                />
               </Text>
-              <Text className={`text-xs font-normal ${textColor} line-clamp-1`}>
-                <SharedLanguageSwitchRenderer language={language} value={role} value_ar={role_ar} />
-              </Text>
+              {/* <Text className={`text-xs font-normal ${textColor} line-clamp-1`}>
+                <SharedLanguageSwitchRenderer
+                  language={language}
+                  value={role}
+                  value_ar={role_ar}
+                />
+              </Text> */}
             </Container>
           </Container>
         </Container>
-        <Container className={`w-1/2 ${hybridRightBg} flex flex-col justify-center px-2 gap-2`}>
+        <Container
+          className={`w-1/2 ${hybridRightBg} flex flex-col justify-center px-2 gap-3`}
+        >
           <Container className="flex flex-start flex-col items-center gap-2">
             <Text className={`text-bold-xs ${hybridRightText} line-clamp-1`}>
               <SharedLanguageSwitchRenderer
@@ -203,7 +243,11 @@ const PaymentCard: React.FC<PaymentCardProps> = (props) => {
               />
             </Text>
             <Text className={`text-xs font-normal ${hybridRightText}`}>
-              <SharedLanguageSwitchRenderer language={language} value={stepName} value_ar={stepName_ar} />
+              <SharedLanguageSwitchRenderer
+                language={language}
+                value={stepName}
+                value_ar={stepName_ar}
+              />
             </Text>
           </Container>
           <Container className="mx-auto">
@@ -222,34 +266,48 @@ const PaymentCard: React.FC<PaymentCardProps> = (props) => {
     <Container
       dir={dir}
       onClick={onCardClick}
-      className={`${bgColor} w-full min-w-auto h-24 rounded-xs shadow-md px-3 py-2 flex flex-col justify-center gap-2 cursor-pointer border-b-2 ${borderColor}`}
+      className={`${bgColor} w-full min-w-[173px] h-[90.53px] rounded-xs py-2 flex flex-col justify-center gap-2 cursor-pointer border-b-2 ${borderColor}`}
     >
-      <Container className="flex items-center gap-3 px-2 py-[6.25px]">
+      <Container className="flex flex-row items-center gap-3 px-2 py-[3px]">
         <Container className="w-8 h-8">
           <ProfileIconStatus status={status} width={32} height={32} />
         </Container>
         <Container className="flex flex-start flex-col items-start">
           <Text className={`text-bold-xxs ${textColor} line-clamp-1`}>
-            <SharedLanguageSwitchRenderer language={language} value={action} value_ar={action_ar} />
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={action}
+              value_ar={action_ar}
+            />
           </Text>
           <Text className={`text-xxs font-normal ${textColor}`}>
-            <SharedLanguageSwitchRenderer language={language} value={stepName} value_ar={stepName_ar} />
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={stepName}
+              value_ar={stepName_ar}
+            />
           </Text>
         </Container>
       </Container>
-      <Container className="flex items-center gap-4 py-[6.25px] px-2 text-center">
+      <Container className="flex flex-row items-center gap-3 px-2 py-[3px] text-center">
         <Avatar imageUrl={imageURL} avatarSize={28} />
         <Container className="flex flex-start flex-col items-start">
           <Text className={`text-bold-s font-bold line-clamp-1 ${textColor}`}>
-            <SharedLanguageSwitchRenderer language={language} value={userName} value_ar={userName_ar} />
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={userName}
+              value_ar={userName_ar}
+            />
           </Text>
           <Text className={`text-xs font-normal ${textColor}`}>
-            <SharedLanguageSwitchRenderer language={language} value={role} value_ar={role_ar} />
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={role}
+              value_ar={role_ar}
+            />
           </Text>
         </Container>
       </Container>
     </Container>
   );
 };
-
-export default PaymentCard;

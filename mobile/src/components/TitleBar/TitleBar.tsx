@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import { View, Text, useWindowDimensions } from "react-native";
 import { Buttons } from "~/src/ui/Buttons";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
@@ -25,7 +25,6 @@ export interface TitleBarProps {
   leftIcon?: ReactElement;
   rightIcon?: ReactElement;
   onClick?: () => void;
-  theme?: "light" | "dark";
   language?: "en" | "ar";
 }
 
@@ -42,27 +41,15 @@ const TitleBar: React.FC<TitleBarProps> = ({
   leftIcon,
   rightIcon,
   onClick,
-  theme = "light",
   language = "en",
 }) => {
   const { width } = useWindowDimensions();
-  const [responsiveButtonSize, setButtonSize] = useState<"s" | "m" | "l">("s");
-
-  useEffect(() => {
-    if (width >= 768) {
-      setButtonSize("l");
-    } else if (width >= 640 && width < 768) {
-      setButtonSize("m");
-    } else {
-      setButtonSize("s");
-    }
-  }, [width]);
 
   const computedAcronym = acronym
     ? acronym.slice(0, 3).toUpperCase()
     : title
-      ? title.slice(0, 3).toUpperCase()
-      : "XXX";
+    ? title.slice(0, 3).toUpperCase()
+    : "XXX";
 
   const isWide = width >= 768;
   const flexDirection = isWide
@@ -78,8 +65,8 @@ const TitleBar: React.FC<TitleBarProps> = ({
     >
       <View className="flex flex-row items-center gap-3 md:gap-8 min-w-0 self-start">
         {showAcronym && computedAcronym && (
-          <View className="rounded-lg sm:rounded-[10px] md:rounded-xl h-[30px] w-[30px] sm:h-10 sm:w-10 md:h-16 md:w-16 flex justify-center items-center bg-structure-primary-7">
-            <Text className="text-[10px] sm:text-base md:text-2xl font-bold text-structure-primary-4">
+          <View className="rounded-[10px] h-10 w-10 flex justify-center items-center bg-structure-primary-7">
+            <Text className="text-16 font-bold text-structure-primary-4">
               {computedAcronym}
             </Text>
           </View>
@@ -90,7 +77,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
               language={language}
               value={title}
               value_ar={title_ar}
-              className="text-2xl sm:text-5xl font-bold text-text-default capitalize"
+              className="text-48 font-bold text-text-default capitalize"
             />
           </View>
         )}
@@ -102,7 +89,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
             title_ar={buttonLabel_ar}
             language={language}
             type={buttonType}
-            size={responsiveButtonSize}
+            size="m"
             onClick={onClick}
             leftIcon={leftIcon}
             rightIcon={rightIcon}

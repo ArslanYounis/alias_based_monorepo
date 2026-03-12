@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Pressable } from "react-native";
-import { Filter } from "lucide-react-native";
+import { ListFilter } from "lucide-react-native";
 
 type FilterButtonProps = {
   label?: string;
@@ -12,7 +12,7 @@ type FilterButtonProps = {
 };
 
 const FilterButton: React.FC<FilterButtonProps> = ({
-  label = "All Filters",
+  // label = "All Filters",
   count = 0,
   isActive = false,
   icon,
@@ -30,9 +30,17 @@ const FilterButton: React.FC<FilterButtonProps> = ({
     >
       <View className="items-center flex-row gap-s">
         <View className="text-filter-button-text">
-          {icon ? icon : <Filter size={20} color="currentColor" className="text-filter-button-text" />}
+          {icon ? (
+            icon
+          ) : (
+            <ListFilter
+              size={20}
+              color="currentColor"
+              className="text-filter-button-text"
+            />
+          )}
         </View>
-        <Text className="text-base text-filter-button-text">{label}</Text>
+        {/* <Text className="text-base text-filter-button-text">{label}</Text> */}
         {count > 0 && (
           <View className="flex justify-center items-center w-5 h-5 border border-structure-primary-9">
             <Text className="text-structure-primary-9 text-xs">{count}</Text>

@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  Pressable,
-  Text,
-  Modal,
-  TouchableWithoutFeedback,
-} from "react-native";
-import { Search, RotateCcw } from "lucide-react-native";
+import { View, Modal, TouchableWithoutFeedback } from "react-native";
+// import { RotateCcw } from "lucide-react-native";
 import SearchField from "./SearchField";
 import FilterButton from "./FilterButton";
 import DropdownFilter from "./DropdownFilter";
@@ -111,15 +105,15 @@ const FilterBar = ({
     }
   };
 
-  const resetFilters = () => {
-    if (onReset) {
-      onReset();
-    } else {
-      setInternalSearchValue("");
-      setInternalSelectedColumns([]);
-    }
-    setFilterDropdownOpen(false);
-  };
+  // const resetFilters = () => {
+  //   if (onReset) {
+  //     onReset();
+  //   } else {
+  //     setInternalSearchValue("");
+  //     setInternalSelectedColumns([]);
+  //   }
+  //   setFilterDropdownOpen(false);
+  // };
 
   const formatOptions = (options: string[]) =>
     options.map((opt) => ({
@@ -131,7 +125,7 @@ const FilterBar = ({
   return (
     <View>
       <View
-        className="flex-row items-center justify-start"
+        className="flex-row items-center justify-between"
         style={{ flexDirection: language === "ar" ? "row-reverse" : "row" }}
       >
         <View
@@ -156,9 +150,7 @@ const FilterBar = ({
 
           {/* Filter Button */}
           <FilterButton
-            label={
-              language === "en" ? filterButtonLabel : filterButtonLabel_ar
-            }
+            label={language === "en" ? filterButtonLabel : filterButtonLabel_ar}
             count={filterButtonCount}
             isActive={filterDropdownOpen}
             icon={filterButtonIcon}
@@ -167,13 +159,17 @@ const FilterBar = ({
           />
 
           {/* Reset Button */}
-          {showResetButton && (
+          {/* {showResetButton && (
             <Pressable
               className="flex-row items-center rounded-xxs gap-s px-xxs py-m"
               onPress={resetFilters}
             >
               <View className="rounded-md px-2 py-1">
-                <RotateCcw size={20} className="text-filter-button-text" color="#6B7280" />
+                <RotateCcw
+                  size={20}
+                  className="text-filter-button-text"
+                  color="#6B7280"
+                />
               </View>
               <Text className="text-base text-filter-button-text">
                 {language === "en"
@@ -181,7 +177,7 @@ const FilterBar = ({
                   : resetButtonLabel_ar || resetButtonLabel}
               </Text>
             </Pressable>
-          )}
+          )} */}
         </View>
 
         {/* Column Button — replaces mobile sort behaviour */}
@@ -206,29 +202,34 @@ const FilterBar = ({
         animationType="fade"
         onRequestClose={() => setFilterDropdownOpen(false)}
       >
-        <TouchableWithoutFeedback onPress={() => setFilterDropdownOpen(false)}>
-          <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.2)" }}>
-            <TouchableWithoutFeedback onPress={() => {}}>
-              <View
-                style={{
-                  position: "absolute",
-                  top: 100,
-                  left: language === "ar" ? undefined : 16,
-                  right: language === "ar" ? 16 : undefined,
-                  width: 320,
-                }}
-              >
-                <DropdownFilter
-                  filterOptions={formatOptions(filterOptions)}
-                  sortOptions={formatOptions(sortOptions)}
-                  applicationOptions={formatOptions(applicationOptions)}
-                  language={language}
-                  theme={theme}
-                />
-              </View>
-            </TouchableWithoutFeedback>
-          </View>
-        </TouchableWithoutFeedback>
+        <View style={{ flex: 1 }}>
+          {/* Backdrop */}
+          <TouchableWithoutFeedback
+            onPress={() => setFilterDropdownOpen(false)}
+          >
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "rgba(0,0,0,0.2)",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {/* Prevent closing when clicking inside modal */}
+              <TouchableWithoutFeedback onPress={() => {}}>
+                <View style={{ width: "95%" }}>
+                  <DropdownFilter
+                    filterOptions={formatOptions(filterOptions)}
+                    sortOptions={formatOptions(sortOptions)}
+                    applicationOptions={formatOptions(applicationOptions)}
+                    language={language}
+                    theme={theme}
+                  />
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
       </Modal>
     </View>
   );

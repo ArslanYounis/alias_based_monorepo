@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "@platform/Container";
-import StatusBalls from "../StatusBalls";
+import { StatusBalls } from "@platform/StatusBalls";
 
 export interface ProcessStatusRowsProps {
   totalSteps: number;
@@ -19,7 +19,14 @@ const ProcessStatusRows: React.FC<ProcessStatusRowsProps> = ({
 }) => {
   const balls = Array.from({ length: totalSteps }, (_, idx) => {
     if (idx < completedSteps)
-      return <StatusBalls key={idx} status="complete" width={ballSize} height={ballSize} />;
+      return (
+        <StatusBalls
+          key={idx}
+          status="complete"
+          width={ballSize}
+          height={ballSize}
+        />
+      );
     if (idx === completedSteps)
       return (
         <StatusBalls
@@ -29,7 +36,14 @@ const ProcessStatusRows: React.FC<ProcessStatusRowsProps> = ({
           height={ballSize}
         />
       );
-    return <StatusBalls key={idx} status="pending" width={ballSize} height={ballSize} />;
+    return (
+      <StatusBalls
+        key={idx}
+        status="pending"
+        width={ballSize}
+        height={ballSize}
+      />
+    );
   });
   return (
     <Container style={{ display: "flex", flexDirection: "row", gap }}>

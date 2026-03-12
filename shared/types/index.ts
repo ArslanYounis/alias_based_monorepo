@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 export interface ContainerProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   style?: Record<string, unknown>;
   onClick?: () => void;

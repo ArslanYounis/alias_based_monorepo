@@ -8,7 +8,6 @@ export interface SignatureProps {
   title_ar?: string;
   buttonText?: string;
   buttonText_ar?: string;
-  theme?: "light" | "dark";
   onSubmit?: (val: { signature: string }) => void;
 }
 
@@ -18,7 +17,6 @@ const Signature: React.FC<SignatureProps> = ({
   title_ar = "وقع للموافقة",
   buttonText = "Approve",
   buttonText_ar = "موافق",
-  theme = "dark",
   onSubmit = () => {},
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -53,9 +51,7 @@ const Signature: React.FC<SignatureProps> = ({
   }, []);
 
   const getPos = (
-    e:
-      | React.MouseEvent<HTMLCanvasElement>
-      | React.TouchEvent<HTMLCanvasElement>
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     const canvas = canvasRef.current;
     if (!canvas) return null;
@@ -74,9 +70,7 @@ const Signature: React.FC<SignatureProps> = ({
   };
 
   const startDrawing = (
-    e:
-      | React.MouseEvent<HTMLCanvasElement>
-      | React.TouchEvent<HTMLCanvasElement>
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     const pos = getPos(e);
     if (!pos) return;
@@ -90,9 +84,7 @@ const Signature: React.FC<SignatureProps> = ({
   };
 
   const draw = (
-    e:
-      | React.MouseEvent<HTMLCanvasElement>
-      | React.TouchEvent<HTMLCanvasElement>
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     if (!isDrawing) return;
     const pos = getPos(e);
@@ -130,7 +122,6 @@ const Signature: React.FC<SignatureProps> = ({
         title_ar={title_ar || title}
         showAcronym={false}
         showButton={false}
-        theme={theme}
         language={language}
       />
       <div

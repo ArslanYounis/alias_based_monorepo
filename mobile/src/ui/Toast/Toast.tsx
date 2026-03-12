@@ -8,11 +8,15 @@ import ToastActionIcon from "~/assets/svg/icons/toast/Action";
 
 export type { ToastProps, ToastStatus };
 
-const AUTO_HIDE_MS = 5000;
+const AUTO_HIDE_MS = 5000000000;
 
 const STATUS_COLORS: Record<
   ToastStatus,
-  { bg: string; iconColor: string; Icon: React.FC<{ color?: string; width?: number; height?: number }> }
+  {
+    bg: string;
+    iconColor: string;
+    Icon: React.FC<{ color?: string; width?: number; height?: number }>;
+  }
 > = {
   success: {
     bg: "bg-status-success-light",

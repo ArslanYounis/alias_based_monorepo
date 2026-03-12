@@ -339,8 +339,8 @@ module.exports = {
         "cards-stroke": "var(--Cards-Stroke)",
         "cards-searchResult": "var(--Cards-SearchResult)",
         "cards-searchResult-selected": "var(--Cards-SearchResult-selected)",
-        "cards-process-card-text-light": "var(--color-Base-White)",
-        "cards-process-card-text-dark": "var(--color-Base-Black)",
+        "process-card-text-light": "var(--color-Base-White)",
+        "process-card-text-dark": "var(--color-Base-Black)",
 
         /* Status colors */
         "status-theme-light": "var(--Status-Theme-light)",

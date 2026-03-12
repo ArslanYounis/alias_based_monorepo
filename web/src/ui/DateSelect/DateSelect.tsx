@@ -12,6 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Caption } from "../Caption";
 
 export type { DateSelectProps };
 
@@ -26,11 +27,17 @@ export const DateSelect: React.FC<DateSelectProps> = ({
   infoText,
   infoText_ar,
   required = false,
-  errMessage,
-  errMessage_ar,
-  caption,
-  caption_ar,
-  captionPosition = "left",
+  // errMessage,
+  // errMessage_ar,
+  // caption,
+  // caption_ar,
+  errorMessage,
+  errorMessage_ar,
+  captionLeft,
+  captionLeft_ar,
+  captionRight,
+  captionRight_ar,
+  // captionPosition = "left",
   language = "en",
   value,
   testId,
@@ -148,7 +155,7 @@ export const DateSelect: React.FC<DateSelectProps> = ({
           />
         </PopoverContent>
       </Popover>
-      {hasError && errMessage && (
+      {/* {hasError && errMessage && (
         <p className="text-xs text-form-fields-error">
           <SharedLanguageSwitchRenderer
             language={language}
@@ -173,6 +180,23 @@ export const DateSelect: React.FC<DateSelectProps> = ({
             value_ar={caption_ar}
           />
         </p>
+      )} */}
+      {(captionLeft ||
+        captionRight ||
+        captionLeft_ar ||
+        captionRight_ar ||
+        (hasError && (errorMessage || errorMessage_ar))) && (
+        <Caption
+          language={language}
+          captionLeft={captionLeft}
+          captionLeft_ar={captionLeft_ar}
+          captionRight={captionRight}
+          captionRight_ar={captionRight_ar}
+          hasError={hasError}
+          errorMessage={errorMessage}
+          errorMessage_ar={errorMessage_ar}
+          disabled={disabled}
+        />
       )}
     </div>
   );

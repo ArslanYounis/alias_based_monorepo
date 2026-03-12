@@ -1,10 +1,11 @@
 import React from "react";
-import { Container } from "@platform/Container";
+import { Image } from "react-native";
 import { Text } from "@platform/Text";
 import { Avatar } from "@platform/Avatar";
+import { Container } from "@platform/Container";
+import { PaymentCard } from "@platform/PaymentCard";
 import { ProfileIconStatus } from "@platform/ProfileIconStatus";
-import PaymentCard from "../PaymentCard";
-import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
+import SharedLanguageSwitchRenderer from "@shared/components/SharedLanguageSwitchRenderer";
 
 export type StatusCardProps = {
   type?: "pending" | "action" | "action-other" | "failed" | "success" | string;
@@ -79,7 +80,7 @@ const getStateStyles = (state: StatusCardProps["type"]) => {
   }
 };
 
-const Cards: React.FC<StatusCardProps> = ({
+export const Cards: React.FC<StatusCardProps> = ({
   type,
   version,
   direction = "horizontal",
@@ -104,16 +105,16 @@ const Cards: React.FC<StatusCardProps> = ({
   if (version === "image-row") {
     return (
       <Container
-        className={`w-full min-w-auto h-[96px] ${
+        className={`w-full min-w-[173px] h-[90.53px] ${
           type === "pending" ? "bg-status-pending-solid" : bgColor
-        } shadow-md rounded-xs flex border-b-2 ${borderColor} overflow-hidden`}
+        } rounded-xs flex flex-row border-b-2 ${borderColor} overflow-hidden`}
       >
-        <Container className="w-1/2 h-[96px]">
-          {/* <img
-            src={imageURL}
+        <Container className="w-1/2 h-[90.53px]">
+          <Image
+            source={{ uri: imageURL }}
             alt="Location"
             className="w-full h-full object-cover rounded-l-xs"
-          /> */}
+          />
         </Container>
         <Container
           className={`w-1/2 flex flex-col justify-center px-2 ${bgColor}`}
@@ -163,7 +164,7 @@ const Cards: React.FC<StatusCardProps> = ({
 
   return (
     <Container
-      className={`${bgColor} flex items-center w-full min-w-auto h-[96px] rounded-xs py-xs px-s overflow-hidden ${
+      className={`${bgColor} flex items-center w-full min-w-[173px] h-[90.53px] rounded-xs py-xs px-s overflow-hidden ${
         direction === "vertical" ? "" : "space-x-[10px]"
       } ${
         direction === "vertical" ? "flex-col py-[8px]" : "flex py-7"
@@ -200,5 +201,3 @@ const Cards: React.FC<StatusCardProps> = ({
     </Container>
   );
 };
-
-export default Cards;

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Linking } from "react-native";
+import { View, Linking } from "react-native";
 import UploadDocument from "./UploadDocument";
 
 export interface DocumentConfig {
@@ -23,7 +23,12 @@ export interface UploadDocumentsProps {
   language?: "en" | "ar";
   type?: "default" | "base";
   onFileChange?: (props: {
-    file: { name: string; uri: string; size?: number; mimeType?: string } | null;
+    file: {
+      name: string;
+      uri: string;
+      size?: number;
+      mimeType?: string;
+    } | null;
     uploadUrl: string;
   }) => void;
 }
@@ -44,7 +49,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View className="flex flex-1 flex-col">
       {documents?.map((doc, idx) => (
         <UploadDocument
           key={idx}
@@ -72,13 +77,5 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    gap: 16,
-  },
-});
 
 export default UploadDocuments;

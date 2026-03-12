@@ -47,7 +47,9 @@ const Signature: React.FC<SignatureProps> = ({
       },
       onPanResponderMove: (e: GestureResponderEvent) => {
         const { locationX, locationY } = e.nativeEvent;
-        currentPathRef.current += ` L${locationX.toFixed(2)},${locationY.toFixed(2)}`;
+        currentPathRef.current += ` L${locationX.toFixed(
+          2
+        )},${locationY.toFixed(2)}`;
         const snapshot = currentPathRef.current;
         setPaths((prev) => {
           if (prev.length === 0) return prev;
@@ -85,7 +87,6 @@ const Signature: React.FC<SignatureProps> = ({
         title_ar={title_ar || title}
         showAcronym={false}
         showButton={false}
-        theme={theme}
         language={language}
       />
       <View

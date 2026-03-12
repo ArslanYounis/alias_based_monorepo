@@ -5,6 +5,7 @@ import {
   View,
   Text,
   Pressable,
+  Alert,
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
@@ -31,6 +32,25 @@ import { CheckboxField } from "@platform/CheckboxField";
 import { CheckboxInput } from "@platform/CheckboxInput";
 import { RadioField } from "@platform/RadioField";
 import { RadioInput } from "@platform/RadioInput";
+import { Toast } from "../ui/Toast";
+import { Header } from "../ui/Header";
+import { Bot } from "../ui/Bot";
+import { Buttons } from "../ui/Buttons";
+import Settings from "~/assets/svg/icons/Settings";
+import SelectArrow from "~/assets/svg/icons/SelectArrow";
+import { Typography } from "../ui/Typography";
+import { Breadcrumb } from "../ui/Breadcrumb";
+import { Pagination } from "../ui/Pagination";
+import { AddMoreButton } from "../ui/AddMoreButton";
+import { Plus } from "lucide-react-native";
+import { Prompt } from "../ui/Prompt";
+import { ScreenLoader } from "../ui/ScreenLoader";
+import TitleBar from "../components/TitleBar";
+import { FilterBar } from "../ui/FilterBar";
+import Signature from "../components/Signature";
+import UploadDocuments from "../components/UploadDocuments";
+import Table from "../../../shared/components/Table";
+import OwnerCard from "../../../shared/components/OwnerCard";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -121,12 +141,23 @@ export default function App() {
               <Text style={styles.sectionTitle}>G-0.1 — Label</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
-              <Label label="Field Label" label_ar="تسمية الحقل" language={language} />
+              <Label
+                label="Field Label"
+                label_ar="تسمية الحقل"
+                language={language}
+              />
 
               <Text style={styles.variantLabel}>required=true</Text>
-              <Label label="Required Field" label_ar="حقل مطلوب" required language={language} />
+              <Label
+                label="Required Field"
+                label_ar="حقل مطلوب"
+                required
+                language={language}
+              />
 
-              <Text style={styles.variantLabel}>showInfoIcon=true + tooltipText</Text>
+              <Text style={styles.variantLabel}>
+                showInfoIcon=true + tooltipText
+              </Text>
               <Label
                 label="Info Field"
                 label_ar="حقل معلومات"
@@ -148,7 +179,12 @@ export default function App() {
               />
 
               <Text style={styles.variantLabel}>disabled=true</Text>
-              <Label label="Disabled Label" label_ar="تسمية معطلة" disabled language={language} />
+              <Label
+                label="Disabled Label"
+                label_ar="تسمية معطلة"
+                disabled
+                language={language}
+              />
 
               <Text style={styles.variantLabel}>disabled + showInfoIcon</Text>
               <Label
@@ -163,7 +199,9 @@ export default function App() {
               <Text style={styles.variantLabel}>language=ar</Text>
               <Label label="Field Label" label_ar="تسمية الحقل" language="ar" />
 
-              <Text style={styles.variantLabel}>language=ar + required + showInfoIcon</Text>
+              <Text style={styles.variantLabel}>
+                language=ar + required + showInfoIcon
+              </Text>
               <Label
                 label="Full Label"
                 label_ar="تسمية كاملة"
@@ -180,12 +218,22 @@ export default function App() {
               <Text style={styles.sectionTitle}>G-0.2 — Caption</Text>
 
               <Text style={styles.variantLabel}>captionLeft only</Text>
-              <Caption captionLeft="Left caption" captionLeft_ar="تعليق يسار" language={language} />
+              <Caption
+                captionLeft="Left caption"
+                captionLeft_ar="تعليق يسار"
+                language={language}
+              />
 
               <Text style={styles.variantLabel}>captionRight only</Text>
-              <Caption captionRight="Right caption" captionRight_ar="تعليق يمين" language={language} />
+              <Caption
+                captionRight="Right caption"
+                captionRight_ar="تعليق يمين"
+                language={language}
+              />
 
-              <Text style={styles.variantLabel}>captionLeft + captionRight</Text>
+              <Text style={styles.variantLabel}>
+                captionLeft + captionRight
+              </Text>
               <Caption
                 captionLeft="Left"
                 captionLeft_ar="يسار"
@@ -203,7 +251,9 @@ export default function App() {
                 language={language}
               />
 
-              <Text style={styles.variantLabel}>hasError — error replaces captionLeft</Text>
+              <Text style={styles.variantLabel}>
+                hasError — error replaces captionLeft
+              </Text>
               <Caption
                 captionLeft="Hint text"
                 captionLeft_ar="نص تلميحي"
@@ -233,7 +283,9 @@ export default function App() {
 
             {/* ── G-0.3 Tooltip ── */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>G-0.3 — Tooltip (all 13 directions)</Text>
+              <Text style={styles.sectionTitle}>
+                G-0.3 — Tooltip (all 13 directions)
+              </Text>
               {TOOLTIP_DIRS.map((dir) => (
                 <View key={dir} style={styles.tooltipRow}>
                   <Text style={styles.variantLabel}>direction="{dir}"</Text>
@@ -265,13 +317,23 @@ export default function App() {
               />
 
               <Text style={styles.variantLabel}>disabled + unchecked</Text>
-              <Checkbox id="cb-dis-un" checked={false} disabled onChange={() => {}} />
+              <Checkbox
+                id="cb-dis-un"
+                checked={false}
+                disabled
+                onChange={() => {}}
+              />
 
               <Text style={styles.variantLabel}>disabled + checked</Text>
               <Checkbox id="cb-dis-ch" checked disabled onChange={() => {}} />
 
               <Text style={styles.variantLabel}>hasError + unchecked</Text>
-              <Checkbox id="cb-err-un" checked={false} hasError onChange={() => {}} />
+              <Checkbox
+                id="cb-err-un"
+                checked={false}
+                hasError
+                onChange={() => {}}
+              />
 
               <Text style={styles.variantLabel}>hasError + checked</Text>
               <Checkbox id="cb-err-ch" checked hasError onChange={() => {}} />
@@ -299,13 +361,23 @@ export default function App() {
               ))}
 
               <Text style={styles.variantLabel}>disabled + unchecked</Text>
-              <Radio id="r-dis-un" checked={false} disabled onChange={() => {}} />
+              <Radio
+                id="r-dis-un"
+                checked={false}
+                disabled
+                onChange={() => {}}
+              />
 
               <Text style={styles.variantLabel}>disabled + checked</Text>
               <Radio id="r-dis-ch" checked disabled onChange={() => {}} />
 
               <Text style={styles.variantLabel}>hasError + unchecked</Text>
-              <Radio id="r-err-un" checked={false} hasError onChange={() => {}} />
+              <Radio
+                id="r-err-un"
+                checked={false}
+                hasError
+                onChange={() => {}}
+              />
 
               <Text style={styles.variantLabel}>hasError + checked</Text>
               <Radio id="r-err-ch" checked hasError onChange={() => {}} />
@@ -385,6 +457,8 @@ export default function App() {
                 language={language}
                 value=""
                 onDateChange={() => {}}
+                captionLeft="left"
+                captionRight="right"
               />
 
               <Text style={styles.variantLabel}>hasError + errMessage</Text>
@@ -488,7 +562,13 @@ export default function App() {
                 placeholder="Choose multiple..."
                 value={fMulti.join(",")}
                 onChange={(v) =>
-                  setFMulti(typeof v === "string" ? (v ? v.split(",") : []) : (v as string[]))
+                  setFMulti(
+                    typeof v === "string"
+                      ? v
+                        ? v.split(",")
+                        : []
+                      : (v as string[])
+                  )
                 }
                 options={selectOptions}
                 language={language}
@@ -533,6 +613,145 @@ export default function App() {
               />
             </View>
 
+            {/* ── G-0.10 Toast ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-0.10 — Toast</Text>
+
+              <Text style={styles.variantLabel}>status="success"</Text>
+              <Toast
+                message="Operation completed successfully"
+                status="success"
+              />
+
+              <Text style={styles.variantLabel}>status="error"</Text>
+              <Toast
+                message="An error occurred while processing"
+                status="error"
+              />
+
+              <Text style={styles.variantLabel}>status="information"</Text>
+              <Toast
+                message="Your session will expire in 5 minutes"
+                status="information"
+              />
+
+              <Text style={styles.variantLabel}>status="action"</Text>
+              <Toast
+                message="New update available. Click to install"
+                status="action"
+              />
+
+              <Text style={styles.variantLabel}>Long message example</Text>
+              <Toast
+                message="This is a very long toast message that demonstrates how the component handles extended text content and wrapping"
+                status="success"
+              />
+            </View>
+
+            {/* ── G-0.12 Header ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-0.11 — Header</Text>
+
+              <Text style={styles.variantLabel}>Default (English)</Text>
+              <Header
+                language="en"
+                onAvatarPress={() => console.log("Avatar pressed")}
+              />
+
+              <Text style={styles.variantLabel}>With Breadcrumb</Text>
+              <Header
+                language="en"
+                breadcrumbItems={[
+                  { label: "Home", onClick: () => console.log("Home clicked") },
+                  {
+                    label: "Dashboard",
+                    onClick: () => console.log("Dashboard clicked"),
+                  },
+                  {
+                    label: "Reports",
+                    onClick: () => console.log("Reports clicked"),
+                  },
+                ]}
+                onAvatarPress={() => console.log("Avatar pressed")}
+              />
+            </View>
+
+            {/* ── G-0.15 Bot ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-0.13 — Bot</Text>
+
+              <Text style={styles.variantLabel}>Status: Close (Default)</Text>
+              <Bot
+                language="en"
+                status="close"
+                message="Hello! How can I help you today?"
+                message_ar="مرحبا! كيف يمكنني مساعدتك اليوم؟"
+                onClick={(newStatus) =>
+                  console.log("Bot status changed to:", newStatus)
+                }
+              />
+
+              <Text style={styles.variantLabel}>Status: Open (English)</Text>
+              <Bot
+                language="en"
+                status="open"
+                message="Hello! How can I help you today?"
+                message_ar="مرحبا! كيف يمكنني مساعدتك اليوم؟"
+                onClick={(newStatus) =>
+                  console.log("Bot status changed to:", newStatus)
+                }
+              />
+
+              <Text style={styles.variantLabel}>Status: Open (Arabic RTL)</Text>
+              <Bot
+                language="ar"
+                status="open"
+                message="Hello! How can I help you today?"
+                message_ar="مرحبا! كيف يمكنني مساعدتك اليوم؟"
+                onClick={(newStatus) =>
+                  console.log("Bot status changed to:", newStatus)
+                }
+              />
+
+              <Text style={styles.variantLabel}>Custom Message</Text>
+              <Bot
+                language="en"
+                status="open"
+                message="I'm here to assist you with any questions about your account!"
+                message_ar="أنا هنا لمساعدتك في أي أسئلة حول حسابك!"
+                onClick={(newStatus) =>
+                  console.log("Bot status changed to:", newStatus)
+                }
+              />
+
+              <Text style={styles.variantLabel}>Long Message Example</Text>
+              <Bot
+                language="en"
+                status="open"
+                message="This is a very long message that demonstrates how the bot component handles extended text content and wrapping within the speech bubble. It should wrap nicely and maintain readability."
+                message_ar="هذه رسالة طويلة جدًا توضح كيفية تعامل مكون bot مع المحتوى النصي الممتد والتفاف النص داخل فقاعة الكلام. يجب أن يلتف بشكل جيد ويحافظ على سهولة القراءة."
+                onClick={(newStatus) =>
+                  console.log("Bot status changed to:", newStatus)
+                }
+              />
+
+              <Text style={styles.variantLabel}>Interactive Demo</Text>
+              <View className="p-4 bg-gray-50 rounded-lg">
+                <Text className="text-sm text-gray-600 mb-3">
+                  Click the bot icon to toggle between open/close states:
+                </Text>
+                <Bot
+                  language="en"
+                  status="close"
+                  message="Click me to chat! I'm here to help."
+                  message_ar="انقر فوقي للدردشة! أنا هنا للمساعدة."
+                  onClick={(newStatus) =>
+                    console.log("Bot status toggled to:", newStatus)
+                  }
+                />
+              </View>
+            </View>
+
             {/* ═══════════════════════════════════════════════ */}
             {/* G-2 — Form Components                          */}
             {/* ═══════════════════════════════════════════════ */}
@@ -564,7 +783,9 @@ export default function App() {
                 language={language}
               />
 
-              <Text style={styles.variantLabel}>showInfoIcon + tooltipText</Text>
+              <Text style={styles.variantLabel}>
+                showInfoIcon + tooltipText
+              </Text>
               <TextInput
                 label="With Tooltip"
                 label_ar="مع تلميحة"
@@ -791,7 +1012,9 @@ export default function App() {
                 language={language}
               />
 
-              <Text style={styles.variantLabel}>showInfoIcon + tooltipText</Text>
+              <Text style={styles.variantLabel}>
+                showInfoIcon + tooltipText
+              </Text>
               <Select
                 label="Select with Info"
                 label_ar="اختيار مع معلومات"
@@ -831,7 +1054,9 @@ export default function App() {
                 language={language}
               />
 
-              <Text style={styles.variantLabel}>title + title_ar (section header)</Text>
+              <Text style={styles.variantLabel}>
+                title + title_ar (section header)
+              </Text>
               <Select
                 label="Select"
                 label_ar="اختيار"
@@ -1079,7 +1304,9 @@ export default function App() {
                 language={language}
               />
 
-              <Text style={styles.variantLabel}>captionLeft + captionRight</Text>
+              <Text style={styles.variantLabel}>
+                captionLeft + captionRight
+              </Text>
               <NumberInput
                 label="Area"
                 label_ar="المساحة"
@@ -1270,7 +1497,9 @@ export default function App() {
                 language={language}
               />
 
-              <Text style={styles.variantLabel}>showInfoIcon + tooltipText</Text>
+              <Text style={styles.variantLabel}>
+                showInfoIcon + tooltipText
+              </Text>
               <CheckboxInput
                 label="Options with Info"
                 label_ar="خيارات مع معلومات"
@@ -1307,7 +1536,9 @@ export default function App() {
                 language={language}
               />
 
-              <Text style={styles.variantLabel}>captionLeft + captionRight</Text>
+              <Text style={styles.variantLabel}>
+                captionLeft + captionRight
+              </Text>
               <CheckboxInput
                 label="Options"
                 label_ar="خيارات"
@@ -1450,7 +1681,9 @@ export default function App() {
                 language={language}
               />
 
-              <Text style={styles.variantLabel}>showInfoIcon + tooltipText</Text>
+              <Text style={styles.variantLabel}>
+                showInfoIcon + tooltipText
+              </Text>
               <RadioInput
                 label="Choice with Info"
                 label_ar="اختيار مع معلومات"
@@ -1487,7 +1720,9 @@ export default function App() {
                 language={language}
               />
 
-              <Text style={styles.variantLabel}>captionLeft + captionRight</Text>
+              <Text style={styles.variantLabel}>
+                captionLeft + captionRight
+              </Text>
               <RadioInput
                 label="Options"
                 label_ar="خيارات"
@@ -1510,6 +1745,1268 @@ export default function App() {
                 value=""
                 onChange={() => {}}
                 language="ar"
+              />
+            </View>
+
+            {/* ═══════════════════════════════════════════════ */}
+            {/* G-3 — UI Primitives                     */}
+            {/* ═══════════════════════════════════════════════ */}
+
+            {/* ── G-3.1 Buttons ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-3.1 — Buttons</Text>
+
+              {/* Primary Button Variants */}
+              <Text style={styles.variantLabel}>Primary Buttons</Text>
+
+              {[
+                {
+                  label: "Small (s)",
+                  props: { size: "s" as const, title: "Small Button" },
+                },
+                {
+                  label: "Medium (m) - Default",
+                  props: { size: "m" as const, title: "Medium Button" },
+                },
+                {
+                  label: "Large (l)",
+                  props: { size: "l" as const, title: "Large Button" },
+                },
+              ].map((item, index) => (
+                <React.Fragment key={`primary-${index}`}>
+                  <Text style={styles.variantLabel}>{item.label}</Text>
+                  <Buttons
+                    language="en"
+                    type="primary"
+                    title={item.props.title}
+                    onClick={() => console.log(`${item.props.title} clicked`)}
+                    {...item.props}
+                  />
+                </React.Fragment>
+              ))}
+
+              {/* Button Types */}
+              <Text style={styles.variantLabel}>Button Types</Text>
+
+              {[
+                { type: "primary" as const, title: "Primary" },
+                { type: "secondary" as const, title: "Secondary" },
+                { type: "tertiary" as const, title: "Tertiary" },
+                { type: "text-link" as const, title: "Text Link" },
+                { type: "delete" as const, title: "Delete" },
+              ].map((item, index) => (
+                <React.Fragment key={`type-${index}`}>
+                  <Text style={styles.variantLabel}>type="{item.type}"</Text>
+                  <Buttons
+                    language="en"
+                    type={item.type}
+                    title={item.title}
+                    onClick={() => console.log(`${item.type} clicked`)}
+                  />
+                </React.Fragment>
+              ))}
+
+              {/* With Icons */}
+              <Text style={styles.variantLabel}>With Icons</Text>
+
+              <Text style={styles.variantLabel}>Left Icon Only</Text>
+              <Buttons
+                language="en"
+                type="primary"
+                title="Settings"
+                leftIcon={<Settings className="w-4 h-4" />}
+                onClick={() => console.log("Settings clicked")}
+              />
+
+              <Text style={styles.variantLabel}>Right Icon Only</Text>
+              <Buttons
+                language="en"
+                type="primary"
+                title="Next"
+                rightIcon={<SelectArrow className="w-4 h-4" />}
+                onClick={() => console.log("Next clicked")}
+              />
+
+              <Text style={styles.variantLabel}>Both Icons</Text>
+              <Buttons
+                language="en"
+                type="primary"
+                title="Both Icons"
+                leftIcon={<Settings className="w-4 h-4" />}
+                rightIcon={<SelectArrow className="w-4 h-4" />}
+                onClick={() => console.log("Both icons clicked")}
+              />
+
+              {/* States */}
+              <Text style={styles.variantLabel}>Button States</Text>
+
+              <Text style={styles.variantLabel}>Disabled</Text>
+              <Buttons
+                language="en"
+                type="primary"
+                title="Disabled Button"
+                disabled={true}
+                onClick={() => console.log("This should not fire")}
+              />
+
+              <Text style={styles.variantLabel}>Full Width</Text>
+              <Buttons
+                language="en"
+                type="primary"
+                title="Full Width Button"
+                fullWidth={true}
+                onClick={() => console.log("Full width clicked")}
+              />
+
+              {/* Arabic RTL */}
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+
+              {[
+                {
+                  type: "primary" as const,
+                  title: "زر أساسي",
+                  title_ar: "زر أساسي",
+                },
+                {
+                  type: "secondary" as const,
+                  title: "زر ثانوي",
+                  title_ar: "زر ثانوي",
+                },
+                { type: "delete" as const, title: "حذف", title_ar: "حذف" },
+              ].map((item, index) => (
+                <React.Fragment key={`arabic-${index}`}>
+                  <Text style={styles.variantLabel}>
+                    type="{item.type}" (Arabic)
+                  </Text>
+                  <Buttons
+                    language="ar"
+                    type={item.type}
+                    title={item.title}
+                    title_ar={item.title_ar}
+                    onClick={() => console.log(`Arabic ${item.type} clicked`)}
+                  />
+                </React.Fragment>
+              ))}
+
+              {/* Icon Color Customization */}
+              <Text style={styles.variantLabel}>Custom Icon Color</Text>
+
+              <Buttons
+                language="en"
+                type="primary"
+                title="Colored Icons"
+                leftIcon={<Settings className="w-4 h-4" />}
+                rightIcon={<SelectArrow className="w-4 h-4" />}
+                iconColor="#FF5733"
+                onClick={() => console.log("Colored icons clicked")}
+              />
+
+              {/* Size Comparison */}
+              <Text style={styles.variantLabel}>Size Comparison</Text>
+
+              <View className="flex-row items-center gap-2 flex-wrap">
+                <Buttons
+                  language="en"
+                  type="primary"
+                  size="s"
+                  title="Small"
+                  onClick={() => {}}
+                />
+                <Buttons
+                  language="en"
+                  type="primary"
+                  size="m"
+                  title="Medium"
+                  onClick={() => {}}
+                />
+                <Buttons
+                  language="en"
+                  type="primary"
+                  size="l"
+                  title="Large"
+                  onClick={() => {}}
+                />
+              </View>
+
+              {/* Type Comparison Row */}
+              <Text style={styles.variantLabel}>Type Comparison</Text>
+
+              <View className="flex-row items-center gap-2 flex-wrap">
+                <Buttons
+                  language="en"
+                  type="primary"
+                  title="Primary"
+                  onClick={() => {}}
+                />
+                <Buttons
+                  language="en"
+                  type="secondary"
+                  title="Secondary"
+                  onClick={() => {}}
+                />
+                <Buttons
+                  language="en"
+                  type="tertiary"
+                  title="Tertiary"
+                  onClick={() => {}}
+                />
+                <Buttons
+                  language="en"
+                  type="text-link"
+                  title="Text Link"
+                  onClick={() => {}}
+                />
+                <Buttons
+                  language="en"
+                  type="delete"
+                  title="Delete"
+                  onClick={() => {}}
+                />
+              </View>
+            </View>
+
+            {/* ── G-3.2 Typography ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-3.2 — Typography</Text>
+
+              {/* Heading Variants */}
+              <Text style={styles.variantLabel}>Heading Variants</Text>
+
+              {[
+                {
+                  variant: "h1-shouting" as const,
+                  text: "h1-shouting - Shouting Heading",
+                },
+                { variant: "h1-hero" as const, text: "h1-hero - Hero Heading" },
+                { variant: "h1" as const, text: "h1 - Main Heading" },
+                { variant: "h2" as const, text: "h2 - Section Heading" },
+                { variant: "h3" as const, text: "h3 - Subsection Heading" },
+                { variant: "h4" as const, text: "h4 - Small Heading" },
+              ].map((item, index) => (
+                <React.Fragment key={`heading-${index}`}>
+                  <Text style={styles.variantLabel}>{item.variant}</Text>
+                  <Typography
+                    variant={item.variant}
+                    text={item.text}
+                    language="en"
+                    color="default"
+                  />
+                </React.Fragment>
+              ))}
+
+              {/* Text Variants - Regular */}
+              <Text style={styles.variantLabel}>Text Variants - Regular</Text>
+
+              {[
+                {
+                  variant: "text-lg" as const,
+                  text: "text-lg - Large body text for important content",
+                },
+                {
+                  variant: "text-md" as const,
+                  text: "text-md - Medium body text for general content",
+                },
+                {
+                  variant: "text-sm" as const,
+                  text: "text-sm - Small body text for secondary content",
+                },
+                {
+                  variant: "text-xs" as const,
+                  text: "text-xs - Extra small text for captions and metadata",
+                },
+              ].map((item, index) => (
+                <React.Fragment key={`text-${index}`}>
+                  <Text style={styles.variantLabel}>{item.variant}</Text>
+                  <Typography
+                    variant={item.variant}
+                    text={item.text}
+                    language="en"
+                    color="default"
+                  />
+                </React.Fragment>
+              ))}
+
+              {/* Text Variants - Bold */}
+              <Text style={styles.variantLabel}>Text Variants - Bold</Text>
+
+              {[
+                {
+                  variant: "text-bold-lg" as const,
+                  text: "text-bold-lg - Large bold text",
+                },
+                {
+                  variant: "text-bold-md" as const,
+                  text: "text-bold-md - Medium bold text",
+                },
+                {
+                  variant: "text-bold-sm" as const,
+                  text: "text-bold-sm - Small bold text",
+                },
+                {
+                  variant: "text-bold-xs" as const,
+                  text: "text-bold-xs - Extra small bold text",
+                },
+                {
+                  variant: "text-bold-xxs" as const,
+                  text: "text-bold-xxs - Extra extra small bold text",
+                },
+              ].map((item, index) => (
+                <React.Fragment key={`bold-${index}`}>
+                  <Text style={styles.variantLabel}>{item.variant}</Text>
+                  <Typography
+                    variant={item.variant}
+                    text={item.text}
+                    language="en"
+                    color="default"
+                  />
+                </React.Fragment>
+              ))}
+
+              {/* Color Variants */}
+              <Text style={styles.variantLabel}>
+                Color Variants (using text-md)
+              </Text>
+
+              {[
+                {
+                  color: "default" as const,
+                  text: "default - Standard text color",
+                },
+                {
+                  color: "dimmed" as const,
+                  text: "dimmed - Dimmed/disabled text",
+                },
+                {
+                  color: "primary" as const,
+                  text: "primary - Primary brand color",
+                },
+                { color: "link" as const, text: "link - Link text color" },
+                {
+                  color: "link-hover" as const,
+                  text: "link-hover - Link hover state",
+                },
+              ].map((item, index) => (
+                <React.Fragment key={`color-${index}`}>
+                  <Text style={styles.variantLabel}>color="{item.color}"</Text>
+                  <Typography
+                    variant="text-md"
+                    text={item.text}
+                    language="en"
+                    color={item.color}
+                  />
+                </React.Fragment>
+              ))}
+
+              {/* Arabic RTL Variants */}
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+
+              {[
+                {
+                  variant: "h1" as const,
+                  text: "عنوان رئيسي",
+                  text_ar: "عنوان رئيسي",
+                },
+                {
+                  variant: "h2" as const,
+                  text: "عنوان القسم",
+                  text_ar: "عنوان القسم",
+                },
+                {
+                  variant: "text-md" as const,
+                  text: "نص عادي للقراءة",
+                  text_ar: "نص عادي للقراءة",
+                },
+                {
+                  variant: "text-bold-md" as const,
+                  text: "نص غامق للتأكيد",
+                  text_ar: "نص غامق للتأكيد",
+                },
+              ].map((item, index) => (
+                <React.Fragment key={`arabic-${index}`}>
+                  <Text style={styles.variantLabel}>
+                    {item.variant} (Arabic)
+                  </Text>
+                  <Typography
+                    variant={item.variant}
+                    text={item.text}
+                    text_ar={item.text_ar}
+                    language="ar"
+                    color="default"
+                  />
+                </React.Fragment>
+              ))}
+
+              <View className="space-y-1">
+                <View className="flex-row items-center gap-4">
+                  <Typography
+                    variant="text-lg"
+                    text="Large Regular"
+                    language="en"
+                  />
+                  <Typography
+                    variant="text-bold-lg"
+                    text="Large Bold"
+                    language="en"
+                  />
+                </View>
+                <View className="flex-row items-center gap-4">
+                  <Typography
+                    variant="text-md"
+                    text="Medium Regular"
+                    language="en"
+                  />
+                  <Typography
+                    variant="text-bold-md"
+                    text="Medium Bold"
+                    language="en"
+                  />
+                </View>
+                <View className="flex-row items-center gap-4">
+                  <Typography
+                    variant="text-sm"
+                    text="Small Regular"
+                    language="en"
+                  />
+                  <Typography
+                    variant="text-bold-sm"
+                    text="Small Bold"
+                    language="en"
+                  />
+                </View>
+                <View className="flex-row items-center gap-4">
+                  <Typography
+                    variant="text-xs"
+                    text="XS Regular"
+                    language="en"
+                  />
+                  <Typography
+                    variant="text-bold-xs"
+                    text="XS Bold"
+                    language="en"
+                  />
+                </View>
+              </View>
+            </View>
+
+            {/* ── G-3.3 Breadcrumb ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-3.3 — Breadcrumb</Text>
+
+              {/* Basic Variants */}
+              <Text style={styles.variantLabel}>Default (2 items)</Text>
+              <Breadcrumb
+                language="en"
+                items={[{ label: "Home" }, { label: "Level 1" }]}
+              />
+
+              <Text style={styles.variantLabel}>3 Items - Last Selected</Text>
+              <Breadcrumb
+                language="en"
+                items={[
+                  { label: "Home", onClick: () => console.log("Home clicked") },
+                  {
+                    label: "Products",
+                    onClick: () => console.log("Products clicked"),
+                  },
+                  { label: "Electronics" },
+                ]}
+              />
+
+              <Text style={styles.variantLabel}>
+                4 Items - Custom Selected Index (index 1)
+              </Text>
+              <Breadcrumb
+                language="en"
+                selectedItemIndex={1}
+                items={[
+                  { label: "Home", onClick: () => console.log("Home clicked") },
+                  {
+                    label: "Category",
+                    onClick: () => console.log("Category clicked"),
+                  },
+                  {
+                    label: "Subcategory",
+                    onClick: () => console.log("Subcategory clicked"),
+                  },
+                  { label: "Product" },
+                ]}
+              />
+
+              {/* Arabic RTL Variants */}
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+              <Breadcrumb
+                language="ar"
+                items={[
+                  {
+                    label: "Home",
+                    label_ar: "الرئيسية",
+                    onClick: () => console.log("الرئيسية clicked"),
+                  },
+                  {
+                    label: "Products",
+                    label_ar: "المنتجات",
+                    onClick: () => console.log("المنتجات clicked"),
+                  },
+                  { label: "Electronics", label_ar: "الإلكترونيات" },
+                ]}
+              />
+
+              {/* Interactive Examples */}
+              <Text style={styles.variantLabel}>Clickable Items</Text>
+              <Breadcrumb
+                language="en"
+                items={[
+                  {
+                    label: "Dashboard",
+                    onClick: () => Alert.alert("Dashboard clicked"),
+                  },
+                  {
+                    label: "Reports",
+                    onClick: () => Alert.alert("Reports clicked"),
+                  },
+                  {
+                    label: "Sales Report",
+                    onClick: () => Alert.alert("Sales Report clicked"),
+                  },
+                  { label: "Q1 2026" },
+                ]}
+              />
+
+              {/* Long Labels */}
+              <Text style={styles.variantLabel}>Long Labels</Text>
+              <Breadcrumb
+                language="en"
+                items={[
+                  { label: "Very Long Home Page Name That Might Wrap" },
+                  {
+                    label:
+                      "Extremely Long Category Name That Could Cause Issues",
+                  },
+                  { label: "Current Page With Very Long Title" },
+                ]}
+              />
+
+              {/* Different Configurations */}
+              <Text style={styles.variantLabel}>Different Configurations</Text>
+
+              {[
+                { label: "2 Items", items: 2 },
+                { label: "3 Items", items: 3 },
+                { label: "4 Items", items: 4 },
+                { label: "5 Items", items: 5 },
+              ].map((config, index) => (
+                <React.Fragment key={`config-${index}`}>
+                  <Text style={styles.variantLabel}>{config.label}</Text>
+                  <Breadcrumb
+                    language="en"
+                    items={Array.from({ length: config.items }, (_, i) => ({
+                      label: `Level ${i}`,
+                      ...(i < config.items - 1
+                        ? { onClick: () => console.log(`Level ${i} clicked`) }
+                        : {}),
+                    }))}
+                  />
+                </React.Fragment>
+              ))}
+            </View>
+
+            {/* ── G-3.4 Pagination ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-3.4 — Pagination</Text>
+              {/* Basic Pagination */}
+              <Text style={styles.variantLabel}>Basic (Center Position)</Text>
+              <Pagination
+                currentPage={3}
+                totalPages={10}
+                onPageChange={(page) => console.log("Page changed to:", page)}
+                language="en"
+                pageSize={0}
+              />
+            </View>
+
+            {/* ── G-3.5 AddMoreButton ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-3.5 — AddMoreButton</Text>
+
+              {/* Basic Variants */}
+              <Text style={styles.variantLabel}>Default (English)</Text>
+              <AddMoreButton
+                title="Add More"
+                onClick={() => console.log("Add More clicked")}
+                language="en"
+              />
+
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+              <AddMoreButton
+                title="Add More"
+                title_ar="إضافة المزيد"
+                onClick={() => console.log("إضافة المزيد clicked")}
+                language="ar"
+              />
+
+              {/* Custom Plus Icon */}
+              <Text style={styles.variantLabel}>Custom Plus Icon (Larger)</Text>
+              <AddMoreButton
+                title="Add with Custom Icon"
+                onClick={() => console.log("Custom icon clicked")}
+                plusIcon={<Plus size={24} color="#3b82f6" />}
+                language="en"
+              />
+            </View>
+
+            {/* ── G-3.6 Prompt ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-3.6 — Prompt</Text>
+
+              {/* Basic Variants */}
+              <Text style={styles.variantLabel}>Default (English)</Text>
+              <Prompt
+                title="Are you sure?"
+                subtitle="This action cannot be undone."
+                onYesClick={() => console.log("Yes clicked")}
+                onNoClick={() => console.log("No clicked")}
+                language="en"
+              />
+            </View>
+
+            {/* ── G-3.7 ScreenLoader ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-3.7 — ScreenLoader</Text>
+
+              <Text style={styles.variantLabel}>Default </Text>
+              <ScreenLoader isLoading={false} />
+            </View>
+
+            {/* ═══════════════════════════════════════════════ */}
+            {/* G-4 — Recommended placement                   */}
+            {/* ═══════════════════════════════════════════════ */}
+
+            {/* ── G-4.1 TitleBar ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-4.1 — TitleBar</Text>
+
+              {/* Basic Variants */}
+              <Text style={styles.variantLabel}>Default Title</Text>
+              <TitleBar title="Dashboard" language="en" />
+
+              <Text style={styles.variantLabel}>Title + Acronym</Text>
+              <TitleBar title="User Management" acronym="UM" language="en" />
+
+              <Text style={styles.variantLabel}>Title Only (No Acronym)</Text>
+              <TitleBar title="Settings" showAcronym={false} language="en" />
+
+              {/* Button Variants */}
+              <Text style={styles.variantLabel}>Primary Button</Text>
+              <TitleBar
+                title="Projects"
+                acronym="PRJ"
+                showButton
+                buttonLabel="Create Project"
+                buttonType="primary"
+                language="en"
+                onClick={() => console.log("Primary clicked")}
+              />
+
+              <Text style={styles.variantLabel}>Secondary Button</Text>
+              <TitleBar
+                title="Tasks"
+                acronym="TSK"
+                showButton
+                buttonLabel="Add Task"
+                buttonType="secondary"
+                language="en"
+                onClick={() => console.log("Secondary clicked")}
+              />
+
+              <Text style={styles.variantLabel}>Tertiary Button</Text>
+              <TitleBar
+                title="Reports"
+                acronym="RPT"
+                showButton
+                buttonLabel="Generate"
+                buttonType="tertiary"
+                language="en"
+                onClick={() => console.log("Tertiary clicked")}
+              />
+
+              <Text style={styles.variantLabel}>Text Link Button</Text>
+              <TitleBar
+                title="Analytics"
+                acronym="ANL"
+                showButton
+                buttonLabel="View More"
+                buttonType="text-link"
+                language="en"
+                onClick={() => console.log("Text link clicked")}
+              />
+
+              <Text style={styles.variantLabel}>Delete Button</Text>
+              <TitleBar
+                title="Danger Zone"
+                acronym="DEL"
+                showButton
+                buttonLabel="Delete"
+                buttonType="delete"
+                language="en"
+                onClick={() => console.log("Delete clicked")}
+              />
+
+              {/* Arabic RTL */}
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+              <TitleBar
+                title="Dashboard"
+                title_ar="لوحة التحكم"
+                acronym="DB"
+                showButton
+                buttonLabel="Create"
+                buttonLabel_ar="إنشاء"
+                buttonType="primary"
+                language="ar"
+                onClick={() => console.log("Arabic clicked")}
+              />
+
+              {/* Long Title */}
+              <Text style={styles.variantLabel}>Long Title</Text>
+              <TitleBar
+                title="Extremely Long Page Title That Might Wrap On Smaller Screens"
+                acronym="LNG"
+                showButton
+                buttonLabel="Action"
+                buttonType="primary"
+                language="en"
+              />
+
+              {/* Different Configurations */}
+              <Text style={styles.variantLabel}>Different Configurations</Text>
+
+              {[
+                { label: "Title Only", showButton: false, showAcronym: false },
+                {
+                  label: "Title + Acronym",
+                  showButton: false,
+                  showAcronym: true,
+                },
+                {
+                  label: "Title + Button",
+                  showButton: true,
+                  showAcronym: false,
+                },
+                {
+                  label: "Title + Acronym + Button",
+                  showButton: true,
+                  showAcronym: true,
+                },
+              ].map((config, index) => (
+                <React.Fragment key={`title-config-${index}`}>
+                  <Text style={styles.variantLabel}>{config.label}</Text>
+                  <TitleBar
+                    title="Sample Page"
+                    acronym="SP"
+                    language="en"
+                    showButton={config.showButton}
+                    showAcronym={config.showAcronym}
+                    buttonLabel="Action"
+                    buttonType="primary"
+                    onClick={() => console.log("Action clicked")}
+                  />
+                </React.Fragment>
+              ))}
+            </View>
+
+            {/* ── G-4.3 FilterBar ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-4.3 — FilterBar</Text>
+
+              {/* Default Variant */}
+              <Text style={styles.variantLabel}>Default</Text>
+              <FilterBar
+                language="en"
+                searchColumns={["Name", "Email", "Role"]}
+                filterOptions={["Active", "Inactive", "Pending"]}
+              />
+
+              {/* With Filter Options */}
+              <Text style={styles.variantLabel}>With Filters</Text>
+              <FilterBar
+                language="en"
+                searchColumns={["Name", "Email"]}
+                filterOptions={["Active", "Inactive", "Archived"]}
+                sortOptions={["Newest First", "Oldest First"]}
+                applicationOptions={["My Applications", "All Applications"]}
+              />
+
+              {/* Column Selection */}
+              <Text style={styles.variantLabel}>Column Selection</Text>
+              <FilterBar
+                language="en"
+                searchColumns={["Name", "Email", "Department", "Role"]}
+                selectedSearchColumns={["Name"]}
+                onSearchColumnsChange={(cols) =>
+                  console.log("Selected Columns:", cols)
+                }
+              />
+
+              {/* Arabic RTL */}
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+              <FilterBar
+                language="ar"
+                searchPlaceholder="بحث"
+                searchPlaceholder_ar="بحث"
+                searchColumns={["الاسم", "البريد الإلكتروني", "القسم"]}
+                filterButtonLabel="All Filters"
+                filterButtonLabel_ar="جميع المرشحات"
+                filterOptions={["نشط", "غير نشط", "قيد الانتظار"]}
+                resetButtonLabel="Default Filter"
+                resetButtonLabel_ar="المرشح الافتراضي"
+              />
+            </View>
+
+            {/* ── G-4.6 Signature ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-4.6 — Signature</Text>
+
+              {/* Default */}
+              <Text style={styles.variantLabel}>
+                Default Signature (Light Theme)
+              </Text>
+              <Signature
+                language="en"
+                title="Sign to Approve"
+                buttonText="Approve"
+                theme="light"
+                onSubmit={(data) => console.log("Signed SVG:", data.signature)}
+              />
+
+              {/* Arabic RTL */}
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+              <Signature
+                language="ar"
+                title="Sign to Approve"
+                title_ar="وقع للموافقة"
+                buttonText="Approve"
+                buttonText_ar="موافق"
+                onSubmit={(data) =>
+                  console.log("Arabic Signed SVG:", data.signature)
+                }
+              />
+
+              {/* Different Button Texts */}
+              <Text style={styles.variantLabel}>Custom Button Text</Text>
+              <Signature
+                language="en"
+                title="Sign Here"
+                buttonText="Confirm Signature"
+                theme="light"
+                onSubmit={(data) => console.log("Signed SVG:", data.signature)}
+              />
+            </View>
+
+            {/* ── G-4.7 UploadDocuments ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-4.7 — UploadDocuments</Text>
+
+              {/* Default Single Document */}
+              <Text style={styles.variantLabel}>Single Document Upload</Text>
+              <UploadDocuments
+                language="en"
+                theme="light"
+                documents={[
+                  {
+                    documentName: "Passport",
+                    allowedTypes: ["pdf", "jpg", "png"],
+                    fileSize: 5 * 1024 * 1024, // 5 MB
+                    fileTypeErrorMessage: "Invalid file type",
+                    fileSizeErrorMessage: "File is too large",
+                    uploadUrl: "https://example.com/upload/passport",
+                    downloadUrl: "https://example.com/download/passport.pdf",
+                  },
+                ]}
+                onFileChange={({ file, uploadUrl }) =>
+                  console.log("File changed:", file, "Upload URL:", uploadUrl)
+                }
+              />
+
+              {/* Multiple Documents */}
+              <Text style={styles.variantLabel}>Multiple Documents</Text>
+              <UploadDocuments
+                language="en"
+                theme="dark"
+                documents={[
+                  {
+                    documentName: "Passport",
+                    allowedTypes: ["pdf", "jpg", "png"],
+                    fileSize: 5 * 1024 * 1024,
+                    uploadUrl: "https://example.com/upload/passport",
+                  },
+                  {
+                    documentName: "Driver's License",
+                    allowedTypes: ["pdf", "jpg", "png"],
+                    fileSize: 3 * 1024 * 1024,
+                    uploadUrl: "https://example.com/upload/license",
+                  },
+                  {
+                    documentName: "Resume",
+                    allowedTypes: ["pdf", "docx"],
+                    fileSize: 10 * 1024 * 1024,
+                    uploadUrl: "https://example.com/upload/resume",
+                  },
+                ]}
+                onFileChange={({ file, uploadUrl }) =>
+                  console.log("File changed:", file, "Upload URL:", uploadUrl)
+                }
+              />
+
+              {/* Arabic RTL */}
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+              <UploadDocuments
+                language="ar"
+                theme="dark"
+                documents={[
+                  {
+                    documentName: "Passport",
+                    documentName_ar: "جواز السفر",
+                    allowedTypes: ["pdf", "jpg", "png"],
+                    fileSize: 5 * 1024 * 1024,
+                    uploadUrl: "https://example.com/upload/passport",
+                    downloadUrl: "https://example.com/download/passport.pdf",
+                  },
+                  {
+                    documentName: "Driver's License",
+                    documentName_ar: "رخصة القيادة",
+                    allowedTypes: ["pdf", "jpg", "png"],
+                    fileSize: 3 * 1024 * 1024,
+                    uploadUrl: "https://example.com/upload/license",
+                  },
+                ]}
+                onFileChange={({ file, uploadUrl }) =>
+                  console.log(
+                    "Arabic file changed:",
+                    file,
+                    "Upload URL:",
+                    uploadUrl
+                  )
+                }
+              />
+
+              {/* Already Uploaded */}
+              <Text style={styles.variantLabel}>Already Uploaded</Text>
+              <UploadDocuments
+                language="en"
+                theme="light"
+                documents={[
+                  {
+                    documentName: "Passport",
+                    isUploaded: true,
+                    downloadUrl: "https://example.com/download/passport.pdf",
+                  },
+                ]}
+                onFileChange={({ file, uploadUrl }) =>
+                  console.log("Attempted file change:", file, uploadUrl)
+                }
+              />
+            </View>
+
+            {/* ═══════════════════════════════════════════════ */}
+            {/* G-5 — Shared Components                 */}
+            {/* ═══════════════════════════════════════════════ */}
+
+            {/* ── G-5.1 Application Table ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-5.1 — Application Table</Text>
+
+              {/* Default Table */}
+
+              <Text style={styles.variantLabel}>Default</Text>
+              <Table
+                language="en"
+                columns={[
+                  {
+                    header: "Details",
+                    header_ar: "تفاصيل",
+                    accessorKey: "details",
+                  },
+                  {
+                    header: "Owner",
+                    header_ar: "المالك",
+                    accessorKey: "owner",
+                  },
+                  {
+                    header: "Plot",
+                    header_ar: "قطعة أرض",
+                    accessorKey: "plot",
+                  },
+                  {
+                    header: "Approval",
+                    header_ar: "الموافقة",
+                    accessorKey: "approval",
+                  },
+                  {
+                    header: "Payment",
+                    header_ar: "الدفع",
+                    accessorKey: "payment",
+                  },
+                  {
+                    header: "Print",
+                    header_ar: "طباعة",
+                    accessorKey: "print",
+                  },
+                ]}
+                data={[
+                  {
+                    applicationTitle: "New / Racing",
+                    applicationTitle_ar: "جديد / سباق",
+                    location: "Abu Dhabi City",
+                    location_ar: "مدينة أبوظبي",
+                    timeDate: "13:51 - 21/06/2025",
+                    daysRemaining: "X Days Remaining",
+                    id: "202500268615",
+                    currentStep: 3,
+                    additionalColumns: [
+                      {
+                        action: "Ahmed Mohammed 111",
+                        stepName: "Al Ketbi",
+                        userName: "Username",
+                        role: "Role",
+                        type: "pending",
+                        version: "multi-row",
+                        // version: "hybrid",
+                        totalSteps: 6,
+                        currentStep: 4,
+                        currentStepStatus: "complete",
+                      },
+                      {
+                        action: "Ahmed Mohammed",
+                        stepName: "Al Ketbi",
+                        imageURL:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHSsMJwWbiNM-sWtPsfvq1mdV0rxJ-t7t-JQ&s",
+                        currentStep: 4,
+                        type: "action-other",
+                        version: "image-row",
+                      },
+                      {
+                        action: "Ahmed Mohammed",
+                        stepName: "Al Ketbi",
+                        currentStep: 4,
+                        type: "action",
+                        version: "single-row",
+                      },
+                      {
+                        action: "Pending",
+                        stepName: "Payment Pending",
+                        currentStep: 4,
+                        type: "pending",
+                        version: "hybrid",
+                        totalSteps: 6,
+                        currentStepStatus: "pending",
+                      },
+                      {
+                        action: "Pending",
+                        stepName: "Print Pending",
+                        currentStep: 4,
+                        type: "failed",
+                        version: "single-row",
+                        direction: "vertical",
+                      },
+                    ],
+                  },
+                  {
+                    applicationTitle: "New / Racing",
+                    applicationTitle_ar: "جديد / سباق",
+                    location: "Abu Dhabi City",
+                    location_ar: "مدينة أبوظبي",
+                    timeDate: "16:57 - 19/06/2025",
+                    timeDate_ar: "16:57 - 19/06/2025",
+                    daysRemaining: "X Days Remaining",
+                    id: "202500268102",
+                    currentStep: 1,
+                    additionalColumns: [
+                      {
+                        action: "Ahmed Mohammed 111",
+                        stepName: "Al Ketbi",
+                        userName: "Username",
+                        role: "Role",
+                        type: "success",
+                        version: "single-row",
+                      },
+                      {
+                        action: "Ahmed Mohammed",
+                        stepName: "Al Ketbi",
+                        imageURL:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHSsMJwWbiNM-sWtPsfvq1mdV0rxJ-t7t-JQ&s",
+                        currentStep: 4,
+                        type: "action",
+                        version: "image-row",
+                      },
+                      {
+                        action: "Ahmed Mohammed",
+                        stepName: "Al Ketbi",
+                        userName: "Username",
+                        role: "Role",
+                        currentStep: 4,
+                        type: "action-other",
+                        version: "multi-row",
+                      },
+                      {
+                        action: "Pending",
+                        stepName: "Payment Pending",
+                        userName: "Username",
+                        role: "Role",
+                        currentStep: 4,
+                        type: "failed",
+                        version: "hybrid",
+                        totalSteps: 6,
+                        currentStepStatus: "failed",
+                      },
+                      {
+                        action: "Pending",
+                        stepName: "Print Pending",
+                        currentStep: 4,
+                        type: "pending",
+                        version: "single-row",
+                        direction: "vertical",
+                      },
+                    ],
+                  },
+                ]}
+              />
+            </View>
+
+            {/* ── G-5.2 Owner Card ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-5.2 — OwnerCard</Text>
+
+              {/* Default */}
+              <Text style={styles.variantLabel}>Default Owner Card</Text>
+              <OwnerCard
+                language="en"
+                platform="mobile"
+                title="Owner Information"
+                owners={[
+                  {
+                    ownerId: "1",
+                    ownerArgs: "owner-1",
+                    name: "John Doe",
+                    fields: [
+                      { label: "Email", value: "john@example.com" },
+                      { label: "Phone", value: "+971 50 123 4567" },
+                      { label: "Role", value: "Primary Owner" },
+                    ],
+                  },
+                ]}
+                onPressAction={({ action, owner }) =>
+                  console.log("Action:", action, "Owner:", owner)
+                }
+              />
+
+              {/* Multiple Owners */}
+              <Text style={styles.variantLabel}>Multiple Owners</Text>
+              <OwnerCard
+                language="en"
+                platform="mobile"
+                title="Owners"
+                itemsPerRow="1"
+                owners={[
+                  {
+                    ownerId: "1",
+                    ownerArgs: "owner-1",
+                    name: "John Doe",
+                    fields: [
+                      { label: "Email", value: "john@example.com" },
+                      { label: "Phone", value: "+971 50 123 4567" },
+                      { label: "Role", value: "Primary Owner" },
+                    ],
+                  },
+                  {
+                    ownerId: "2",
+                    ownerArgs: "owner-2",
+                    name: "Jane Smith",
+                    fields: [
+                      { label: "Email", value: "jane@example.com" },
+                      { label: "Phone", value: "+971 55 987 6543" },
+                      { label: "Role", value: "Co Owner" },
+                    ],
+                  },
+                ]}
+                onPressAction={({ action, owner }) =>
+                  console.log("Action:", action, "Owner:", owner)
+                }
+              />
+
+              {/* With Delete Button */}
+              <Text style={styles.variantLabel}>With Delete Action</Text>
+              <OwnerCard
+                language="en"
+                platform="mobile"
+                title="Owners"
+                showDeleteButton
+                owners={[
+                  {
+                    ownerId: "3",
+                    ownerArgs: "owner-3",
+                    name: "Michael Brown",
+                    fields: [
+                      { label: "Email", value: "michael@example.com" },
+                      { label: "Phone", value: "+971 54 222 3333" },
+                      { label: "Role", value: "Owner" },
+                    ],
+                  },
+                ]}
+                onPressAction={({ action, owner }) =>
+                  console.log("Action:", action, "Owner:", owner)
+                }
+              />
+
+              {/* Expandable */}
+              <Text style={styles.variantLabel}>Expandable Card</Text>
+              <OwnerCard
+                language="en"
+                platform="mobile"
+                title="Owner Details"
+                isExpandable
+                owners={[
+                  {
+                    ownerId: "4",
+                    ownerArgs: "owner-4",
+                    name: "Sarah Wilson",
+                    fields: [
+                      { label: "Email", value: "sarah@example.com" },
+                      { label: "Phone", value: "+971 52 444 1111" },
+                      { label: "Role", value: "Owner" },
+                      { label: "Address", value: "Dubai Marina" },
+                      { label: "Status", value: "Active" },
+                    ],
+                  },
+                ]}
+              />
+
+              {/* Arabic RTL */}
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+              <OwnerCard
+                language="ar"
+                platform="mobile"
+                title="معلومات المالك"
+                title_ar="معلومات المالك"
+                owners={[
+                  {
+                    ownerId: "5",
+                    ownerArgs: "owner-5",
+                    name: "John Doe",
+                    name_ar: "جون دو",
+                    fields: [
+                      {
+                        label: "Email",
+                        label_ar: "البريد الإلكتروني",
+                        value: "john@example.com",
+                      },
+                      {
+                        label: "Phone",
+                        label_ar: "الهاتف",
+                        value: "+971 50 123 4567",
+                      },
+                      { label: "Role", label_ar: "الدور", value: "Owner" },
+                    ],
+                  },
+                ]}
               />
             </View>
           </ScrollView>

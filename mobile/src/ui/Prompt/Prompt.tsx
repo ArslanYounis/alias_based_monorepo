@@ -9,8 +9,8 @@ export type { PromptProps };
 const Prompt: React.FC<PromptProps> = ({
   title,
   title_ar,
-  subtiltle,
-  subtiltle_ar,
+  subtitle,
+  subtitle_ar,
   yesText = "Yes",
   yesText_ar = "نعم",
   noText = "No",
@@ -20,16 +20,17 @@ const Prompt: React.FC<PromptProps> = ({
   language = "en",
 }) => {
   return (
-    <View style={{ gap: 24 }}>
+    // <View style={{ gap: 24 }}>
+    <View className="gap-m">
       <SharedLanguageSwitchRenderer
         value={title}
         value_ar={title_ar}
         language={language}
-        className="text-heading-h1 font-bold text-text-default"
+        className="text-heading-h3 font-bold text-text-default"
       />
       <SharedLanguageSwitchRenderer
-        value={subtiltle}
-        value_ar={subtiltle_ar}
+        value={subtitle}
+        value_ar={subtitle_ar}
         language={language}
         className="text-m text-text-default"
       />
@@ -39,21 +40,23 @@ const Prompt: React.FC<PromptProps> = ({
           gap: 16,
         }}
       >
-          <Buttons
-            title={noText}
-            title_ar={noText_ar}
-            onClick={onNoClick}
-            type="delete"
-            language={language}
-          />
-          <Buttons
-            title={yesText}
-            title_ar={yesText_ar}
-            onClick={onYesClick}
-            type="secondary"
-            language={language}
-          />
-        </View>
+        <Buttons
+          title={noText}
+          title_ar={noText_ar}
+          onClick={onNoClick}
+          type="delete"
+          language={language}
+          size="m"
+        />
+        <Buttons
+          title={yesText}
+          title_ar={yesText_ar}
+          onClick={onYesClick}
+          type="secondary"
+          language={language}
+          size="m"
+        />
+      </View>
     </View>
   );
 };

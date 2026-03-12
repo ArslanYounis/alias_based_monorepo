@@ -1,9 +1,9 @@
 import React from "react";
-import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
+import { Cards } from "@platform/Cards";
+import { Container } from "@platform/Container";
 import { ScrollContainer } from "@platform/ScrollContainer";
-import Cards from "../Cards";
-import ApplicationCard from "../ApplicationCard";
+import { ApplicationCard } from "@platform/ApplicationCard";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 
 export interface AdditionalColumn {
@@ -23,7 +23,12 @@ export interface AdditionalColumn {
   onCardClick?: () => void | null;
   totalSteps?: number;
   completedSteps?: number;
-  currentStepStatus?: "pending" | "failed" | "complete" | "inProgress" | "fixed";
+  currentStepStatus?:
+    | "pending"
+    | "failed"
+    | "complete"
+    | "inProgress"
+    | "fixed";
 }
 
 export interface ApplicationData {
@@ -69,7 +74,9 @@ export const Table: React.FC<ApplicationTableProps> = ({
       {tableData.length > 0 && (
         <Container
           className="hidden md:grid gap-4 mb-4"
-          style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))` }}
+          style={{
+            gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
+          }}
         >
           {tableColumns?.map((col, index) => (
             <Text
@@ -93,14 +100,16 @@ export const Table: React.FC<ApplicationTableProps> = ({
           key={rowIndex}
           className={`mb-8 ${
             rowIndex + 1 < tableData.length ? "border-b" : ""
-          } border-Form-Border pb-6`}
+          } border-form-border pb-6`}
         >
           <ScrollContainer horizontal className="flex flex-row gap-xs w-full">
-            <Container className="min-w-50 shrink-0">
+            <Container className="min-w-50 shrink-0 mr-xs">
               <ApplicationCard
                 cardsData={{
                   title:
-                    language === "ar" ? row.applicationTitle_ar : row.applicationTitle,
+                    language === "ar"
+                      ? row.applicationTitle_ar
+                      : row.applicationTitle,
                   id: row.id,
                   location: language === "ar" ? row.location_ar : row.location,
                   date: row.timeDate,
@@ -110,40 +119,40 @@ export const Table: React.FC<ApplicationTableProps> = ({
                     inprogress: 0,
                   },
                   remaining:
-                    language === "ar" ? row.daysRemaining_ar ?? "" : row.daysRemaining,
+                    language === "ar"
+                      ? row.daysRemaining_ar ?? ""
+                      : row.daysRemaining,
                 }}
                 onClick={row.onCardClick ?? undefined}
               />
             </Container>
-            {row.additionalColumns
-              ?.slice(0, 5)
-              .map((col, colIndex) => (
-                <Container
-                  key={colIndex}
-                  className="min-w-50 shrink-0 flex-1"
-                >
-                  <Cards
-                    type={col?.type}
-                    version={col?.version}
-                    direction={col?.direction}
-                    currentStep={col?.currentStep}
-                    action={col?.action}
-                    action_ar={col?.action_ar}
-                    stepName={col?.stepName}
-                    stepName_ar={col?.stepName_ar}
-                    userName={col?.userName}
-                    userName_ar={col?.userName_ar}
-                    role={col?.role}
-                    role_ar={col?.role_ar}
-                    language={language}
-                    imageURL={col?.imageURL ?? ""}
-                    onCardClick={col?.onCardClick ?? undefined}
-                    totalSteps={col?.totalSteps}
-                    completedSteps={col?.completedSteps}
-                    currentStepStatus={col?.currentStepStatus}
-                  />
-                </Container>
-              ))}
+            {row.additionalColumns?.slice(0, 5).map((col, colIndex) => (
+              <Container
+                key={colIndex}
+                className="min-w-50 shrink-0 flex-1 mr-xs"
+              >
+                <Cards
+                  type={col?.type}
+                  version={col?.version}
+                  direction={col?.direction}
+                  currentStep={col?.currentStep}
+                  action={col?.action}
+                  action_ar={col?.action_ar}
+                  stepName={col?.stepName}
+                  stepName_ar={col?.stepName_ar}
+                  userName={col?.userName}
+                  userName_ar={col?.userName_ar}
+                  role={col?.role}
+                  role_ar={col?.role_ar}
+                  language={language}
+                  imageURL={col?.imageURL ?? ""}
+                  onCardClick={col?.onCardClick ?? undefined}
+                  totalSteps={col?.totalSteps}
+                  completedSteps={col?.completedSteps}
+                  currentStepStatus={col?.currentStepStatus}
+                />
+              </Container>
+            ))}
           </ScrollContainer>
         </Container>
       ))}

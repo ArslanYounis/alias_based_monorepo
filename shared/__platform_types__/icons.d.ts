@@ -10,14 +10,14 @@ import type {
   PersonIcon as WebPersonIcon,
   UAENationalIcon as WebUAENationalIcon,
   CalendarIcon as WebCalendarIcon,
-  PlotIcon as WebPlotIcon,
-  OwnerIcon as WebOwnerIcon,
-  CompanyIcon as WebCompanyIcon,
-  DocumentIcon as WebDocumentIcon,
   AppMessageSuccessIcon as WebAppMessageSuccessIcon,
   AppMessageErrorIcon as WebAppMessageErrorIcon,
   AppMessageInformationIcon as WebAppMessageInformationIcon,
   AppMessageActionIcon as WebAppMessageActionIcon,
+  DocumentIcon as WebDocumentIcon,
+  PlotIcon as WebPlotIcon,
+  OwnerIcon as WebOwnerIcon,
+  CompanyIcon as WebCompanyIcon
 } from "../../web/src/ui/icons";
 import type {
   PaymentIcon as MobilePaymentIcon,
@@ -30,20 +30,15 @@ import type {
   PersonIcon as MobilePersonIcon,
   UAENationalIcon as MobileUAENationalIcon,
   CalendarIcon as MobileCalendarIcon,
-  PlotIcon as MobilePlotIcon,
-  OwnerIcon as MobileOwnerIcon,
-  CompanyIcon as MobileCompanyIcon,
-  DocumentIcon as MobileDocumentIcon,
   AppMessageSuccessIcon as MobileAppMessageSuccessIcon,
   AppMessageErrorIcon as MobileAppMessageErrorIcon,
   AppMessageInformationIcon as MobileAppMessageInformationIcon,
   AppMessageActionIcon as MobileAppMessageActionIcon,
+  DocumentIcon as MobileDocumentIcon,
+  PlotIcon as MobilePlotIcon,
+  OwnerIcon as MobileOwnerIcon,
+  CompanyIcon as MobileCompanyIcon
 } from "../../mobile/src/ui/icons";
-
-export type DocumentIconProps =
-  | ComponentProps<typeof WebDocumentIcon>
-  | ComponentProps<typeof MobileDocumentIcon>;
-export const DocumentIcon: FC<DocumentIconProps>;
 
 export type PaymentIconProps =
   | ComponentProps<typeof WebPaymentIcon>
@@ -95,21 +90,6 @@ export type CalendarIconProps =
   | ComponentProps<typeof MobileCalendarIcon>;
 export const CalendarIcon: FC<CalendarIconProps>;
 
-export type PlotIconProps =
-  | ComponentProps<typeof WebPlotIcon>
-  | ComponentProps<typeof MobilePlotIcon>;
-export const PlotIcon: FC<PlotIconProps>;
-
-export type OwnerIconProps =
-  | ComponentProps<typeof WebOwnerIcon>
-  | ComponentProps<typeof MobileOwnerIcon>;
-export const OwnerIcon: FC<OwnerIconProps>;
-
-export type CompanyIconProps =
-  | ComponentProps<typeof WebCompanyIcon>
-  | ComponentProps<typeof MobileCompanyIcon>;
-export const CompanyIcon: FC<CompanyIconProps>;
-
 export type AppMessageSuccessIconProps =
   | ComponentProps<typeof WebAppMessageSuccessIcon>
   | ComponentProps<typeof MobileAppMessageSuccessIcon>;
@@ -129,3 +109,23 @@ export type AppMessageActionIconProps =
   | ComponentProps<typeof WebAppMessageActionIcon>
   | ComponentProps<typeof MobileAppMessageActionIcon>;
 export const AppMessageActionIcon: FC<AppMessageActionIconProps>;
+
+export type DocumentIconProps =
+  | ComponentProps<typeof WebDocumentIcon>
+  | ComponentProps<typeof MobileDocumentIcon>;
+export const DocumentIcon: FC<DocumentIconProps>;
+
+export type PlotIconProps =
+  | ComponentProps<typeof WebPlotIcon>
+  | ComponentProps<typeof MobilePlotIcon>;
+export const PlotIcon: FC<PlotIconProps>;
+
+export type OwnerIconProps =
+  | ComponentProps<typeof WebOwnerIcon>
+  | ComponentProps<typeof MobileOwnerIcon>;
+export const OwnerIcon: FC<OwnerIconProps>;
+
+export type CompanyIconProps =
+  | ComponentProps<typeof WebCompanyIcon>
+  | ComponentProps<typeof MobileCompanyIcon>;
+export const CompanyIcon: FC<CompanyIconProps>;

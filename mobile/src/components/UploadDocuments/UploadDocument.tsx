@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Plus, FileText } from "lucide-react-native";
 import * as DocumentPicker from "expo-document-picker";
 import SharedLanguageSwitchRenderer from "@shared/components/SharedLanguageSwitchRenderer";
@@ -17,7 +17,9 @@ export interface DocumentUploaderProps {
   language?: "en" | "ar";
   theme?: "light" | "dark";
   type?: "default" | "base";
-  onFileChange?: (file: { name: string; uri: string; size?: number; mimeType?: string } | null) => void;
+  onFileChange?: (
+    file: { name: string; uri: string; size?: number; mimeType?: string } | null
+  ) => void;
   isUploaded?: boolean;
   onDownloadClick?: () => void;
 }
@@ -38,10 +40,11 @@ const UploadDocument: React.FC<DocumentUploaderProps> = ({
   onDownloadClick,
 }) => {
   const [error, setError] = useState<string | null>(null);
-  const [errorType, setErrorType] = useState<"fileType" | "fileSize" | null>(null);
+  const [errorType, setErrorType] = useState<"fileType" | "fileSize" | null>(
+    null
+  );
   const [hasFile, setHasFile] = useState<boolean>(isUploaded);
 
-  // Update internal state when isUploaded prop changes
   useEffect(() => {
     setHasFile(isUploaded);
   }, [isUploaded]);
@@ -94,44 +97,56 @@ const UploadDocument: React.FC<DocumentUploaderProps> = ({
       setError(null);
       setErrorType(null);
       setHasFile(true);
-      onFileChange?.({ name: asset.name, uri: asset.uri, size: asset.size, mimeType: asset.mimeType });
-    } catch {
-      // Picker cancelled or unavailable — silently ignore
-    }
+      onFileChange?.({
+        name: asset.name,
+        uri: asset.uri,
+        size: asset.size,
+        mimeType: asset.mimeType,
+      });
+    } catch {}
   }, [checkFileAllowed, checkFileSize, onFileChange, fileSizeErrorMessage]);
 
   const isRtl = language === "ar";
 
-  const containerStyle = [
-    styles.row,
+  const borderColorClass =
     type === "default"
       ? error
-        ? styles.borderError
-        : styles.borderTransparent
-      : styles.borderStroke,
+        ? "border border-form-fields-error"
+        : "border border-transparent"
+      : "border border-cards-stroke";
+
+  const backgroundColorClass =
     type === "default"
       ? error
-        ? styles.bgTransparent
-        : styles.bgDefault
-      : styles.bgBase,
-  ];
+        ? "bg-transparent"
+        : "bg-form-fields-file-upload-default"
+      : "bg-cards-base-l1";
+
+  const textColorClass = "text-text-default";
 
   return (
-    <View style={[styles.wrapper, isRtl && styles.rtl]}>
-      <View style={styles.inputRow}>
-        <View style={containerStyle}>
+    <View className={`flex flex-col ${isRtl ? "flex-row-reverse" : ""}`}>
+      <View className="flex-row items-center gap-2">
+        <View
+          className={`flex-1 h-[50px] flex-row items-center px-4 rounded-[5px] ${borderColorClass} ${backgroundColorClass}`}
+        >
           {!hasFile && (
-            <TouchableOpacity style={styles.plusIcon} onPress={openFilePicker}>
-              <Plus size={18} color="#ffffff" />
+            <TouchableOpacity
+              className={`mr-2 ${textColorClass}`}
+              onPress={openFilePicker}
+            >
+              <Plus size={18} />
             </TouchableOpacity>
           )}
 
           <TouchableOpacity
-            style={styles.labelArea}
-            onPress={() => { if (!hasFile) openFilePicker(); }}
+            className={`flex-1 font-normal ${textColorClass}`}
+            onPress={() => {
+              if (!hasFile) openFilePicker();
+            }}
             activeOpacity={hasFile ? 1 : 0.7}
           >
-            <Text style={styles.labelText}>
+            <Text className={`${textColorClass} text-m font-normal`}>
               {hasFile ? (
                 <>
                   <SharedLanguageSwitchRenderer
@@ -164,17 +179,17 @@ const UploadDocument: React.FC<DocumentUploaderProps> = ({
 
           {hasFile && (
             <TouchableOpacity
-              style={styles.docIcon}
+              className={`ml-2 ${textColorClass}`}
               onPress={() => onDownloadClick?.()}
             >
-              <FileText size={24} color="#ffffff" />
+              <FileText size={24} />
             </TouchableOpacity>
           )}
         </View>
       </View>
 
       {error && errorType && (
-        <Text style={styles.errorText}>
+        <Text className="text-form-fields-error text-sm mt-1">
           {errorType === "fileType" ? (
             <SharedLanguageSwitchRenderer
               language={language}
@@ -194,7 +209,7 @@ const UploadDocument: React.FC<DocumentUploaderProps> = ({
       )}
 
       {!error && allowedTypes && allowedTypes.length > 0 && !hasFile && (
-        <Text style={styles.hintText}>
+        <Text className={`${textColorClass} text-sm mt-1`}>
           <SharedLanguageSwitchRenderer
             language={language}
             value={`Accepted formats: ${(allowedTypes ?? []).join(", ")}`}
@@ -205,75 +220,5 @@ const UploadDocument: React.FC<DocumentUploaderProps> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  rtl: {
-    // RTL handled via Text/View writingDirection if needed
-  },
-  inputRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  row: {
-    flex: 1,
-    height: 48,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 16,
-    borderRadius: 5,
-  },
-  // border variants
-  borderError: {
-    borderWidth: 1,
-    borderColor: "#EF4444", // form-fields-error
-  },
-  borderTransparent: {
-    borderWidth: 1,
-    borderColor: "transparent",
-  },
-  borderStroke: {
-    borderWidth: 1,
-    borderColor: "#3A3A44", // cards-stroke
-  },
-  // background variants
-  bgDefault: {
-    backgroundColor: "#2A2A32", // form-fields-file-upload-default
-  },
-  bgTransparent: {
-    backgroundColor: "transparent",
-  },
-  bgBase: {
-    backgroundColor: "#1E1E26", // cards-base-l1
-  },
-  plusIcon: {
-    marginRight: 8,
-  },
-  labelArea: {
-    flex: 1,
-  },
-  labelText: {
-    color: "#ffffff", // text-text-default
-    fontSize: 14,
-    fontWeight: "400",
-  },
-  docIcon: {
-    marginLeft: 8,
-  },
-  errorText: {
-    color: "#EF4444", // form-fields-error
-    fontSize: 12,
-    marginTop: 4,
-  },
-  hintText: {
-    color: "#ffffff", // text-text-default
-    fontSize: 12,
-    marginTop: 4,
-  },
-});
 
 export default UploadDocument;

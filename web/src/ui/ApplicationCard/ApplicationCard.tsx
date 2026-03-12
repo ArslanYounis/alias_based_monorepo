@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
-import StatusBalls from "../StatusBalls";
+import { StatusBalls } from "@platform/StatusBalls";
 
 export interface ApplicationCardProps {
   onClick?: () => void;
@@ -16,9 +16,9 @@ export interface ApplicationCardProps {
   };
 }
 
-const ApplicationCard: React.FC<ApplicationCardProps> = ({
+export const ApplicationCard: React.FC<ApplicationCardProps> = ({
   cardsData,
-  onClick,
+  // onClick,
   totalDots = 6,
 }) => {
   const { complete = 0, approval = 0, inprogress = 0 } = cardsData.stage;
@@ -26,7 +26,10 @@ const ApplicationCard: React.FC<ApplicationCardProps> = ({
   const remainingAfterComplete = totalDots - safeComplete;
   const safeApproval = Math.max(0, Math.min(approval, remainingAfterComplete));
   const remainingAfterApproval = remainingAfterComplete - safeApproval;
-  const safeInprogress = Math.max(0, Math.min(inprogress, remainingAfterApproval));
+  const safeInprogress = Math.max(
+    0,
+    Math.min(inprogress, remainingAfterApproval)
+  );
 
   const statusBalls = [
     ...Array(safeComplete).fill("complete"),
@@ -45,7 +48,9 @@ const ApplicationCard: React.FC<ApplicationCardProps> = ({
         <Text className="text-bold-xs text-Base-Black truncate max-w-[150px]">
           {cardsData.title}
         </Text>
-        <Text className="text-xs font-normal text-Base-Black">{cardsData.id}</Text>
+        <Text className="text-xs font-normal text-Base-Black">
+          {cardsData.id}
+        </Text>
       </Container>
       <Container className="flex justify-between items-center">
         <Text className="text-xs text-Base-Black truncate max-w-[150px]">
@@ -59,7 +64,12 @@ const ApplicationCard: React.FC<ApplicationCardProps> = ({
             <StatusBalls
               key={index}
               status={
-                status as "pending" | "inProgress" | "complete" | "fixed" | "failed"
+                status as
+                  | "pending"
+                  | "inProgress"
+                  | "complete"
+                  | "fixed"
+                  | "failed"
               }
               width={12}
               height={12}
@@ -71,5 +81,3 @@ const ApplicationCard: React.FC<ApplicationCardProps> = ({
     </Container>
   );
 };
-
-export default ApplicationCard;

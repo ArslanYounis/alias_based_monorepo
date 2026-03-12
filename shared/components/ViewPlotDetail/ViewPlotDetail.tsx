@@ -71,7 +71,6 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
   plotBottomDetails: staticPlotBottomDetails = [],
   owner: staticOwner,
   language = "en",
-  theme = "dark",
   ownerText = "Owner",
   ownerText_ar = "المالك",
   showOwnerDetails = true,
@@ -275,7 +274,9 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
                       value_ar={item.label_ar || item.label}
                     />
                   </Text>
-                  <Text className={`text-text-default text-m`}>{item.value}</Text>
+                  <Text className={`text-text-default text-m`}>
+                    {item.value}
+                  </Text>
                 </Container>
               ))}
             </Container>
@@ -331,7 +332,6 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
               onClick={() => {}}
               type="secondary"
               language={language}
-              theme={theme}
             />
           </Container>
 
@@ -406,7 +406,10 @@ const ViewPlotDetail: React.FC<ViewPlotDetailProps> = ({
           />
         </Container>
       )}
-      <Container className="w-full" style={{ direction: language === "ar" ? "rtl" : "ltr" }}>
+      <Container
+        className="w-full"
+        style={{ direction: language === "ar" ? "rtl" : "ltr" }}
+      >
         {plotDetails.length === 0 && !isDetailPending && (
           <Container className="h-full flex items-center justify-center text-text-default text-m font-bold">
             <SharedLanguageSwitchRenderer

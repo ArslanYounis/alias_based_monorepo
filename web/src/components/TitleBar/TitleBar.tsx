@@ -24,7 +24,6 @@ export interface TitleBarProps {
   leftIcon?: ReactElement;
   rightIcon?: ReactElement;
   onClick?: () => void;
-  theme?: "light" | "dark";
   language?: "en" | "ar";
 }
 
@@ -56,7 +55,6 @@ const TitleBar: React.FC<TitleBarProps> = ({
   leftIcon,
   rightIcon,
   onClick,
-  theme = "light",
   language = "en",
 }) => {
   const [responsiveButtonSize, setButtonSize] = useState<"s" | "m" | "l">("s");
@@ -82,8 +80,8 @@ const TitleBar: React.FC<TitleBarProps> = ({
   const computedAcronym = acronym
     ? acronym.slice(0, 3).toUpperCase()
     : title
-      ? title.slice(0, 3).toUpperCase()
-      : "XXX";
+    ? title.slice(0, 3).toUpperCase()
+    : "XXX";
 
   return (
     <div
@@ -99,7 +97,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
           </div>
         )}
         {showTitle && title && (
-          <h1 className="text-2xl sm:text-5xl font-bold text-text-default capitalize">
+          <h1 className="text-32 sm:text-48 font-bold text-text-default capitalize">
             <SharedLanguageSwitchRenderer
               language={language}
               value={title}
