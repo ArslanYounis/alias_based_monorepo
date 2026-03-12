@@ -1,4 +1,4 @@
-export { default } from "./UploadDocuments";
+export { UploadDocuments } from "./UploadDocuments";
 export type { UploadDocumentsProps, DocumentConfig } from "./UploadDocuments";
-export { default as UploadDocument } from "./UploadDocument";
+export { UploadDocument } from "./UploadDocument";
 export type { DocumentUploaderProps } from "./UploadDocument";

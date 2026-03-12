@@ -48,7 +48,7 @@ import { ScreenLoader } from "../ui/ScreenLoader";
 import TitleBar from "../components/TitleBar";
 import { FilterBar } from "../ui/FilterBar";
 import Signature from "../components/Signature";
-import UploadDocuments from "../components/UploadDocuments";
+import { UploadDocuments } from "@platform/UploadDocuments";
 import Table from "../../../shared/components/Table";
 import OwnerCard from "../../../shared/components/OwnerCard";
 import PlotCard from "../../../shared/components/PlotCard";

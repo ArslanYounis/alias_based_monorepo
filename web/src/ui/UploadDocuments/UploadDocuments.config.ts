@@ -1,13 +1,13 @@
 import { File } from "lucide-react";
 import type { ComponentConfig } from "@shared/types/dls.types";
-import Documents from "./UploadDocuments";
+import { UploadDocuments } from "./UploadDocuments";
 import type { UploadDocumentsProps } from "./UploadDocuments";
 
 const UploadDocumentsConfigs: ComponentConfig<UploadDocumentsProps> = {
   id: "uploadDocuments",
   icon: File,
   name: "Upload Documents",
-  Component: Documents,
+  Component: UploadDocuments,
   controls: {
     theme: {
       type: ["select"],

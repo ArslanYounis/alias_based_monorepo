@@ -24,7 +24,7 @@ export interface DocumentUploaderProps {
   onDownloadClick?: () => void;
 }
 
-const UploadDocument: React.FC<DocumentUploaderProps> = ({
+export const UploadDocument: React.FC<DocumentUploaderProps> = ({
   documentName,
   documentName_ar,
   fileTypeErrorMessage = "File not the correct format",
@@ -220,5 +220,3 @@ const UploadDocument: React.FC<DocumentUploaderProps> = ({
     </View>
   );
 };
-
-export default UploadDocument;

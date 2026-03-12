@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import UploadDocuments from "./UploadDocuments";
+import { UploadDocuments } from "./UploadDocuments";
 
 const meta: Meta<typeof UploadDocuments> = {
   title: "Components/Upload/Documents",
@@ -96,7 +96,8 @@ export const MultipleDocuments: Story = {
         allowedTypes: ["PDF", "JPG", "PNG"],
         fileSize: 10000, // 10 KB
         fileTypeErrorMessage: "Document 6 must be a PDF, JPG, or PNG file.",
-        fileTypeErrorMessage_ar: "يجب أن تكون وثيقة 6 من نوع PDF أو JPG أو PNG.",
+        fileTypeErrorMessage_ar:
+          "يجب أن تكون وثيقة 6 من نوع PDF أو JPG أو PNG.",
         fileSizeErrorMessage: "Document 6 must be less than 10 KB.",
         fileSizeErrorMessage_ar: "يجب أن تكون وثيقة 6 أقل من 10 كيلوبايت.",
       },

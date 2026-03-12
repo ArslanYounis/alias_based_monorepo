@@ -23,7 +23,7 @@ export interface DocumentUploaderProps {
   onDownloadClick?: () => void;
 }
 
-const UploadDocument: React.FC<DocumentUploaderProps> = ({
+export const UploadDocument: React.FC<DocumentUploaderProps> = ({
   documentName,
   documentName_ar,
   documentIcon = <Document width={24} height={24} />,
@@ -241,5 +241,3 @@ const UploadDocument: React.FC<DocumentUploaderProps> = ({
     </div>
   );
 };
-
-export default UploadDocument;

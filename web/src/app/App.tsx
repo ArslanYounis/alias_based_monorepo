@@ -37,7 +37,7 @@ import { ScreenLoader } from "@/ui/ScreenLoader";
 import TitleBar from "@/components/TitleBar";
 import { FilterBar } from "@/ui/FilterBar";
 import Signature from "@/components/Signature";
-import UploadDocuments from "@/components/UploadDocuments";
+import UploadDocuments from "@/ui/UploadDocuments";
 import axios from "axios";
 import { ViewPlotDetail } from "@shared/components/ViewPlotDetail";
 import Table from "@shared/components/Table";
@@ -45,6 +45,7 @@ import OwnerCard from "@shared/components/OwnerCard";
 import PlotCard from "@shared/components/PlotCard";
 import ModalTitle from "@shared/components/ModalTitle";
 import ModalSteps from "@shared/components/ModalSteps";
+import GenericCard from "@shared/components/GenericCard";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -4141,6 +4142,172 @@ function App() {
             subText_ar="الخطوة 1 من 2"
             language="ar"
           />
+        </section>
+
+        {/* ══════════════════════════ G-5.6 Generic Card ══════════════════════════ */}
+        <section className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold">G-5.6 — Generic Card</h2>
+
+          {/* Default Card */}
+          <div>
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Default Variant
+            </h3>
+
+            <GenericCard
+              title="Owner Details"
+              title_ar="تفاصيل المالك"
+              cardTitleLabel="Name"
+              cardTitleLabel_ar="الاسم"
+              cardTitleValue="Ahmed Khalid"
+              cardTitleValue_ar="أحمد خالد"
+              rowsData={[
+                { label: "Nationality", value: "UAE" },
+                { label: "Share", value: "50%" },
+                { label: "ID Number", value: "784-1988-1234567-1" },
+                { label: "Archive Number", value: "AR-2211" },
+              ]}
+              showMoreButton
+            />
+          </div>
+
+          {/* Expandable Card */}
+          <div>
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Expandable Card
+            </h3>
+
+            <GenericCard
+              title="Plot Information"
+              cardTitleLabel="Plot Number"
+              cardTitleValue="P-1024"
+              rowsData={[
+                { label: "Zone", value: "Dubai Marina" },
+                { label: "Area", value: "4500 sq.ft" },
+                { label: "Land Use", value: "Residential" },
+                { label: "Municipality", value: "Dubai Municipality" },
+              ]}
+              isExpandable
+              defaultShowMore={false}
+              showMoreButton
+            />
+          </div>
+
+          {/* Card With Buttons */}
+          <div>
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Card With Action Buttons
+            </h3>
+
+            <GenericCard
+              title="Owner Information"
+              cardTitleLabel="Owner"
+              cardTitleValue="Mohammed Ali"
+              showButtons
+              buttons={[
+                {
+                  title: "View",
+                  onClick: () => alert("View clicked"),
+                },
+                {
+                  title: "Edit",
+                  onClick: () => alert("Edit clicked"),
+                },
+              ]}
+              rowsData={[
+                { label: "Nationality", value: "UAE" },
+                { label: "Share", value: "100%" },
+                { label: "ID Number", value: "784-1990-9999999-1" },
+              ]}
+            />
+          </div>
+
+          {/* Card With Documents */}
+          <div>
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Card With Documents
+            </h3>
+
+            <GenericCard
+              title="Application Documents"
+              cardTitleLabel="Application"
+              cardTitleValue="APP-1123"
+              rowsData={[
+                { label: "Application Type", value: "Plot Registration" },
+                { label: "Status", value: "Pending" },
+              ]}
+              hasDocuments
+              documents={[
+                {
+                  id: "1",
+                  documentName: "Passport Copy",
+                  isUploaded: true,
+                  onDownloadClick: () => alert("Download Passport"),
+                },
+                {
+                  id: "2",
+                  documentName: "UAE ID",
+                  isUploaded: true,
+                  onDownloadClick: () => alert("Download ID"),
+                },
+                {
+                  id: "3",
+                  documentName: "Ownership Certificate",
+                  isUploaded: false,
+                },
+              ]}
+            />
+          </div>
+
+          {/* Footer Buttons */}
+          <div>
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Footer Buttons
+            </h3>
+
+            <GenericCard
+              title="Plot Approval"
+              cardTitleLabel="Plot"
+              cardTitleValue="P-9999"
+              rowsData={[
+                { label: "Zone", value: "Business Bay" },
+                { label: "Area", value: "5200 sq.ft" },
+              ]}
+              showFooterButtons
+              footerButton={[
+                {
+                  title: "Approve",
+                  type: "primary",
+                  onClick: () => alert("Approved"),
+                },
+                {
+                  title: "Reject",
+                  type: "delete",
+                  onClick: () => alert("Rejected"),
+                },
+              ]}
+            />
+          </div>
+
+          {/* Arabic RTL */}
+          <div dir="rtl">
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Arabic (RTL)
+            </h3>
+
+            <GenericCard
+              language="ar"
+              title="تفاصيل المالك"
+              cardTitleLabel="الاسم"
+              cardTitleValue="محمد علي"
+              rowsData={[
+                { label: "الجنسية", value: "الإمارات" },
+                { label: "الحصة", value: "50%" },
+                { label: "رقم الهوية", value: "784-1988-1234567-1" },
+              ]}
+              showMoreButton
+            />
+          </div>
         </section>
       </Layout>
     </QueryClientProvider>

@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Linking } from "react-native";
-import UploadDocument from "./UploadDocument";
+import React, { useEffect, useState } from "react";
+import { UploadDocument } from "./UploadDocument";
+import { useGetDownloadFile } from "@/hooks/useGetDownloadFile";
 
 export interface DocumentConfig {
   documentName?: string;
@@ -22,34 +22,52 @@ export interface UploadDocumentsProps {
   theme?: "light" | "dark";
   language?: "en" | "ar";
   type?: "default" | "base";
-  onFileChange?: (props: {
-    file: {
-      name: string;
-      uri: string;
-      size?: number;
-      mimeType?: string;
-    } | null;
-    uploadUrl: string;
-  }) => void;
+  onFileChange?: (props: { file: File | null; uploadUrl: string }) => void;
 }
 
-const UploadDocuments: React.FC<UploadDocumentsProps> = ({
+export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   documents,
   language = "en",
   theme = "dark",
   type = "default",
   onFileChange,
 }) => {
-  const handleDownload = (downloadUrl?: string) => {
-    if (!downloadUrl) return;
-    // On mobile, open the download URL in the system browser / native handler
-    Linking.openURL(downloadUrl).catch((e) =>
-      console.error("Failed to open download URL", e)
-    );
-  };
+  const [downloadUrl, setDownloadUrl] = useState<string | undefined>(undefined);
+
+  const { data: downloadBlob, isSuccess: isDownloadSuccess } =
+    useGetDownloadFile(downloadUrl);
+
+  useEffect(() => {
+    if (!isDownloadSuccess || !downloadBlob || !downloadUrl) return;
+
+    try {
+      const blob = downloadBlob as Blob;
+
+      const mime = blob.type || "";
+      const ext = mime.split("/")[1]?.split(";")[0] ?? "bin";
+
+      const filename = `document.${ext}`;
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      window.URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error("Failed to download file", e);
+    } finally {
+      // reset so same file can be downloaded again
+      setDownloadUrl(undefined);
+    }
+  }, [isDownloadSuccess, downloadBlob, downloadUrl]);
 
   return (
-    <View className="flex flex-1 flex-col">
+    <div className="flex flex-col flex-1 space-y-4">
       {documents?.map((doc, idx) => (
         <UploadDocument
           key={idx}
@@ -71,11 +89,13 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               onFileChange({ file, uploadUrl: doc?.uploadUrl as string });
             }
           }}
-          onDownloadClick={() => handleDownload(doc.downloadUrl)}
+          onDownloadClick={() => {
+            if (doc.downloadUrl) {
+              setDownloadUrl(doc.downloadUrl);
+            }
+          }}
         />
       ))}
-    </View>
+    </div>
   );
 };
-
-export default UploadDocuments;

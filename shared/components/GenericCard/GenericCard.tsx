@@ -3,6 +3,7 @@ import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Buttons } from "@platform/Buttons";
 import CardRow from "../CardRow";
+// import { UploadDocument } from "@platform/UploadDocument";
 import type { ICardRowProps } from "../CardRow";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 import CardTitle, { type ButtonType, type ICardTitleProps } from "../CardTitle";
@@ -35,6 +36,8 @@ export interface IGenericCardProps extends ICardTitleProps {
   onToggleExpand?: () => void;
   hasDocuments?: boolean;
   documents?: IDocument[];
+  documentName?: string;
+  documentName_ar?: string;
   documentTitle?: string;
   documentTitle_ar?: string;
   documentDescription?: string;
@@ -81,8 +84,8 @@ const GenericCard: React.FC<IGenericCardProps> = ({
   documentTitle_ar = "المستندات",
   documentDescription = "Document Description",
   documentDescription_ar = "وصف الوثيقة",
-  document_type: _document_type = "default",
-  isUploaded: _isUploaded = true,
+  document_type = "default",
+  isUploaded = true,
   documentButtons = [],
   showFooterButtons = false,
   footerButton = [],
