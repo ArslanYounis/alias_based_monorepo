@@ -47,6 +47,7 @@ import ModalTitle from "@shared/components/ModalTitle";
 import ModalSteps from "@shared/components/ModalSteps";
 import GenericCard from "@shared/components/GenericCard";
 import GenericCards from "@shared/components/GenericCards";
+import GenericTableCard from "@shared/components/GenericTableCard";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -3298,7 +3299,6 @@ function App() {
             </div>
           </div>
         </section>
-
         {/* ══════════════════════════ G-4.3 Filter Bar ══════════════════════════ */}
         <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.3 — Filter Bar</h2>
@@ -3365,7 +3365,6 @@ function App() {
             </div>
           </div>
         </section>
-
         {/* ══════════════════════════ G-4.6 Signature Component ══════════════════════════ */}
         <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.6 — Signature</h2>
@@ -3414,7 +3413,6 @@ function App() {
             </div>
           </div>
         </section>
-
         {/* ══════════════════════════ G-4.7 Upload Documents ══════════════════════════ */}
         <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.7 — Upload Documents</h2>
@@ -3504,7 +3502,6 @@ function App() {
             </div>
           </div>
         </section>
-
         {/* ══════════════════════════ G-4.8 View Plot Detail ══════════════════════════ */}
         <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.8 — View Plot Detail</h2>
@@ -3576,12 +3573,10 @@ function App() {
             </div>
           </div>
         </section>
-
         <div className="border-t border-gray-300 my-4" />
         <h1 className="text-bold-l text-text-default">
           Group 5 — Shared Components
         </h1>
-
         {/* ══════════════════════════ G-5.1 Application Table ══════════════════════════ */}
         <section className="flex flex-col gap-2">
           <h2 className={ST}>G-5.1 — Application Table</h2>
@@ -4144,7 +4139,6 @@ function App() {
             language="ar"
           />
         </section>
-
         {/* ══════════════════════════ G-5.6 Generic Card ══════════════════════════ */}
         <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.6 — Generic Card</h2>
@@ -4310,7 +4304,6 @@ function App() {
             />
           </div>
         </section>
-
         {/* ══════════════════════════ G-5.7 Generic Cards Grid ══════════════════════════ */}
         <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.7 — Generic Cards</h2>
@@ -4504,6 +4497,208 @@ function App() {
                   ],
                 },
               ]}
+            />
+          </div>
+        </section>
+
+        {/* ══════════════════════════ G-5.8 Generic Table Card ══════════════════════════ */}
+        <section className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold">G-5.8 — Generic Table Card</h2>
+
+          {/* Default Table Card */}
+          <div>
+            <h3 className="text-md font-semibold mb-3 text-gray-700">
+              Default Table
+            </h3>
+
+            <GenericTableCard
+              title="Owner Information"
+              title_ar="معلومات المالك"
+              description="Description"
+              description_ar="Arabic Description"
+              cardTitleLabel="Card Title Label"
+              cardTitleValue="Card Title Value"
+              variant="medium"
+              isExpanded={true}
+              isExpandable={true}
+              titleButtons={[
+                {
+                  title: "Edit",
+                  title_ar: "تعديل",
+                  onClick: () => alert("Edit button clicked"),
+                },
+                {
+                  title: "Delete",
+                  title_ar: "حذف",
+                  onClick: () => alert("Delete button clicked"),
+                },
+              ]}
+              showButtons={true}
+              buttons={[
+                {
+                  title: "Edit",
+                  title_ar: "تعديل",
+                  onClick: () => alert("Edit button clicked"),
+                },
+                {
+                  title: "Delete",
+                  title_ar: "حذف",
+                  onClick: () => alert("Delete button clicked"),
+                },
+              ]}
+              rowVariant="6colButton"
+              columnsData={[
+                {
+                  key: "field",
+                  label: "Field",
+                  label_ar: "الحقل",
+                },
+                {
+                  key: "col1",
+                  label: "Value 1",
+                  label_ar: "القيمة 1",
+                },
+                {
+                  key: "col2",
+                  label: "Value 2",
+                  label_ar: "القيمة 2",
+                },
+                {
+                  key: "col3",
+                  label: "Value 3",
+                  label_ar: "القيمة 3",
+                },
+                {
+                  key: "col4",
+                  label: "Value 4",
+                  label_ar: "القيمة 4",
+                },
+                {
+                  key: "col5",
+                  label: "Value 5",
+                  label_ar: "القيمة 5",
+                },
+              ]}
+              rowsData={[
+                {
+                  label: "Identity Details",
+                  label_ar: "تفاصيل الهوية",
+                  button: { title: "Hello", onClick: () => alert("hello") },
+                  extraItems: [
+                    {
+                      label: "UAE National ID",
+                      label_ar: "الهوية الوطنية الإماراتية",
+                      value: "78273890399292",
+                      value_ar: "78273890399292",
+                    },
+                    {
+                      label: "MOI Unified Number",
+                      label_ar: "رقم وزارة الداخلية الموحد",
+                      value: "330928",
+                      value_ar: "330928",
+                    },
+                    {
+                      label: "Archive Number",
+                      label_ar: "رقم الأرشيف",
+                      value: "7921",
+                      value_ar: "7921",
+                    },
+                    {
+                      label: "Archive Number",
+                      label_ar: "رقم الأرشيف",
+                      value: "7921",
+                      value_ar: "7921",
+                    },
+                    {
+                      label: "Archive Number",
+                      label_ar: "رقم الأرشيف",
+                      value: "7921",
+                      value_ar: "7921",
+                    },
+                  ],
+                },
+                {
+                  label: "Nationality Details",
+                  label_ar: "تفاصيل الجنسية",
+                  extraItems: [
+                    {
+                      label: "Nationality",
+                      label_ar: "الجنسية",
+                      value: "United Arab Emirates",
+                      value_ar: "الإمارات العربية المتحدة",
+                    },
+                    {
+                      label: "Special Nationality",
+                      label_ar: "الجنسية الخاصة",
+                      value: "No",
+                      value_ar: "لا",
+                    },
+                    {
+                      label: "Share",
+                      label_ar: "الحصة",
+                      value: "100% Allotment 50% Share",
+                      value_ar: "100% تخصيص 50% حصة",
+                    },
+                    {
+                      label: "Share",
+                      label_ar: "الحصة",
+                      value: "100% Allotment 50% Share",
+                      value_ar: "100% تخصيص 50% حصة",
+                    },
+
+                    {
+                      label: "Share",
+                      label_ar: "الحصة",
+                      value: "100% Allotment 50% Share",
+                      value_ar: "100% تخصيص 50% حصة",
+                    },
+                  ],
+                },
+                {
+                  label: "Right Hold Type",
+                  label_ar: "نوع حق الحيازة",
+                  extraItems: [
+                    {
+                      value: "Ownership Musataha",
+                      value_ar: "ملكية مستطاعة",
+                    },
+                    {
+                      value: "Ownership Musataha",
+                      value_ar: "ملكية مستطاعة",
+                    },
+                    {
+                      value: "Ownership Musataha",
+                      value_ar: "ملكية مستطاعة",
+                    },
+                    {
+                      value: "Ownership Musataha",
+                      value_ar: "ملكية مستطاعة",
+                    },
+                    {
+                      value: "Ownership Musataha",
+                      value_ar: "ملكية مستطاعة",
+                    },
+                  ],
+                },
+              ]}
+              showFooterButtons={true}
+              footerButton={[
+                {
+                  title: "Edit",
+                  title_ar: "تعديل",
+                  onClick: () => alert("Edit button clicked"),
+                },
+                {
+                  title: "Delete",
+                  title_ar: "حذف",
+                  onClick: () => alert("Delete button clicked"),
+                },
+              ]}
+              showPagination={true}
+              currentPage={1}
+              totalPages={10}
+              pageSize={5}
+              onPageChange={(page) => console.log(page)}
             />
           </div>
         </section>

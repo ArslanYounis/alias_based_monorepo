@@ -56,6 +56,7 @@ import ModalTitle from "@shared/components/ModalTitle";
 import ModalSteps from "@shared/components/ModalSteps";
 import GenericCard from "@shared/components/GenericCard";
 import GenericCards from "@shared/components/GenericCards";
+import GenericTableCard from "@shared/components/GenericTableCard";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -2724,6 +2725,7 @@ export default function App() {
               <Text style={styles.variantLabel}>Default</Text>
               <Table
                 language="en"
+                platform="mobile"
                 columns={[
                   {
                     header: "Details",
@@ -3505,6 +3507,203 @@ export default function App() {
                     ],
                   },
                 ]}
+              />
+            </View>
+            {/* ── G-5.8 GenericTableCard ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-5.8 — GenericTableCard</Text>
+
+              {/* Default Table Card */}
+              <Text style={styles.variantLabel}>Default Table</Text>
+              <GenericTableCard
+                platform="mobile"
+                title="Owner Information"
+                title_ar="معلومات المالك"
+                description="Description"
+                description_ar="Arabic Description"
+                cardTitleLabel="Card Title Label"
+                cardTitleValue="Card Title Value"
+                variant="medium"
+                isExpanded={true}
+                isExpandable={true}
+                titleButtons={[
+                  {
+                    title: "Edit",
+                    title_ar: "تعديل",
+                    onClick: () => Alert.alert("Edit button clicked"),
+                  },
+                  {
+                    title: "Delete",
+                    title_ar: "حذف",
+                    onClick: () => Alert.alert("Delete button clicked"),
+                  },
+                ]}
+                showButtons={true}
+                buttons={[
+                  {
+                    title: "Edit",
+                    title_ar: "تعديل",
+                    onClick: () => Alert.alert("Edit button clicked"),
+                  },
+                  {
+                    title: "Delete",
+                    title_ar: "حذف",
+                    onClick: () => Alert.alert("Delete button clicked"),
+                  },
+                ]}
+                rowVariant="6colButton"
+                columnsData={[
+                  {
+                    key: "field",
+                    label: "Field",
+                    label_ar: "الحقل",
+                  },
+                  {
+                    key: "col1",
+                    label: "Value 1",
+                    label_ar: "القيمة 1",
+                  },
+                  {
+                    key: "col2",
+                    label: "Value 2",
+                    label_ar: "القيمة 2",
+                  },
+                  {
+                    key: "col3",
+                    label: "Value 3",
+                    label_ar: "القيمة 3",
+                  },
+                  {
+                    key: "col4",
+                    label: "Value 4",
+                    label_ar: "القيمة 4",
+                  },
+                  {
+                    key: "col5",
+                    label: "Value 5",
+                    label_ar: "القيمة 5",
+                  },
+                ]}
+                rowsData={[
+                  {
+                    label: "Identity Details",
+                    label_ar: "تفاصيل الهوية",
+                    button: { title: "Hello", onClick: () => alert("hello") },
+                    extraItems: [
+                      {
+                        label: "UAE National ID",
+                        label_ar: "الهوية الوطنية الإماراتية",
+                        value: "78273890399292",
+                        value_ar: "78273890399292",
+                      },
+                      {
+                        label: "MOI Unified Number",
+                        label_ar: "رقم وزارة الداخلية الموحد",
+                        value: "330928",
+                        value_ar: "330928",
+                      },
+                      {
+                        label: "Archive Number",
+                        label_ar: "رقم الأرشيف",
+                        value: "7921",
+                        value_ar: "7921",
+                      },
+                      {
+                        label: "Archive Number",
+                        label_ar: "رقم الأرشيف",
+                        value: "7921",
+                        value_ar: "7921",
+                      },
+                      {
+                        label: "Archive Number",
+                        label_ar: "رقم الأرشيف",
+                        value: "7921",
+                        value_ar: "7921",
+                      },
+                    ],
+                  },
+                  {
+                    label: "Nationality Details",
+                    label_ar: "تفاصيل الجنسية",
+                    extraItems: [
+                      {
+                        label: "Nationality",
+                        label_ar: "الجنسية",
+                        value: "United Arab Emirates",
+                        value_ar: "الإمارات العربية المتحدة",
+                      },
+                      {
+                        label: "Special Nationality",
+                        label_ar: "الجنسية الخاصة",
+                        value: "No",
+                        value_ar: "لا",
+                      },
+                      {
+                        label: "Share",
+                        label_ar: "الحصة",
+                        value: "100% Allotment 50% Share",
+                        value_ar: "100% تخصيص 50% حصة",
+                      },
+                      {
+                        label: "Share",
+                        label_ar: "الحصة",
+                        value: "100% Allotment 50% Share",
+                        value_ar: "100% تخصيص 50% حصة",
+                      },
+
+                      {
+                        label: "Share",
+                        label_ar: "الحصة",
+                        value: "100% Allotment 50% Share",
+                        value_ar: "100% تخصيص 50% حصة",
+                      },
+                    ],
+                  },
+                  {
+                    label: "Right Hold Type",
+                    label_ar: "نوع حق الحيازة",
+                    extraItems: [
+                      {
+                        value: "Ownership Musataha",
+                        value_ar: "ملكية مستطاعة",
+                      },
+                      {
+                        value: "Ownership Musataha",
+                        value_ar: "ملكية مستطاعة",
+                      },
+                      {
+                        value: "Ownership Musataha",
+                        value_ar: "ملكية مستطاعة",
+                      },
+                      {
+                        value: "Ownership Musataha",
+                        value_ar: "ملكية مستطاعة",
+                      },
+                      {
+                        value: "Ownership Musataha",
+                        value_ar: "ملكية مستطاعة",
+                      },
+                    ],
+                  },
+                ]}
+                showFooterButtons={true}
+                footerButton={[
+                  {
+                    title: "Edit",
+                    title_ar: "تعديل",
+                    onClick: () => Alert.alert("Edit button clicked"),
+                  },
+                  {
+                    title: "Delete",
+                    title_ar: "حذف",
+                    onClick: () => Alert.alert("Delete button clicked"),
+                  },
+                ]}
+                showPagination={true}
+                currentPage={1}
+                totalPages={10}
+                pageSize={5}
+                onPageChange={(page) => console.log(page)}
               />
             </View>
           </ScrollView>

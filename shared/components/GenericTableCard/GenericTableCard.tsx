@@ -6,6 +6,7 @@ import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 import CardTitle, { type ButtonType, type ICardTitleProps } from "../CardTitle";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
+import { ScrollContainer } from "@platform/ScrollContainer";
 
 export interface ICardColProps {
   key?: string;
@@ -32,6 +33,7 @@ export interface IGenericTableCardProps extends ICardTitleProps {
   totalPages: number;
   pageSize: number;
   onPageChange: (page: number) => void;
+  platform?: "web" | "mobile";
 }
 
 const INTERNAL_PAGE_SIZE = 3;
@@ -66,11 +68,14 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
   totalPages,
   pageSize,
   onPageChange,
+  platform = "web",
 }) => {
   const [isMoreShown, setIsMoreShown] = useState(defaultShowMore);
   const [internalPage, setInternalPage] = useState(1);
 
-  const internalTotalPages = Math.ceil((rowsData?.length ?? 0) / INTERNAL_PAGE_SIZE);
+  const internalTotalPages = Math.ceil(
+    (rowsData?.length ?? 0) / INTERNAL_PAGE_SIZE
+  );
   const rowsToShow =
     handlePaginationInternally && showPagination
       ? rowsData?.slice(
@@ -79,25 +84,21 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
         ) ?? []
       : rowsData?.slice(0, isMoreShown ? rowsData.length : 3) ?? [];
 
+  // Maps each variant to how many value columns exist (excluding label + optional button col)
   const buttonLayout: Partial<
     Record<
       NonNullable<IGenericTableCardProps["rowVariant"]>,
-      { colsClass: string; noButtonColsClass: string; valueCount: number }
+      { valueCount: number }
     >
   > = {
-    "3colButton": { colsClass: "grid-cols-4", noButtonColsClass: "grid-cols-3", valueCount: 2 },
-    "4colButton": { colsClass: "grid-cols-5", noButtonColsClass: "grid-cols-4", valueCount: 3 },
-    "5colButton": { colsClass: "grid-cols-6", noButtonColsClass: "grid-cols-5", valueCount: 4 },
-    "6colButton": { colsClass: "grid-cols-7", noButtonColsClass: "grid-cols-6", valueCount: 5 },
+    "3colButton": { valueCount: 2 },
+    "4colButton": { valueCount: 3 },
+    "5colButton": { valueCount: 4 },
+    "6colButton": { valueCount: 5 },
   };
 
   const currentButtonLayout =
     rowVariant && buttonLayout[rowVariant as keyof typeof buttonLayout];
-  const headerColsClass = currentButtonLayout
-    ? showRowButtons
-      ? currentButtonLayout.colsClass
-      : currentButtonLayout.noButtonColsClass
-    : "";
 
   useEffect(() => {
     if (!isExpanded) setIsMoreShown(false);
@@ -125,11 +126,16 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
           isExpanded={isExpanded}
           onToggleExpand={onToggleExpand}
           language={language}
+          platform={platform}
         />
       )}
       {isExpanded ? (
-        <Container className="rounded-xs bg-cards-base-l1 text-text-default px-l py-m border border-cards-stroke">
-          <Container className="flex justify-between items-center mb-3">
+        <Container
+          className={`rounded-xs bg-cards-base-l1 text-text-default ${
+            platform === "web" ? "px-l" : "px-s"
+          } py-m border border-cards-stroke`}
+        >
+          <Container className="flex flex-row justify-between items-center mb-3">
             <Text className="text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal min-w-0">
               <SharedLanguageSwitchRenderer
                 language={language}
@@ -137,7 +143,7 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
                 value_ar={cardTitleValue_ar}
               />
             </Text>
-            <Container className="flex gap-s">
+            <Container className="flex flex-row flex-wrap gap-s">
               {showButtons &&
                 buttons?.map((button) => (
                   <Buttons
@@ -150,43 +156,106 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
                 ))}
             </Container>
           </Container>
-          {currentButtonLayout && columnsData && columnsData.length > 0 && (
-            <Container
-              className={`gap-xxs py-s grid ${headerColsClass} items-center text-text-default border-b border-border-dimmed`}
-            >
-              {columnsData
-                .slice(0, (currentButtonLayout?.valueCount ?? 0) + 1)
-                .map((column, idx) => (
-                  <Container key={column.key ?? idx} className="text-bold-m">
-                    <SharedLanguageSwitchRenderer
-                      language={language}
-                      value={column.label}
-                      value_ar={column.label_ar}
-                    />
+          {platform === "web" ? (
+            <>
+              {currentButtonLayout && columnsData && columnsData.length > 0 && (
+                <Container className="gap-xxs py-s flex flex-row items-center text-text-default border-b border-border-dimmed">
+                  {columnsData
+                    .slice(0, (currentButtonLayout?.valueCount ?? 0) + 1)
+                    .map((column, idx) => (
+                      <Container
+                        key={column.key ?? idx}
+                        className="flex-1 min-w-0 text-bold-m"
+                      >
+                        <Text>
+                          <SharedLanguageSwitchRenderer
+                            language={language}
+                            value={column.label}
+                            value_ar={column.label_ar}
+                          />
+                        </Text>
+                      </Container>
+                    ))}
+                  {/* Placeholder to align with the button column in each row */}
+                  {showRowButtons && <Container className="flex-1 min-w-0" />}
+                </Container>
+              )}
+              {rowsToShow.map((row, idx) => {
+                const button: ButtonType = {
+                  title: row.button?.title ?? "View",
+                  title_ar: row.button?.title_ar ?? row.label_ar,
+                  type: row.button?.type ?? "secondary",
+                  onClick: row.button?.onClick,
+                };
+                return (
+                  <CardRow
+                    key={idx}
+                    {...row}
+                    button={showRowButtons ? button : undefined}
+                    language={language}
+                    rowVariant={rowVariant}
+                  />
+                );
+              })}
+            </>
+          ) : (
+            <>
+              {/* Column header row — flex replaces grid; each cell gets flex-1 to match equal columns */}
+              {currentButtonLayout && columnsData && columnsData.length > 0 && (
+                <ScrollContainer
+                  horizontal
+                  className="flex flex-row gap-xs w-full"
+                >
+                  <Container className="gap-s py-s flex flex-row items-center text-text-default border-b border-border-dimmed">
+                    {columnsData
+                      .slice(0, (currentButtonLayout?.valueCount ?? 0) + 1)
+                      .map((column, idx) => (
+                        <Container
+                          key={column.key ?? idx}
+                          className="flex-1 min-w-0 text-bold-m"
+                        >
+                          <Text>
+                            <SharedLanguageSwitchRenderer
+                              language={language}
+                              value={column.label}
+                              value_ar={column.label_ar}
+                            />
+                          </Text>
+                        </Container>
+                      ))}
+                    {/* Placeholder to align with the button column in each row */}
+                    {showRowButtons && <Container className="flex-1 min-w-0" />}
                   </Container>
-                ))}
-              {showRowButtons && <Container />}
-            </Container>
+                </ScrollContainer>
+              )}
+
+              {rowsToShow.map((row, idx) => {
+                const button: ButtonType = {
+                  title: row.button?.title ?? "View",
+                  title_ar: row.button?.title_ar ?? row.label_ar,
+                  type: row.button?.type ?? "secondary",
+                  onClick: row.button?.onClick,
+                };
+                return (
+                  <ScrollContainer
+                    horizontal
+                    className="flex flex-row gap-xs w-full"
+                  >
+                    <CardRow
+                      key={idx}
+                      {...row}
+                      button={showRowButtons ? button : undefined}
+                      language={language}
+                      rowVariant={rowVariant}
+                    />
+                  </ScrollContainer>
+                );
+              })}
+            </>
           )}
-          {rowsToShow.map((row, idx) => {
-            const button: ButtonType = {
-              title: row.button?.title ?? "View",
-              title_ar: row.button?.title_ar ?? row.label_ar,
-              type: row.button?.type ?? "secondary",
-              onClick: row.button?.onClick,
-            };
-            return (
-              <CardRow
-                key={idx}
-                {...row}
-                button={showRowButtons ? button : undefined}
-                language={language}
-                rowVariant={rowVariant}
-              />
-            );
-          })}
+
           {showPagination && (
-            <Container className="flex justify-end py-s">
+            <Container className="flex flex-row justify-end py-s">
               <Pagination
                 currentPage={
                   handlePaginationInternally ? internalPage : currentPage
@@ -226,7 +295,7 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
           </Container>
         </Container>
       )}
-      <Container className="flex gap-s my-s">
+      <Container className="flex flex-row gap-s my-s">
         {showFooterButtons &&
           footerButton?.map((button) => (
             <Buttons
