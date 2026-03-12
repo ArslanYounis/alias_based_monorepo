@@ -48,6 +48,7 @@ import ModalSteps from "@shared/components/ModalSteps";
 import GenericCard from "@shared/components/GenericCard";
 import GenericCards from "@shared/components/GenericCards";
 import GenericTableCard from "@shared/components/GenericTableCard";
+import CardTitle from "@shared/components/CardTitle";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -4701,6 +4702,60 @@ function App() {
               onPageChange={(page) => console.log(page)}
             />
           </div>
+        </section>
+        {/* ══════════════════════════ G-5.9 Card Title ══════════════════════════ */}
+        <section className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold">G-5.9 — Card Title</h2>
+          <CardTitle
+            title="Project Details"
+            title_ar="تفاصيل المشروع"
+            description="This is a description for the project card"
+            subText="Updated 2 days ago"
+            status="Pending"
+            buttons={[
+              {
+                title: "Edit",
+                type: "primary",
+                onClick: () => alert("Edit clicked"),
+              },
+              {
+                title: "Delete",
+                type: "delete",
+                onClick: () => alert("Delete clicked"),
+              },
+            ]}
+            isExpandable
+            isExpanded={true}
+            variant="medium"
+            language="en"
+            showButtons
+            showBorder
+          />
+          <CardTitle
+            title="طلبات المشروع"
+            title_ar="طلبات المشروع"
+            description="وصف مختصر عن المشروع"
+            subText="آخر تحديث منذ يومين"
+            status="قيد الانتظار"
+            buttons={[
+              {
+                title: "Edit",
+                type: "primary",
+                onClick: () => alert("Edit clicked"),
+              },
+              {
+                title: "Delete",
+                type: "delete",
+                onClick: () => alert("Delete clicked"),
+              },
+            ]}
+            isExpandable
+            isExpanded={true}
+            variant="medium"
+            language="ar"
+            showButtons
+            showBorder
+          />
         </section>
       </Layout>
     </QueryClientProvider>

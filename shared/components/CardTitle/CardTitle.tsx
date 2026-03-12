@@ -78,6 +78,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
       className={`flex flex-col flex-1 pb-s ${
         shouldShowBorder ? "border-b border-b-border-dimmed mb-m" : ""
       }`}
+      dir={language === "ar" ? "rtl" : "ltr"}
     >
       <Container
         className={`flex flex-row flex-1 ${
@@ -190,7 +191,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
         </Container>
       </Container>
       {(description || description_ar) && (
-        <Container className="flex items-start justify-between w-full mt-xs">
+        <Container className="flex flex-row items-start justify-between w-full mt-xs">
           <Text className="text-text-default text-m">
             <SharedLanguageSwitchRenderer
               language={language}

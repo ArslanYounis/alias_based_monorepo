@@ -57,6 +57,7 @@ import ModalSteps from "@shared/components/ModalSteps";
 import GenericCard from "@shared/components/GenericCard";
 import GenericCards from "@shared/components/GenericCards";
 import GenericTableCard from "@shared/components/GenericTableCard";
+import CardTitle from "@shared/components/CardTitle";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -3704,6 +3705,61 @@ export default function App() {
                 totalPages={10}
                 pageSize={5}
                 onPageChange={(page) => console.log(page)}
+              />
+            </View>
+            {/* ── G-5.9 Card Title ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-5.9 — Card Title</Text>
+              <CardTitle
+                platform="mobile"
+                title="Project Details"
+                title_ar="تفاصيل المشروع"
+                description="This is a description for the project card"
+                subText="Updated 2 days ago"
+                isExpandable
+                isExpanded={true}
+                variant="medium"
+                language="en"
+                showButtons={false}
+                showBorder={false}
+              />
+              <CardTitle
+                platform="mobile"
+                title="Project Details"
+                title_ar="تفاصيل المشروع"
+                description="This is a description for the project card"
+                buttons={[
+                  {
+                    title: "Edit",
+                    type: "primary",
+                    onClick: () => Alert.alert("Edit clicked"),
+                  },
+                  {
+                    title: "Delete",
+                    type: "delete",
+                    onClick: () => Alert.alert("Delete clicked"),
+                  },
+                ]}
+                isExpandable={false}
+                isExpanded={true}
+                variant="medium"
+                language="en"
+                showButtons={true}
+                showBorder={false}
+              />
+              <CardTitle
+                platform="mobile"
+                title="Project Details"
+                title_ar="تفاصيل المشروع"
+                description="This is a description"
+                subText="2 days ago"
+                status="Pending"
+                isExpandable={false}
+                isExpanded={true}
+                variant="medium"
+                language="en"
+                showButtons={false}
+                showBorder={false}
               />
             </View>
           </ScrollView>
