@@ -53,6 +53,7 @@ import Table from "../../../shared/components/Table";
 import OwnerCard from "../../../shared/components/OwnerCard";
 import PlotCard from "../../../shared/components/PlotCard";
 import ModalTitle from "../../../shared/components/ModalTitle";
+import ModalSteps from "../../../shared/components/ModalSteps";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -3180,6 +3181,16 @@ export default function App() {
               <Text style={styles.sectionTitle}>G-5.4 — Modal Title</Text>
               <ModalTitle label="Title" platform="mobile" />
               <ModalTitle label_ar="العنوان" language="ar" platform="mobile" />
+            </View>
+            {/* ── G-5.5 Modal Steps ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-5.5 — Modal Steps</Text>
+              <ModalSteps title="Title" subText="Step 1 of 2" />
+              <ModalSteps
+                title_ar="العنوان"
+                subText_ar="الخطوة 1 من 2"
+                language="ar"
+              />
             </View>
           </ScrollView>
         </QueryClientProvider>

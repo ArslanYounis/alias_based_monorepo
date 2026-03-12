@@ -44,6 +44,7 @@ import Table from "@shared/components/Table";
 import OwnerCard from "@shared/components/OwnerCard";
 import PlotCard from "@shared/components/PlotCard";
 import ModalTitle from "@shared/components/ModalTitle";
+import ModalSteps from "@shared/components/ModalSteps";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -4130,6 +4131,16 @@ function App() {
           <h2 className={ST}>G-5.4 — Modal Title</h2>
           <ModalTitle label="Title" />
           <ModalTitle label_ar="العنوان" language="ar" />
+        </section>
+        {/* ══════════════════════════ G-5.5 Modal Steps ══════════════════════════ */}
+        <section className="flex flex-col gap-2">
+          <h2 className={ST}>G-5.5 — Modal Steps</h2>
+          <ModalSteps title="Title" subText="Step 1 of 2" />
+          <ModalSteps
+            title_ar="العنوان"
+            subText_ar="الخطوة 1 من 2"
+            language="ar"
+          />
         </section>
       </Layout>
     </QueryClientProvider>

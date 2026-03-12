@@ -18,7 +18,10 @@ const ModalSteps: React.FC<ModalStepsProps> = ({
   subText_ar = "",
   language = "en",
 }) => (
-  <Container className="flex flex-1 items-center justify-between border-b border-b-border-dimmed">
+  <Container
+    className="flex flex-row flex-1 items-center justify-between border-b border-b-border-dimmed"
+    dir={language === "ar" ? "rtl" : "ltr"}
+  >
     <Text className="text-heading-h3 font-bold text-text-default mb-0">
       <SharedLanguageSwitchRenderer
         language={language}
