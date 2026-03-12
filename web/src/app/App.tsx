@@ -42,6 +42,7 @@ import axios from "axios";
 import { ViewPlotDetail } from "@shared/components/ViewPlotDetail";
 import Table from "@shared/components/Table";
 import OwnerCard from "@shared/components/OwnerCard";
+import PlotCard from "@shared/components/PlotCard";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -3925,6 +3926,197 @@ function App() {
                       label: "رقم الأرشيف",
                       label_ar: "رقم الأرشيف",
                       value: "ARC-005",
+                    },
+                  ],
+                },
+              ]}
+            />
+          </div>
+        </section>
+        {/* ══════════════════════════ G-5.3 Plot Card ══════════════════════════ */}
+        <section className="flex flex-col gap-2">
+          <h2 className={ST}>G-3.3 — Plot Card</h2>
+
+          {/* Default Variant */}
+          <div className="mt-4">
+            <h3 className="text-md font-semibold mb-2 text-gray-700">
+              Default Variant
+            </h3>
+
+            <div className="grid grid-cols-1 gap-6">
+              <div>
+                <p className={SS}>single plot card</p>
+
+                <PlotCard
+                  title="Plot Information"
+                  title_ar="معلومات القطعة"
+                  plots={[
+                    {
+                      plotId: "1",
+                      plotArgs: "plot-1",
+                      plotNumber: "P-1024",
+                      plotNumber_ar: "P-1024",
+                      fields: [
+                        {
+                          label: "Zone",
+                          label_ar: "المنطقة",
+                          value: "Dubai Marina",
+                          value_ar: "مرسى دبي",
+                        },
+                        {
+                          label: "Municipality",
+                          label_ar: "البلدية",
+                          value: "Dubai Municipality",
+                          value_ar: "بلدية دبي",
+                        },
+                        {
+                          label: "Area",
+                          label_ar: "المساحة",
+                          value: "4500 sq.ft",
+                          value_ar: "4500 قدم مربع",
+                        },
+                        {
+                          label: "Land Use",
+                          label_ar: "استخدام الأرض",
+                          value: "Residential",
+                          value_ar: "سكني",
+                        },
+                      ],
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Multiple Plots */}
+          <div className="mt-6">
+            <h3 className="text-md font-semibold mb-2 text-gray-700">
+              Multiple Plots
+            </h3>
+
+            <PlotCard
+              title="Plot Information"
+              plots={[
+                {
+                  plotId: "1",
+                  plotArgs: "plot-1",
+                  plotNumber: "P-1024",
+                  fields: [
+                    { label: "Zone", value: "Dubai Marina" },
+                    { label: "Area", value: "4500 sq.ft" },
+                    { label: "Land Use", value: "Residential" },
+                  ],
+                },
+                {
+                  plotId: "2",
+                  plotArgs: "plot-2",
+                  plotNumber: "P-2048",
+                  fields: [
+                    { label: "Zone", value: "Palm Jumeirah" },
+                    { label: "Area", value: "5200 sq.ft" },
+                    { label: "Land Use", value: "Commercial" },
+                  ],
+                },
+              ]}
+            />
+          </div>
+
+          {/* Button Variants */}
+          <div className="mt-6">
+            <h3 className="text-md font-semibold mb-2 text-gray-700">
+              Button Variants
+            </h3>
+
+            <PlotCard
+              title="Plot Information"
+              showViewButton
+              showChangePlotButton
+              showOwnersButton
+              plots={[
+                {
+                  plotId: "1",
+                  plotArgs: "plot-action",
+                  plotNumber: "P-3001",
+                  fields: [
+                    { label: "Zone", value: "Business Bay" },
+                    { label: "Area", value: "3800 sq.ft" },
+                    { label: "Land Use", value: "Mixed Use" },
+                  ],
+                },
+              ]}
+              onPressView={(plot) => alert(`View ${plot.plotNumber}`)}
+              onPressPlotChange={(plot) =>
+                alert(`Change Plot ${plot.plotNumber}`)
+              }
+              onPressOwners={(plot) => alert(`Owners of ${plot.plotNumber}`)}
+            />
+          </div>
+
+          {/* Expandable Cards */}
+          <div className="mt-6">
+            <h3 className="text-md font-semibold mb-2 text-gray-700">
+              Expandable Cards
+            </h3>
+
+            <PlotCard
+              title="Plot Details"
+              defaultExpanded={false}
+              defaultShowMore={false}
+              plots={[
+                {
+                  plotId: "1",
+                  plotArgs: "plot-expand",
+                  plotNumber: "P-7777",
+                  fields: [
+                    { label: "Zone", value: "Downtown Dubai" },
+                    { label: "Municipality", value: "Dubai Municipality" },
+                    { label: "Area", value: "6000 sq.ft" },
+                    { label: "Land Use", value: "Residential" },
+                    {
+                      label: "Construction Status",
+                      value: "Under Construction",
+                    },
+                  ],
+                },
+              ]}
+            />
+          </div>
+
+          {/* Arabic RTL */}
+          <div className="mt-6">
+            <h3 className="text-md font-semibold mb-2 text-gray-700">
+              Arabic (RTL)
+            </h3>
+
+            <PlotCard
+              language="ar"
+              title="معلومات القطعة"
+              title_ar="معلومات القطعة"
+              plots={[
+                {
+                  plotId: "1",
+                  plotArgs: "plot-ar",
+                  plotNumber: "P-9000",
+                  plotNumber_ar: "P-9000",
+                  fields: [
+                    {
+                      label: "المنطقة",
+                      label_ar: "المنطقة",
+                      value: "مرسى دبي",
+                      value_ar: "مرسى دبي",
+                    },
+                    {
+                      label: "المساحة",
+                      label_ar: "المساحة",
+                      value: "4500 قدم مربع",
+                      value_ar: "4500 قدم مربع",
+                    },
+                    {
+                      label: "استخدام الأرض",
+                      label_ar: "استخدام الأرض",
+                      value: "سكني",
+                      value_ar: "سكني",
                     },
                   ],
                 },

@@ -8,7 +8,12 @@ export interface Plot {
   plotArgs: string;
   plotNumber: string;
   plotNumber_ar?: string;
-  fields: { label: string; label_ar?: string; value: string; value_ar?: string }[];
+  fields: {
+    label: string;
+    label_ar?: string;
+    value: string;
+    value_ar?: string;
+  }[];
 }
 
 export interface IPlotCardProps {
@@ -24,6 +29,7 @@ export interface IPlotCardProps {
   language?: "en" | "ar";
   defaultShowMore?: boolean;
   defaultExpanded?: boolean;
+  platform?: "web" | "mobile";
 }
 
 const PlotCard: React.FC<IPlotCardProps> = ({
@@ -39,6 +45,7 @@ const PlotCard: React.FC<IPlotCardProps> = ({
   language = "en",
   defaultShowMore = false,
   defaultExpanded = true,
+  platform = "web",
 }) => {
   const [expandedIndices, setExpandedIndices] = useState<number[]>(
     defaultExpanded ? plots?.map((_, idx) => idx) ?? [] : []
@@ -58,7 +65,10 @@ const PlotCard: React.FC<IPlotCardProps> = ({
       value_ar: f.value_ar,
     }));
 
-  const handleAction = (action: "view" | "change_plot" | "owners", plot: Plot) => {
+  const handleAction = (
+    action: "view" | "change_plot" | "owners",
+    plot: Plot
+  ) => {
     if (action === "view") onPressView(plot);
     else if (action === "change_plot") onPressPlotChange(plot);
     else if (action === "owners") onPressOwners(plot);
@@ -71,13 +81,31 @@ const PlotCard: React.FC<IPlotCardProps> = ({
           const isExpanded = expandedIndices.includes(idx);
           const rowButtons = [
             ...(showChangePlotButton
-              ? [{ title: "Change Plot", title_ar: "تغيير القطعة", onClick: () => handleAction("change_plot", plot) }]
+              ? [
+                  {
+                    title: "Change Plot",
+                    title_ar: "تغيير القطعة",
+                    onClick: () => handleAction("change_plot", plot),
+                  },
+                ]
               : []),
             ...(showOwnersButton
-              ? [{ title: "Owners", title_ar: "أصحاب", onClick: () => handleAction("owners", plot) }]
+              ? [
+                  {
+                    title: "Owners",
+                    title_ar: "أصحاب",
+                    onClick: () => handleAction("owners", plot),
+                  },
+                ]
               : []),
             ...(showViewButton
-              ? [{ title: "View", title_ar: "عرض", onClick: () => handleAction("view", plot) }]
+              ? [
+                  {
+                    title: "View",
+                    title_ar: "عرض",
+                    onClick: () => handleAction("view", plot),
+                  },
+                ]
               : []),
           ];
           return (
@@ -87,7 +115,9 @@ const PlotCard: React.FC<IPlotCardProps> = ({
                 title={title}
                 title_ar={title_ar ?? title}
                 cardTitleLabel={isExpanded ? title : "Plot Number"}
-                cardTitleLabel_ar={isExpanded ? title_ar ?? title : "رقم القطعة"}
+                cardTitleLabel_ar={
+                  isExpanded ? title_ar ?? title : "رقم القطعة"
+                }
                 cardTitleValue={plot.plotNumber}
                 cardTitleValue_ar={plot.plotNumber_ar ?? plot.plotNumber}
                 variant="small"
@@ -103,6 +133,7 @@ const PlotCard: React.FC<IPlotCardProps> = ({
                 showMoreButton={mapFieldsToRows(plot).length > 3}
                 rowsData={mapFieldsToRows(plot)}
                 defaultShowMore={defaultShowMore}
+                platform={platform}
               />
             </Container>
           );

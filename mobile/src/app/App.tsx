@@ -51,6 +51,7 @@ import Signature from "../components/Signature";
 import UploadDocuments from "../components/UploadDocuments";
 import Table from "../../../shared/components/Table";
 import OwnerCard from "../../../shared/components/OwnerCard";
+import PlotCard from "../../../shared/components/PlotCard";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -3004,6 +3005,169 @@ export default function App() {
                         value: "+971 50 123 4567",
                       },
                       { label: "Role", label_ar: "الدور", value: "Owner" },
+                    ],
+                  },
+                ]}
+              />
+            </View>
+            {/* ── G-5.3 PlotCard ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-5.3 — PlotCard</Text>
+
+              {/* Default */}
+              <Text style={styles.variantLabel}>Default Plot Card</Text>
+              <PlotCard
+                language="en"
+                title="Plot Information"
+                platform="mobile"
+                plots={[
+                  {
+                    plotId: "1",
+                    plotArgs: "plot-1",
+                    plotNumber: "PL-001",
+                    fields: [
+                      { label: "Location", value: "Dubai Marina" },
+                      { label: "Area", value: "500 sqm" },
+                      { label: "Status", value: "Active" },
+                    ],
+                  },
+                ]}
+                onPressView={(plot) => console.log("View Plot:", plot)}
+              />
+
+              {/* Multiple Plots */}
+              <Text style={styles.variantLabel}>Multiple Plots</Text>
+              <PlotCard
+                language="en"
+                title="Plots"
+                platform="mobile"
+                plots={[
+                  {
+                    plotId: "2",
+                    plotArgs: "plot-2",
+                    plotNumber: "PL-002",
+                    fields: [
+                      { label: "Location", value: "Abu Dhabi" },
+                      { label: "Area", value: "750 sqm" },
+                      { label: "Status", value: "Pending" },
+                    ],
+                  },
+                  {
+                    plotId: "3",
+                    plotArgs: "plot-3",
+                    plotNumber: "PL-003",
+                    fields: [
+                      { label: "Location", value: "Sharjah" },
+                      { label: "Area", value: "620 sqm" },
+                      { label: "Status", value: "Approved" },
+                    ],
+                  },
+                ]}
+                onPressView={(plot) => console.log("View Plot:", plot)}
+              />
+
+              {/* With Change Plot Button */}
+              <Text style={styles.variantLabel}>Change Plot Action</Text>
+              <PlotCard
+                language="en"
+                title="Plot"
+                platform="mobile"
+                showChangePlotButton
+                plots={[
+                  {
+                    plotId: "4",
+                    plotArgs: "plot-4",
+                    plotNumber: "PL-004",
+                    fields: [
+                      { label: "Location", value: "Dubai Hills" },
+                      { label: "Area", value: "800 sqm" },
+                      { label: "Status", value: "Active" },
+                    ],
+                  },
+                ]}
+                onPressPlotChange={(plot) =>
+                  console.log("Change Plot Clicked:", plot)
+                }
+              />
+
+              {/* With Owners Button */}
+              <Text style={styles.variantLabel}>Owners Action</Text>
+              <PlotCard
+                language="en"
+                title="Plot"
+                showOwnersButton
+                platform="mobile"
+                plots={[
+                  {
+                    plotId: "5",
+                    plotArgs: "plot-5",
+                    plotNumber: "PL-005",
+                    fields: [
+                      { label: "Location", value: "Jumeirah" },
+                      { label: "Area", value: "900 sqm" },
+                      { label: "Status", value: "Active" },
+                    ],
+                  },
+                ]}
+                onPressOwners={(plot) =>
+                  console.log("Owners Button Clicked:", plot)
+                }
+              />
+
+              {/* Expandable with Many Fields */}
+              <Text style={styles.variantLabel}>Expandable Plot Card</Text>
+              <PlotCard
+                language="en"
+                title="Plot Details"
+                platform="mobile"
+                plots={[
+                  {
+                    plotId: "6",
+                    plotArgs: "plot-6",
+                    plotNumber: "PL-006",
+                    fields: [
+                      { label: "Location", value: "Palm Jumeirah" },
+                      { label: "Area", value: "1000 sqm" },
+                      { label: "Status", value: "Active" },
+                      { label: "Category", value: "Residential" },
+                      { label: "Ownership", value: "Private" },
+                    ],
+                  },
+                ]}
+              />
+
+              {/* Arabic RTL */}
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+              <PlotCard
+                language="ar"
+                title="معلومات القطعة"
+                title_ar="معلومات القطعة"
+                platform="mobile"
+                plots={[
+                  {
+                    plotId: "7",
+                    plotArgs: "plot-7",
+                    plotNumber: "PL-007",
+                    plotNumber_ar: "PL-007",
+                    fields: [
+                      {
+                        label: "Location",
+                        label_ar: "الموقع",
+                        value: "Dubai",
+                        value_ar: "دبي",
+                      },
+                      {
+                        label: "Area",
+                        label_ar: "المساحة",
+                        value: "500 sqm",
+                        value_ar: "٥٠٠ متر مربع",
+                      },
+                      {
+                        label: "Status",
+                        label_ar: "الحالة",
+                        value: "Active",
+                        value_ar: "نشط",
+                      },
                     ],
                   },
                 ]}
