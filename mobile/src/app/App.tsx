@@ -54,6 +54,7 @@ import OwnerCard from "../../../shared/components/OwnerCard";
 import PlotCard from "../../../shared/components/PlotCard";
 import ModalTitle from "../../../shared/components/ModalTitle";
 import ModalSteps from "../../../shared/components/ModalSteps";
+import GenericCard from "@shared/components/GenericCard";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -3189,6 +3190,142 @@ export default function App() {
               <ModalSteps
                 title_ar="العنوان"
                 subText_ar="الخطوة 1 من 2"
+                language="ar"
+              />
+            </View>
+            {/* ── G-5.6 GenericCard ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-5.6 — GenericCard</Text>
+
+              {/* Default Card */}
+              <Text style={styles.variantLabel}>Default Card</Text>
+              <GenericCard
+                platform="mobile"
+                title="Application Details"
+                title_ar="Application Details"
+                rowsData={[
+                  { label: "Application ID", value: "APP-001" },
+                  { label: "Applicant Name", value: "John Doe" },
+                  { label: "Status", value: "Pending" },
+                ]}
+                language="en"
+              />
+
+              {/* With Buttons */}
+              <Text style={styles.variantLabel}>Card With Buttons</Text>
+              <GenericCard
+                platform="mobile"
+                title="Owner Details"
+                title_ar="Owner Details"
+                cardTitleLabel="Owner"
+                rowsData={[
+                  { label: "Name", value: "Jane Smith" },
+                  { label: "Email", value: "jane@example.com" },
+                  { label: "Phone", value: "+971 55 111 2222" },
+                ]}
+                showButtons
+                buttons={[
+                  {
+                    title: "View",
+                    title_ar: "عرض",
+                    onClick: () => console.log("View clicked"),
+                  },
+                  {
+                    title: "Edit",
+                    title_ar: "تعديل",
+                    onClick: () => console.log("Edit clicked"),
+                  },
+                ]}
+                language="en"
+              />
+
+              {/* Expandable Card */}
+              <Text style={styles.variantLabel}>Expandable Card</Text>
+              <GenericCard
+                platform="mobile"
+                title="Plot Information"
+                title_ar="Plot Information"
+                cardTitleLabel="Plot Number"
+                cardTitleValue="PL-001"
+                rowsData={[
+                  { label: "Location", value: "Dubai Marina" },
+                  { label: "Area", value: "500 sqm" },
+                  { label: "Status", value: "Active" },
+                  { label: "Category", value: "Residential" },
+                  { label: "Ownership", value: "Private" },
+                ]}
+                showMoreButton
+                language="en"
+              />
+
+              {/* With Documents */}
+              <Text style={styles.variantLabel}>Card With Documents</Text>
+              <GenericCard
+                platform="mobile"
+                title="Verification"
+                title_ar="Verification"
+                rowsData={[
+                  { label: "Application ID", value: "APP-002" },
+                  { label: "Applicant Name", value: "Michael Brown" },
+                ]}
+                hasDocuments
+                documents={[
+                  {
+                    id: "doc-1",
+                    documentName: "Passport Copy",
+                    isUploaded: true,
+                    onDownloadClick: () => console.log("Download Passport"),
+                  },
+                  {
+                    id: "doc-2",
+                    documentName: "Emirates ID",
+                    isUploaded: true,
+                    onDownloadClick: () => console.log("Download Emirates ID"),
+                  },
+                ]}
+                language="en"
+              />
+
+              {/* With Footer Buttons */}
+              <Text style={styles.variantLabel}>Footer Buttons</Text>
+              <GenericCard
+                platform="mobile"
+                title="Review Application"
+                title_ar="Review Application"
+                rowsData={[
+                  { label: "Application ID", value: "APP-003" },
+                  { label: "Applicant", value: "Sarah Wilson" },
+                  { label: "Status", value: "Under Review" },
+                ]}
+                showFooterButtons
+                footerButton={[
+                  {
+                    title: "Approve",
+                    type: "primary",
+                    onClick: () => console.log("Approve clicked"),
+                  },
+                  {
+                    title: "Reject",
+                    type: "delete",
+                    onClick: () => console.log("Reject clicked"),
+                  },
+                ]}
+                language="en"
+              />
+
+              {/* Arabic RTL */}
+              <Text style={styles.variantLabel}>Arabic RTL</Text>
+              <GenericCard
+                platform="mobile"
+                title="تفاصيل الطلب"
+                title_ar="تفاصيل الطلب"
+                cardTitleLabel="رقم الطلب"
+                cardTitleValue="APP-004"
+                rowsData={[
+                  { label: "الاسم", value: "أحمد علي" },
+                  { label: "الحالة", value: "قيد المراجعة" },
+                  { label: "الموقع", value: "دبي" },
+                ]}
                 language="ar"
               />
             </View>

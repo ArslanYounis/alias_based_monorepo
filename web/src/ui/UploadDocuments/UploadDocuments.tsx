@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UploadDocument } from "./UploadDocument";
+import { UploadDocument } from "../UploadDocument/UploadDocument";
 import { useGetDownloadFile } from "@/hooks/useGetDownloadFile";
 
 export interface DocumentConfig {

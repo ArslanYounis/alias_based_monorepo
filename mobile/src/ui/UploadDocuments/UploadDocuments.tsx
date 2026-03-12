@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Linking } from "react-native";
-import { UploadDocument } from "./UploadDocument";
+import { UploadDocument } from "../UploadDocument/UploadDocument";
 
 export interface DocumentConfig {
   documentName?: string;

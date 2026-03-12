@@ -190,7 +190,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
         </Container>
       </Container>
       {(description || description_ar) && (
-        <Container className="flex items-center justify-between w-full mt-xs">
+        <Container className="flex items-start justify-between w-full mt-xs">
           <Text className="text-text-default text-m">
             <SharedLanguageSwitchRenderer
               language={language}

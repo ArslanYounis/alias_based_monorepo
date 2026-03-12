@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Buttons } from "@platform/Buttons";
+import { UploadDocument } from "@platform/UploadDocument";
 import CardRow from "../CardRow";
-// import { UploadDocument } from "@platform/UploadDocument";
 import type { ICardRowProps } from "../CardRow";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 import CardTitle, { type ButtonType, type ICardTitleProps } from "../CardTitle";
@@ -184,32 +184,17 @@ const GenericCard: React.FC<IGenericCardProps> = ({
                 language={language}
               />
               {documents.map((document) => (
-                <Container key={document?.id} className="mb-m last:mb-0">
-                  <Container className="flex items-center gap-2 py-2">
-                    <Text className="text-m text-text-default">
-                      <SharedLanguageSwitchRenderer
-                        language={language}
-                        value={document?.isUploaded ? "Uploaded " : "Add "}
-                        value_ar={document?.isUploaded ? "تم رفع " : "إضافة "}
-                      />
-                      <SharedLanguageSwitchRenderer
-                        language={language}
-                        value={document?.documentName}
-                        value_ar={
-                          document?.documentName_ar ?? document?.documentName
-                        }
-                      />
-                    </Text>
-                    {document?.onDownloadClick && (
-                      <Buttons
-                        type="text-link"
-                        size="s"
-                        language={language}
-                        title={language === "ar" ? "تحميل" : "Download"}
-                        onClick={document.onDownloadClick}
-                      />
-                    )}
-                  </Container>
+                <Container key={document?.id} className="pb-m last:mb-0">
+                  <UploadDocument
+                    documentName={document?.documentName}
+                    documentName_ar={
+                      document?.documentName_ar || document?.documentName
+                    }
+                    language={language}
+                    type={document_type}
+                    isUploaded={isUploaded}
+                    onDownloadClick={document?.onDownloadClick}
+                  />
                 </Container>
               ))}
             </Container>
