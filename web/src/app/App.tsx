@@ -43,6 +43,7 @@ import { ViewPlotDetail } from "@shared/components/ViewPlotDetail";
 import Table from "@shared/components/Table";
 import OwnerCard from "@shared/components/OwnerCard";
 import PlotCard from "@shared/components/PlotCard";
+import ModalTitle from "@shared/components/ModalTitle";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -4123,6 +4124,12 @@ function App() {
               ]}
             />
           </div>
+        </section>
+        {/* ══════════════════════════ G-5.4 Modal Title ══════════════════════════ */}
+        <section className="flex flex-col gap-2">
+          <h2 className={ST}>G-5.4 — Modal Title</h2>
+          <ModalTitle label="Title" />
+          <ModalTitle label_ar="العنوان" language="ar" />
         </section>
       </Layout>
     </QueryClientProvider>

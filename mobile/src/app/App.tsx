@@ -52,6 +52,7 @@ import UploadDocuments from "../components/UploadDocuments";
 import Table from "../../../shared/components/Table";
 import OwnerCard from "../../../shared/components/OwnerCard";
 import PlotCard from "../../../shared/components/PlotCard";
+import ModalTitle from "../../../shared/components/ModalTitle";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -3010,6 +3011,7 @@ export default function App() {
                 ]}
               />
             </View>
+
             {/* ── G-5.3 PlotCard ── */}
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.3 — PlotCard</Text>
@@ -3172,6 +3174,12 @@ export default function App() {
                   },
                 ]}
               />
+            </View>
+            {/* ── G-5.4 Modal Title ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-5.4 — Modal Title</Text>
+              <ModalTitle label="Title" platform="mobile" />
+              <ModalTitle label_ar="العنوان" language="ar" platform="mobile" />
             </View>
           </ScrollView>
         </QueryClientProvider>
