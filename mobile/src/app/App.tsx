@@ -64,6 +64,7 @@ import { SearchPlot } from "@shared/components/SearchPlot";
 import { OwnerSearch } from "@shared/components/OwnerSearch";
 import axios from "axios";
 import { CustomDrawer } from "../ui/CustomDrawer";
+import ViewPlotDetail from "@shared/components/ViewPlotDetail/ViewPlotDetail";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -2746,6 +2747,16 @@ export default function App() {
                 onFileChange={({ file, uploadUrl }) =>
                   console.log("Attempted file change:", file, uploadUrl)
                 }
+              />
+            </View>
+            {/* ── G-4.8 ViewPlotDetail ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-4.8 — ViewPlotDetail</Text>
+              <ViewPlotDetail
+                plotIds={["12345"]}
+                plotTitle="Plot Details"
+                plotTitle_ar="تفاصيل القطعة"
+                showOwnerDetails={true}
               />
             </View>
 

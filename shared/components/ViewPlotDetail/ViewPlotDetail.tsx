@@ -60,6 +60,7 @@ interface SinglePlotDetailProps {
   ownerText?: string;
   ownerText_ar?: string;
   showOwnerDetails?: boolean;
+  platform?: "web" | "mobile";
 }
 
 // SinglePlotDetail component that handles its own image fetching
@@ -74,6 +75,7 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
   ownerText = "Owner",
   ownerText_ar = "المالك",
   showOwnerDetails = true,
+  platform = "web",
 }) => {
   // Fetch image for this specific plot
   const { data: imageBlob, isPending: isImagePending } = useGetPlotImage(
@@ -236,7 +238,9 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
 
   return (
     <Container className="mb-8">
-      <Text className={`text-heading-h1 font-bold mb-8 text-text-default`}>
+      <Text
+        className={`text-heading-h3 sm:text-heading-h1 font-bold mb-8 text-text-default`}
+      >
         <SharedLanguageSwitchRenderer
           language={language}
           value={plotDetail?.plotAddress || plotLeftDetails?.[0]?.value || ""}
@@ -247,8 +251,10 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
       </Text>
 
       <Container className="flex flex-col gap-xxs">
-        <Container className="flex items-center justify-between">
-          <Text className={`text-heading-h3 font-bold text-text-default`}>
+        <Container className="flex flex-row items-center justify-between">
+          <Text
+            className={`text-heading-h4 sm:text-heading-h3 font-bold text-text-default`}
+          >
             <SharedLanguageSwitchRenderer
               language={language}
               value={plotTitle}
@@ -282,20 +288,22 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
             </Container>
 
             <Container className="w-1/2 rounded-xs flex items-stretch">
-              {!isImagePending && imageUrl && (
-                <img
-                  src={imageUrl}
-                  alt=""
-                  className="w-full h-full object-fill rounded-xs"
-                />
-              )}
+              {!isImagePending &&
+                imageUrl &&
+                (platform === "web" ? (
+                  <img
+                    src={imageUrl}
+                    alt=""
+                    className="w-full h-50 object-contain rounded-xs"
+                  />
+                ) : null)}
             </Container>
           </Container>
 
           {plotBottomDetails?.map((item, idx) => (
             <Container
               key={idx}
-              className={`flex pb-s mb-s border-b border-text-dimmed last:border-b-0 text-text-default`}
+              className={`flex flex-row pb-s mb-s border-b border-border-dimmed last:border-b-none text-text-default`}
             >
               <Container className="w-[40%]">
                 <Text className="text-bold-m">
