@@ -51,6 +51,7 @@ import GenericTableCard from "@shared/components/GenericTableCard";
 import CardTitle from "@shared/components/CardTitle";
 import ViewOwnerDetail from "@shared/components/ViewOwnerDetail";
 import ApplicationMessage from "@shared/components/ApplicationMessage";
+import { SearchPlot } from "@shared/components/SearchPlot";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -130,14 +131,15 @@ function App() {
     },
   ];
 
-  axios.defaults.baseURL = "https://adrec-runtime.processclerk.com/";
+  axios.defaults.baseURL =
+    "https://onehub-runtime-backend-dncuhce5dygpbydu.canadacentral-01.azurewebsites.net/";
   axios.defaults.withCredentials = true;
 
-  // useEffect(() => {
-  //   (async function () {
-  //     await axios.post(`/dmt/login`, { email: "admin", password: "321" });
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async function () {
+      await axios.post(`/dmt/login`, { email: "admin", password: "321" });
+    })();
+  }, []);
 
   return (
     <QueryClientProvider client={new QueryClient()}>
@@ -4884,6 +4886,22 @@ function App() {
             label="متابعة"
             label_ar="متابعة"
             onClick={() => alert("متابعة")}
+          />
+        </section>
+        {/* ══════════════════════════ G-5.14 SearchPlot ══════════════════════════ */}
+        <section className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold">G-5.14 — SearchPlot</h2>
+          <SearchPlot
+            title="Search Plot"
+            subtitle="Choose how you want to search for plot ownership"
+            initialOwnerType="plot"
+            // onSubmit={handleSubmit}
+            enabledTabs={{
+              plot: true,
+              company: true,
+              owner: true,
+              randomAllocation: false,
+            }}
           />
         </section>
       </Layout>

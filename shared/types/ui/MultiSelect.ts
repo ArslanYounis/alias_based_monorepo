@@ -10,7 +10,8 @@ export interface MultiSelectProps {
   placeholder?: string;
   placeholder_ar?: string;
   value?: string | string[];
-  onChange?: (value: string | string[]) => void;
+  // onChange?: (value: string | string[]) => void;
+  onChange?: (selected: string[]) => void;
   hasError?: boolean;
   errorMessage?: string;
   errorMessage_ar?: string;

@@ -15,7 +15,7 @@ export const Select: React.FC<SelectProps> = ({
   tooltipText_ar = "",
   placeholder = "",
   placeholder_ar = "",
-  value = "",
+  checked = "",
   onChange = () => {},
   hasError = false,
   errorMessage = "",
@@ -52,7 +52,8 @@ export const Select: React.FC<SelectProps> = ({
         placeholder={
           language === "en" ? placeholder : placeholder_ar || placeholder
         }
-        value={value}
+        // value={value}
+        value={checked}
         onChange={onChange}
         hasError={hasError}
         errorMessage=""

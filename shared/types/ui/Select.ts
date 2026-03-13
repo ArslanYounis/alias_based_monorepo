@@ -16,7 +16,9 @@ export interface SelectProps {
   placeholder?: string;
   placeholder_ar?: string;
   value?: string;
-  onChange?: (value: string) => void;
+  // onChange?: (value: string) => void;
+  checked?: string;
+  onChange: (checked: string) => void;
   hasError?: boolean;
   errorMessage?: string;
   errorMessage_ar?: string;

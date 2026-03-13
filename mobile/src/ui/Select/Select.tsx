@@ -10,6 +10,8 @@ export type { SelectProps };
 export const Select: React.FC<SelectProps> = ({
   label = "",
   label_ar = "",
+  title = "",
+  title_ar = "",
   required = false,
   showInfoIcon = false,
   tooltipText = "",
@@ -45,15 +47,16 @@ export const Select: React.FC<SelectProps> = ({
       <Fields
         type="select"
         selectType="single"
-        placeholder={
-          language === "en" ? placeholder : placeholder_ar || placeholder
-        }
+        placeholder={placeholder}
+        placeholder_ar={placeholder_ar}
         value={value}
         onChange={onChange}
         hasError={hasError}
         errorMessage=""
         disabled={disabled}
         language={language}
+        title={title}
+        title_ar={title_ar}
         options={options}
       />
       {(captionLeft ||

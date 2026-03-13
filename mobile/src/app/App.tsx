@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -60,6 +60,9 @@ import GenericTableCard from "@shared/components/GenericTableCard";
 import CardTitle from "@shared/components/CardTitle";
 import ViewOwnerDetail from "@shared/components/ViewOwnerDetail";
 import ApplicationMessage from "@shared/components/ApplicationMessage";
+import { SearchPlot } from "@shared/components/SearchPlot";
+import axios from "axios";
+import { CustomDrawer } from "../ui/CustomDrawer";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -125,6 +128,16 @@ export default function App() {
   const [selectValue, setSelectValue] = useState("");
   const [checkboxValue, setCheckboxValue] = useState<string[]>([]);
   const [radioValue, setRadioValue] = useState("");
+
+  axios.defaults.baseURL =
+    "https://onehub-runtime-backend-dncuhce5dygpbydu.canadacentral-01.azurewebsites.net/";
+  axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    (async function () {
+      await axios.post(`/dmt/login`, { email: "admin", password: "321" });
+    })();
+  }, []);
 
   return (
     <GestureHandlerRootView style={{ flex: 1, marginTop: 50 }}>
@@ -3815,7 +3828,7 @@ export default function App() {
                 title="Application Submitted"
                 description="Your application has been submitted successfully."
                 platform="mobile"
-              />{" "}
+              />
               {/* Error Message with Text Input */}{" "}
               <ApplicationMessage
                 platform="mobile"
@@ -3899,6 +3912,24 @@ export default function App() {
                 label_ar="متابعة"
                 onClick={() => Alert.alert("متابعة")}
               />
+            </View>
+            {/* ── G-5.14 SearchPlot ── */}
+            <View>
+              <Text style={styles.sectionTitle}>G-5.14 — SearchPlot</Text>
+              <SearchPlot
+                platform="mobile"
+                title="Search Plot"
+                subtitle="Choose how you want to search for plot ownership"
+                initialOwnerType="plot"
+                // onSubmit={handleSubmit}
+                enabledTabs={{
+                  plot: true,
+                  company: true,
+                  owner: true,
+                  randomAllocation: false,
+                }}
+              />
+              <CustomDrawer open={true} />
             </View>
           </ScrollView>
         </QueryClientProvider>

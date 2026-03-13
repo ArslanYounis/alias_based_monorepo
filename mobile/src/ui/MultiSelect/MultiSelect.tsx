@@ -29,8 +29,18 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   language = "en",
   options = [],
   showAddButton = false,
+  title = "",
+  title_ar = "",
 }) => {
   const valueStr = Array.isArray(value) ? value.join(",") : value ?? "";
+
+  // Convert OptionType[] to Fields Option[]
+  const fieldOptions = options.map((opt) => ({
+    label: opt.label,
+    label_ar: opt.label_ar,
+    value: opt.value,
+  }));
+
   return (
     <View className="flex flex-col gap-[10px]">
       <Label
@@ -51,14 +61,25 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           language === "en" ? placeholder : placeholder_ar || placeholder
         }
         value={valueStr}
-        onChange={(v) =>
-          onChange?.(typeof v === "string" ? (v ? v.split(",") : []) : v)
-        }
+        onChange={(val) => {
+          // val will be a comma-separated string from Fields, convert to array
+          if (typeof val === "string") {
+            const arr = val
+              .split(",")
+              .map((v) => v.trim())
+              .filter(Boolean);
+            onChange?.(arr);
+          } else if (Array.isArray(val)) {
+            onChange?.(val);
+          }
+        }}
         hasError={hasError}
         errorMessage=""
         disabled={disabled}
         language={language}
-        options={options}
+        options={fieldOptions}
+        title={title}
+        title_ar={title_ar}
         showAddButton={showAddButton}
       />
       {(captionLeft ||

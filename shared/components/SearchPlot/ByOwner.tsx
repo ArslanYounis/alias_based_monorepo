@@ -26,6 +26,7 @@ interface ByOwnerProps {
   language: "en" | "ar";
   selected?: IOwnerSearchResult[];
   onSubmit?: (val: IOwnerPlotsSearchResult) => void;
+  platform?: "web" | "mobile";
 }
 
 interface DrawerData {
@@ -52,6 +53,7 @@ const ByOwner = ({
   language = "en",
   selected = [],
   onSubmit = () => {},
+  platform = "web",
 }: ByOwnerProps) => {
   const [visibleFields, setVisibleFields] = useState<string[]>([]);
   const visibleFieldsRef = useRef(visibleFields);
@@ -424,7 +426,11 @@ const ByOwner = ({
           />
         </Container>
 
-        <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
+        <Container
+          className={`grid !grid-cols-1 sm:!grid-cols-2 w-full ${
+            platform === "web" ? "gap-l" : ""
+          }`}
+        >
           <MultiSelect
             placeholder="Add search type"
             placeholder_ar="أضف نوع البحث"
@@ -438,9 +444,9 @@ const ByOwner = ({
         </Container>
 
         {/* Submit Button */}
-        <Container>
+        <Container className="flex flex-row">
           <Buttons
-            size="l"
+            size={platform === "web" ? "l" : "m"}
             type="secondary"
             title="Search"
             title_ar="بحث"

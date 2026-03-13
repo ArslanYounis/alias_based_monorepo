@@ -9,7 +9,10 @@ import { NumberInput } from "@platform/NumberInput";
 import { Buttons } from "@platform/Buttons";
 import { CustomDrawer } from "@platform/CustomDrawer";
 import { SearchIcon } from "@platform/icons";
-import { getSearchByPlot, type PlotSearchResult } from "../../hooks/useGetSearchByPlot";
+import {
+  getSearchByPlot,
+  type PlotSearchResult,
+} from "../../hooks/useGetSearchByPlot";
 import { useGetMunicipality } from "../../hooks/useGetMunicipality";
 import { useGetDistrict } from "../../hooks/useGetDistrict";
 import { useGetCommunity } from "../../hooks/useGetCommunity";
@@ -29,6 +32,7 @@ interface SearchByPlotProps {
   selected?: SearchResult[];
   args?: string;
   onSelectResult?: (val: SearchResult) => void;
+  platform?: "web" | "mobile";
 }
 
 interface DrawerData {
@@ -58,7 +62,6 @@ const ALWAYS_INCLUDE_KEYS = [
   "resultsDisplay",
 ] as const;
 
-
 const mapToSearchResult = (item: PlotSearchResult): SearchResult => ({
   plotId: String(item.plotId ?? ""),
   plotNumber: item.plotNumber ?? "",
@@ -74,6 +77,7 @@ const ByPlot = ({
   selected = [],
   args = "",
   onSelectResult,
+  platform = "web",
 }: SearchByPlotProps) => {
   const [visibleFields, setVisibleFields] = useState<string[]>([]);
   const visibleFieldsRef = useRef(visibleFields);
@@ -113,7 +117,8 @@ const ByPlot = ({
         )
       );
       const requestedPageSize =
-        Number(value.resultsDisplay) && !Number.isNaN(Number(value.resultsDisplay))
+        Number(value.resultsDisplay) &&
+        !Number.isNaN(Number(value.resultsDisplay))
           ? Number(value.resultsDisplay)
           : 10;
 
@@ -130,9 +135,12 @@ const ByPlot = ({
 
         setDrawerData({
           municipality:
-            municipalityOptions.find((o) => o.value === value.municipality)?.label || "",
-          zone: districtOptions.find((o) => o.value === value.zone)?.label || "",
-          sector: communityOptions.find((o) => o.value === value.sector)?.label || "",
+            municipalityOptions.find((o) => o.value === value.municipality)
+              ?.label || "",
+          zone:
+            districtOptions.find((o) => o.value === value.zone)?.label || "",
+          sector:
+            communityOptions.find((o) => o.value === value.sector)?.label || "",
           municipalityId: value.municipality,
           zoneId: value.zone,
           sectorId: value.sector,
@@ -162,7 +170,10 @@ const ByPlot = ({
     prevVisibleFieldsRef.current = visibleFields;
   }, [visibleFields, form]);
 
-  const municipalityVal = useStore(form.baseStore, (s) => s.values.municipality);
+  const municipalityVal = useStore(
+    form.baseStore,
+    (s) => s.values.municipality
+  );
   const zoneVal = useStore(form.baseStore, (s) => s.values.zone);
   const sectorVal = useStore(form.baseStore, (s) => s.values.sector);
 
@@ -176,8 +187,9 @@ const ByPlot = ({
     useGetDistrict(Number(municipalityId));
   const { options: communityOptions, isPending: isCommunityPending } =
     useGetCommunity(Number(districtId));
-  const { options: roadOptions, isPending: isRoadsPending } =
-    useGetRoads(Number(communityId));
+  const { options: roadOptions, isPending: isRoadsPending } = useGetRoads(
+    Number(communityId)
+  );
   const { options: landUsageOptions, isPending: isLandUsagePending } =
     useGetLandUsage(Number(municipalityId));
 
@@ -205,13 +217,7 @@ const ByPlot = ({
 
   return (
     <Container className="flex flex-col w-full">
-      <Container
-        className="flex flex-1 flex-col gap-l"
-        onSubmit={(e: React.FormEvent) => {
-          e.preventDefault();
-          form.handleSubmit();
-        }}
-      >
+      <Container className="flex flex-1 flex-col gap-l">
         {/* Row 1: Municipality & Zone/District */}
         <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
           <form.Field
@@ -435,7 +441,11 @@ const ByPlot = ({
         </Container>
 
         {/* Add optional search fields */}
-        <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
+        <Container
+          className={`grid !grid-cols-1 sm:!grid-cols-2 w-full ${
+            platform === "web" ? "gap-l" : ""
+          }`}
+        >
           <MultiSelect
             placeholder="Add search type"
             placeholder_ar="أضف نوع البحث"
@@ -449,9 +459,9 @@ const ByPlot = ({
         </Container>
 
         {/* Submit Button */}
-        <Container>
+        <Container className="flex flex-row">
           <Buttons
-            size="l"
+            size={platform === "web" ? "l" : "m"}
             type="secondary"
             buttonType="submit"
             title="Search"

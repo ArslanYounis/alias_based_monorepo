@@ -1,6 +1,7 @@
 import type { RadioCardProps } from "@shared/types";
 import React from "react";
 import { Pressable, View } from "react-native";
+import { Text } from "@platform/Text";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
 export type { RadioCardProps };
@@ -57,12 +58,13 @@ export const RadioCard: React.FC<RadioCardProps> = ({
       disabled={disabled}
       className={`
        ${getBackgroundClass()}
-        min-h-[83px]
+        h-[113px]
+        w-[163px]
         flex-1
-        rounded-xs
-        px-l
-        py-s
+        rounded-xs  
         flex
+        flex-row
+        items-center
         justify-center
         ${disabled ? "opacity-40" : ""}
       `}
@@ -72,15 +74,23 @@ export const RadioCard: React.FC<RadioCardProps> = ({
         ${getDirectionClass()}
         `}
       >
-        {icon && <View className={disabled ? "opacity-50" : ""}>{icon}</View>}
+        {icon && (
+          <View
+            className={
+              disabled ? "opacity-50 w-[50px] h-[50px]" : "w-[50px] h-[50px]"
+            }
+          >
+            {icon}
+          </View>
+        )}
 
-        <View className={`${getTextClass()} text-bold-ml`}>
+        <Text className={`${getTextClass()} text-bold-s`}>
           <SharedLanguageSwitchRenderer
             language={language}
             value={label}
             value_ar={label_ar}
           />
-        </View>
+        </Text>
       </View>
     </Pressable>
   );

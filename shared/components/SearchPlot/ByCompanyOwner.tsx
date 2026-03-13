@@ -26,6 +26,7 @@ interface ByCompanyOwnerProps {
   language: "en" | "ar";
   selected?: IOwnerSearchResult[];
   onSubmit?: (val: IOwnerPlotsSearchResult) => void;
+  platform?: "web" | "mobile";
 }
 
 interface DrawerData {
@@ -52,6 +53,7 @@ const ByCompanyOwner = ({
   language = "en",
   selected = [],
   onSubmit = () => {},
+  platform = "web",
 }: ByCompanyOwnerProps) => {
   const [visibleFields, setVisibleFields] = useState<string[]>([]);
   const visibleFieldsRef = useRef(visibleFields);
@@ -91,7 +93,8 @@ const ByCompanyOwner = ({
         )
       );
       const requestedPageSize =
-        Number(value.resultsDisplay) && !Number.isNaN(Number(value.resultsDisplay))
+        Number(value.resultsDisplay) &&
+        !Number.isNaN(Number(value.resultsDisplay))
           ? Number(value.resultsDisplay)
           : 10;
 
@@ -352,7 +355,11 @@ const ByCompanyOwner = ({
           />
         </Container>
 
-        <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
+        <Container
+          className={`grid !grid-cols-1 sm:!grid-cols-2 w-full ${
+            platform === "web" ? "gap-l" : ""
+          }`}
+        >
           <MultiSelect
             placeholder="Add search type"
             placeholder_ar="أضف نوع البحث"
@@ -366,9 +373,9 @@ const ByCompanyOwner = ({
         </Container>
 
         {/* Submit Button */}
-        <Container>
+        <Container className="flex flex-row">
           <Buttons
-            size="l"
+            size={platform === "web" ? "l" : "m"}
             type="secondary"
             title="Search"
             title_ar="بحث"
