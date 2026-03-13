@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
+import { Buttons } from "@platform/Buttons";
 
 export interface PlotInfoItem {
   label: string;
@@ -49,27 +50,38 @@ const ViewOwnerDetail: React.FC<ViewOwnerDetailProps> = ({
   mainTitle_ar = "",
 }) => {
   return (
-    <Container className="w-full" style={{ direction: language === "ar" ? "rtl" : "ltr" }}>
-      {mainTitle || mainTitle_ar ? (
-        <Text className={`text-32! sm:!text-48 font-bold mb-8 text-text-default`}>
-          <SharedLanguageSwitchRenderer
-            language={language}
-            value={mainTitle}
-            value_ar={mainTitle_ar}
-          />
-        </Text>
-      ) : null}
-      {plotCode || plotCode_ar ? (
-        <Text className={`text-32! sm:!text-48 font-bold mb-8 text-text-default`}>
-          <SharedLanguageSwitchRenderer
-            language={language}
-            value={plotCode}
-            value_ar={plotCode_ar || plotCode}
-          />
-        </Text>
-      ) : null}
-      <Container className={`flex flex-col w-full gap-4 mb-8 text-text-default`}>
-        <Container className="flex items-center justify-between">
+    <Container
+      className="w-full"
+      style={{ direction: language === "ar" ? "rtl" : "ltr" }}
+    >
+      <Container className="flex flex-col mb-l">
+        {mainTitle || mainTitle_ar ? (
+          <Text
+            className={`text-heading-h3 sm:text-heading-h1 font-bold mb-xxs text-text-default`}
+          >
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={mainTitle}
+              value_ar={mainTitle_ar}
+            />
+          </Text>
+        ) : null}
+        {/* {plotCode || plotCode_ar ? (
+          <Text
+            className={`text-32! sm:!text-48 font-bold mb-xxs text-text-default`}
+          >
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={plotCode}
+              value_ar={plotCode_ar || plotCode}
+            />
+          </Text>
+        ) : null} */}
+      </Container>
+      <Container
+        className={`flex flex-col w-full gap-4 mb-s text-text-default`}
+      >
+        <Container className="flex flex-row items-center justify-between">
           <Text className={`text-heading-h3 font-bold text-text-default`}>
             <SharedLanguageSwitchRenderer
               language={language}
@@ -77,6 +89,13 @@ const ViewOwnerDetail: React.FC<ViewOwnerDetailProps> = ({
               value_ar={ownerText_ar}
             />
           </Text>
+          <Buttons
+            title="View"
+            title_ar="عرض"
+            type="secondary"
+            size="m"
+            language={language}
+          />
         </Container>
 
         <Container
@@ -91,7 +110,7 @@ const ViewOwnerDetail: React.FC<ViewOwnerDetailProps> = ({
           {owner?.details?.map(({ label, label_ar, value, value_ar }, idx) => (
             <Container
               key={idx}
-              className={`flex gap-l pb-3 mb-3 border-b border-text-dimmed last:border-b-0 text-text-default`}
+              className={`flex flex-row gap-l pb-3 mb-s border-b border-border-dimmed last:border-b-none text-text-default`}
             >
               <Text className="w-[40%] text-bold-m">
                 <SharedLanguageSwitchRenderer

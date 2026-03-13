@@ -58,6 +58,7 @@ import GenericCard from "@shared/components/GenericCard";
 import GenericCards from "@shared/components/GenericCards";
 import GenericTableCard from "@shared/components/GenericTableCard";
 import CardTitle from "@shared/components/CardTitle";
+import ViewOwnerDetail from "@shared/components/ViewOwnerDetail";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -3760,6 +3761,42 @@ export default function App() {
                 language="en"
                 showButtons={false}
                 showBorder={false}
+              />
+            </View>
+            {/* ── G-5.10 ViewOwnerDetail ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-5.10 — ViewOwnerDetail</Text>
+              <ViewOwnerDetail
+                language="en"
+                mainTitle="Plot Ownership Details"
+                owner={{
+                  name: "Ahmed Khalid",
+                  details: [
+                    { label: "Nationality", value: "UAE" },
+                    { label: "Emirates ID", value: "784-1234-5678901-2" },
+                    { label: "Ownership Share", value: "50%" },
+                    { label: "Contact Number", value: "+971 50 123 4567" },
+                    { label: "Email", value: "ahmed.khalid@email.com" },
+                  ],
+                }}
+              />
+              <ViewOwnerDetail
+                language="ar"
+                mainTitle="تفاصيل ملكية الأرض"
+                ownerText="المالك"
+                owner={{
+                  name: "أحمد خالد",
+                  details: [
+                    { label: "الجنسية", value: "الإمارات" },
+                    { label: "رقم الهوية", value: "784-1234-5678901-2" },
+                    { label: "نسبة الملكية", value: "50٪" },
+                    { label: "رقم الهاتف", value: "+971 50 123 4567" },
+                    {
+                      label: "البريد الإلكتروني",
+                      value: "ahmed.khalid@email.com",
+                    },
+                  ],
+                }}
               />
             </View>
           </ScrollView>

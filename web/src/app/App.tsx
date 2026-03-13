@@ -49,6 +49,7 @@ import GenericCard from "@shared/components/GenericCard";
 import GenericCards from "@shared/components/GenericCards";
 import GenericTableCard from "@shared/components/GenericTableCard";
 import CardTitle from "@shared/components/CardTitle";
+import ViewOwnerDetail from "@shared/components/ViewOwnerDetail";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -4703,6 +4704,7 @@ function App() {
             />
           </div>
         </section>
+
         {/* ══════════════════════════ G-5.9 Card Title ══════════════════════════ */}
         <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.9 — Card Title</h2>
@@ -4757,6 +4759,40 @@ function App() {
             showBorder
           />
         </section>
+
+        {/* ══════════════════════════ G-5.10 ViewOwnerDetail ══════════════════════════ */}
+        <section className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold">G-5.10 — ViewOwnerDetail</h2>
+        </section>
+        <ViewOwnerDetail
+          language="en"
+          mainTitle="Plot Ownership Details"
+          owner={{
+            name: "Ahmed Khalid",
+            details: [
+              { label: "Nationality", value: "UAE" },
+              { label: "Emirates ID", value: "784-1234-5678901-2" },
+              { label: "Ownership Share", value: "50%" },
+              { label: "Contact Number", value: "+971 50 123 4567" },
+              { label: "Email", value: "ahmed.khalid@email.com" },
+            ],
+          }}
+        />
+        <ViewOwnerDetail
+          language="ar"
+          mainTitle="تفاصيل ملكية الأرض"
+          ownerText="المالك"
+          owner={{
+            name: "أحمد خالد",
+            details: [
+              { label: "الجنسية", value: "الإمارات" },
+              { label: "رقم الهوية", value: "784-1234-5678901-2" },
+              { label: "نسبة الملكية", value: "50٪" },
+              { label: "رقم الهاتف", value: "+971 50 123 4567" },
+              { label: "البريد الإلكتروني", value: "ahmed.khalid@email.com" },
+            ],
+          }}
+        />
       </Layout>
     </QueryClientProvider>
   );
