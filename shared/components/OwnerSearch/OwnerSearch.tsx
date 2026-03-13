@@ -27,6 +27,7 @@ export interface OwnerSearchProps {
   theme?: "light" | "dark";
   language?: "en" | "ar";
   args?: string;
+  platform?: "web" | "mobile";
 }
 
 const OwnerSearch = ({
@@ -46,8 +47,11 @@ const OwnerSearch = ({
   onSubmit = () => {},
   language = "en",
   args = "",
+  platform = "web",
 }: OwnerSearchProps) => {
-  const [ownerType, setOwnerType] = useState<"owner" | "company">(initialOwnerType);
+  const [ownerType, setOwnerType] = useState<"owner" | "company">(
+    initialOwnerType
+  );
 
   const handleOwnerTypeChange = (id?: string) => {
     if (id) {
@@ -114,6 +118,7 @@ const OwnerSearch = ({
           onSubmit={onSubmit}
           language={language}
           args={args}
+          platform={platform}
         />
       )}
       {ownerType === "owner" && (
@@ -122,6 +127,7 @@ const OwnerSearch = ({
           onSubmit={onSubmit}
           language={language}
           args={args}
+          platform={platform}
         />
       )}
     </Container>

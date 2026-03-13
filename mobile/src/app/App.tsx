@@ -61,6 +61,7 @@ import CardTitle from "@shared/components/CardTitle";
 import ViewOwnerDetail from "@shared/components/ViewOwnerDetail";
 import ApplicationMessage from "@shared/components/ApplicationMessage";
 import { SearchPlot } from "@shared/components/SearchPlot";
+import { OwnerSearch } from "@shared/components/OwnerSearch";
 import axios from "axios";
 import { CustomDrawer } from "../ui/CustomDrawer";
 
@@ -2537,6 +2538,22 @@ export default function App() {
                   />
                 </React.Fragment>
               ))}
+            </View>
+
+            {/* ── G-4.2 OwnerSearch ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>G-4.2 — OwnerSearch</Text>
+              <OwnerSearch
+                title="Search Owner"
+                title_ar="البحث عن المالك"
+                subtitle="Find owners by company or individual owner"
+                subtitle_ar="ابحث عن المالك حسب الشركة أو المالك الفردي"
+                initialOwnerType="company"
+                // selected={mockSelected}
+                language="en"
+                // onSubmit={handleSubmit}
+                platform="mobile"
+              />
             </View>
 
             {/* ── G-4.3 FilterBar ── */}

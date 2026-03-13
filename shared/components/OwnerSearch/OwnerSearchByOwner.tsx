@@ -25,6 +25,7 @@ interface OwnerSearchByOwnerProps {
   language: "en" | "ar";
   selected?: IOwnerSearchResult[];
   onSubmit?: (val: IOwnerSearchResult[]) => void;
+  platform?: "web" | "mobile";
 }
 
 interface DrawerData {
@@ -51,6 +52,7 @@ const OwnerSearchByOwner = ({
   language = "en",
   selected = [],
   onSubmit = () => {},
+  platform = "web",
 }: OwnerSearchByOwnerProps) => {
   const [visibleFields, setVisibleFields] = useState<string[]>([]);
   const visibleFieldsRef = useRef(visibleFields);
@@ -91,7 +93,8 @@ const OwnerSearchByOwner = ({
       );
 
       const requestedPageSize =
-        Number(value.resultsDisplay) && !Number.isNaN(Number(value.resultsDisplay))
+        Number(value.resultsDisplay) &&
+        !Number.isNaN(Number(value.resultsDisplay))
           ? Number(value.resultsDisplay)
           : 10;
 
@@ -189,7 +192,7 @@ const OwnerSearchByOwner = ({
     <Container className="flex flex-col w-full">
       <Container className="flex flex-1 flex-col gap-l">
         {/* Row 1: National Number & Owner Name */}
-        <Container className="flex flex-col sm:flex-row sm:flex-wrap gap-l w-full">
+        <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
           <form.Field
             name="nationalNumber"
             children={(field) => (
@@ -233,7 +236,7 @@ const OwnerSearchByOwner = ({
         </Container>
 
         {/* Row 2: Family Name */}
-        <Container className="flex flex-col sm:flex-row sm:flex-wrap gap-l w-full">
+        <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
           <form.Field
             name="familyName"
             children={(field) => (
@@ -259,7 +262,7 @@ const OwnerSearchByOwner = ({
 
         {/* Dynamic optional fields */}
         {visibleFields?.length > 0 && (
-          <Container className="flex flex-col sm:flex-row sm:flex-wrap gap-l w-full">
+          <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
             {visibleFields.includes("passportNumber") && (
               <form.Field
                 name="passportNumber"
@@ -382,70 +385,69 @@ const OwnerSearchByOwner = ({
         )}
 
         {/* Row: Match Type & Results Display + MultiSelect */}
-        <Container className="flex flex-col sm:flex-row sm:flex-wrap gap-l pt-m w-full border-t border-border-light">
-          <Container className="flex flex-row gap-l sm:flex-1">
-            <Container className="flex-1">
-              <form.Field
-                name="matchType"
-                children={(field) => (
-                  <Select
-                    checked={field.state.value}
-                    onChange={field.handleChange}
-                    label="Match Type"
-                    label_ar="نوع المطابقة"
-                    placeholder="Choose a Match Type"
-                    placeholder_ar="اختر نوع المطابقة"
-                    captionLeft=""
-                    captionRight=""
-                    errorMessage={field.state.meta.errors?.[0]?.message}
-                    options={MatchTypeOptions}
-                    language={language}
-                  />
-                )}
+        <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l pt-m w-full border-t border-border-light">
+          <form.Field
+            name="matchType"
+            children={(field) => (
+              <Select
+                checked={field.state.value}
+                onChange={field.handleChange}
+                label="Match Type"
+                label_ar="نوع المطابقة"
+                placeholder="Choose a Match Type"
+                placeholder_ar="اختر نوع المطابقة"
+                captionLeft=""
+                captionRight=""
+                errorMessage={field.state.meta.errors?.[0]?.message}
+                options={MatchTypeOptions}
+                language={language}
               />
-            </Container>
-            <Container className="flex-1">
-              <form.Field
-                name="resultsDisplay"
-                children={(field) => (
-                  <Select
-                    checked={field.state.value}
-                    onChange={field.handleChange}
-                    label="Results to Display"
-                    label_ar="النتائج المعروضة"
-                    placeholder="Choose Results"
-                    placeholder_ar="اختر النتائج"
-                    captionLeft=""
-                    captionRight=""
-                    errorMessage={field.state.meta.errors?.[0]?.message}
-                    errorMessage_ar={field.state.meta.errors?.[0]?.message}
-                    options={ResultsDisplayOptions}
-                    language={language}
-                  />
-                )}
+            )}
+          />
+          <form.Field
+            name="resultsDisplay"
+            children={(field) => (
+              <Select
+                checked={field.state.value}
+                onChange={field.handleChange}
+                label="Results to Display"
+                label_ar="النتائج المعروضة"
+                placeholder="Choose Results"
+                placeholder_ar="اختر النتائج"
+                captionLeft=""
+                captionRight=""
+                errorMessage={field.state.meta.errors?.[0]?.message}
+                errorMessage_ar={field.state.meta.errors?.[0]?.message}
+                options={ResultsDisplayOptions}
+                language={language}
               />
-            </Container>
-          </Container>
-          <Container className="pt-m sm:flex-1">
-            <MultiSelect
-              placeholder="Add search type"
-              placeholder_ar="أضف نوع البحث"
-              options={SearchByOwnerOptionalFields}
-              value={visibleFields}
-              onChange={setVisibleFields}
-              language={language}
-              showAddButton={true}
-            />
-          </Container>
+            )}
+          />
+        </Container>
+        {/* Add optional search fields */}
+        <Container
+          className={`grid !grid-cols-1 sm:!grid-cols-2 w-full ${
+            platform === "web" ? "gap-l" : ""
+          }`}
+        >
+          <MultiSelect
+            placeholder="Add search type"
+            placeholder_ar="أضف نوع البحث"
+            options={SearchByOwnerOptionalFields}
+            value={visibleFields}
+            onChange={setVisibleFields}
+            language={language}
+            showAddButton={true}
+          />
         </Container>
 
         {/* Submit Button */}
-        <Container>
+        <Container className="flex flex-row">
           <Buttons
-            size="l"
+            size={platform === "web" ? "l" : "m"}
             type="secondary"
-            title={isPending ? "Searching..." : "Search"}
-            title_ar={isPending ? "جاري البحث" : "بحث"}
+            title={"Search"}
+            title_ar={"بحث"}
             language={language}
             leftIcon={<SearchIcon className="text-button-primary-default-bg" />}
             disabled={isPending}

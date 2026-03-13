@@ -52,6 +52,7 @@ import CardTitle from "@shared/components/CardTitle";
 import ViewOwnerDetail from "@shared/components/ViewOwnerDetail";
 import ApplicationMessage from "@shared/components/ApplicationMessage";
 import { SearchPlot } from "@shared/components/SearchPlot";
+import { OwnerSearch } from "@shared/components/OwnerSearch";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -3308,6 +3309,21 @@ function App() {
             </div>
           </div>
         </section>
+        {/* ══════════════════════════ G-4.2 OwnerSearch ══════════════════════════ */}
+        <section className="flex flex-col gap-2">
+          <h2 className={ST}>G-4.2 — OwnerSearch</h2>
+          <OwnerSearch
+            title="Search Owner"
+            title_ar="البحث عن المالك"
+            subtitle="Find owners by company or individual owner"
+            subtitle_ar="ابحث عن المالك حسب الشركة أو المالك الفردي"
+            initialOwnerType="company"
+            // selected={mockSelected}
+            language="en"
+            // onSubmit={handleSubmit}
+          />
+        </section>
+
         {/* ══════════════════════════ G-4.3 Filter Bar ══════════════════════════ */}
         <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.3 — Filter Bar</h2>
