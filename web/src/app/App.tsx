@@ -50,6 +50,7 @@ import GenericCards from "@shared/components/GenericCards";
 import GenericTableCard from "@shared/components/GenericTableCard";
 import CardTitle from "@shared/components/CardTitle";
 import ViewOwnerDetail from "@shared/components/ViewOwnerDetail";
+import ApplicationMessage from "@shared/components/ApplicationMessage";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -111,6 +112,10 @@ function App() {
   const [cbiVal, setCbiVal] = useState<string[]>([]);
   const [rfVal, setRfVal] = useState("");
   const [riVal, setRiVal] = useState("");
+  const [textValue, setTextValue] = useState("");
+  const [selectValue, setSelectValue] = useState("");
+  const [checkboxValue, setCheckboxValue] = useState<string[]>([]);
+  const [radioValue, setRadioValue] = useState("");
 
   const layoutMenuItems = [
     { label: "Profile", label_ar: "الملف الشخصي", onClick: () => {} },
@@ -4763,36 +4768,124 @@ function App() {
         {/* ══════════════════════════ G-5.10 ViewOwnerDetail ══════════════════════════ */}
         <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.10 — ViewOwnerDetail</h2>
+
+          <ViewOwnerDetail
+            language="en"
+            mainTitle="Plot Ownership Details"
+            owner={{
+              name: "Ahmed Khalid",
+              details: [
+                { label: "Nationality", value: "UAE" },
+                { label: "Emirates ID", value: "784-1234-5678901-2" },
+                { label: "Ownership Share", value: "50%" },
+                { label: "Contact Number", value: "+971 50 123 4567" },
+                { label: "Email", value: "ahmed.khalid@email.com" },
+              ],
+            }}
+          />
+          <ViewOwnerDetail
+            language="ar"
+            mainTitle="تفاصيل ملكية الأرض"
+            ownerText="المالك"
+            owner={{
+              name: "أحمد خالد",
+              details: [
+                { label: "الجنسية", value: "الإمارات" },
+                { label: "رقم الهوية", value: "784-1234-5678901-2" },
+                { label: "نسبة الملكية", value: "50٪" },
+                { label: "رقم الهاتف", value: "+971 50 123 4567" },
+                { label: "البريد الإلكتروني", value: "ahmed.khalid@email.com" },
+              ],
+            }}
+          />
         </section>
-        <ViewOwnerDetail
-          language="en"
-          mainTitle="Plot Ownership Details"
-          owner={{
-            name: "Ahmed Khalid",
-            details: [
-              { label: "Nationality", value: "UAE" },
-              { label: "Emirates ID", value: "784-1234-5678901-2" },
-              { label: "Ownership Share", value: "50%" },
-              { label: "Contact Number", value: "+971 50 123 4567" },
-              { label: "Email", value: "ahmed.khalid@email.com" },
-            ],
-          }}
-        />
-        <ViewOwnerDetail
-          language="ar"
-          mainTitle="تفاصيل ملكية الأرض"
-          ownerText="المالك"
-          owner={{
-            name: "أحمد خالد",
-            details: [
-              { label: "الجنسية", value: "الإمارات" },
-              { label: "رقم الهوية", value: "784-1234-5678901-2" },
-              { label: "نسبة الملكية", value: "50٪" },
-              { label: "رقم الهاتف", value: "+971 50 123 4567" },
-              { label: "البريد الإلكتروني", value: "ahmed.khalid@email.com" },
-            ],
-          }}
-        />
+        {/* ══════════════════════════ G-5.12 ApplicationMessage ══════════════════════════ */}
+        <section className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold">G-5.12 — ApplicationMessage</h2>
+          {/* Success Message */}{" "}
+          <ApplicationMessage
+            status="success"
+            title="Application Submitted"
+            description="Your application has been submitted successfully."
+          />{" "}
+          {/* Error Message with Text Input */}{" "}
+          <ApplicationMessage
+            status="error"
+            title="Missing Information"
+            description="Please enter your Emirates ID to continue."
+            type="text"
+            fieldType="uaeid"
+            label="Emirates ID"
+            value={textValue}
+            required
+            onInputChange={(val) => setTextValue(val as string)}
+          />{" "}
+          {/* Information Message with Select */}{" "}
+          <ApplicationMessage
+            status="information"
+            title="Select Application Type"
+            description="Please choose the type of application."
+            fieldType="select"
+            selectType="single"
+            label="Application Type"
+            value={selectValue}
+            options={[
+              { label: "Plot Allocation", value: "allocation" },
+              { label: "Ownership Transfer", value: "transfer" },
+              { label: "Plot Merge", value: "merge" },
+            ]}
+            onInputChange={(val) => setSelectValue(val as string)}
+          />{" "}
+          {/* Checkbox Example */}{" "}
+          <ApplicationMessage
+            status="action"
+            title="Select Required Documents"
+            description="Choose all documents you want to upload."
+            type="checkbox"
+            label="Documents"
+            value={checkboxValue}
+            options={[
+              { label: "Passport", value: "passport" },
+              { label: "Emirates ID", value: "uaeid" },
+              { label: "Property Contract", value: "contract" },
+            ]}
+            onInputChange={(val) => setCheckboxValue(val as string[])}
+          />{" "}
+          {/* Radio Example */}{" "}
+          <ApplicationMessage
+            status="information"
+            title="Ownership Type"
+            description="Select ownership category."
+            type="radio"
+            label="Ownership"
+            value={radioValue}
+            options={[
+              { label: "Individual", value: "individual" },
+              { label: "Company", value: "company" },
+            ]}
+            onInputChange={(val) => setRadioValue(val as string)}
+          />{" "}
+          {/* Action Button */}{" "}
+          <ApplicationMessage
+            status="action"
+            title="Continue Application"
+            description="Click the button below to proceed."
+            type="button"
+            label="Continue"
+            onClick={() => alert("Continue clicked")}
+          />{" "}
+          {/* Arabic RTL Example */}{" "}
+          <ApplicationMessage
+            language="ar"
+            status="success"
+            title="تم إرسال الطلب"
+            description="تم إرسال طلبك بنجاح."
+            type="button"
+            label="متابعة"
+            label_ar="متابعة"
+            onClick={() => alert("متابعة")}
+          />
+        </section>
       </Layout>
     </QueryClientProvider>
   );

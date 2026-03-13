@@ -1,10 +1,11 @@
 import React from "react";
-import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Buttons } from "@platform/Buttons";
+import { Container } from "@platform/Container";
 import { TextInput } from "@platform/TextInput";
-import { CheckboxInput } from "@platform/CheckboxInput";
 import { RadioInput } from "@platform/RadioInput";
+import { CheckboxInput } from "@platform/CheckboxInput";
+import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 import {
   AppMessageSuccessIcon,
   AppMessageErrorIcon,
@@ -33,7 +34,9 @@ interface InputOption {
 
 export interface ApplicationMessageProps {
   title: string;
+  title_ar?: string;
   description: string;
+  description_ar?: string;
   status?: ApplicationStatus;
   language?: "en" | "ar";
   /*  Flattened input props */
@@ -55,12 +58,14 @@ export interface ApplicationMessageProps {
 
   onClick?: () => void;
   onInputChange?: (value: string | string[]) => void;
-
+  platform?: "web" | "mobile";
 }
 
 const ApplicationMessage: React.FC<ApplicationMessageProps> = ({
   title,
+  title_ar,
   description,
+  description_ar,
   language = "en",
   status = "success",
   type,
@@ -80,6 +85,7 @@ const ApplicationMessage: React.FC<ApplicationMessageProps> = ({
   errorMessage_ar,
   onClick,
   onInputChange,
+  platform = "web",
 }) => {
   const getStyles = () => {
     switch (status) {
@@ -249,14 +255,22 @@ const ApplicationMessage: React.FC<ApplicationMessageProps> = ({
       dir={language === "en" ? "ltr" : "rtl"}
       className={`h-auto w-full px-m py-s gap-m rounded-s ${border} ${bg} flex justify-start items-start`}
     >
-      <Container className="flex items-start gap-l">
-        {icon}
+      <Container className="flex flex-row items-start gap-l">
+        {platform === "web" && icon}
         <Container className="space-y-2">
           <Text className="text-bold-l text-structure-menu-select-text pb-0.5">
-            {title}
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={title}
+              value_ar={title_ar}
+            />
           </Text>
           <Text className="text-s text-structure-menu-select-text w-full">
-            {description}
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={description}
+              value_ar={description_ar}
+            />
           </Text>
 
           <Container className="flex items-center gap-m mt-s flex-wrap">

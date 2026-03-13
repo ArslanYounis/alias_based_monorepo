@@ -8,6 +8,7 @@ export interface RadioInputProps {
   tooltipText?: string;
   tooltipText_ar?: string;
   value?: string;
+  checked?: string;
   onChange?: (value: string) => void;
   disabled?: boolean;
   hasError?: boolean;

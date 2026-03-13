@@ -59,6 +59,7 @@ import GenericCards from "@shared/components/GenericCards";
 import GenericTableCard from "@shared/components/GenericTableCard";
 import CardTitle from "@shared/components/CardTitle";
 import ViewOwnerDetail from "@shared/components/ViewOwnerDetail";
+import ApplicationMessage from "@shared/components/ApplicationMessage";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -120,6 +121,10 @@ export default function App() {
   const [cbiVal, setCbiVal] = useState<string[]>([]);
   const [rfVal, setRfVal] = useState("");
   const [riVal, setRiVal] = useState("");
+  const [textValue, setTextValue] = useState("");
+  const [selectValue, setSelectValue] = useState("");
+  const [checkboxValue, setCheckboxValue] = useState<string[]>([]);
+  const [radioValue, setRadioValue] = useState("");
 
   return (
     <GestureHandlerRootView style={{ flex: 1, marginTop: 50 }}>
@@ -3797,6 +3802,102 @@ export default function App() {
                     },
                   ],
                 }}
+              />
+            </View>
+            {/* ── G-5.12 ApplicationMessage ── */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>
+                G-5.12 — ApplicationMessage
+              </Text>
+              {/* Success Message */}{" "}
+              <ApplicationMessage
+                status="success"
+                title="Application Submitted"
+                description="Your application has been submitted successfully."
+                platform="mobile"
+              />{" "}
+              {/* Error Message with Text Input */}{" "}
+              <ApplicationMessage
+                platform="mobile"
+                status="error"
+                title="Missing Information"
+                description="Please enter your Emirates ID to continue."
+                type="text"
+                fieldType="uaeid"
+                label="Emirates ID"
+                value={textValue}
+                required
+                onInputChange={(val) => setTextValue(val as string)}
+              />{" "}
+              {/* Information Message with Select */}{" "}
+              <ApplicationMessage
+                platform="mobile"
+                status="information"
+                title="Select Application Type"
+                description="Please choose the type of application."
+                fieldType="select"
+                selectType="single"
+                label="Application Type"
+                value={selectValue}
+                options={[
+                  { label: "Plot Allocation", value: "allocation" },
+                  { label: "Ownership Transfer", value: "transfer" },
+                  { label: "Plot Merge", value: "merge" },
+                ]}
+                onInputChange={(val) => setSelectValue(val as string)}
+              />{" "}
+              {/* Checkbox Example */}{" "}
+              <ApplicationMessage
+                platform="mobile"
+                status="action"
+                title="Select Required Documents"
+                description="Choose all documents you want to upload."
+                type="checkbox"
+                label="Documents"
+                value={checkboxValue}
+                options={[
+                  { label: "Passport", value: "passport" },
+                  { label: "Emirates ID", value: "uaeid" },
+                  { label: "Property Contract", value: "contract" },
+                ]}
+                onInputChange={(val) => setCheckboxValue(val as string[])}
+              />{" "}
+              {/* Radio Example */}{" "}
+              <ApplicationMessage
+                platform="mobile"
+                status="information"
+                title="Ownership Type"
+                description="Select ownership category."
+                type="radio"
+                label="Ownership"
+                value={radioValue}
+                options={[
+                  { label: "Individual", value: "individual" },
+                  { label: "Company", value: "company" },
+                ]}
+                onInputChange={(val) => setRadioValue(val as string)}
+              />{" "}
+              {/* Action Button */}{" "}
+              <ApplicationMessage
+                platform="mobile"
+                status="action"
+                title="Continue Application"
+                description="Click the button below to proceed."
+                type="button"
+                label="Continue"
+                onClick={() => Alert.alert("Continue clicked")}
+              />{" "}
+              {/* Arabic RTL Example */}{" "}
+              <ApplicationMessage
+                platform="mobile"
+                language="ar"
+                status="success"
+                title="تم إرسال الطلب"
+                description="تم إرسال طلبك بنجاح."
+                type="button"
+                label="متابعة"
+                label_ar="متابعة"
+                onClick={() => Alert.alert("متابعة")}
               />
             </View>
           </ScrollView>
