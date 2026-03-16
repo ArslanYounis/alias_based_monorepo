@@ -65,6 +65,7 @@ import { OwnerSearch } from "@shared/components/OwnerSearch";
 import axios from "axios";
 import { CustomDrawer } from "../ui/CustomDrawer";
 import ViewPlotDetail from "@shared/components/ViewPlotDetail/ViewPlotDetail";
+import Payment from "@shared/components/Payment";
 
 /* ── Shared data ── */
 const selectOptions = [
@@ -165,7 +166,7 @@ export default function App() {
             {/* ═══════════════════════════════════════════════ */}
 
             {/* ── G-0.1 Label ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.1 — Label</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -239,10 +240,10 @@ export default function App() {
                 tooltipText_ar="تلميحة"
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-0.2 Caption ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.2 — Caption</Text>
 
               <Text style={styles.variantLabel}>captionLeft only</Text>
@@ -307,10 +308,10 @@ export default function App() {
                 captionRight_ar="يمين"
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-0.3 Tooltip ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>
                 G-0.3 — Tooltip (all 13 directions)
               </Text>
@@ -325,10 +326,10 @@ export default function App() {
                   />
                 </View>
               ))}
-            </View>
+            </View> */}
 
             {/* ── G-0.4 Checkbox ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.4 — Checkbox</Text>
 
               <Text style={styles.variantLabel}>Default (unchecked)</Text>
@@ -365,10 +366,10 @@ export default function App() {
 
               <Text style={styles.variantLabel}>hasError + checked</Text>
               <Checkbox id="cb-err-ch" checked hasError onChange={() => {}} />
-            </View>
+            </View> */}
 
             {/* ── G-0.5 Radio ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.5 — Radio</Text>
 
               <Text style={styles.variantLabel}>Default (unchecked)</Text>
@@ -409,10 +410,10 @@ export default function App() {
 
               <Text style={styles.variantLabel}>hasError + checked</Text>
               <Radio id="r-err-ch" checked hasError onChange={() => {}} />
-            </View>
+            </View> */}
 
             {/* ── G-0.6 CheckRadioLabel ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.6 — CheckRadioLabel</Text>
 
               <Text style={styles.variantLabel}>Default (en)</Text>
@@ -452,10 +453,10 @@ export default function App() {
                 onClick={() => {}}
                 htmlFor="crl-4"
               />
-            </View>
+            </View> */}
 
             {/* ── G-0.7 AddButton ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.7 — AddButton</Text>
 
               <Text style={styles.variantLabel}>Default (enabled)</Text>
@@ -463,10 +464,10 @@ export default function App() {
 
               <Text style={styles.variantLabel}>disabled=true</Text>
               <AddButton disabled onClick={() => {}} />
-            </View>
+            </View> */}
 
             {/* ── G-0.8 Bk_DateInput ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.8 — Bk_DateInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -528,10 +529,10 @@ export default function App() {
                 value=""
                 onDateChange={() => {}}
               />
-            </View>
+            </View> */}
 
             {/* ── G-0.9 Fields ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.9 — Fields</Text>
 
               <Text style={styles.variantLabel}>type="text" (default)</Text>
@@ -639,10 +640,10 @@ export default function App() {
                 onChange={(v) => setFNumber(String(v))}
                 language={language}
               />
-            </View>
+            </View> */}
 
             {/* ── G-0.10 Toast ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.10 — Toast</Text>
 
               <Text style={styles.variantLabel}>status="success"</Text>
@@ -674,10 +675,10 @@ export default function App() {
                 message="This is a very long toast message that demonstrates how the component handles extended text content and wrapping"
                 status="success"
               />
-            </View>
+            </View> */}
 
             {/* ── G-0.12 Header ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.11 — Header</Text>
 
               <Text style={styles.variantLabel}>Default (English)</Text>
@@ -702,10 +703,10 @@ export default function App() {
                 ]}
                 onAvatarPress={() => console.log("Avatar pressed")}
               />
-            </View>
+            </View> */}
 
             {/* ── G-0.15 Bot ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.13 — Bot</Text>
 
               <Text style={styles.variantLabel}>Status: Close (Default)</Text>
@@ -778,14 +779,14 @@ export default function App() {
                   }
                 />
               </View>
-            </View>
+            </View> */}
 
             {/* ═══════════════════════════════════════════════ */}
             {/* G-2 — Form Components                          */}
             {/* ═══════════════════════════════════════════════ */}
 
             {/* ── G-2.1 TextInput ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.1 — TextInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -879,10 +880,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-2.2 PhoneInput ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.2 — PhoneInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -947,10 +948,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-2.3 TextArea ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.3 — TextArea</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1010,10 +1011,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-2.4 Select ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.4 — Select</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1109,10 +1110,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-2.5 MultiSelect ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.5 — MultiSelect</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1201,10 +1202,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-2.6 CurrencyInput ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.6 — CurrencyInput</Text>
 
               <Text style={styles.variantLabel}>Default (AED)</Text>
@@ -1280,10 +1281,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-2.7 NumberInput ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.7 — NumberInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1359,10 +1360,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-2.8 DateSelect ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.8 — DateSelect</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1426,10 +1427,10 @@ export default function App() {
                 value=""
                 onDateChange={() => {}}
               />
-            </View>
+            </View> */}
 
             {/* ── G-2.9 CheckboxField ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.9 — CheckboxField</Text>
 
               <Text style={styles.variantLabel}>Default (unchecked)</Text>
@@ -1498,10 +1499,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-2.10 CheckboxInput ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.10 — CheckboxInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1590,10 +1591,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-2.11 RadioField ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.11 — RadioField</Text>
 
               <Text style={styles.variantLabel}>Default (unchecked)</Text>
@@ -1682,10 +1683,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ── G-2.12 RadioInput ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.12 — RadioInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1774,17 +1775,16 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View>
+            </View> */}
 
             {/* ═══════════════════════════════════════════════ */}
             {/* G-3 — UI Primitives                     */}
             {/* ═══════════════════════════════════════════════ */}
 
             {/* ── G-3.1 Buttons ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.1 — Buttons</Text>
 
-              {/* Primary Button Variants */}
               <Text style={styles.variantLabel}>Primary Buttons</Text>
 
               {[
@@ -1813,7 +1813,6 @@ export default function App() {
                 </React.Fragment>
               ))}
 
-              {/* Button Types */}
               <Text style={styles.variantLabel}>Button Types</Text>
 
               {[
@@ -1834,7 +1833,6 @@ export default function App() {
                 </React.Fragment>
               ))}
 
-              {/* With Icons */}
               <Text style={styles.variantLabel}>With Icons</Text>
 
               <Text style={styles.variantLabel}>Left Icon Only</Text>
@@ -1865,7 +1863,6 @@ export default function App() {
                 onClick={() => console.log("Both icons clicked")}
               />
 
-              {/* States */}
               <Text style={styles.variantLabel}>Button States</Text>
 
               <Text style={styles.variantLabel}>Disabled</Text>
@@ -1886,7 +1883,6 @@ export default function App() {
                 onClick={() => console.log("Full width clicked")}
               />
 
-              {/* Arabic RTL */}
               <Text style={styles.variantLabel}>Arabic RTL</Text>
 
               {[
@@ -1916,7 +1912,6 @@ export default function App() {
                 </React.Fragment>
               ))}
 
-              {/* Icon Color Customization */}
               <Text style={styles.variantLabel}>Custom Icon Color</Text>
 
               <Buttons
@@ -1929,7 +1924,6 @@ export default function App() {
                 onClick={() => console.log("Colored icons clicked")}
               />
 
-              {/* Size Comparison */}
               <Text style={styles.variantLabel}>Size Comparison</Text>
 
               <View className="flex-row items-center gap-2 flex-wrap">
@@ -1956,7 +1950,6 @@ export default function App() {
                 />
               </View>
 
-              {/* Type Comparison Row */}
               <Text style={styles.variantLabel}>Type Comparison</Text>
 
               <View className="flex-row items-center gap-2 flex-wrap">
@@ -1991,13 +1984,12 @@ export default function App() {
                   onClick={() => {}}
                 />
               </View>
-            </View>
+            </View> */}
 
             {/* ── G-3.2 Typography ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.2 — Typography</Text>
 
-              {/* Heading Variants */}
               <Text style={styles.variantLabel}>Heading Variants</Text>
 
               {[
@@ -2022,7 +2014,6 @@ export default function App() {
                 </React.Fragment>
               ))}
 
-              {/* Text Variants - Regular */}
               <Text style={styles.variantLabel}>Text Variants - Regular</Text>
 
               {[
@@ -2054,7 +2045,6 @@ export default function App() {
                 </React.Fragment>
               ))}
 
-              {/* Text Variants - Bold */}
               <Text style={styles.variantLabel}>Text Variants - Bold</Text>
 
               {[
@@ -2090,7 +2080,6 @@ export default function App() {
                 </React.Fragment>
               ))}
 
-              {/* Color Variants */}
               <Text style={styles.variantLabel}>
                 Color Variants (using text-md)
               </Text>
@@ -2125,7 +2114,6 @@ export default function App() {
                 </React.Fragment>
               ))}
 
-              {/* Arabic RTL Variants */}
               <Text style={styles.variantLabel}>Arabic RTL</Text>
 
               {[
@@ -2214,13 +2202,12 @@ export default function App() {
                   />
                 </View>
               </View>
-            </View>
+            </View> */}
 
             {/* ── G-3.3 Breadcrumb ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.3 — Breadcrumb</Text>
 
-              {/* Basic Variants */}
               <Text style={styles.variantLabel}>Default (2 items)</Text>
               <Breadcrumb
                 language="en"
@@ -2260,7 +2247,6 @@ export default function App() {
                 ]}
               />
 
-              {/* Arabic RTL Variants */}
               <Text style={styles.variantLabel}>Arabic RTL</Text>
               <Breadcrumb
                 language="ar"
@@ -2279,7 +2265,6 @@ export default function App() {
                 ]}
               />
 
-              {/* Interactive Examples */}
               <Text style={styles.variantLabel}>Clickable Items</Text>
               <Breadcrumb
                 language="en"
@@ -2300,7 +2285,6 @@ export default function App() {
                 ]}
               />
 
-              {/* Long Labels */}
               <Text style={styles.variantLabel}>Long Labels</Text>
               <Breadcrumb
                 language="en"
@@ -2314,7 +2298,6 @@ export default function App() {
                 ]}
               />
 
-              {/* Different Configurations */}
               <Text style={styles.variantLabel}>Different Configurations</Text>
 
               {[
@@ -2336,12 +2319,11 @@ export default function App() {
                   />
                 </React.Fragment>
               ))}
-            </View>
+            </View> */}
 
             {/* ── G-3.4 Pagination ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.4 — Pagination</Text>
-              {/* Basic Pagination */}
               <Text style={styles.variantLabel}>Basic (Center Position)</Text>
               <Pagination
                 currentPage={3}
@@ -2350,13 +2332,12 @@ export default function App() {
                 language="en"
                 pageSize={0}
               />
-            </View>
+            </View> */}
 
             {/* ── G-3.5 AddMoreButton ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.5 — AddMoreButton</Text>
 
-              {/* Basic Variants */}
               <Text style={styles.variantLabel}>Default (English)</Text>
               <AddMoreButton
                 title="Add More"
@@ -2372,7 +2353,6 @@ export default function App() {
                 language="ar"
               />
 
-              {/* Custom Plus Icon */}
               <Text style={styles.variantLabel}>Custom Plus Icon (Larger)</Text>
               <AddMoreButton
                 title="Add with Custom Icon"
@@ -2380,13 +2360,12 @@ export default function App() {
                 plusIcon={<Plus size={24} color="#3b82f6" />}
                 language="en"
               />
-            </View>
+            </View> */}
 
             {/* ── G-3.6 Prompt ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.6 — Prompt</Text>
 
-              {/* Basic Variants */}
               <Text style={styles.variantLabel}>Default (English)</Text>
               <Prompt
                 title="Are you sure?"
@@ -2395,15 +2374,15 @@ export default function App() {
                 onNoClick={() => console.log("No clicked")}
                 language="en"
               />
-            </View>
+            </View> */}
 
             {/* ── G-3.7 ScreenLoader ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.7 — ScreenLoader</Text>
 
               <Text style={styles.variantLabel}>Default </Text>
               <ScreenLoader isLoading={false} />
-            </View>
+            </View> */}
 
             {/* ═══════════════════════════════════════════════ */}
             {/* G-4 — Recommended placement                   */}
@@ -2605,11 +2584,20 @@ export default function App() {
               />
             </View>
 
+            {/* ── G-4.4 Payment ── */}
+            <View>
+              <Text style={styles.sectionTitle}>G-4.4 — Payment</Text>
+              <Payment
+                language="en"
+                platform="mobile"
+                applicationId="ptmVwwNZMaaKc0HwhTMMHWc3HeZiJXZm"
+              />
+            </View>
+
             {/* ── G-4.6 Signature ── */}
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-4.6 — Signature</Text>
 
-              {/* Default */}
               <Text style={styles.variantLabel}>
                 Default Signature (Light Theme)
               </Text>
@@ -2621,7 +2609,6 @@ export default function App() {
                 onSubmit={(data) => console.log("Signed SVG:", data.signature)}
               />
 
-              {/* Arabic RTL */}
               <Text style={styles.variantLabel}>Arabic RTL</Text>
               <Signature
                 language="ar"
@@ -2632,16 +2619,6 @@ export default function App() {
                 onSubmit={(data) =>
                   console.log("Arabic Signed SVG:", data.signature)
                 }
-              />
-
-              {/* Different Button Texts */}
-              <Text style={styles.variantLabel}>Custom Button Text</Text>
-              <Signature
-                language="en"
-                title="Sign Here"
-                buttonText="Confirm Signature"
-                theme="light"
-                onSubmit={(data) => console.log("Signed SVG:", data.signature)}
               />
             </View>
 
@@ -2765,10 +2742,9 @@ export default function App() {
             {/* ═══════════════════════════════════════════════ */}
 
             {/* ── G-5.1 Application Table ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.1 — Application Table</Text>
 
-              {/* Default Table */}
 
               <Text style={styles.variantLabel}>Default</Text>
               <Table
@@ -2924,13 +2900,12 @@ export default function App() {
                   },
                 ]}
               />
-            </View>
+            </View> */}
 
             {/* ── G-5.2 Owner Card ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.2 — OwnerCard</Text>
 
-              {/* Default */}
               <Text style={styles.variantLabel}>Default Owner Card</Text>
               <OwnerCard
                 language="en"
@@ -2953,7 +2928,6 @@ export default function App() {
                 }
               />
 
-              {/* Multiple Owners */}
               <Text style={styles.variantLabel}>Multiple Owners</Text>
               <OwnerCard
                 language="en"
@@ -2987,7 +2961,6 @@ export default function App() {
                 }
               />
 
-              {/* With Delete Button */}
               <Text style={styles.variantLabel}>With Delete Action</Text>
               <OwnerCard
                 language="en"
@@ -3011,7 +2984,6 @@ export default function App() {
                 }
               />
 
-              {/* Expandable */}
               <Text style={styles.variantLabel}>Expandable Card</Text>
               <OwnerCard
                 language="en"
@@ -3034,7 +3006,6 @@ export default function App() {
                 ]}
               />
 
-              {/* Arabic RTL */}
               <Text style={styles.variantLabel}>Arabic RTL</Text>
               <OwnerCard
                 language="ar"
@@ -3063,13 +3034,12 @@ export default function App() {
                   },
                 ]}
               />
-            </View>
+            </View> */}
 
             {/* ── G-5.3 PlotCard ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.3 — PlotCard</Text>
 
-              {/* Default */}
               <Text style={styles.variantLabel}>Default Plot Card</Text>
               <PlotCard
                 language="en"
@@ -3090,7 +3060,6 @@ export default function App() {
                 onPressView={(plot) => console.log("View Plot:", plot)}
               />
 
-              {/* Multiple Plots */}
               <Text style={styles.variantLabel}>Multiple Plots</Text>
               <PlotCard
                 language="en"
@@ -3121,7 +3090,6 @@ export default function App() {
                 onPressView={(plot) => console.log("View Plot:", plot)}
               />
 
-              {/* With Change Plot Button */}
               <Text style={styles.variantLabel}>Change Plot Action</Text>
               <PlotCard
                 language="en"
@@ -3145,7 +3113,6 @@ export default function App() {
                 }
               />
 
-              {/* With Owners Button */}
               <Text style={styles.variantLabel}>Owners Action</Text>
               <PlotCard
                 language="en"
@@ -3169,7 +3136,6 @@ export default function App() {
                 }
               />
 
-              {/* Expandable with Many Fields */}
               <Text style={styles.variantLabel}>Expandable Plot Card</Text>
               <PlotCard
                 language="en"
@@ -3191,7 +3157,6 @@ export default function App() {
                 ]}
               />
 
-              {/* Arabic RTL */}
               <Text style={styles.variantLabel}>Arabic RTL</Text>
               <PlotCard
                 language="ar"
@@ -3227,15 +3192,17 @@ export default function App() {
                   },
                 ]}
               />
-            </View>
+            </View> */}
+
             {/* ── G-5.4 Modal Title ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.4 — Modal Title</Text>
               <ModalTitle label="Title" platform="mobile" />
               <ModalTitle label_ar="العنوان" language="ar" platform="mobile" />
-            </View>
+            </View> */}
+
             {/* ── G-5.5 Modal Steps ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.5 — Modal Steps</Text>
               <ModalSteps title="Title" subText="Step 1 of 2" />
               <ModalSteps
@@ -3243,12 +3210,12 @@ export default function App() {
                 subText_ar="الخطوة 1 من 2"
                 language="ar"
               />
-            </View>
+            </View> */}
+
             {/* ── G-5.6 GenericCard ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.6 — GenericCard</Text>
 
-              {/* Default Card */}
               <Text style={styles.variantLabel}>Default Card</Text>
               <GenericCard
                 platform="mobile"
@@ -3262,7 +3229,6 @@ export default function App() {
                 language="en"
               />
 
-              {/* With Buttons */}
               <Text style={styles.variantLabel}>Card With Buttons</Text>
               <GenericCard
                 platform="mobile"
@@ -3290,7 +3256,6 @@ export default function App() {
                 language="en"
               />
 
-              {/* Expandable Card */}
               <Text style={styles.variantLabel}>Expandable Card</Text>
               <GenericCard
                 platform="mobile"
@@ -3309,7 +3274,6 @@ export default function App() {
                 language="en"
               />
 
-              {/* With Documents */}
               <Text style={styles.variantLabel}>Card With Documents</Text>
               <GenericCard
                 platform="mobile"
@@ -3337,7 +3301,6 @@ export default function App() {
                 language="en"
               />
 
-              {/* With Footer Buttons */}
               <Text style={styles.variantLabel}>Footer Buttons</Text>
               <GenericCard
                 platform="mobile"
@@ -3364,7 +3327,6 @@ export default function App() {
                 language="en"
               />
 
-              {/* Arabic RTL */}
               <Text style={styles.variantLabel}>Arabic RTL</Text>
               <GenericCard
                 platform="mobile"
@@ -3379,12 +3341,12 @@ export default function App() {
                 ]}
                 language="ar"
               />
-            </View>
+            </View> */}
+
             {/* ── G-5.7 GenericCards ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.7 — GenericCards</Text>
 
-              {/* Default - Single Card */}
               <Text style={styles.variantLabel}>Single Card</Text>
               <GenericCards
                 language="en"
@@ -3404,7 +3366,6 @@ export default function App() {
                 ]}
               />
 
-              {/* Two Cards Per Row */}
               <Text style={styles.variantLabel}>Two Cards Per Row</Text>
               <GenericCards
                 language="en"
@@ -3435,7 +3396,6 @@ export default function App() {
                 ]}
               />
 
-              {/* Three Cards Grid */}
               <Text style={styles.variantLabel}>Three Cards Grid</Text>
               <GenericCards
                 language="en"
@@ -3473,7 +3433,6 @@ export default function App() {
                 ]}
               />
 
-              {/* With Action Buttons */}
               <Text style={styles.variantLabel}>Cards With Buttons</Text>
               <GenericCards
                 language="en"
@@ -3514,7 +3473,6 @@ export default function App() {
                 ]}
               />
 
-              {/* Expandable Cards */}
               <Text style={styles.variantLabel}>Expandable Cards</Text>
               <GenericCards
                 language="en"
@@ -3536,7 +3494,6 @@ export default function App() {
                 ]}
               />
 
-              {/* Arabic RTL */}
               <Text style={styles.variantLabel}>Arabic RTL</Text>
               <GenericCards
                 language="ar"
@@ -3556,12 +3513,12 @@ export default function App() {
                   },
                 ]}
               />
-            </View>
+            </View> */}
+
             {/* ── G-5.8 GenericTableCard ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.8 — GenericTableCard</Text>
 
-              {/* Default Table Card */}
               <Text style={styles.variantLabel}>Default Table</Text>
               <GenericTableCard
                 platform="mobile"
@@ -3753,9 +3710,10 @@ export default function App() {
                 pageSize={5}
                 onPageChange={(page) => console.log(page)}
               />
-            </View>
+            </View> */}
+
             {/* ── G-5.9 Card Title ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.9 — Card Title</Text>
               <CardTitle
                 platform="mobile"
@@ -3808,9 +3766,10 @@ export default function App() {
                 showButtons={false}
                 showBorder={false}
               />
-            </View>
+            </View> */}
+
             {/* ── G-5.10 ViewOwnerDetail ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.10 — ViewOwnerDetail</Text>
               <ViewOwnerDetail
                 language="en"
@@ -3844,20 +3803,19 @@ export default function App() {
                   ],
                 }}
               />
-            </View>
+            </View> */}
+
             {/* ── G-5.12 ApplicationMessage ── */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.sectionTitle}>
                 G-5.12 — ApplicationMessage
               </Text>
-              {/* Success Message */}{" "}
               <ApplicationMessage
                 status="success"
                 title="Application Submitted"
                 description="Your application has been submitted successfully."
                 platform="mobile"
               />
-              {/* Error Message with Text Input */}{" "}
               <ApplicationMessage
                 platform="mobile"
                 status="error"
@@ -3870,7 +3828,6 @@ export default function App() {
                 required
                 onInputChange={(val) => setTextValue(val as string)}
               />{" "}
-              {/* Information Message with Select */}{" "}
               <ApplicationMessage
                 platform="mobile"
                 status="information"
@@ -3887,7 +3844,6 @@ export default function App() {
                 ]}
                 onInputChange={(val) => setSelectValue(val as string)}
               />{" "}
-              {/* Checkbox Example */}{" "}
               <ApplicationMessage
                 platform="mobile"
                 status="action"
@@ -3903,7 +3859,6 @@ export default function App() {
                 ]}
                 onInputChange={(val) => setCheckboxValue(val as string[])}
               />{" "}
-              {/* Radio Example */}{" "}
               <ApplicationMessage
                 platform="mobile"
                 status="information"
@@ -3918,7 +3873,6 @@ export default function App() {
                 ]}
                 onInputChange={(val) => setRadioValue(val as string)}
               />{" "}
-              {/* Action Button */}{" "}
               <ApplicationMessage
                 platform="mobile"
                 status="action"
@@ -3928,7 +3882,6 @@ export default function App() {
                 label="Continue"
                 onClick={() => Alert.alert("Continue clicked")}
               />{" "}
-              {/* Arabic RTL Example */}{" "}
               <ApplicationMessage
                 platform="mobile"
                 language="ar"
@@ -3940,9 +3893,10 @@ export default function App() {
                 label_ar="متابعة"
                 onClick={() => Alert.alert("متابعة")}
               />
-            </View>
+            </View> */}
+
             {/* ── G-5.14 SearchPlot ── */}
-            <View>
+            {/* <View>
               <Text style={styles.sectionTitle}>G-5.14 — SearchPlot</Text>
               <SearchPlot
                 platform="mobile"
@@ -3958,7 +3912,7 @@ export default function App() {
                 }}
               />
               <CustomDrawer open={true} />
-            </View>
+            </View> */}
           </ScrollView>
         </QueryClientProvider>
       </BottomSheetModalProvider>

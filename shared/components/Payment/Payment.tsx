@@ -86,6 +86,7 @@ export interface PaymentProps {
   isPaymentSubmitting?: boolean;
   /** Optional callback for external payment success (triggered by parent) */
   onSuccess?: () => void;
+  platform?: "web" | "mobile";
 }
 
 const Payment: React.FC<PaymentProps> = ({
@@ -99,6 +100,7 @@ const Payment: React.FC<PaymentProps> = ({
   isStepInfoPending = false,
   onPaymentSubmit,
   isPaymentSubmitting = false,
+  platform = "web",
 }) => {
   const [step, setStep] = useState<StepId>(0);
   const [paymentType, setPaymentType] = useState<
@@ -106,10 +108,10 @@ const Payment: React.FC<PaymentProps> = ({
   >("Payment");
 
   const [rentFeesResult, setRentFeesResult] = useState<RentFeesResponse | null>(
-    null,
+    null
   );
   const [remarksError, setRemarksError] = useState<string | undefined>(
-    undefined,
+    undefined
   );
 
   const initialValues: CombinedForm = {
@@ -175,7 +177,7 @@ const Payment: React.FC<PaymentProps> = ({
     if (!isPayment) {
       if (!values?.tenancyRemarks?.trim()) {
         setRemarksError(
-          language === "ar" ? "الملاحظات مطلوبة" : "Remarks are required",
+          language === "ar" ? "الملاحظات مطلوبة" : "Remarks are required"
         );
         return;
       }
@@ -193,14 +195,14 @@ const Payment: React.FC<PaymentProps> = ({
     // Build shared payload only once
     const basePayload: PaymentSubmitPayload = {
       ranchLandClassificationId: Number(
-        stepInfo?.result?.tenancyContract?.requestLandClassificationId ?? 0,
+        stepInfo?.result?.tenancyContract?.requestLandClassificationId ?? 0
       ),
       plotId: Number(stepInfo?.result?.tenancyContract?.plotId ?? 0),
       tenancyContractId: Number(
-        stepInfo?.result?.tenancyContract?.tenancyContractId ?? 0,
+        stepInfo?.result?.tenancyContract?.tenancyContractId ?? 0
       ),
       contractDuration: String(
-        stepInfo?.result?.tenancyContract?.contractDuration,
+        stepInfo?.result?.tenancyContract?.contractDuration
       ),
       isFirstYearFreeOfPayment: values?.isFirstYearFreeOfPayment ? 1 : 0,
       isSkipPayment: !isPayment,
@@ -266,7 +268,7 @@ const Payment: React.FC<PaymentProps> = ({
     <Container className="flex flex-col flex-1 rounded-md">
       <Container className="flex flex-col flex-1">
         {/* Payment / No Payment choice */}
-        <Container className="mb-8 flex flex-col sm:flex-row gap-4">
+        <Container className="mb-8 flex flex-row gap-4">
           <RadioCard
             icon={paymentIcon}
             label="Payment"
@@ -297,32 +299,32 @@ const Payment: React.FC<PaymentProps> = ({
                 step === 0
                   ? "Contract"
                   : step === 1
-                    ? "Measurement"
-                    : step === 2
-                      ? "Insurance"
-                      : step === 3
-                        ? "Rent"
-                        : ""
+                  ? "Measurement"
+                  : step === 2
+                  ? "Insurance"
+                  : step === 3
+                  ? "Rent"
+                  : ""
               }
               title_ar={
                 step === 0
                   ? "العقد"
                   : step === 1
-                    ? "القياسات"
-                    : step === 2
-                      ? "التأمين"
-                      : step === 3
-                        ? "الإيجار"
-                        : ""
+                  ? "القياسات"
+                  : step === 2
+                  ? "التأمين"
+                  : step === 3
+                  ? "الإيجار"
+                  : ""
               }
               subText={`Step ${step + 1} of ${totalSteps}`}
               subText_ar={`الخطوة ${toArabicDigits(
-                step + 1,
+                step + 1
               )} من ${toArabicDigits(totalSteps)}`}
-              variant="large"
+              variant={platform === "web" ? "large" : "medium"}
               language={language}
             />
-            <Text className="text-m text-text-default py-xl">
+            <Text className={`text-m text-text-default py-s`}>
               <SharedLanguageSwitchRenderer
                 value="Please enter the valid details to continue."
                 value_ar="الرجاء إدخال التفاصيل الصحيحة للمتابعة."
@@ -365,7 +367,7 @@ const Payment: React.FC<PaymentProps> = ({
                     } catch (err) {
                       console.warn(
                         "Failed to set form values via setValue:",
-                        err,
+                        err
                       );
                     }
                   }}
@@ -416,12 +418,16 @@ const Payment: React.FC<PaymentProps> = ({
       </Container>
 
       {/* Footer */}
-      <Container className="flex pt-xl items-center justify-end gap-xs">
+      <Container
+        className={`flex flex-row ${
+          platform === "web" ? "py-xl" : "py-s"
+        } items-center justify-end gap-xs`}
+      >
         <Buttons
           title="Continue Later"
           title_ar="استمرار لاحقًا"
           type="delete"
-          size="l"
+          size={platform === "web" ? "l" : "m"}
           onClick={onSaveDraftClick}
           language={language}
         />
@@ -429,7 +435,7 @@ const Payment: React.FC<PaymentProps> = ({
           title="Back"
           title_ar="رجوع"
           type="secondary"
-          size="l"
+          size={platform === "web" ? "l" : "m"}
           onClick={onBackClick}
           language={language}
           disabled={step === 0 || paymentType === "No Payment"}
@@ -448,7 +454,7 @@ const Payment: React.FC<PaymentProps> = ({
               : "التالي"
           }
           type="primary"
-          size="l"
+          size={platform === "web" ? "l" : "m"}
           onClick={onNextClick}
           language={language}
           disabled={isPaymentSubmitting}

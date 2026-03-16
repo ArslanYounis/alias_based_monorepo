@@ -53,6 +53,7 @@ import ViewOwnerDetail from "@shared/components/ViewOwnerDetail";
 import ApplicationMessage from "@shared/components/ApplicationMessage";
 import { SearchPlot } from "@shared/components/SearchPlot";
 import { OwnerSearch } from "@shared/components/OwnerSearch";
+import Payment from "@shared/components/Payment";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -3390,6 +3391,16 @@ function App() {
             </div>
           </div>
         </section>
+
+        {/* ══════════════════════════ G-4.4 Payment ══════════════════════════ */}
+        <section className="flex flex-col gap-2">
+          <h2 className={ST}>G-4.4 — Payment</h2>
+          <Payment
+            language="en"
+            applicationId="ptmVwwNZMaaKc0HwhTMMHWc3HeZiJXZm"
+          />
+        </section>
+
         {/* ══════════════════════════ G-4.6 Signature Component ══════════════════════════ */}
         <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.6 — Signature</h2>
@@ -3438,6 +3449,7 @@ function App() {
             </div>
           </div>
         </section>
+
         {/* ══════════════════════════ G-4.7 Upload Documents ══════════════════════════ */}
         <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.7 — Upload Documents</h2>
@@ -3527,6 +3539,7 @@ function App() {
             </div>
           </div>
         </section>
+
         {/* ══════════════════════════ G-4.8 View Plot Detail ══════════════════════════ */}
         <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.8 — View Plot Detail</h2>

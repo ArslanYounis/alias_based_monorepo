@@ -66,6 +66,7 @@ export const RadioCard: React.FC<RadioCardProps> = ({
         flex-row
         items-center
         justify-center
+        px-s
         ${disabled ? "opacity-40" : ""}
       `}
     >
