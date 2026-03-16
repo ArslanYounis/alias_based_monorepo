@@ -1,7 +1,7 @@
-import type { CustomDrawerProps, DrawerSize } from "@shared/types";
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { View } from "react-native";
-import { BottomSheetModal, BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import type { CustomDrawerProps, DrawerSize } from "@shared/types";
+import React, { useCallback, useMemo, useRef, useEffect } from "react";
+import { BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 export type { CustomDrawerProps, DrawerSize };
 
@@ -15,59 +15,55 @@ export const CustomDrawer: React.FC<CustomDrawerProps> = ({
   open,
   onOpenChange,
   size = "layer1",
-  backgroundClassName,
-  className,
-  dismissible = false,
+  dismissible = true,
   children,
-  language = "en",
   header,
 }) => {
-  const sheetRef = useRef<BottomSheetModal>(null);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   const snapPoints = useMemo(() => drawerSnapPoints[size], [size]);
 
-  const renderBackdrop = useCallback(
-    (props: React.ComponentProps<typeof BottomSheetBackdrop>) => (
-      <BottomSheetBackdrop
-        {...props}
-        pressBehavior={dismissible ? "close" : "none"}
-      />
-    ),
-    [dismissible]
+  const handleSheetChanges = useCallback(
+    (index: number) => {
+      if (index === -1) {
+        onOpenChange?.(false);
+      }
+    },
+    [onOpenChange]
   );
 
-  // Sync open state with modal present/dismiss
+  // control open / close
   useEffect(() => {
     if (open) {
-      sheetRef.current?.present();
+      bottomSheetModalRef.current?.present();
     } else {
-      sheetRef.current?.dismiss();
+      bottomSheetModalRef.current?.dismiss();
     }
   }, [open]);
 
   return (
     <BottomSheetModal
-      ref={sheetRef}
+      ref={bottomSheetModalRef}
       snapPoints={snapPoints}
       enablePanDownToClose={dismissible}
-      onDismiss={() => onOpenChange?.(false)}
-      backdropComponent={renderBackdrop}
-      backgroundStyle={{ backgroundColor: "transparent" }}
+      onChange={handleSheetChanges}
+      backgroundStyle={{ backgroundColor: "#fff" }}
       handleIndicatorStyle={{ backgroundColor: "#ccc" }}
     >
-      <View
-        className={`
-          flex-1 rounded-t-2xl
-          ${backgroundClassName ?? "bg-white"}
-          ${className ?? ""}
-        `}
+      <BottomSheetScrollView
+        style={{
+          flex: 1,
+          paddingHorizontal: 24,
+          paddingBottom: 24,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          overflow: "scroll",
+        }}
       >
-        {header && <View className="px-xxxl pb-lg">{header}</View>}
+        {header && <View style={{ marginBottom: 16 }}>{header}</View>}
 
-        <View className="flex-1 px-xxxl gap-xl overflow-y-auto pb-xl">
-          {children}
-        </View>
-      </View>
+        <View style={{ flex: 1 }}>{children}</View>
+      </BottomSheetScrollView>
     </BottomSheetModal>
   );
 };

@@ -395,19 +395,21 @@ const ByCompanyOwner = ({
         onOpenChange={setDrawerOpen}
       >
         {drawerData && (
-          <SearchOwnerResult
-            ownerName={drawerData?.companyName || ""}
-            results={drawerData?.results || []}
-            pageSize={drawerData?.pageSize}
-            totalCount={drawerData?.totalCount}
-            selected={selected}
-            onSubmit={onSubmit}
-            onCloseDrawer={() => setDrawerOpen(false)}
-            language={language}
-            onPageChange={handlePageChange}
-            isLoading={isPending}
-            args={args}
-          />
+          <Container className="overflow-y-auto">
+            <SearchOwnerResult
+              ownerName={drawerData?.companyName || ""}
+              results={drawerData?.results || []}
+              pageSize={drawerData?.pageSize}
+              totalCount={drawerData?.totalCount}
+              selected={selected}
+              onSubmit={onSubmit}
+              onCloseDrawer={() => setDrawerOpen(false)}
+              language={language}
+              onPageChange={handlePageChange}
+              isLoading={isPending}
+              args={args}
+            />
+          </Container>
         )}
       </CustomDrawer>
     </Container>

@@ -44,6 +44,7 @@ interface SearchResultsModalProps {
   onSelectPlot?: () => void;
   onPageChange?: (page: number) => void;
   onSelectResult?: (result: SearchResult) => void;
+  platform?: "web" | "mobile";
 }
 
 const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
@@ -62,11 +63,14 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
   language = "en",
   onPageChange,
   onSelectResult,
+  platform = "web",
 }) => {
-  const [selectedIds, setSelectedIds] = React.useState<SearchResult[]>(selected);
+  const [selectedIds, setSelectedIds] =
+    React.useState<SearchResult[]>(selected);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
-  const [isOwnerPlotsDrawerOpen, setOwnerPlotsDrawerOpen] = React.useState(false);
+  const [isOwnerPlotsDrawerOpen, setOwnerPlotsDrawerOpen] =
+    React.useState(false);
   const totalPages = Math.ceil(totalCount / pageSize);
 
   const handleRadioSelect = (result: SearchResult) => {
@@ -93,25 +97,30 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
   const textColor = "text-text-default";
 
   const renderResultCard = (result: SearchResult, index: number) => {
-    const isSelected = some(selectedIds, (val) => val.plotId === result?.plotId);
+    const isSelected = some(
+      selectedIds,
+      (val) => val.plotId === result?.plotId
+    );
 
     return (
       <Container
         key={index}
         className={`mb-4 rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer border border-cards-stroke ${
-          isSelected ? "bg-cards-searchResult-selected" : "bg-cards-searchResult"
+          isSelected
+            ? "bg-cards-searchResult-selected"
+            : "bg-cards-searchResult"
         }`}
         onClick={() => handleRadioSelect(result)}
       >
-        <Container className="flex justify-between mb-3">
-          <Text className={`text-bold-l ${textColor}`}>
+        <Container className="flex flex-row justify-between mb-3">
+          <Text className={`text-bold-l mr-s ${textColor}`}>
             <SharedLanguageSwitchRenderer
               language={language}
               value={result?.communityName}
               value_ar={result?.communityName}
             />
           </Text>
-          <Container className="flex items-center gap-m">
+          <Container className="flex flex-row flex-wrap items-center gap-m">
             <Buttons
               title="Owners"
               title_ar="المالكون"
@@ -151,11 +160,13 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
         ].map(({ label, label_ar, value, value_ar }, idx, array) => (
           <Container
             key={label}
-            className={`flex ${
-              idx !== array.length - 1 ? "border-b border-text-dimmed pb-2 mb-2" : ""
+            className={`flex flex-row ${
+              idx !== array.length - 1
+                ? "border-b border-text-dimmed pb-2 mb-2"
+                : ""
             }`}
           >
-            <Container className="sm:w-1/2 w-full">
+            <Container className="w-1/2">
               <Text className={`text-bold-m ${textColor}`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -164,7 +175,7 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
                 />
               </Text>
             </Container>
-            <Container className="sm:w-1/2 w-full">
+            <Container className="w-1/2">
               <Text className={`text-m break-words ${textColor}`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -182,7 +193,11 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
   return (
     <Container dir={language === "ar" ? "rtl" : "ltr"}>
       <Container>
-        <Text className={`text-heading-h1 font-bold mb-4 text-text-default`}>
+        <Text
+          className={`${
+            platform === "web" ? "text-heading-h1" : "text-heading-h3"
+          } font-bold mb-4 text-text-default`}
+        >
           <SharedLanguageSwitchRenderer
             language={language}
             value="Search Results"
@@ -222,14 +237,19 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
                   value_ar="لمعايير البحث التالية:"
                 />
               </Text>
-              <Container className="flex items-center">
+              <Container className="flex flex-row items-center">
                 {[
-                  { value: municipality, value_ar: municipality_ar || municipality },
+                  {
+                    value: municipality,
+                    value_ar: municipality_ar || municipality,
+                  },
                   { value: zone, value_ar: zone_ar || zone },
                   { value: sector, value_ar: sector_ar || sector },
                 ].map((item, idx) => (
                   <React.Fragment key={idx}>
-                    <Text className={`text-bold-m gap-xxs line-clamp-1 ${textColor}`}>
+                    <Text
+                      className={`text-bold-m gap-xxs line-clamp-1 ${textColor}`}
+                    >
                       <SharedLanguageSwitchRenderer
                         language={language}
                         value={item.value}
@@ -258,7 +278,7 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
                 title="Select Plot"
                 title_ar="اختر القطعة"
                 disabled={!selectedIds}
-                size="l"
+                size={platform === "web" ? "l" : "m"}
                 language={language}
                 onClick={() => {
                   if (selectedIds && selectedIds?.[0]) {
@@ -270,16 +290,18 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
                   }
                 }}
               />
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                totalCount={totalCount}
-                onPageChange={handlePageChange}
-                showPageNumbers={true}
-                position="right"
-                pageSize={pageSize}
-                language={language}
-              />
+              <Container className="my-m">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  totalCount={totalCount}
+                  onPageChange={handlePageChange}
+                  showPageNumbers={true}
+                  position="right"
+                  pageSize={pageSize}
+                  language={language}
+                />
+              </Container>
             </Container>
           </>
         )}

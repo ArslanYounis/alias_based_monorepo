@@ -497,6 +497,7 @@ const ByPlot = ({
               isLoading={isPending}
               args={args ?? ""}
               onSelectResult={onSelectResult}
+              platform={platform}
             />
           </Container>
         )}

@@ -5334,7 +5334,7 @@ function App() {
         </section> */}
 
         {/* ══════════════════════════ G-5.14 SearchPlot ══════════════════════════ */}
-        {/* <section className="flex flex-col gap-6">
+        <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.14 — SearchPlot</h2>
           <SearchPlot
             title="Search Plot"
@@ -5348,7 +5348,7 @@ function App() {
               randomAllocation: false,
             }}
           />
-        </section> */}
+        </section>
       </Layout>
     </QueryClientProvider>
   );
