@@ -260,16 +260,17 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
                   </React.Fragment>
                 ))}
                 <Text className="text-text-dimmed mx-1">|</Text>
-                <Text
-                  className={`text-bold-m cursor-pointer hover:underline text-text-link-hover`}
-                  onClick={onCloseDrawer}
-                >
-                  <SharedLanguageSwitchRenderer
-                    language={language}
-                    value="Edit"
-                    value_ar="تعديل"
-                  />
-                </Text>
+                <Container onClick={onCloseDrawer}>
+                  <Text
+                    className={`text-bold-m cursor-pointer hover:underline text-text-link-hover`}
+                  >
+                    <SharedLanguageSwitchRenderer
+                      language={language}
+                      value="Edit"
+                      value_ar="تعديل"
+                    />
+                  </Text>
+                </Container>
               </Container>
             </Container>
             {getCurrentPageResults().map(renderResultCard)}

@@ -112,14 +112,14 @@ const ViewOwnerDetail: React.FC<ViewOwnerDetailProps> = ({
               key={idx}
               className={`flex flex-row gap-l pb-3 mb-s border-b border-border-dimmed last:border-b-none text-text-default`}
             >
-              <Text className="w-[40%] text-bold-m">
+              <Text className={"sm:w-[40%] w-[50%] text-bold-m"}>
                 <SharedLanguageSwitchRenderer
                   language={language}
                   value={label}
                   value_ar={label_ar || label}
                 />
               </Text>
-              <Text className="w-[55%] text-m">
+              <Text className="sm:w-[55%] w-[45%] text-m">
                 <SharedLanguageSwitchRenderer
                   language={language}
                   value={value}

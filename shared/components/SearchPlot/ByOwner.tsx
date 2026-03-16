@@ -478,6 +478,7 @@ const ByOwner = ({
             onPageChange={handlePageChange}
             isLoading={isPending}
             args={args}
+            platform={platform}
           />
         )}
       </CustomDrawer>

@@ -6,7 +6,10 @@ import { Buttons } from "@platform/Buttons";
 import { Pagination } from "@platform/Pagination";
 import { CustomDrawer } from "@platform/CustomDrawer";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
-import { useGetOwnerPlots, type IOwnerPlotsSearchResult } from "../../hooks/useGetOwnerPlots";
+import {
+  useGetOwnerPlots,
+  type IOwnerPlotsSearchResult,
+} from "../../hooks/useGetOwnerPlots";
 import ViewOwnerDetail from "../ViewOwnerDetail/ViewOwnerDetail";
 import SearchOwnerPlotsResult from "./SearchOwnerPlotsResult";
 
@@ -38,6 +41,7 @@ interface SearchResultsModalProps {
   language: "en" | "ar";
   onPageChange?: (page: number) => void;
   args?: string;
+  platform?: "web" | "mobile";
 }
 
 const getLanguageSwitchText = ({
@@ -62,15 +66,19 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
   totalCount,
   onPageChange,
   args: _args,
+  platform = "web",
 }) => {
-  const [selectedIds, setSelectedIds] = React.useState<IOwnerSearchResult[]>(selected);
+  const [selectedIds, setSelectedIds] =
+    React.useState<IOwnerSearchResult[]>(selected);
   const [selectedOwnerDetail, setSelectedOwnerDetail] =
     React.useState<IOwnerSearchResult | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [isPlotsDrawerOpen, setIsPlotsDrawerOpen] = React.useState(false);
   const [plotsOwnerId, setPlotsOwnerId] = React.useState<string | null>(null);
-  const [selectedPlots, setSelectedPlots] = React.useState<IOwnerPlotsSearchResult[]>([]);
+  const [selectedPlots, setSelectedPlots] = React.useState<
+    IOwnerPlotsSearchResult[]
+  >([]);
 
   const totalPages = Math.ceil(totalCount / pageSize);
 
@@ -121,7 +129,10 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
   };
 
   const renderResultCard = (result: IOwnerSearchResult, index: number) => {
-    const isSelected = some(selectedIds, (val) => val.ownerId === result?.ownerId);
+    const isSelected = some(
+      selectedIds,
+      (val) => val.ownerId === result?.ownerId
+    );
 
     return (
       <Container
@@ -132,7 +143,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
             : "bg-cards-searchResult"
         }`}
       >
-        <Container className="flex justify-between mb-3">
+        <Container className="flex flex-row justify-between mb-3">
           <Text className={`text-bold-l text-text-default line-clamp-1 mr-xxs`}>
             <SharedLanguageSwitchRenderer
               language={language}
@@ -140,7 +151,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
               value_ar={result.ownerName_A || result.ownerName_E}
             />
           </Text>
-          <Container className="flex items-center gap-4">
+          <Container className="flex flex-row items-center gap-4">
             <Buttons
               title="Plots"
               title_ar="القطع"
@@ -178,13 +189,13 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
         ].map(({ label, label_ar, value, value_ar }, idx, array) => (
           <Container
             key={label}
-            className={`flex ${
+            className={`flex flex-row ${
               idx !== array.length - 1
                 ? "border-b pb-2 border-text-dimmed mb-2"
                 : ""
             }`}
           >
-            <Container className="sm:w-1/2 w-full">
+            <Container className="w-1/2">
               <Text className={`text-bold-m text-text-default`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -193,7 +204,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
                 />
               </Text>
             </Container>
-            <Container className="sm:w-1/2 w-full">
+            <Container className="w-1/2">
               <Text className={`text-m break-words text-text-default`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -211,7 +222,11 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
   return (
     <Container dir={language === "ar" ? "rtl" : "ltr"}>
       <Container>
-        <Text className={`text-heading-h1 font-bold pb-8 text-text-default`}>
+        <Text
+          className={`${
+            platform === "web" ? "text-heading-h1" : "text-heading-h3"
+          } font-bold pb-8 text-text-default`}
+        >
           <SharedLanguageSwitchRenderer
             language={language}
             value="Search Results"
@@ -245,7 +260,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
                   value_ar="لمعايير البحث التالية:"
                 />
               </Text>
-              <Container className="flex items-center gap-2">
+              <Container className="flex flex-row items-center gap-2">
                 <Text className={`text-bold-m text-text-default`}>
                   <SharedLanguageSwitchRenderer
                     language={language}

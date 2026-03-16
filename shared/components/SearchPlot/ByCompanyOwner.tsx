@@ -408,6 +408,7 @@ const ByCompanyOwner = ({
               onPageChange={handlePageChange}
               isLoading={isPending}
               args={args}
+              platform={platform}
             />
           </Container>
         )}

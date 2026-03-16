@@ -239,7 +239,9 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
   return (
     <Container className="mb-8">
       <Text
-        className={`text-heading-h3 sm:text-heading-h1 font-bold mb-8 text-text-default`}
+        className={`${
+          platform === "web" ? "text-heading-h1" : "text-heading-h3"
+        } font-bold mb-8 text-text-default`}
       >
         <SharedLanguageSwitchRenderer
           language={language}
@@ -253,7 +255,9 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
       <Container className="flex flex-col gap-xxs">
         <Container className="flex flex-row items-center justify-between">
           <Text
-            className={`text-heading-h4 sm:text-heading-h3 font-bold text-text-default`}
+            className={`${
+              platform === "web" ? "text-heading-h3" : "text-heading-h4"
+            } font-bold text-text-default`}
           >
             <SharedLanguageSwitchRenderer
               language={language}
@@ -266,7 +270,7 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
         <Container
           className={`py-m px-l bg-cards-base-l2 border border-cards-stroke rounded-xs mb-8`}
         >
-          <Container className="flex gap-m mb-xs">
+          <Container className="flex flex-row gap-m mb-xs">
             <Container className="w-1/2">
               {plotLeftDetails.map((item, idx) => (
                 <Container
@@ -291,7 +295,7 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
               ))}
             </Container>
 
-            <Container className="w-1/2 rounded-xs flex items-stretch">
+            <Container className="w-1/2 rounded-xs flex flex-row items-stretch">
               {!isImagePending &&
                 imageUrl &&
                 (platform === "web" ? (
@@ -335,7 +339,7 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
       {/* Owner Section */}
       {showOwnerDetails && (plotDetail?.ownersList || staticOwner) && (
         <Container className={`flex flex-col gap-xxs mb-8 text-text-default`}>
-          <Container className="flex items-center justify-between">
+          <Container className="flex flex-row items-center justify-between">
             <Text className="text-bold-m">
               <SharedLanguageSwitchRenderer
                 language={language}
@@ -366,7 +370,7 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
             {ownerDetails?.map(({ label, label_ar, value, value_ar }, idx) => (
               <Container
                 key={idx}
-                className="flex pb-s mb-s border-b border-text-dimmed"
+                className="flex flex-row pb-s mb-s border-b border-text-dimmed"
               >
                 <Text className="w-[40%] text-bold-m">
                   <SharedLanguageSwitchRenderer
@@ -416,7 +420,7 @@ const ViewPlotDetail: React.FC<ViewPlotDetailProps> = ({
   return (
     <Container className="flex flex-col flex-1">
       {isDetailPending && (
-        <Container className="h-full flex items-center justify-center text-text-default text-m font-bold">
+        <Container className="h-full flex flex-row items-center justify-center text-text-default text-m font-bold">
           <Text>
             <SharedLanguageSwitchRenderer
               language={language}
@@ -431,7 +435,7 @@ const ViewPlotDetail: React.FC<ViewPlotDetailProps> = ({
         style={{ direction: language === "ar" ? "rtl" : "ltr" }}
       >
         {plotDetails.length === 0 && !isDetailPending && (
-          <Container className="h-full flex items-center justify-center text-text-default text-m font-bold">
+          <Container className="h-full flex flex-row items-center justify-center text-text-default text-m font-bold">
             <Text>
               <SharedLanguageSwitchRenderer
                 language={language}
