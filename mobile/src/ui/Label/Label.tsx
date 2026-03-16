@@ -30,11 +30,13 @@ export const Label: React.FC<LabelProps> = ({
   return (
     <View className="flex-row items-center gap-xxs">
       <View className={`text-bold-xs ${textColorClass}`}>
-        <SharedLanguageSwitchRenderer
-          language={language}
-          value={label}
-          value_ar={label_ar}
-        />
+        <Text>
+          <SharedLanguageSwitchRenderer
+            language={language}
+            value={label}
+            value_ar={label_ar}
+          />
+        </Text>
       </View>
 
       {required && (

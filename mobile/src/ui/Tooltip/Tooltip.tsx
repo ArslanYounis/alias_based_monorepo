@@ -1,6 +1,7 @@
 import type { TooltipProps, TooltipDirectionType } from "@shared/types";
 import React from "react";
 import { View } from "react-native";
+import { Text } from "@platform/Text";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
 export type { TooltipProps, TooltipDirectionType };
@@ -81,12 +82,14 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const styles = directionClasses[direction];
   return (
     <View className="relative w-fit max-w-[150px] bg-[#566C74] rounded-lg px-3 py-4 text-center">
-      <SharedLanguageSwitchRenderer
-        language={language}
-        value={text}
-        value_ar={text_ar}
-        className="text-base-white"
-      />
+      <Text>
+        <SharedLanguageSwitchRenderer
+          language={language}
+          value={text}
+          value_ar={text_ar}
+          className="text-base-white"
+        />
+      </Text>
       {direction !== "none" && (
         <View className={styles.wrapper}>
           <View className={styles.arrow} />

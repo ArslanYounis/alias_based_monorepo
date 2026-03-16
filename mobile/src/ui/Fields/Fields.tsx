@@ -391,12 +391,14 @@ export const Fields: React.FC<FormFieldProps> = ({
                 </ScrollView>
               ) : (
                 <View className="p-m">
-                  <SharedLanguageSwitchRenderer
-                    language={language}
-                    value="No options found"
-                    value_ar="لم يتم العثور على خيارات"
-                    className="text-text-dimmed"
-                  />
+                  <Text>
+                    <SharedLanguageSwitchRenderer
+                      language={language}
+                      value="No options found"
+                      value_ar="لم يتم العثور على خيارات"
+                      className="text-text-dimmed"
+                    />
+                  </Text>
                 </View>
               )}
             </TouchableOpacity>

@@ -144,426 +144,426 @@ export default function App() {
     })();
   }, []);
 
-  // const normalizedData: UiBlock[][] = [
-  //   [
-  //     {
-  //       type: "agent",
-  //       data: {
-  //         agent: {
-  //           name: "English Name",
-  //           name_ar: "الاسم العربي",
-  //           email: "email@test.com",
-  //           phone: "0500000000",
-  //         },
-  //       },
-  //     },
-  //     {
-  //       type: "applicationDetails",
-  //       data: {
-  //         applicationNumber: "APP-123",
-  //         applicationNumber_ar: "١٢٣-APP",
-  //       },
-  //     },
-  //     {
-  //       type: "plot",
-  //       data: {
-  //         title: "Plot",
-  //         plots: [
-  //           {
-  //             plotId: "1",
-  //             plotArgs: "1",
-  //             plotNumber: "Plot-01",
-  //             fields: [
-  //               { label: "Zone", value: "Zone A" },
-  //               { label: "District", value: "District 1" },
-  //               { label: "Community", value: "Community X" },
-  //             ],
-  //           },
-  //         ],
-  //         showChangePlotButton: true,
-  //         showViewButton: true,
-  //         showOwnersButton: true,
-  //         onPressView: () => console.log("View clicked"),
-  //         onPressPlotChange: () => console.log("Plot change clicked"),
-  //         onPressOwners: () => console.log("Owners clicked"),
-  //       },
-  //     },
-  //     {
-  //       type: "owners",
-  //       data: {
-  //         title: "Owners",
-  //         owners: [
-  //           {
-  //             ownerId: "1",
-  //             ownerArgs: "1",
-  //             name: "Owner Name",
-  //             fields: [
-  //               { label: "Share", value: "50%" },
-  //               { label: "Hold Type", value: "Ownership" },
-  //             ],
-  //           },
-  //           {
-  //             ownerId: "2",
-  //             ownerArgs: "2",
-  //             name: "Owner Name 2",
-  //             fields: [
-  //               { label: "Share", value: "50%" },
-  //               { label: "Hold Type", value: "Ownership" },
-  //             ],
-  //           },
-  //         ],
-  //         showViewButton: true,
-  //         showPlotsButton: true,
-  //         showEditButton: false,
-  //         onPressAction: ({ action, owner }) => console.log(action, owner),
-  //       },
-  //     },
-  //     {
-  //       type: "genericCards",
-  //       data: {
-  //         title: "Late Payment Details",
-  //         title_ar: "تفاصيل التأخير في الدفع",
-  //         cardsData: [
-  //           {
-  //             rowsData: [
-  //               { label: "Tenancy Contract Type", value: "Standing" },
-  //               { label: "Start Date", value: "29/6/2025" },
-  //               { label: "Rent Amount", value: "912" },
-  //             ],
-  //             showTitleButtons: true,
-  //             titleButtons: [
-  //               {
-  //                 title: "Edit",
-  //                 title_ar: "تعديل",
-  //                 onClick: () => console.log("Edit clicked"),
-  //               },
-  //               {
-  //                 title: "View",
-  //                 title_ar: "عرض",
-  //                 onClick: () => console.log("View clicked"),
-  //               },
-  //             ],
-  //           },
-  //         ],
-  //         isExpandable: false,
-  //         showButtons: false,
-  //       },
-  //     },
-  //     {
-  //       type: "genericTableCard",
-  //       data: {
-  //         title: "Owner Information",
-  //         title_ar: "معلومات المالك",
-  //         description: "Description",
-  //         description_ar: "Arabic Description",
-  //         cardTitleLabel: "Card Title Label",
-  //         cardTitleValue: "Card Title Value",
-  //         variant: "small",
-  //         columnsData: [
-  //           {
-  //             key: "field",
-  //             label: "Field",
-  //             label_ar: "الحقل",
-  //           },
-  //           {
-  //             key: "col1",
-  //             label: "Value 1",
-  //             label_ar: "القيمة 1",
-  //           },
-  //           {
-  //             key: "col2",
-  //             label: "Value 2",
-  //             label_ar: "القيمة 2",
-  //           },
-  //           {
-  //             key: "col3",
-  //             label: "Value 3",
-  //             label_ar: "القيمة 3",
-  //           },
-  //           {
-  //             key: "col4",
-  //             label: "Value 4",
-  //             label_ar: "القيمة 4",
-  //           },
-  //           {
-  //             key: "col5",
-  //             label: "Value 5",
-  //             label_ar: "القيمة 5",
-  //           },
-  //         ],
-  //         rowsData: [
-  //           {
-  //             label: "Identity Details",
-  //             label_ar: "تفاصيل الهوية",
-  //             button: { title: "Hello", onClick: () => alert("hello") },
-  //             extraItems: [
-  //               {
-  //                 label: "UAE National ID",
-  //                 label_ar: "الهوية الوطنية الإماراتية",
-  //                 value: "78273890399292",
-  //                 value_ar: "78273890399292",
-  //               },
-  //               {
-  //                 label: "MOI Unified Number",
-  //                 label_ar: "رقم وزارة الداخلية الموحد",
-  //                 value: "330928",
-  //                 value_ar: "330928",
-  //               },
-  //               {
-  //                 label: "Archive Number",
-  //                 label_ar: "رقم الأرشيف",
-  //                 value: "7921",
-  //                 value_ar: "7921",
-  //               },
-  //               {
-  //                 label: "Archive Number",
-  //                 label_ar: "رقم الأرشيف",
-  //                 value: "7921",
-  //                 value_ar: "7921",
-  //               },
-  //               {
-  //                 label: "Archive Number",
-  //                 label_ar: "رقم الأرشيف",
-  //                 value: "7921",
-  //                 value_ar: "7921",
-  //               },
-  //             ],
-  //           },
-  //           {
-  //             label: "Nationality Details",
-  //             label_ar: "تفاصيل الجنسية",
-  //             extraItems: [
-  //               {
-  //                 label: "Nationality",
-  //                 label_ar: "الجنسية",
-  //                 value: "United Arab Emirates",
-  //                 value_ar: "الإمارات العربية المتحدة",
-  //               },
-  //               {
-  //                 label: "Special Nationality",
-  //                 label_ar: "الجنسية الخاصة",
-  //                 value: "No",
-  //                 value_ar: "لا",
-  //               },
-  //               {
-  //                 label: "Share",
-  //                 label_ar: "الحصة",
-  //                 value: "100% Allotment 50% Share",
-  //                 value_ar: "100% تخصيص 50% حصة",
-  //               },
-  //               {
-  //                 label: "Share",
-  //                 label_ar: "الحصة",
-  //                 value: "100% Allotment 50% Share",
-  //                 value_ar: "100% تخصيص 50% حصة",
-  //               },
+  const normalizedData: UiBlock[][] = [
+    [
+      {
+        type: "agent",
+        data: {
+          agent: {
+            name: "English Name",
+            name_ar: "الاسم العربي",
+            email: "email@test.com",
+            phone: "0500000000",
+          },
+        },
+      },
+      {
+        type: "applicationDetails",
+        data: {
+          applicationNumber: "APP-123",
+          applicationNumber_ar: "١٢٣-APP",
+        },
+      },
+      {
+        type: "plot",
+        data: {
+          title: "Plot",
+          plots: [
+            {
+              plotId: "1",
+              plotArgs: "1",
+              plotNumber: "Plot-01",
+              fields: [
+                { label: "Zone", value: "Zone A" },
+                { label: "District", value: "District 1" },
+                { label: "Community", value: "Community X" },
+              ],
+            },
+          ],
+          showChangePlotButton: true,
+          showViewButton: true,
+          showOwnersButton: true,
+          onPressView: () => console.log("View clicked"),
+          onPressPlotChange: () => console.log("Plot change clicked"),
+          onPressOwners: () => console.log("Owners clicked"),
+        },
+      },
+      {
+        type: "owners",
+        data: {
+          title: "Owners",
+          owners: [
+            {
+              ownerId: "1",
+              ownerArgs: "1",
+              name: "Owner Name",
+              fields: [
+                { label: "Share", value: "50%" },
+                { label: "Hold Type", value: "Ownership" },
+              ],
+            },
+            {
+              ownerId: "2",
+              ownerArgs: "2",
+              name: "Owner Name 2",
+              fields: [
+                { label: "Share", value: "50%" },
+                { label: "Hold Type", value: "Ownership" },
+              ],
+            },
+          ],
+          showViewButton: true,
+          showPlotsButton: true,
+          showEditButton: false,
+          onPressAction: ({ action, owner }) => console.log(action, owner),
+        },
+      },
+      {
+        type: "genericCards",
+        data: {
+          title: "Late Payment Details",
+          title_ar: "تفاصيل التأخير في الدفع",
+          cardsData: [
+            {
+              rowsData: [
+                { label: "Tenancy Contract Type", value: "Standing" },
+                { label: "Start Date", value: "29/6/2025" },
+                { label: "Rent Amount", value: "912" },
+              ],
+              showTitleButtons: true,
+              titleButtons: [
+                {
+                  title: "Edit",
+                  title_ar: "تعديل",
+                  onClick: () => console.log("Edit clicked"),
+                },
+                {
+                  title: "View",
+                  title_ar: "عرض",
+                  onClick: () => console.log("View clicked"),
+                },
+              ],
+            },
+          ],
+          isExpandable: false,
+          showButtons: false,
+        },
+      },
+      {
+        type: "genericTableCard",
+        data: {
+          title: "Owner Information",
+          title_ar: "معلومات المالك",
+          description: "Description",
+          description_ar: "Arabic Description",
+          cardTitleLabel: "Card Title Label",
+          cardTitleValue: "Card Title Value",
+          variant: "small",
+          columnsData: [
+            {
+              key: "field",
+              label: "Field",
+              label_ar: "الحقل",
+            },
+            {
+              key: "col1",
+              label: "Value 1",
+              label_ar: "القيمة 1",
+            },
+            {
+              key: "col2",
+              label: "Value 2",
+              label_ar: "القيمة 2",
+            },
+            {
+              key: "col3",
+              label: "Value 3",
+              label_ar: "القيمة 3",
+            },
+            {
+              key: "col4",
+              label: "Value 4",
+              label_ar: "القيمة 4",
+            },
+            {
+              key: "col5",
+              label: "Value 5",
+              label_ar: "القيمة 5",
+            },
+          ],
+          rowsData: [
+            {
+              label: "Identity Details",
+              label_ar: "تفاصيل الهوية",
+              button: { title: "Hello", onClick: () => alert("hello") },
+              extraItems: [
+                {
+                  label: "UAE National ID",
+                  label_ar: "الهوية الوطنية الإماراتية",
+                  value: "78273890399292",
+                  value_ar: "78273890399292",
+                },
+                {
+                  label: "MOI Unified Number",
+                  label_ar: "رقم وزارة الداخلية الموحد",
+                  value: "330928",
+                  value_ar: "330928",
+                },
+                {
+                  label: "Archive Number",
+                  label_ar: "رقم الأرشيف",
+                  value: "7921",
+                  value_ar: "7921",
+                },
+                {
+                  label: "Archive Number",
+                  label_ar: "رقم الأرشيف",
+                  value: "7921",
+                  value_ar: "7921",
+                },
+                {
+                  label: "Archive Number",
+                  label_ar: "رقم الأرشيف",
+                  value: "7921",
+                  value_ar: "7921",
+                },
+              ],
+            },
+            {
+              label: "Nationality Details",
+              label_ar: "تفاصيل الجنسية",
+              extraItems: [
+                {
+                  label: "Nationality",
+                  label_ar: "الجنسية",
+                  value: "United Arab Emirates",
+                  value_ar: "الإمارات العربية المتحدة",
+                },
+                {
+                  label: "Special Nationality",
+                  label_ar: "الجنسية الخاصة",
+                  value: "No",
+                  value_ar: "لا",
+                },
+                {
+                  label: "Share",
+                  label_ar: "الحصة",
+                  value: "100% Allotment 50% Share",
+                  value_ar: "100% تخصيص 50% حصة",
+                },
+                {
+                  label: "Share",
+                  label_ar: "الحصة",
+                  value: "100% Allotment 50% Share",
+                  value_ar: "100% تخصيص 50% حصة",
+                },
 
-  //               {
-  //                 label: "Share",
-  //                 label_ar: "الحصة",
-  //                 value: "100% Allotment 50% Share",
-  //                 value_ar: "100% تخصيص 50% حصة",
-  //               },
-  //             ],
-  //           },
-  //           {
-  //             label: "Right Hold Type",
-  //             label_ar: "نوع حق الحيازة",
-  //             extraItems: [
-  //               {
-  //                 value: "Ownership Musataha",
-  //                 value_ar: "ملكية مستطاعة",
-  //               },
-  //               {
-  //                 value: "Ownership Musataha",
-  //                 value_ar: "ملكية مستطاعة",
-  //               },
-  //               {
-  //                 value: "Ownership Musataha",
-  //                 value_ar: "ملكية مستطاعة",
-  //               },
-  //               {
-  //                 value: "Ownership Musataha",
-  //                 value_ar: "ملكية مستطاعة",
-  //               },
-  //               {
-  //                 value: "Ownership Musataha",
-  //                 value_ar: "ملكية مستطاعة",
-  //               },
-  //             ],
-  //           },
-  //         ],
-  //         showFooterButtons: true,
-  //         footerButton: [
-  //           {
-  //             title: "Edit",
-  //             title_ar: "تعديل",
-  //             onClick: () => console.log("Edit clicked"),
-  //           },
-  //           {
-  //             title: "View",
-  //             title_ar: "عرض",
-  //             onClick: () => console.log("View clicked"),
-  //           },
-  //         ],
-  //         handlePaginationInternally: false,
-  //         showPagination: true,
-  //         currentPage: 1,
-  //         totalPages: 10,
-  //         pageSize: 5,
-  //         onPageChange: (page) => console.log(page),
-  //       },
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       type: "genericCards",
-  //       data: {
-  //         title: "Tenant Info",
-  //         title_ar: "معلومات المستأجر",
-  //         cardsData: [
-  //           {
-  //             rowsData: [
-  //               { label: "Name", value: "John Doe" },
-  //               { label: "Status", value: "Active" },
-  //               { label: "Contract", value: "Annual" },
-  //               { label: "Unit", value: "A-101" },
-  //             ],
-  //             showMoreButton: true,
-  //             defaultShowMore: false,
-  //             buttons: [
-  //               {
-  //                 title: "Edit",
-  //                 title_ar: "تعديل",
-  //                 onClick: () => console.log("Edit clicked"),
-  //               },
-  //               {
-  //                 title: "View",
-  //                 title_ar: "عرض",
-  //                 onClick: () => console.log("View clicked"),
-  //               },
-  //             ],
-  //             showFooterButtons: true,
-  //             footerButton: [
-  //               {
-  //                 title: "Edit",
-  //                 title_ar: "تعديل",
-  //                 type: "primary",
-  //                 onClick: () => console.log("Edit clicked"),
-  //               },
-  //               {
-  //                 title: "View",
-  //                 title_ar: "عرض",
-  //                 type: "secondary",
-  //                 onClick: () => console.log("View clicked"),
-  //               },
-  //             ],
-  //           },
-  //         ],
-  //       },
-  //     },
-  //     {
-  //       type: "genericCard",
-  //       data: {
-  //         title: "Tenant Info with Generic Card",
-  //         title_ar: "معلومات المستأجر",
-  //         cardTitleLabel: "Tenant Info with Generic Card",
-  //         cardTitleLabel_ar: "معلومات المستأجر",
-  //         variant: "small",
-  //         rowsData: [
-  //           { label: "Name", value: "John Doe" },
-  //           { label: "Status", value: "Active" },
-  //           { label: "Contract", value: "Annual" },
-  //           { label: "Unit", value: "A-101" },
-  //         ],
-  //         showMoreButton: true,
-  //         defaultShowMore: false,
-  //         showButtons: true,
-  //         buttons: [
-  //           {
-  //             title: "Edit",
-  //             title_ar: "تعديل",
-  //             onClick: () => console.log("Edit clicked"),
-  //           },
-  //           {
-  //             title: "View",
-  //             title_ar: "عرض",
-  //             onClick: () => console.log("View clicked"),
-  //           },
-  //         ],
-  //       },
-  //     },
-  //     {
-  //       type: "interactionHistory",
-  //       data: {
-  //         totalCompletedSteps: 0,
-  //         totalSteps: 6,
-  //         wfiStepList: [
-  //           {
-  //             title: "Registration",
-  //             title_ar: "التسجيل",
-  //             stepConst: "ElmsAllotmentOfRanchPlots.Registration",
-  //             stepStatusE: "Completed",
-  //             stepStatusA: "مكتمل",
-  //             comments: "Application submitted successfully",
-  //             isCurrent: false,
-  //             completedByCustomerNameE: "John Doe",
-  //             completedByCustomerNameA: "جون دو",
-  //             completeDate: "2025-01-15",
-  //           },
-  //           {
-  //             title: "Assignment",
-  //             title_ar: "التخصيص",
-  //             stepConst: "ElmsAllotmentOfRanchPlots.Assignment",
-  //             stepStatusE: "In Progress",
-  //             stepStatusA: "قيد التنفيذ",
-  //             comments: "Under review by the registration team",
-  //             isCurrent: true,
-  //             completedByCustomerNameE: "Jane Smith",
-  //             completedByCustomerNameA: "جين سميث",
-  //             completeDate: "2025-01-18",
-  //           },
-  //           {
-  //             title: "Approval",
-  //             title_ar: "الموافقة",
-  //             stepConst: "ElmsAllotmentOfRanchPlots.Approval",
-  //             stepStatusE: "Pending",
-  //             stepStatusA: "قيد الانتظار",
-  //             isCurrent: false,
-  //           },
-  //         ],
-  //       },
-  //     },
-  //     {
-  //       type: "documents",
-  //       title: "Documents",
-  //       title_ar: "وثائق",
-  //       data: {
-  //         documents: [
-  //           {
-  //             documentName: "Identity Document",
-  //             documentName_ar: "وثيقة الهوية",
-  //             isUploaded: true,
-  //             downloadUrl: "https://example.com/document1.pdf",
-  //           },
-  //           {
-  //             documentName: "Property Deed",
-  //             documentName_ar: "سند الملكية",
-  //             isUploaded: true,
-  //             downloadUrl: "https://example.com/document2.pdf",
-  //           },
-  //           {
-  //             documentName: "Proof of Residence",
-  //             documentName_ar: "إثبات الإقامة",
-  //             isUploaded: true,
-  //             downloadUrl: "https://example.com/document3.pdf",
-  //           },
-  //         ],
-  //         type: "base",
-  //       },
-  //     },
-  //   ],
-  // ];
+                {
+                  label: "Share",
+                  label_ar: "الحصة",
+                  value: "100% Allotment 50% Share",
+                  value_ar: "100% تخصيص 50% حصة",
+                },
+              ],
+            },
+            {
+              label: "Right Hold Type",
+              label_ar: "نوع حق الحيازة",
+              extraItems: [
+                {
+                  value: "Ownership Musataha",
+                  value_ar: "ملكية مستطاعة",
+                },
+                {
+                  value: "Ownership Musataha",
+                  value_ar: "ملكية مستطاعة",
+                },
+                {
+                  value: "Ownership Musataha",
+                  value_ar: "ملكية مستطاعة",
+                },
+                {
+                  value: "Ownership Musataha",
+                  value_ar: "ملكية مستطاعة",
+                },
+                {
+                  value: "Ownership Musataha",
+                  value_ar: "ملكية مستطاعة",
+                },
+              ],
+            },
+          ],
+          showFooterButtons: true,
+          footerButton: [
+            {
+              title: "Edit",
+              title_ar: "تعديل",
+              onClick: () => console.log("Edit clicked"),
+            },
+            {
+              title: "View",
+              title_ar: "عرض",
+              onClick: () => console.log("View clicked"),
+            },
+          ],
+          handlePaginationInternally: false,
+          showPagination: true,
+          currentPage: 1,
+          totalPages: 10,
+          pageSize: 5,
+          onPageChange: (page) => console.log(page),
+        },
+      },
+    ],
+    [
+      {
+        type: "genericCards",
+        data: {
+          title: "Tenant Info",
+          title_ar: "معلومات المستأجر",
+          cardsData: [
+            {
+              rowsData: [
+                { label: "Name", value: "John Doe" },
+                { label: "Status", value: "Active" },
+                { label: "Contract", value: "Annual" },
+                { label: "Unit", value: "A-101" },
+              ],
+              showMoreButton: true,
+              defaultShowMore: false,
+              buttons: [
+                {
+                  title: "Edit",
+                  title_ar: "تعديل",
+                  onClick: () => console.log("Edit clicked"),
+                },
+                {
+                  title: "View",
+                  title_ar: "عرض",
+                  onClick: () => console.log("View clicked"),
+                },
+              ],
+              showFooterButtons: true,
+              footerButton: [
+                {
+                  title: "Edit",
+                  title_ar: "تعديل",
+                  type: "primary",
+                  onClick: () => console.log("Edit clicked"),
+                },
+                {
+                  title: "View",
+                  title_ar: "عرض",
+                  type: "secondary",
+                  onClick: () => console.log("View clicked"),
+                },
+              ],
+            },
+          ],
+        },
+      },
+      {
+        type: "genericCard",
+        data: {
+          title: "Tenant Info with Generic Card",
+          title_ar: "معلومات المستأجر",
+          cardTitleLabel: "Tenant Info with Generic Card",
+          cardTitleLabel_ar: "معلومات المستأجر",
+          variant: "small",
+          rowsData: [
+            { label: "Name", value: "John Doe" },
+            { label: "Status", value: "Active" },
+            { label: "Contract", value: "Annual" },
+            { label: "Unit", value: "A-101" },
+          ],
+          showMoreButton: true,
+          defaultShowMore: false,
+          showButtons: true,
+          buttons: [
+            {
+              title: "Edit",
+              title_ar: "تعديل",
+              onClick: () => console.log("Edit clicked"),
+            },
+            {
+              title: "View",
+              title_ar: "عرض",
+              onClick: () => console.log("View clicked"),
+            },
+          ],
+        },
+      },
+      {
+        type: "interactionHistory",
+        data: {
+          totalCompletedSteps: 0,
+          totalSteps: 6,
+          wfiStepList: [
+            {
+              title: "Registration",
+              title_ar: "التسجيل",
+              stepConst: "ElmsAllotmentOfRanchPlots.Registration",
+              stepStatusE: "Completed",
+              stepStatusA: "مكتمل",
+              comments: "Application submitted successfully",
+              isCurrent: false,
+              completedByCustomerNameE: "John Doe",
+              completedByCustomerNameA: "جون دو",
+              completeDate: "2025-01-15",
+            },
+            {
+              title: "Assignment",
+              title_ar: "التخصيص",
+              stepConst: "ElmsAllotmentOfRanchPlots.Assignment",
+              stepStatusE: "In Progress",
+              stepStatusA: "قيد التنفيذ",
+              comments: "Under review by the registration team",
+              isCurrent: true,
+              completedByCustomerNameE: "Jane Smith",
+              completedByCustomerNameA: "جين سميث",
+              completeDate: "2025-01-18",
+            },
+            {
+              title: "Approval",
+              title_ar: "الموافقة",
+              stepConst: "ElmsAllotmentOfRanchPlots.Approval",
+              stepStatusE: "Pending",
+              stepStatusA: "قيد الانتظار",
+              isCurrent: false,
+            },
+          ],
+        },
+      },
+      {
+        type: "documents",
+        title: "Documents",
+        title_ar: "وثائق",
+        data: {
+          documents: [
+            {
+              documentName: "Identity Document",
+              documentName_ar: "وثيقة الهوية",
+              isUploaded: true,
+              downloadUrl: "https://example.com/document1.pdf",
+            },
+            {
+              documentName: "Property Deed",
+              documentName_ar: "سند الملكية",
+              isUploaded: true,
+              downloadUrl: "https://example.com/document2.pdf",
+            },
+            {
+              documentName: "Proof of Residence",
+              documentName_ar: "إثبات الإقامة",
+              isUploaded: true,
+              downloadUrl: "https://example.com/document3.pdf",
+            },
+          ],
+          type: "base",
+        },
+      },
+    ],
+  ];
 
   return (
     <GestureHandlerRootView style={{ flex: 1, marginTop: 50 }}>
@@ -2955,7 +2955,7 @@ export default function App() {
             </View>
 
             {/* ── G-4.3 FilterBar ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-4.3 — FilterBar</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -2996,20 +2996,20 @@ export default function App() {
                 resetButtonLabel="Default Filter"
                 resetButtonLabel_ar="المرشح الافتراضي"
               />
-            </View> */}
+            </View>
 
             {/* ── G-4.4 Payment ── */}
-            {/* <View>
+            <View>
               <Text style={styles.sectionTitle}>G-4.4 — Payment</Text>
               <Payment
                 language="en"
                 platform="mobile"
                 applicationId="ptmVwwNZMaaKc0HwhTMMHWc3HeZiJXZm"
               />
-            </View> */}
+            </View>
 
             {/* ── G-4.6 Signature ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-4.6 — Signature</Text>
 
               <Text style={styles.variantLabel}>
@@ -3034,10 +3034,10 @@ export default function App() {
                   console.log("Arabic Signed SVG:", data.signature)
                 }
               />
-            </View> */}
+            </View>
 
             {/* ── G-4.7 UploadDocuments ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-4.7 — UploadDocuments</Text>
 
               <Text style={styles.variantLabel}>Single Document Upload</Text>
@@ -3135,10 +3135,10 @@ export default function App() {
                   console.log("Attempted file change:", file, uploadUrl)
                 }
               />
-            </View> */}
+            </View>
 
             {/* ── G-4.8 ViewPlotDetail ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-4.8 — ViewPlotDetail</Text>
               <ViewPlotDetail
                 plotIds={["12345"]}
@@ -3146,9 +3146,9 @@ export default function App() {
                 plotTitle_ar="تفاصيل القطعة"
                 showOwnerDetails={true}
               />
-            </View> */}
+            </View>
             {/* ── G-4.10 Payment Details ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-4.10 — Payment Details</Text>
               <PaymentDetails
                 applicationId="APP-001"
@@ -3186,24 +3186,23 @@ export default function App() {
                 isLoading={false}
                 onOverrideComplete={() => console.log("Override Done")}
               />
-            </View> */}
+            </View>
 
             {/* ── G-4.11 Application Summary ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>
                 G-4.11 — Application Summary
               </Text>
               <ApplicationSummary data={normalizedData} platform="mobile" />
-            </View> */}
+            </View>
 
             {/* ═══════════════════════════════════════════════ */}
             {/* G-5 — Shared Components                 */}
             {/* ═══════════════════════════════════════════════ */}
 
             {/* ── G-5.1 Application Table ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.1 — Application Table</Text>
-
 
               <Text style={styles.variantLabel}>Default</Text>
               <Table
@@ -3359,10 +3358,10 @@ export default function App() {
                   },
                 ]}
               />
-            </View> */}
+            </View>
 
             {/* ── G-5.2 Owner Card ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.2 — OwnerCard</Text>
 
               <Text style={styles.variantLabel}>Default Owner Card</Text>
@@ -3493,10 +3492,10 @@ export default function App() {
                   },
                 ]}
               />
-            </View> */}
+            </View>
 
             {/* ── G-5.3 PlotCard ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.3 — PlotCard</Text>
 
               <Text style={styles.variantLabel}>Default Plot Card</Text>
@@ -3651,17 +3650,17 @@ export default function App() {
                   },
                 ]}
               />
-            </View> */}
+            </View>
 
             {/* ── G-5.4 Modal Title ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.4 — Modal Title</Text>
               <ModalTitle label="Title" platform="mobile" />
               <ModalTitle label_ar="العنوان" language="ar" platform="mobile" />
-            </View> */}
+            </View>
 
             {/* ── G-5.5 Modal Steps ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.5 — Modal Steps</Text>
               <ModalSteps title="Title" subText="Step 1 of 2" />
               <ModalSteps
@@ -3669,10 +3668,10 @@ export default function App() {
                 subText_ar="الخطوة 1 من 2"
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-5.6 GenericCard ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.6 — GenericCard</Text>
 
               <Text style={styles.variantLabel}>Default Card</Text>
@@ -3800,10 +3799,10 @@ export default function App() {
                 ]}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-5.7 GenericCards ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.7 — GenericCards</Text>
 
               <Text style={styles.variantLabel}>Single Card</Text>
@@ -3972,10 +3971,10 @@ export default function App() {
                   },
                 ]}
               />
-            </View> */}
+            </View>
 
             {/* ── G-5.8 GenericTableCard ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.8 — GenericTableCard</Text>
 
               <Text style={styles.variantLabel}>Default Table</Text>
@@ -4169,10 +4168,10 @@ export default function App() {
                 pageSize={5}
                 onPageChange={(page) => console.log(page)}
               />
-            </View> */}
+            </View>
 
             {/* ── G-5.9 Card Title ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.9 — Card Title</Text>
               <CardTitle
                 platform="mobile"
@@ -4225,10 +4224,10 @@ export default function App() {
                 showButtons={false}
                 showBorder={false}
               />
-            </View> */}
+            </View>
 
             {/* ── G-5.10 ViewOwnerDetail ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-5.10 — ViewOwnerDetail</Text>
               <ViewOwnerDetail
                 language="en"
@@ -4262,10 +4261,10 @@ export default function App() {
                   ],
                 }}
               />
-            </View> */}
+            </View>
 
             {/* ── G-5.12 ApplicationMessage ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>
                 G-5.12 — ApplicationMessage
               </Text>
@@ -4352,7 +4351,7 @@ export default function App() {
                 label_ar="متابعة"
                 onClick={() => Alert.alert("متابعة")}
               />
-            </View> */}
+            </View>
 
             {/* ── G-5.14 SearchPlot ── */}
             <View>
