@@ -567,8 +567,8 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1, marginTop: 50 }}>
-      <BottomSheetModalProvider>
-        <QueryClientProvider client={new QueryClient()}>
+      <QueryClientProvider client={new QueryClient()}>
+        <BottomSheetModalProvider>
           <ScrollView
             style={styles.scroll}
             contentContainerStyle={styles.content}
@@ -4372,8 +4372,8 @@ export default function App() {
               />
             </View>
           </ScrollView>
-        </QueryClientProvider>
-      </BottomSheetModalProvider>
+        </BottomSheetModalProvider>
+      </QueryClientProvider>
     </GestureHandlerRootView>
   );
 }
