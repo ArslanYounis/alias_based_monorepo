@@ -137,7 +137,11 @@ const GenericCard: React.FC<IGenericCardProps> = ({
         <Container className="rounded-xs bg-cards-base-l1 text-text-default px-l py-m border border-cards-stroke">
           {(cardTitleLabel || cardTitleLabel_ar || showButtons) && (
             <Container className="flex flex-row justify-between items-center mb-3">
-              <Text className="text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal min-w-0">
+              <Text
+                className={`text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal min-w-0 ${
+                  platform === "mobile" ? "w-[50%]" : ""
+                }`}
+              >
                 <SharedLanguageSwitchRenderer
                   language={language}
                   value={cardTitleLabel}

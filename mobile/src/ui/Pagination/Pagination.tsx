@@ -72,8 +72,8 @@ const Pagination: React.FC<PaginationProps> = ({
     position === "left"
       ? "flex-start"
       : position === "right"
-        ? "flex-end"
-        : "center";
+      ? "flex-end"
+      : "center";
 
   const handlePrev = () => {
     if (currentPage > 1) onPageChange(currentPage - 1);
@@ -138,9 +138,7 @@ const Pagination: React.FC<PaginationProps> = ({
               >
                 <Text
                   className={`text-m ${
-                    currentPage === page
-                      ? "text-text-default"
-                      : "text-Dark-6"
+                    currentPage === page ? "text-text-default" : "text-Dark-6"
                   }`}
                 >
                   {language === "ar" ? toArabicDigits(page) : page}
@@ -176,7 +174,9 @@ const Pagination: React.FC<PaginationProps> = ({
             <SharedLanguageSwitchRenderer
               language={language}
               value={`Showing ${visibleItems} out of ${totalCount} items`}
-              value_ar={`عرض ${toArabicDigits(visibleItems)} من ${toArabicDigits(totalCount)} عناصر`}
+              value_ar={`عرض ${toArabicDigits(
+                visibleItems
+              )} من ${toArabicDigits(totalCount)} عناصر`}
               className="text-s text-text-default"
             />
           )}

@@ -50,15 +50,15 @@ export interface UiBlock {
   title_ar?: string;
   type: UiBlockType;
   data:
-    | AgentProps
-    | ApplicationSummaryDetailProps
-    | IPlotCardProps
-    | IOwnerCardProps
-    | IGenericCardProps
-    | IGenericCardsProps
-    | IGenericTableCardProps
-    | IInteractionCardProps
-    | UploadDocumentsProps;
+  | AgentProps
+  | ApplicationSummaryDetailProps
+  | IPlotCardProps
+  | IOwnerCardProps
+  | IGenericCardProps
+  | IGenericCardsProps
+  | IGenericTableCardProps
+  | IInteractionCardProps
+  | UploadDocumentsProps;
 }
 
 export interface ApplicationSummaryProps {
@@ -66,6 +66,7 @@ export interface ApplicationSummaryProps {
   title_ar?: string;
   language?: Language;
   data?: UiBlock[][];
+  platform?: "web" | "mobile";
   /** Optional platform-specific Documents/UploadDocuments component injected from web/mobile */
   DocumentsComponent?: React.ComponentType<UploadDocumentsProps & { language?: Language }>;
 }

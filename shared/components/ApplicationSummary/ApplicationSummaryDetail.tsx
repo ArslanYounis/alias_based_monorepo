@@ -42,7 +42,11 @@ const ApplicationSummaryDetail: React.FC<ApplicationSummaryDetailProps> = ({
   const isArabic = language === "ar";
 
   const renderLabel = (en: string, ar: string) => (
-    <SharedLanguageSwitchRenderer language={language} value={en} value_ar={ar} />
+    <SharedLanguageSwitchRenderer
+      language={language}
+      value={en}
+      value_ar={ar}
+    />
   );
 
   const renderValue = (en?: string, ar?: string) => (
@@ -71,7 +75,7 @@ const ApplicationSummaryDetail: React.FC<ApplicationSummaryDetailProps> = ({
     isInput,
   }: DetailRowProps) => (
     <Container
-      className={`flex items-center gap-s ${
+      className={`flex flex-row items-center gap-s ${
         withBorder ? "border-b border-border-dimmed pb-s mb-s" : ""
       }`}
     >
@@ -85,7 +89,10 @@ const ApplicationSummaryDetail: React.FC<ApplicationSummaryDetailProps> = ({
         {isInput ? (
           <Container className="text-text-default bg-form-fields-input-form-bg border border-form-fields-input-form-border w-full h-9 rounded-[5px] px-m py-xs flex items-center">
             <Text className="text-m text-text-default">
-              {renderValue(isArabic ? valueAr : valueEn, isArabic ? valueAr : valueEn)}
+              {renderValue(
+                isArabic ? valueAr : valueEn,
+                isArabic ? valueAr : valueEn
+              )}
             </Text>
           </Container>
         ) : (
@@ -102,9 +109,14 @@ const ApplicationSummaryDetail: React.FC<ApplicationSummaryDetailProps> = ({
 
   return (
     <Container className="flex flex-col w-full">
-      <Container className="flex justify-between items-center">
+      <Container className="flex flex-row justify-between items-center">
         {title && (
-          <CardTitle title={title} title_ar={title_ar} variant="small" language={language} />
+          <CardTitle
+            title={title}
+            title_ar={title_ar}
+            variant="small"
+            language={language}
+          />
         )}
 
         {showButton && (

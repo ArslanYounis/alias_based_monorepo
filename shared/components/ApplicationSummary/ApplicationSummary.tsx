@@ -36,6 +36,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
   language = "en",
   data = [],
   DocumentsComponent,
+  platform = "web",
 }) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [type, setType] = useState<ApplicationType>("Compact");
@@ -66,6 +67,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
             language={language}
             title={block.title ?? props.title}
             title_ar={block.title_ar ?? props.title_ar}
+            platform={platform}
           />
         );
       }
@@ -93,6 +95,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
             defaultShowMore={type === "Standard"}
             title={block.title ?? props.title}
             title_ar={block.title_ar ?? props.title_ar}
+            platform={platform}
           />
         );
       }
@@ -107,6 +110,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
             defaultShowMore={type === "Standard"}
             title={block.title ?? props.title}
             title_ar={block.title_ar ?? props.title_ar}
+            platform={platform}
           />
         );
       }
@@ -119,6 +123,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
             {...props}
             language={language}
             toggleType={type}
+            platform={platform}
           />
         );
       }
@@ -133,6 +138,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
                 title_ar={block.title_ar ?? ""}
                 variant="small"
                 language={language}
+                platform={platform}
               />
             )}
             {DocumentsComponent && (
@@ -152,6 +158,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
             defaultShowMore={type === "Standard"}
             title={block.title ?? props.title}
             title_ar={block.title_ar ?? props.title_ar}
+            platform={platform}
           />
         );
       }
@@ -166,6 +173,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
             defaultShowMore={type === "Standard"}
             title={block.title ?? props.title}
             title_ar={block.title_ar ?? props.title_ar}
+            platform={platform}
           />
         );
       }
@@ -179,6 +187,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
             language={language}
             title={block.title ?? props.title}
             title_ar={block.title_ar ?? props.title_ar}
+            platform={platform}
           />
         );
       }
@@ -195,7 +204,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Header */}
-      <Container className="flex items-center justify-between gap-m">
+      <Container className="flex flex-row items-center justify-between gap-m">
         <Text className="text-bold-l text-text-default">
           <SharedLanguageSwitchRenderer
             language={language}
@@ -218,9 +227,12 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
                   className={`absolute left-0.5 top-0.5 ${
                     type === "Standard" ? "bg-text-link" : "bg-text-dimmed"
                   } w-5 h-5 rounded-full transition-transform duration-300`}
-                  style={{
-                    transform: type === "Standard" ? "translateX(24px)" : "translateX(0)",
-                  }}
+                  // style={{
+                  //   transform:
+                  //     platform === "web" && type === "Standard"
+                  //       ? "translateX(24px)"
+                  //       : "translateX(0)",
+                  // }}
                 />
               </Container>
               <Text className="text-bold-xs text-text-default">
@@ -242,24 +254,33 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
           )}
 
           {/* Expand/Collapse button */}
-          <Buttons
-            type="tertiary"
-            size="s"
-            title=""
-            language={language}
-            onClick={handleExpandToggle}
-            leftIcon={
-              isExpanded ? (
-                <Text className="text-text-default">
-                  <ChevronUpIcon size={20} />
-                </Text>
-              ) : (
-                <Text className="text-text-default">
-                  <ChevronDownIcon size={20} />
-                </Text>
-              )
-            }
-          />
+          {platform === "web" ? (
+            <button
+              type="button"
+              onClick={handleExpandToggle}
+              aria-expanded={isExpanded}
+              aria-label={isExpanded ? "Collapse" : "Expand"}
+              className="cursor-pointer focus:outline-none"
+              tabIndex={-1}
+            >
+              {isExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
+            </button>
+          ) : (
+            <Buttons
+              size="s"
+              type="secondary"
+              language={language}
+              title=""
+              onClick={handleExpandToggle}
+              leftIcon={
+                isExpanded ? (
+                  <ChevronUpIcon color="#008DCB" />
+                ) : (
+                  <ChevronDownIcon color="#008DCB" />
+                )
+              }
+            />
+          )}
         </Container>
       </Container>
 

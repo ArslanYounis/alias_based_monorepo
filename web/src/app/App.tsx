@@ -54,6 +54,11 @@ import ApplicationMessage from "@shared/components/ApplicationMessage";
 import { SearchPlot } from "@shared/components/SearchPlot";
 import { OwnerSearch } from "@shared/components/OwnerSearch";
 import Payment from "@shared/components/Payment";
+import PaymentDetails from "@shared/components/PaymentDetails";
+import ApplicationSummary, {
+  type ApplicationSummaryProps,
+  type UiBlock,
+} from "@shared/components/ApplicationSummary";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -133,6 +138,427 @@ function App() {
     },
   ];
 
+  const normalizedData: UiBlock[][] = [
+    [
+      {
+        type: "agent",
+        data: {
+          agent: {
+            name: "English Name",
+            name_ar: "الاسم العربي",
+            email: "email@test.com",
+            phone: "0500000000",
+          },
+        },
+      },
+      {
+        type: "applicationDetails",
+        data: {
+          applicationNumber: "APP-123",
+          applicationNumber_ar: "١٢٣-APP",
+        },
+      },
+      {
+        type: "plot",
+        data: {
+          title: "Plot",
+          plots: [
+            {
+              plotId: "1",
+              plotArgs: "1",
+              plotNumber: "Plot-01",
+              fields: [
+                { label: "Zone", value: "Zone A" },
+                { label: "District", value: "District 1" },
+                { label: "Community", value: "Community X" },
+              ],
+            },
+          ],
+          showChangePlotButton: true,
+          showViewButton: true,
+          showOwnersButton: true,
+          onPressView: () => console.log("View clicked"),
+          onPressPlotChange: () => console.log("Plot change clicked"),
+          onPressOwners: () => console.log("Owners clicked"),
+        },
+      },
+      {
+        type: "owners",
+        data: {
+          title: "Owners",
+          owners: [
+            {
+              ownerId: "1",
+              ownerArgs: "1",
+              name: "Owner Name",
+              fields: [
+                { label: "Share", value: "50%" },
+                { label: "Hold Type", value: "Ownership" },
+              ],
+            },
+            {
+              ownerId: "2",
+              ownerArgs: "2",
+              name: "Owner Name 2",
+              fields: [
+                { label: "Share", value: "50%" },
+                { label: "Hold Type", value: "Ownership" },
+              ],
+            },
+          ],
+          showViewButton: true,
+          showPlotsButton: true,
+          showEditButton: false,
+          onPressAction: ({ action, owner }) => console.log(action, owner),
+        },
+      },
+      {
+        type: "genericCards",
+        data: {
+          title: "Late Payment Details",
+          title_ar: "تفاصيل التأخير في الدفع",
+          cardsData: [
+            {
+              rowsData: [
+                { label: "Tenancy Contract Type", value: "Standing" },
+                { label: "Start Date", value: "29/6/2025" },
+                { label: "Rent Amount", value: "912" },
+              ],
+              showTitleButtons: true,
+              titleButtons: [
+                {
+                  title: "Edit",
+                  title_ar: "تعديل",
+                  onClick: () => console.log("Edit clicked"),
+                },
+                {
+                  title: "View",
+                  title_ar: "عرض",
+                  onClick: () => console.log("View clicked"),
+                },
+              ],
+            },
+          ],
+          isExpandable: false,
+          showButtons: false,
+        },
+      },
+      {
+        type: "genericTableCard",
+        data: {
+          title: "Owner Information",
+          title_ar: "معلومات المالك",
+          description: "Description",
+          description_ar: "Arabic Description",
+          cardTitleLabel: "Card Title Label",
+          cardTitleValue: "Card Title Value",
+          variant: "small",
+          columnsData: [
+            {
+              key: "field",
+              label: "Field",
+              label_ar: "الحقل",
+            },
+            {
+              key: "col1",
+              label: "Value 1",
+              label_ar: "القيمة 1",
+            },
+            {
+              key: "col2",
+              label: "Value 2",
+              label_ar: "القيمة 2",
+            },
+            {
+              key: "col3",
+              label: "Value 3",
+              label_ar: "القيمة 3",
+            },
+            {
+              key: "col4",
+              label: "Value 4",
+              label_ar: "القيمة 4",
+            },
+            {
+              key: "col5",
+              label: "Value 5",
+              label_ar: "القيمة 5",
+            },
+          ],
+          rowsData: [
+            {
+              label: "Identity Details",
+              label_ar: "تفاصيل الهوية",
+              button: { title: "Hello", onClick: () => alert("hello") },
+              extraItems: [
+                {
+                  label: "UAE National ID",
+                  label_ar: "الهوية الوطنية الإماراتية",
+                  value: "78273890399292",
+                  value_ar: "78273890399292",
+                },
+                {
+                  label: "MOI Unified Number",
+                  label_ar: "رقم وزارة الداخلية الموحد",
+                  value: "330928",
+                  value_ar: "330928",
+                },
+                {
+                  label: "Archive Number",
+                  label_ar: "رقم الأرشيف",
+                  value: "7921",
+                  value_ar: "7921",
+                },
+                {
+                  label: "Archive Number",
+                  label_ar: "رقم الأرشيف",
+                  value: "7921",
+                  value_ar: "7921",
+                },
+                {
+                  label: "Archive Number",
+                  label_ar: "رقم الأرشيف",
+                  value: "7921",
+                  value_ar: "7921",
+                },
+              ],
+            },
+            {
+              label: "Nationality Details",
+              label_ar: "تفاصيل الجنسية",
+              extraItems: [
+                {
+                  label: "Nationality",
+                  label_ar: "الجنسية",
+                  value: "United Arab Emirates",
+                  value_ar: "الإمارات العربية المتحدة",
+                },
+                {
+                  label: "Special Nationality",
+                  label_ar: "الجنسية الخاصة",
+                  value: "No",
+                  value_ar: "لا",
+                },
+                {
+                  label: "Share",
+                  label_ar: "الحصة",
+                  value: "100% Allotment 50% Share",
+                  value_ar: "100% تخصيص 50% حصة",
+                },
+                {
+                  label: "Share",
+                  label_ar: "الحصة",
+                  value: "100% Allotment 50% Share",
+                  value_ar: "100% تخصيص 50% حصة",
+                },
+
+                {
+                  label: "Share",
+                  label_ar: "الحصة",
+                  value: "100% Allotment 50% Share",
+                  value_ar: "100% تخصيص 50% حصة",
+                },
+              ],
+            },
+            {
+              label: "Right Hold Type",
+              label_ar: "نوع حق الحيازة",
+              extraItems: [
+                {
+                  value: "Ownership Musataha",
+                  value_ar: "ملكية مستطاعة",
+                },
+                {
+                  value: "Ownership Musataha",
+                  value_ar: "ملكية مستطاعة",
+                },
+                {
+                  value: "Ownership Musataha",
+                  value_ar: "ملكية مستطاعة",
+                },
+                {
+                  value: "Ownership Musataha",
+                  value_ar: "ملكية مستطاعة",
+                },
+                {
+                  value: "Ownership Musataha",
+                  value_ar: "ملكية مستطاعة",
+                },
+              ],
+            },
+          ],
+          showFooterButtons: true,
+          footerButton: [
+            {
+              title: "Edit",
+              title_ar: "تعديل",
+              onClick: () => console.log("Edit clicked"),
+            },
+            {
+              title: "View",
+              title_ar: "عرض",
+              onClick: () => console.log("View clicked"),
+            },
+          ],
+          handlePaginationInternally: false,
+          showPagination: true,
+          currentPage: 1,
+          totalPages: 10,
+          pageSize: 5,
+          onPageChange: (page) => console.log(page),
+        },
+      },
+    ],
+    [
+      {
+        type: "genericCards",
+        data: {
+          title: "Tenant Info",
+          title_ar: "معلومات المستأجر",
+          cardsData: [
+            {
+              rowsData: [
+                { label: "Name", value: "John Doe" },
+                { label: "Status", value: "Active" },
+                { label: "Contract", value: "Annual" },
+                { label: "Unit", value: "A-101" },
+              ],
+              showMoreButton: true,
+              defaultShowMore: false,
+              buttons: [
+                {
+                  title: "Edit",
+                  title_ar: "تعديل",
+                  onClick: () => console.log("Edit clicked"),
+                },
+                {
+                  title: "View",
+                  title_ar: "عرض",
+                  onClick: () => console.log("View clicked"),
+                },
+              ],
+              showFooterButtons: true,
+              footerButton: [
+                {
+                  title: "Edit",
+                  title_ar: "تعديل",
+                  type: "primary",
+                  onClick: () => console.log("Edit clicked"),
+                },
+                {
+                  title: "View",
+                  title_ar: "عرض",
+                  type: "secondary",
+                  onClick: () => console.log("View clicked"),
+                },
+              ],
+            },
+          ],
+        },
+      },
+      {
+        type: "genericCard",
+        data: {
+          title: "Tenant Info with Generic Card",
+          title_ar: "معلومات المستأجر",
+          cardTitleLabel: "Tenant Info with Generic Card",
+          cardTitleLabel_ar: "معلومات المستأجر",
+          variant: "small",
+          rowsData: [
+            { label: "Name", value: "John Doe" },
+            { label: "Status", value: "Active" },
+            { label: "Contract", value: "Annual" },
+            { label: "Unit", value: "A-101" },
+          ],
+          showMoreButton: true,
+          defaultShowMore: false,
+          showButtons: true,
+          buttons: [
+            {
+              title: "Edit",
+              title_ar: "تعديل",
+              onClick: () => console.log("Edit clicked"),
+            },
+            {
+              title: "View",
+              title_ar: "عرض",
+              onClick: () => console.log("View clicked"),
+            },
+          ],
+        },
+      },
+      {
+        type: "interactionHistory",
+        data: {
+          totalCompletedSteps: 0,
+          totalSteps: 6,
+          wfiStepList: [
+            {
+              title: "Registration",
+              title_ar: "التسجيل",
+              stepConst: "ElmsAllotmentOfRanchPlots.Registration",
+              stepStatusE: "Completed",
+              stepStatusA: "مكتمل",
+              comments: "Application submitted successfully",
+              isCurrent: false,
+              completedByCustomerNameE: "John Doe",
+              completedByCustomerNameA: "جون دو",
+              completeDate: "2025-01-15",
+            },
+            {
+              title: "Assignment",
+              title_ar: "التخصيص",
+              stepConst: "ElmsAllotmentOfRanchPlots.Assignment",
+              stepStatusE: "In Progress",
+              stepStatusA: "قيد التنفيذ",
+              comments: "Under review by the registration team",
+              isCurrent: true,
+              completedByCustomerNameE: "Jane Smith",
+              completedByCustomerNameA: "جين سميث",
+              completeDate: "2025-01-18",
+            },
+            {
+              title: "Approval",
+              title_ar: "الموافقة",
+              stepConst: "ElmsAllotmentOfRanchPlots.Approval",
+              stepStatusE: "Pending",
+              stepStatusA: "قيد الانتظار",
+              isCurrent: false,
+            },
+          ],
+        },
+      },
+      {
+        type: "documents",
+        title: "Documents",
+        title_ar: "وثائق",
+        data: {
+          documents: [
+            {
+              documentName: "Identity Document",
+              documentName_ar: "وثيقة الهوية",
+              isUploaded: true,
+              downloadUrl: "https://example.com/document1.pdf",
+            },
+            {
+              documentName: "Property Deed",
+              documentName_ar: "سند الملكية",
+              isUploaded: true,
+              downloadUrl: "https://example.com/document2.pdf",
+            },
+            {
+              documentName: "Proof of Residence",
+              documentName_ar: "إثبات الإقامة",
+              isUploaded: true,
+              downloadUrl: "https://example.com/document3.pdf",
+            },
+          ],
+          type: "base",
+        },
+      },
+    ],
+  ];
+
   axios.defaults.baseURL =
     "https://onehub-runtime-backend-dncuhce5dygpbydu.canadacentral-01.azurewebsites.net/";
   axios.defaults.withCredentials = true;
@@ -159,7 +585,7 @@ function App() {
       >
         <div className="p-6 flex flex-col gap-10 max-w-5xl">
           {/* ══════════════════════════ G-0.1 Label ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.1 — Label</h2>
             <p className={SS}>default</p>
             <Label
@@ -226,10 +652,10 @@ function App() {
               tooltipText="Arabic tooltip"
               tooltipText_ar="تلميح عربي"
             />
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-0.2 Caption ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.2 — Caption</h2>
             <p className={SS}>default (both captions)</p>
             <Caption
@@ -282,10 +708,10 @@ function App() {
               captionRight="Right"
               captionRight_ar="يمين"
             />
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-0.3 Tooltip ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.3 — Tooltip (all directions)</h2>
             <div className="flex flex-wrap gap-10 mt-6 mb-6">
               {TOOLTIP_DIRS.map((dir) => (
@@ -311,10 +737,10 @@ function App() {
                 direction="top-right"
               />
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-0.4 Checkbox ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.4 — Checkbox</h2>
             <div className="flex flex-wrap gap-8 mt-2">
               <div className="flex flex-col items-center gap-1">
@@ -361,10 +787,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-0.5 Radio ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.5 — Radio</h2>
             <div className="flex flex-wrap gap-8 mt-2">
               <div className="flex flex-col items-center gap-1">
@@ -430,10 +856,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-0.6 CheckRadioLabel ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.6 — CheckRadioLabel</h2>
             <p className={SS}>default</p>
             <CheckRadioLabel
@@ -452,10 +878,10 @@ function App() {
 
             <p className={SS}>language="ar" forced</p>
             <CheckRadioLabel language="ar" label="Label" label_ar="التسمية" />
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-0.7 AddButton ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.7 — AddButton</h2>
             <div className="flex gap-8 mt-2">
               <div className="flex flex-col items-center gap-1">
@@ -467,10 +893,10 @@ function App() {
                 <AddButton disabled onClick={() => {}} />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-0.8 DateInput (Bk_DateInput) ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.8 — DateInput (Bk_DateInput)</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -578,10 +1004,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-0.9 Fields ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.9 — Fields</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -727,10 +1153,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-0.10 Toast ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.10 — Toast</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -781,10 +1207,10 @@ function App() {
                 <Toast message="حدث خطأ. حاول مرة اخرى" status="error" />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-0.16 Logo ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.16 — Logo</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -828,10 +1254,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-0.17 Avatar ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.17 — Avatar</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -887,15 +1313,15 @@ function App() {
                 <Avatar avatarSize={48} />
               </div>
             </div>
-          </section>
+          </section> */}
 
-          <div className="border-t border-gray-300 my-4" />
+          {/* <div className="border-t border-gray-300 my-4" />
           <h1 className="text-bold-l text-text-default">
             Group 2 — Form Components
-          </h1>
+          </h1> */}
 
           {/* ══════════════════════════ G-2.1 TextInput ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.1 — TextInput</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -996,10 +1422,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-2.2 PhoneInput ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.2 — PhoneInput</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -1082,10 +1508,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-2.3 TextArea ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.3 — TextArea</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -1172,10 +1598,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-2.4 Select ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.4 — Select</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -1280,10 +1706,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-2.5 MultiSelect ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.5 — MultiSelect</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -1387,10 +1813,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-2.6 CurrencyInput ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.6 — CurrencyInput</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -1475,10 +1901,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-2.7 NumberInput ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.7 — NumberInput</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -1566,10 +1992,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-2.8 DateSelect ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.8 — DateSelect</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -1680,10 +2106,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-2.9 CheckboxField ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.9 — CheckboxField</h2>
             <div className="flex flex-wrap gap-6 mt-2">
               <div className="flex flex-col gap-1">
@@ -1767,10 +2193,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-2.10 CheckboxInput ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.10 — CheckboxInput</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -1848,10 +2274,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-2.11 RadioField ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.11 — RadioField</h2>
             <div className="flex flex-wrap gap-6 mt-2">
               <div className="flex flex-col gap-1">
@@ -1947,10 +2373,10 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-2.12 RadioInput ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-2.12 — RadioInput</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               <div>
@@ -2028,18 +2454,17 @@ function App() {
                 />
               </div>
             </div>
-          </section>
+          </section> */}
 
-          <div className="border-t border-gray-300 my-4" />
+          {/* <div className="border-t border-gray-300 my-4" />
           <h1 className="text-bold-l text-text-default">
             Group 3 — UI Primitives
-          </h1>
+          </h1> */}
 
           {/* ══════════════════════════ G-3.1 Buttons ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-3.1 — Buttons</h2>
 
-            {/* Primary Buttons */}
             <div className="mt-4">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Primary Variants
@@ -2103,7 +2528,6 @@ function App() {
               </div>
             </div>
 
-            {/* Secondary Buttons */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Secondary Variants
@@ -2132,7 +2556,6 @@ function App() {
               </div>
             </div>
 
-            {/* Tertiary Buttons */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Tertiary Variants
@@ -2149,7 +2572,6 @@ function App() {
               </div>
             </div>
 
-            {/* Text Link Buttons */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Text Link Variants
@@ -2166,7 +2588,6 @@ function App() {
               </div>
             </div>
 
-            {/* Delete Buttons */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Delete Variants
@@ -2191,7 +2612,6 @@ function App() {
               </div>
             </div>
 
-            {/* Arabic Language Variants */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Arabic Language
@@ -2228,7 +2648,6 @@ function App() {
               </div>
             </div>
 
-            {/* Icon Color Variants */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Custom Icon Colors
@@ -2254,13 +2673,12 @@ function App() {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-3.2 Typography ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-3.2 — Typography</h2>
 
-            {/* Heading Variants */}
             <div className="mt-4">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Heading Variants
@@ -2317,7 +2735,6 @@ function App() {
               </div>
             </div>
 
-            {/* Body Text Variants - Normal */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Body Text (Normal Weight)
@@ -2358,7 +2775,6 @@ function App() {
               </div>
             </div>
 
-            {/* Body Text Variants - Bold */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Body Text (Bold Weight)
@@ -2407,7 +2823,6 @@ function App() {
               </div>
             </div>
 
-            {/* Color Variants */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Color Variants (using text-md)
@@ -2461,7 +2876,6 @@ function App() {
               </div>
             </div>
 
-            {/* Arabic Language Examples */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Arabic Examples (RTL)
@@ -2499,7 +2913,6 @@ function App() {
               </div>
             </div>
 
-            {/* Mixed Examples */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Mixed Examples
@@ -2534,13 +2947,12 @@ function App() {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-3.3 Breadcrumb ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-3.3 — Breadcrumb</h2>
 
-            {/* Default Variants */}
             <div className="mt-4">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Default Variants
@@ -2611,7 +3023,6 @@ function App() {
               </div>
             </div>
 
-            {/* Selected Item Variants */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Selected Item Variants
@@ -2653,7 +3064,6 @@ function App() {
               </div>
             </div>
 
-            {/* Hover Effect Variants */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Hover Effects
@@ -2693,7 +3103,6 @@ function App() {
               </div>
             </div>
 
-            {/* Clickable Items Variants */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Clickable Items
@@ -2751,7 +3160,6 @@ function App() {
               </div>
             </div>
 
-            {/* Arabic Language Variants */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Arabic (RTL)
@@ -2806,7 +3214,6 @@ function App() {
               </div>
             </div>
 
-            {/* Mixed Examples */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Mixed Examples
@@ -2852,13 +3259,12 @@ function App() {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-3.6 Prompt ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-3.6 — Prompt</h2>
 
-            {/* Basic Variants */}
             <div className="mt-4">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Basic Variants
@@ -2898,7 +3304,6 @@ function App() {
               </div>
             </div>
 
-            {/* Custom Button Text Variants */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Custom Button Text
@@ -2959,7 +3364,6 @@ function App() {
               </div>
             </div>
 
-            {/* Arabic Variants with Custom Text */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Arabic Variants (RTL)
@@ -3022,7 +3426,6 @@ function App() {
               </div>
             </div>
 
-            {/* Different Content Types */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Content Variants
@@ -3070,7 +3473,6 @@ function App() {
               </div>
             </div>
 
-            {/* Use Case Examples */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Common Use Cases
@@ -3129,7 +3531,6 @@ function App() {
               </div>
             </div>
 
-            {/* Borderless Examples (for context) */}
             <div className="mt-6">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 In Context (no border)
@@ -3160,13 +3561,12 @@ function App() {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* ══════════════════════════ G-3.7 ScreenLoader ══════════════════════════ */}
-          <section className="flex flex-col gap-2">
+          {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-3.7 — ScreenLoader</h2>
 
-            {/* Basic Variants */}
             <div className="mt-4">
               <h3 className="text-md font-semibold mb-2 text-gray-700">
                 Basic Variants
@@ -3180,7 +3580,7 @@ function App() {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
 
           <div className="border-t border-gray-300 my-4" />
           <h1 className="text-bold-l text-text-default">
@@ -3188,10 +3588,9 @@ function App() {
           </h1>
         </div>
         {/* ══════════════════════════ G-4.1 Title Bar ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.1 — Title Bar</h2>
 
-          {/* Default Variants */}
           <div className="mt-4">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Default Variants
@@ -3220,7 +3619,6 @@ function App() {
             </div>
           </div>
 
-          {/* Button Variants */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Button Variants
@@ -3270,7 +3668,6 @@ function App() {
             </div>
           </div>
 
-          {/* Arabic Variants */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Arabic (RTL)
@@ -3309,9 +3706,10 @@ function App() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
+
         {/* ══════════════════════════ G-4.2 OwnerSearch ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.2 — OwnerSearch</h2>
           <OwnerSearch
             title="Search Owner"
@@ -3323,13 +3721,12 @@ function App() {
             language="en"
             // onSubmit={handleSubmit}
           />
-        </section>
+        </section> */}
 
         {/* ══════════════════════════ G-4.3 Filter Bar ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.3 — Filter Bar</h2>
 
-          {/* Default Variants */}
           <div className="mt-4">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Default Variants
@@ -3363,7 +3760,6 @@ function App() {
             </div>
           </div>
 
-          {/* Arabic RTL Variants */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Arabic (RTL)
@@ -3390,22 +3786,21 @@ function App() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* ══════════════════════════ G-4.4 Payment ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.4 — Payment</h2>
           <Payment
             language="en"
             applicationId="ptmVwwNZMaaKc0HwhTMMHWc3HeZiJXZm"
           />
-        </section>
+        </section> */}
 
         {/* ══════════════════════════ G-4.6 Signature Component ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.6 — Signature</h2>
 
-          {/* Default Variants */}
           <div className="mt-4">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Default Variants
@@ -3429,7 +3824,6 @@ function App() {
             </div>
           </div>
 
-          {/* Arabic RTL Variants */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Arabic (RTL)
@@ -3448,13 +3842,12 @@ function App() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* ══════════════════════════ G-4.7 Upload Documents ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.7 — Upload Documents</h2>
 
-          {/* Default Variants */}
           <div className="mt-4">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Default Variants
@@ -3503,7 +3896,6 @@ function App() {
             </div>
           </div>
 
-          {/* Arabic RTL Variants */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Arabic (RTL)
@@ -3538,13 +3930,12 @@ function App() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* ══════════════════════════ G-4.8 View Plot Detail ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.8 — View Plot Detail</h2>
 
-          {/* Default Variants */}
           <div className="mt-4">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Default Variants
@@ -3563,7 +3954,6 @@ function App() {
             </div>
           </div>
 
-          {/* Owner Section Variants */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Owner Section Variants
@@ -3582,7 +3972,6 @@ function App() {
             </div>
           </div>
 
-          {/* Arabic RTL */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Arabic (RTL)
@@ -3610,16 +3999,64 @@ function App() {
               </div>
             </div>
           </div>
+        </section> */}
+
+        {/* ══════════════════════════ G-4.10 Payment Detail ══════════════════════════ */}
+        <section className="flex flex-col gap-2">
+          <h2 className={ST}>G-4.10 — Pyament Detail</h2>
+          <PaymentDetails
+            applicationId="APP-001"
+            language="en"
+            payments={[
+              {
+                applicationPaymentId: 1,
+                municipalityId: 101,
+                paymentDescriptionE: "Building Permit Fee",
+                paymentDescriptionA: "رسوم تصريح البناء",
+                municipalityNameE: "Dubai Municipality",
+                municipalityNameA: "بلدية دبي",
+                paidByName: "John Doe",
+                receiptNumber: "",
+                receiptDate: "",
+                amountDue: "500 AED",
+                amountInWords: "Five Hundred Dirhams",
+                vatAmount: "25 AED",
+              },
+              {
+                applicationPaymentId: 2,
+                municipalityId: 102,
+                paymentDescriptionE: "Inspection Fee",
+                paymentDescriptionA: "رسوم التفتيش",
+                municipalityNameE: "Abu Dhabi Municipality",
+                municipalityNameA: "بلدية أبوظبي",
+                paidByName: "John Doe",
+                receiptNumber: "REC123",
+                receiptDate: "2025-02-01",
+                amountDue: "300 AED",
+                amountInWords: "Three Hundred Dirhams",
+                vatAmount: "15 AED",
+              },
+            ]}
+            isLoading={false}
+            onOverrideComplete={() => console.log("Override Done")}
+          />
         </section>
-        <div className="border-t border-gray-300 my-4" />
+
+        {/* ══════════════════════════ G-4.11 Application Summary ══════════════════════════ */}
+        <section className="flex flex-col gap-2">
+          <h2 className={ST}>G-4.11 — Application Summary</h2>
+          <ApplicationSummary data={normalizedData} />
+        </section>
+
+        {/* <div className="border-t border-gray-300 my-4" />
         <h1 className="text-bold-l text-text-default">
           Group 5 — Shared Components
-        </h1>
+        </h1> */}
+
         {/* ══════════════════════════ G-5.1 Application Table ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-5.1 — Application Table</h2>
 
-          {/* Static Example */}
           <div className="mt-4">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Static Data Example
@@ -3780,12 +4217,12 @@ function App() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
+
         {/* ══════════════════════════ G-5.2 Owner Card ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-5.2 — Owner Card</h2>
 
-          {/* Default Variant */}
           <div className="mt-4">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Default Variant
@@ -3830,7 +4267,6 @@ function App() {
             </div>
           </div>
 
-          {/* Multiple Owners */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Multiple Owners
@@ -3879,7 +4315,6 @@ function App() {
             />
           </div>
 
-          {/* Action Buttons */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Action Buttons
@@ -3909,7 +4344,6 @@ function App() {
             />
           </div>
 
-          {/* Expandable Cards */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Expandable Card
@@ -3936,7 +4370,6 @@ function App() {
             />
           </div>
 
-          {/* Arabic RTL */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Arabic (RTL)
@@ -3969,12 +4402,12 @@ function App() {
               ]}
             />
           </div>
-        </section>
+        </section> */}
+
         {/* ══════════════════════════ G-5.3 Plot Card ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-3.3 — Plot Card</h2>
 
-          {/* Default Variant */}
           <div className="mt-4">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Default Variant
@@ -4026,7 +4459,6 @@ function App() {
             </div>
           </div>
 
-          {/* Multiple Plots */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Multiple Plots
@@ -4059,7 +4491,6 @@ function App() {
             />
           </div>
 
-          {/* Button Variants */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Button Variants
@@ -4090,7 +4521,6 @@ function App() {
             />
           </div>
 
-          {/* Expandable Cards */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Expandable Cards
@@ -4120,7 +4550,6 @@ function App() {
             />
           </div>
 
-          {/* Arabic RTL */}
           <div className="mt-6">
             <h3 className="text-md font-semibold mb-2 text-gray-700">
               Arabic (RTL)
@@ -4160,15 +4589,17 @@ function App() {
               ]}
             />
           </div>
-        </section>
+        </section> */}
+
         {/* ══════════════════════════ G-5.4 Modal Title ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-5.4 — Modal Title</h2>
           <ModalTitle label="Title" />
           <ModalTitle label_ar="العنوان" language="ar" />
-        </section>
+        </section> */}
+
         {/* ══════════════════════════ G-5.5 Modal Steps ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-5.5 — Modal Steps</h2>
           <ModalSteps title="Title" subText="Step 1 of 2" />
           <ModalSteps
@@ -4176,12 +4607,12 @@ function App() {
             subText_ar="الخطوة 1 من 2"
             language="ar"
           />
-        </section>
+        </section> */}
+
         {/* ══════════════════════════ G-5.6 Generic Card ══════════════════════════ */}
-        <section className="flex flex-col gap-6">
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.6 — Generic Card</h2>
 
-          {/* Default Card */}
           <div>
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Default Variant
@@ -4204,7 +4635,6 @@ function App() {
             />
           </div>
 
-          {/* Expandable Card */}
           <div>
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Expandable Card
@@ -4226,7 +4656,6 @@ function App() {
             />
           </div>
 
-          {/* Card With Buttons */}
           <div>
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Card With Action Buttons
@@ -4255,7 +4684,6 @@ function App() {
             />
           </div>
 
-          {/* Card With Documents */}
           <div>
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Card With Documents
@@ -4292,7 +4720,6 @@ function App() {
             />
           </div>
 
-          {/* Footer Buttons */}
           <div>
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Footer Buttons
@@ -4322,7 +4749,6 @@ function App() {
             />
           </div>
 
-          {/* Arabic RTL */}
           <div dir="rtl">
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Arabic (RTL)
@@ -4341,12 +4767,12 @@ function App() {
               showMoreButton
             />
           </div>
-        </section>
+        </section> */}
+
         {/* ══════════════════════════ G-5.7 Generic Cards Grid ══════════════════════════ */}
-        <section className="flex flex-col gap-6">
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.7 — Generic Cards</h2>
 
-          {/* 1 Card Per Row */}
           <div>
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Single Column
@@ -4380,7 +4806,6 @@ function App() {
             />
           </div>
 
-          {/* 2 Cards Per Row */}
           <div>
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Two Cards Per Row
@@ -4414,7 +4839,6 @@ function App() {
             />
           </div>
 
-          {/* 3 Cards Per Row */}
           <div>
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Three Cards Per Row
@@ -4458,7 +4882,6 @@ function App() {
             />
           </div>
 
-          {/* Cards With Buttons */}
           <div>
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Cards With Actions
@@ -4503,7 +4926,6 @@ function App() {
             />
           </div>
 
-          {/* Arabic RTL */}
           <div dir="rtl">
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Arabic (RTL)
@@ -4537,13 +4959,12 @@ function App() {
               ]}
             />
           </div>
-        </section>
+        </section> */}
 
         {/* ══════════════════════════ G-5.8 Generic Table Card ══════════════════════════ */}
-        <section className="flex flex-col gap-6">
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.8 — Generic Table Card</h2>
 
-          {/* Default Table Card */}
           <div>
             <h3 className="text-md font-semibold mb-3 text-gray-700">
               Default Table
@@ -4739,10 +5160,10 @@ function App() {
               onPageChange={(page) => console.log(page)}
             />
           </div>
-        </section>
+        </section> */}
 
         {/* ══════════════════════════ G-5.9 Card Title ══════════════════════════ */}
-        <section className="flex flex-col gap-6">
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.9 — Card Title</h2>
           <CardTitle
             title="Project Details"
@@ -4794,10 +5215,10 @@ function App() {
             showButtons
             showBorder
           />
-        </section>
+        </section> */}
 
         {/* ══════════════════════════ G-5.10 ViewOwnerDetail ══════════════════════════ */}
-        <section className="flex flex-col gap-6">
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.10 — ViewOwnerDetail</h2>
 
           <ViewOwnerDetail
@@ -4829,17 +5250,16 @@ function App() {
               ],
             }}
           />
-        </section>
+        </section> */}
+
         {/* ══════════════════════════ G-5.12 ApplicationMessage ══════════════════════════ */}
-        <section className="flex flex-col gap-6">
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.12 — ApplicationMessage</h2>
-          {/* Success Message */}{" "}
           <ApplicationMessage
             status="success"
             title="Application Submitted"
             description="Your application has been submitted successfully."
           />{" "}
-          {/* Error Message with Text Input */}{" "}
           <ApplicationMessage
             status="error"
             title="Missing Information"
@@ -4851,7 +5271,6 @@ function App() {
             required
             onInputChange={(val) => setTextValue(val as string)}
           />{" "}
-          {/* Information Message with Select */}{" "}
           <ApplicationMessage
             status="information"
             title="Select Application Type"
@@ -4867,7 +5286,6 @@ function App() {
             ]}
             onInputChange={(val) => setSelectValue(val as string)}
           />{" "}
-          {/* Checkbox Example */}{" "}
           <ApplicationMessage
             status="action"
             title="Select Required Documents"
@@ -4882,7 +5300,6 @@ function App() {
             ]}
             onInputChange={(val) => setCheckboxValue(val as string[])}
           />{" "}
-          {/* Radio Example */}{" "}
           <ApplicationMessage
             status="information"
             title="Ownership Type"
@@ -4896,7 +5313,6 @@ function App() {
             ]}
             onInputChange={(val) => setRadioValue(val as string)}
           />{" "}
-          {/* Action Button */}{" "}
           <ApplicationMessage
             status="action"
             title="Continue Application"
@@ -4905,7 +5321,6 @@ function App() {
             label="Continue"
             onClick={() => alert("Continue clicked")}
           />{" "}
-          {/* Arabic RTL Example */}{" "}
           <ApplicationMessage
             language="ar"
             status="success"
@@ -4916,9 +5331,10 @@ function App() {
             label_ar="متابعة"
             onClick={() => alert("متابعة")}
           />
-        </section>
+        </section> */}
+
         {/* ══════════════════════════ G-5.14 SearchPlot ══════════════════════════ */}
-        <section className="flex flex-col gap-6">
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.14 — SearchPlot</h2>
           <SearchPlot
             title="Search Plot"
@@ -4932,7 +5348,7 @@ function App() {
               randomAllocation: false,
             }}
           />
-        </section>
+        </section> */}
       </Layout>
     </QueryClientProvider>
   );

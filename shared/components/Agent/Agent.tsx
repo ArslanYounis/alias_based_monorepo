@@ -17,6 +17,7 @@ export interface AgentProps {
   title_ar?: string;
   agent: Agent;
   language?: "en" | "ar";
+  platform?: "web" | "mobile";
 }
 
 const Agent: React.FC<AgentProps> = ({
@@ -24,42 +25,72 @@ const Agent: React.FC<AgentProps> = ({
   title_ar = "وكيل العميل",
   agent,
   language = "en",
+  platform = "web",
 }) => {
   return (
     <Container className="flex flex-col gap-2">
-      <Text className={`text-bold-ml text-text-default mb-[7px]`}>
+      <Text className={`text-bold-ml text-text-default mb-xs`}>
         <SharedLanguageSwitchRenderer
           language={language}
           value={title}
           value_ar={title_ar}
         />
       </Text>
-      <Container className="flex gap-m items-center px-s py-xs bg-cards-base-l1 rounded-[5px]">
-        <Avatar
-          imageUrl={
-            agent?.image ||
-            "https://adrec-images.mastermind-mindset.com/dummyUserImg.png"
-          }
-          avatarSize={32}
-        />
-        <Container className="flex gap-xs">
-          <Text className="text-m text-text-default font-normal">
-            <SharedLanguageSwitchRenderer
-              language={language}
-              value={agent.name}
-              value_ar={agent.name_ar}
-            />
-          </Text>
-          <Text className="text-m text-text-dimmed font-normal">|</Text>
-          <Text className="text-m text-text-link font-normal">
-            {agent.email}
-          </Text>
-          <Text className="text-m text-text-dimmed font-normal">|</Text>
-          <Text className="text-m text-text-default font-normal">
-            {agent.phone}
-          </Text>
+      {platform === "web" ? (
+        <Container className="flex flex-row gap-m items-center px-s py-xs bg-cards-base-l1 rounded-[5px]">
+          <Avatar
+            imageUrl={
+              agent?.image ||
+              "https://adrec-images.mastermind-mindset.com/dummyUserImg.png"
+            }
+            avatarSize={32}
+          />
+          <Container className="flex flex-row gap-xs">
+            <Text className="text-m text-text-default font-normal">
+              <SharedLanguageSwitchRenderer
+                language={language}
+                value={agent.name}
+                value_ar={agent.name_ar}
+              />
+            </Text>
+            <Text className="text-m text-text-dimmed font-normal">|</Text>
+            <Text className="text-m text-text-link font-normal">
+              {agent.email}
+            </Text>
+            <Text className="text-m text-text-dimmed font-normal">|</Text>
+            <Text className="text-m text-text-default font-normal">
+              {agent.phone}
+            </Text>
+          </Container>
         </Container>
-      </Container>
+      ) : (
+        <Container className="flex flex-row gap-m items-center px-s py-xs bg-cards-base-l1 rounded-[5px]">
+          <Avatar
+            imageUrl={
+              agent?.image ||
+              "https://adrec-images.mastermind-mindset.com/dummyUserImg.png"
+            }
+            avatarSize={32}
+          />
+          <Container className="flex flex-col gap-xs">
+            <Text className="text-m text-text-default font-normal">
+              <SharedLanguageSwitchRenderer
+                language={language}
+                value={agent.name}
+                value_ar={agent.name_ar}
+              />
+            </Text>
+            <Container className="flex flex-row gap-xs">
+              <Text className="text-s text-text-link font-normal">
+                {agent.email}
+              </Text>
+              <Text className="text-s text-text-default font-normal">
+                {agent.phone}
+              </Text>
+            </Container>
+          </Container>
+        </Container>
+      )}
     </Container>
   );
 };

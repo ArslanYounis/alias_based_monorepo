@@ -25,6 +25,7 @@ export interface IInteractionCardProps {
   totalSteps?: number;
   totalCompletedSteps?: number;
   wfiStepList?: WfiStep[];
+  platform?: "web" | "mobile";
 }
 
 const InteractionCard: React.FC<IInteractionCardProps> = ({
@@ -33,6 +34,7 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
   totalSteps = 6,
   totalCompletedSteps = 0,
   wfiStepList = [],
+  platform = "web",
 }) => {
   const renderInteractionCard = (step: WfiStep, index: number) => {
     const isCompleted = step.isCompleted;
@@ -41,19 +43,21 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
     return (
       <Container
         key={index}
-        className={`w-full rounded-xs mb-4 min-h-[72px] max-h-[160px] p-m gap-l border ${
+        className={`w-full rounded-xs mb-4 min-h-[72px] ${
+          platform === "web" ? "max-h-auto" : "max-h-[160px]"
+        } p-m gap-l border mt-s ${
           isCompleted
             ? "border-Green-9 bg-[#2b8a3e10]"
             : "border-text-dimmed bg-Base-White"
         }`}
       >
         <Container
-          className={`flex ${
+          className={`flex flex-row ${
             isCompleted ? "items-start" : "items-center"
           } gap-4 h-full`}
         >
           <Container
-            className={`flex items-center justify-center shrink-0 rounded-full bg-Base-Transparent w-[40px] h-[40px] border ${
+            className={`flex flex-row items-center justify-center shrink-0 rounded-full bg-Base-Transparent w-[40px] h-[40px] border ${
               isCompleted ? "border-Green-9" : "border-Teal-9"
             }`}
           >
@@ -63,8 +67,8 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
           </Container>
 
           <Container className="flex-1 flex flex-col justify-between h-full">
-            <Container className="flex justify-between items-start">
-              <Text className={`text-bold-m text-text-default pb-xs`}>
+            <Container className="flex flex-row justify-between items-start">
+              <Text className={`text-bold-m text-text-default mb-xs`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
                   value={step?.title}
@@ -91,8 +95,14 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
             </Container>
 
             {toggleType === "Standard" && step?.completedByCustomerNameE && (
-              <Container className="flex w-[80%] py-xs border-b border-Dark-7">
-                <Container className="w-[40px]">
+              <Container
+                className={`flex flex-row ${
+                  platform === "web" ? "w-[80%]" : "w-full"
+                } py-xs border-b border-Dark-7`}
+              >
+                <Container
+                  className={`${platform === "web" ? "w-[40px]" : ""}`}
+                >
                   <Text className={`text-bold-m text-text-default`}>
                     {language === "en" ? "By" : "بواسطة"}
                   </Text>
@@ -113,11 +123,13 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
             )}
             {toggleType === "Standard" && step?.completeDate && (
               <Container
-                className={`flex w-[80%] py-xs ${
-                  step?.comments ? "border-b border-Dark-7" : ""
-                }`}
+                className={`flex flex-row ${
+                  platform === "web" ? "w-[80%]" : "w-full"
+                } py-xs ${step?.comments ? "border-b border-Dark-7" : ""}`}
               >
-                <Container className="w-[40px]">
+                <Container
+                  className={`${platform === "web" ? "w-[40px]" : ""}`}
+                >
                   <Text className={`text-bold-m text-text-default`}>
                     {language === "en" ? "Date" : "التاريخ"}
                   </Text>
@@ -136,8 +148,14 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
               </Container>
             )}
             {step?.comments && (
-              <Container className="flex w-[80%] py-xs">
-                <Container className="w-[40px]">
+              <Container
+                className={`flex flex-row ${
+                  platform === "web" ? "w-[80%]" : "w-full"
+                } py-xs`}
+              >
+                <Container
+                  className={`${platform === "web" ? "w-[40px]" : ""}`}
+                >
                   <Text className={`text-bold-m text-text-default`}>
                     {language === "en" ? "Remark" : "ملاحظة"}
                   </Text>
@@ -163,7 +181,7 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
 
   return (
     <Container>
-      <Text className={`text-bold-ml text-text-default pb-s`}>
+      <Text className={`text-bold-ml text-text-default mb-s`}>
         <SharedLanguageSwitchRenderer
           language={language}
           value="Interaction History"

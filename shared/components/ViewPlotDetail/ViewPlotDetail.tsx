@@ -281,7 +281,11 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
                     />
                   </Text>
                   <Text className={`text-text-default text-m`}>
-                    {item.value}
+                    <SharedLanguageSwitchRenderer
+                      language={language}
+                      value={item.value}
+                      value_ar={item.value || item.value_ar}
+                    />
                   </Text>
                 </Container>
               ))}
@@ -315,7 +319,13 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
                 </Text>
               </Container>
               <Container className="flex-1">
-                <Text className="text-m">{item.value}</Text>
+                <Text className="text-m">
+                  <SharedLanguageSwitchRenderer
+                    language={language}
+                    value={item.value}
+                    value_ar={item.value || item.value_ar}
+                  />
+                </Text>
               </Container>
             </Container>
           ))}
@@ -407,11 +417,13 @@ const ViewPlotDetail: React.FC<ViewPlotDetailProps> = ({
     <Container className="flex flex-col flex-1">
       {isDetailPending && (
         <Container className="h-full flex items-center justify-center text-text-default text-m font-bold">
-          <SharedLanguageSwitchRenderer
-            language={language}
-            value={"Loading..."}
-            value_ar={"جارٍ التحميل"}
-          />
+          <Text>
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={"Loading..."}
+              value_ar={"جارٍ التحميل"}
+            />
+          </Text>
         </Container>
       )}
       <Container
@@ -420,11 +432,13 @@ const ViewPlotDetail: React.FC<ViewPlotDetailProps> = ({
       >
         {plotDetails.length === 0 && !isDetailPending && (
           <Container className="h-full flex items-center justify-center text-text-default text-m font-bold">
-            <SharedLanguageSwitchRenderer
-              language={language}
-              value={"No plots found"}
-              value_ar={"لم يتم العثور على قطع"}
-            />
+            <Text>
+              <SharedLanguageSwitchRenderer
+                language={language}
+                value={"No plots found"}
+                value_ar={"لم يتم العثور على قطع"}
+              />
+            </Text>
           </Container>
         )}
         {plotDetails.map((plotDetail: PlotDetailResponse, index: number) => (

@@ -113,7 +113,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
             </Text>
           )}
         </Container>
-        <Container className="flex items-center gap-xs">
+        <Container className="flex items-center gap-xs mb-xs">
           {(status || status_ar) && (
             <Container className="w-[60px] h-[24px] flex items-center justify-center rounded-xxl bg-status-pending-fade text-status-pending-solid py-xxs px-xs gap-sm">
               <Text className="text-xs">

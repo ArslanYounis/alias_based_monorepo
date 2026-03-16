@@ -265,8 +265,8 @@ module.exports = {
         "drop-shadow-modal-1": "var(--drop-shadow-modal-1)",
 
         /* Form colors */
-        "form-back": "var(--color-Form-Back)",
-        "form-border": "var(--color-Form-Border)",
+        "grey-form-back": "var(--color-Form-Back)",
+        "grey-form-border": "var(--color-Form-Border)",
 
         "form-fields-active-input-text-active":
           "var(--Form-Fields-Active-Input-text-active)",

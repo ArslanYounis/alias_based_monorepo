@@ -1,8 +1,10 @@
 import React, { useCallback, useState } from "react";
 import { Container } from "@platform/Container";
+import { Text } from "@platform/Text";
 import { Buttons } from "@platform/Buttons";
 import { CustomDrawer } from "@platform/CustomDrawer";
 import GenericCard from "../GenericCard";
+import type { ButtonType } from "../CardTitle";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 import PaymentOverride, { type PaymentOverrideValues } from "./PaymentOverride";
 import {
@@ -17,7 +19,6 @@ import {
   usePrintPaymentSlip,
   type PrintPaymentSlipPayload,
 } from "@shared/hooks/usePrintPaymentSlip";
-import type { ButtonType } from "../CardTitle";
 
 export interface ApplicationPayment {
   applicationPaymentId?: string | number;
@@ -48,9 +49,9 @@ export interface PaymentDetailsProps {
   buttons?: ButtonType[];
 
   /** Called when override payment mutation succeeds */
-  onOverrideComplete?: VoidFunction;
+  onOverrideComplete?: Function;
   /** Called when verify payment mutation succeeds */
-  onVerifyComplete?: VoidFunction;
+  onVerifyComplete?: Function;
 
   paymentOverrideTitle?: string;
   paymentOverrideTitle_ar?: string;
@@ -116,20 +117,22 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
             closeOverrideDrawer();
             onOverrideComplete?.();
           },
-        },
+        }
       );
     },
-    [overridePayment, args, selectedPayment, onOverrideComplete],
+    [overridePayment, args, selectedPayment, onOverrideComplete]
   );
 
   if (isLoading) {
     return (
       <Container className="flex items-center justify-center">
-        <SharedLanguageSwitchRenderer
-          value="Loading..."
-          value_ar="جارٍ التحميل..."
-          language={language}
-        />
+        <Text>
+          <SharedLanguageSwitchRenderer
+            value="Loading..."
+            value_ar="جارٍ التحميل..."
+            language={language}
+          />
+        </Text>
       </Container>
     );
   }
@@ -193,7 +196,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
             />
 
             {/* ACTION BUTTONS */}
-            <Container className="flex items-center gap-s">
+            <Container className="flex flex-row mt-m items-center gap-s flex-wrap">
               <Buttons
                 type="secondary"
                 size="m"
@@ -217,7 +220,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                         }
                       },
                       onSettled: () => setPrintingId(null),
-                    },
+                    }
                   );
                 }}
               />
@@ -241,7 +244,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                           onSuccess: () => {
                             onVerifyComplete?.();
                           },
-                        },
+                        }
                       );
                     }}
                   />
