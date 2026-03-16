@@ -475,6 +475,7 @@ const OwnerSearchByOwner = ({
             language={language}
             onPageChange={handlePageChange}
             isLoading={isPending}
+            platform={platform}
           />
         )}
       </CustomDrawer>

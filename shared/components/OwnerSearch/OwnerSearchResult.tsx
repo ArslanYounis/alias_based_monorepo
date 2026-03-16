@@ -36,6 +36,7 @@ interface OwnerSearchResultProps {
   onSubmit?: (val: IOwnerSearchResult[]) => void;
   language: "en" | "ar";
   onPageChange?: (page: number) => void;
+  platform?: "web" | "mobile";
 }
 
 const getLanguageSwitchText = ({
@@ -59,8 +60,10 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
   pageSize,
   totalCount,
   onPageChange,
+  platform = "web",
 }) => {
-  const [selectedIds, setSelectedIds] = React.useState<IOwnerSearchResult[]>(selected);
+  const [selectedIds, setSelectedIds] =
+    React.useState<IOwnerSearchResult[]>(selected);
   const [selectedOwnerDetail, setSelectedOwnerDetail] =
     React.useState<IOwnerSearchResult | null>(null);
   const [isDetailDrawerOpen, setIsDetailDrawerOpen] = React.useState(false);
@@ -107,17 +110,22 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
   };
 
   const renderResultCard = (result: IOwnerSearchResult, index: number) => {
-    const isSelected = some(selectedIds, (val) => val.ownerId === result?.ownerId);
+    const isSelected = some(
+      selectedIds,
+      (val) => val.ownerId === result?.ownerId
+    );
 
     return (
       <Container
         key={index}
         className={`mb-4 rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer border border-cards-stroke ${
-          isSelected ? "bg-cards-searchResult-selected" : "bg-cards-searchResult"
+          isSelected
+            ? "bg-cards-searchResult-selected"
+            : "bg-cards-searchResult"
         }`}
         onClick={() => handleRadioSelect(result)}
       >
-        <Container className="flex justify-between mb-3">
+        <Container className="flex flex-row justify-between mb-3">
           <Text className="text-bold-l text-text-default line-clamp-1 mr-xxs">
             <SharedLanguageSwitchRenderer
               language={language}
@@ -125,7 +133,7 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
               value_ar={result.ownerName_A || result.ownerName_E}
             />
           </Text>
-          <Container className="flex items-center gap-4">
+          <Container className="flex flex-row items-center gap-4">
             <Buttons
               title="Details"
               title_ar="التفاصيل"
@@ -155,11 +163,13 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
         ].map(({ label, label_ar, value, value_ar }, idx, array) => (
           <Container
             key={label}
-            className={`flex ${
-              idx !== array.length - 1 ? "border-b pb-2 border-text-dimmed mb-2" : ""
+            className={`flex flex-row ${
+              idx !== array.length - 1
+                ? "border-b pb-2 border-text-dimmed mb-2"
+                : ""
             }`}
           >
-            <Container className="sm:w-1/2 w-full">
+            <Container className="w-1/2">
               <Text className="text-bold-m text-text-default">
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -168,7 +178,7 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
                 />
               </Text>
             </Container>
-            <Container className="sm:w-1/2 w-full">
+            <Container className="w-1/2">
               <Text className="text-m break-words text-text-default">
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -186,7 +196,11 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
   return (
     <Container dir={language === "ar" ? "rtl" : "ltr"}>
       <Container>
-        <Text className="text-heading-h1 font-bold pb-8 text-text-default">
+        <Text
+          className={`${
+            platform === "web" ? "text-heading-h1" : "text-heading-h3"
+          } font-bold pb-8 text-text-default`}
+        >
           <SharedLanguageSwitchRenderer
             language={language}
             value="Search Results"
@@ -194,7 +208,7 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
           />
         </Text>
         {isLoading ? (
-          <Container className="text-text-default flex items-center justify-center">
+          <Container className="text-text-default flex flex-row items-center justify-center">
             <Text className="text-m text-text-dimmed">
               <SharedLanguageSwitchRenderer
                 value="Loading..."
@@ -226,7 +240,7 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
                   value_ar="لمعايير البحث التالية:"
                 />
               </Text>
-              <Container className="flex items-center gap-2">
+              <Container className="flex flex-row items-center gap-2">
                 <Text className="text-bold-m text-text-default">
                   <SharedLanguageSwitchRenderer
                     language={language}
@@ -235,16 +249,15 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
                   />
                 </Text>
                 <Text className="text-text-dimmed">|</Text>
-                <Text
-                  className="text-bold-m cursor-pointer hover:underline text-text-link-hover"
-                  onClick={onCloseDrawer}
-                >
-                  <SharedLanguageSwitchRenderer
-                    language={language}
-                    value="Edit"
-                    value_ar="تعديل"
-                  />
-                </Text>
+                <Container onClick={onCloseDrawer}>
+                  <Text className="text-bold-m cursor-pointer hover:underline text-text-link-hover">
+                    <SharedLanguageSwitchRenderer
+                      language={language}
+                      value="Edit"
+                      value_ar="تعديل"
+                    />
+                  </Text>
+                </Container>
               </Container>
             </Container>
             {getCurrentPageResults().map(renderResultCard)}
@@ -254,20 +267,22 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
                   title="Select Owner"
                   title_ar="اختر المالك"
                   disabled={!selectedIds?.length}
-                  size="l"
+                  size={platform === "web" ? "l" : "m"}
                   onClick={handleSelectOwner}
                   language={language}
                 />
-                <Pagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  onPageChange={handlePageChange}
-                  showPageNumbers={true}
-                  position="right"
-                  pageSize={pageSize}
-                  totalCount={totalCount}
-                  language={language}
-                />
+                <Container className="my-s">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                    showPageNumbers={true}
+                    position="right"
+                    pageSize={pageSize}
+                    totalCount={totalCount}
+                    language={language}
+                  />
+                </Container>
               </Container>
             )}
           </>

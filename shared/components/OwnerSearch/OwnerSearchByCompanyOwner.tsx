@@ -383,6 +383,7 @@ const OwnerSearchByCompanyOwner = ({
             language={language}
             onPageChange={handlePageChange}
             isLoading={isPending}
+            platform={platform}
           />
         )}
       </CustomDrawer>

@@ -589,7 +589,7 @@ export default function App() {
             {/* ═══════════════════════════════════════════════ */}
 
             {/* ── G-0.1 Label ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.1 — Label</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -663,10 +663,10 @@ export default function App() {
                 tooltipText_ar="تلميحة"
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-0.2 Caption ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.2 — Caption</Text>
 
               <Text style={styles.variantLabel}>captionLeft only</Text>
@@ -731,10 +731,10 @@ export default function App() {
                 captionRight_ar="يمين"
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-0.3 Tooltip ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>
                 G-0.3 — Tooltip (all 13 directions)
               </Text>
@@ -749,10 +749,10 @@ export default function App() {
                   />
                 </View>
               ))}
-            </View> */}
+            </View>
 
             {/* ── G-0.4 Checkbox ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.4 — Checkbox</Text>
 
               <Text style={styles.variantLabel}>Default (unchecked)</Text>
@@ -789,10 +789,10 @@ export default function App() {
 
               <Text style={styles.variantLabel}>hasError + checked</Text>
               <Checkbox id="cb-err-ch" checked hasError onChange={() => {}} />
-            </View> */}
+            </View>
 
             {/* ── G-0.5 Radio ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.5 — Radio</Text>
 
               <Text style={styles.variantLabel}>Default (unchecked)</Text>
@@ -833,10 +833,10 @@ export default function App() {
 
               <Text style={styles.variantLabel}>hasError + checked</Text>
               <Radio id="r-err-ch" checked hasError onChange={() => {}} />
-            </View> */}
+            </View>
 
             {/* ── G-0.6 CheckRadioLabel ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.6 — CheckRadioLabel</Text>
 
               <Text style={styles.variantLabel}>Default (en)</Text>
@@ -876,10 +876,10 @@ export default function App() {
                 onClick={() => {}}
                 htmlFor="crl-4"
               />
-            </View> */}
+            </View>
 
             {/* ── G-0.7 AddButton ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.7 — AddButton</Text>
 
               <Text style={styles.variantLabel}>Default (enabled)</Text>
@@ -887,10 +887,10 @@ export default function App() {
 
               <Text style={styles.variantLabel}>disabled=true</Text>
               <AddButton disabled onClick={() => {}} />
-            </View> */}
+            </View>
 
             {/* ── G-0.8 Bk_DateInput ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.8 — Bk_DateInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -952,10 +952,10 @@ export default function App() {
                 value=""
                 onDateChange={() => {}}
               />
-            </View> */}
+            </View>
 
             {/* ── G-0.9 Fields ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.9 — Fields</Text>
 
               <Text style={styles.variantLabel}>type="text" (default)</Text>
@@ -1063,10 +1063,10 @@ export default function App() {
                 onChange={(v) => setFNumber(String(v))}
                 language={language}
               />
-            </View> */}
+            </View>
 
             {/* ── G-0.10 Toast ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.10 — Toast</Text>
 
               <Text style={styles.variantLabel}>status="success"</Text>
@@ -1098,10 +1098,10 @@ export default function App() {
                 message="This is a very long toast message that demonstrates how the component handles extended text content and wrapping"
                 status="success"
               />
-            </View> */}
+            </View>
 
             {/* ── G-0.12 Header ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.11 — Header</Text>
 
               <Text style={styles.variantLabel}>Default (English)</Text>
@@ -1126,10 +1126,10 @@ export default function App() {
                 ]}
                 onAvatarPress={() => console.log("Avatar pressed")}
               />
-            </View> */}
+            </View>
 
             {/* ── G-0.15 Bot ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-0.13 — Bot</Text>
 
               <Text style={styles.variantLabel}>Status: Close (Default)</Text>
@@ -1202,14 +1202,14 @@ export default function App() {
                   }
                 />
               </View>
-            </View> */}
+            </View>
 
             {/* ═══════════════════════════════════════════════ */}
             {/* G-2 — Form Components                          */}
             {/* ═══════════════════════════════════════════════ */}
 
             {/* ── G-2.1 TextInput ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.1 — TextInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1303,10 +1303,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-2.2 PhoneInput ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.2 — PhoneInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1371,10 +1371,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-2.3 TextArea ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.3 — TextArea</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1434,10 +1434,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-2.4 Select ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.4 — Select</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1533,10 +1533,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-2.5 MultiSelect ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.5 — MultiSelect</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1625,10 +1625,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-2.6 CurrencyInput ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.6 — CurrencyInput</Text>
 
               <Text style={styles.variantLabel}>Default (AED)</Text>
@@ -1704,10 +1704,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-2.7 NumberInput ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.7 — NumberInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1783,10 +1783,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-2.8 DateSelect ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.8 — DateSelect</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -1850,10 +1850,10 @@ export default function App() {
                 value=""
                 onDateChange={() => {}}
               />
-            </View> */}
+            </View>
 
             {/* ── G-2.9 CheckboxField ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.9 — CheckboxField</Text>
 
               <Text style={styles.variantLabel}>Default (unchecked)</Text>
@@ -1922,10 +1922,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-2.10 CheckboxInput ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.10 — CheckboxInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -2014,10 +2014,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-2.11 RadioField ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.11 — RadioField</Text>
 
               <Text style={styles.variantLabel}>Default (unchecked)</Text>
@@ -2106,10 +2106,10 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ── G-2.12 RadioInput ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-2.12 — RadioInput</Text>
 
               <Text style={styles.variantLabel}>Default</Text>
@@ -2198,14 +2198,14 @@ export default function App() {
                 onChange={() => {}}
                 language="ar"
               />
-            </View> */}
+            </View>
 
             {/* ═══════════════════════════════════════════════ */}
             {/* G-3 — UI Primitives                     */}
             {/* ═══════════════════════════════════════════════ */}
 
             {/* ── G-3.1 Buttons ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.1 — Buttons</Text>
 
               <Text style={styles.variantLabel}>Primary Buttons</Text>
@@ -2407,10 +2407,10 @@ export default function App() {
                   onClick={() => {}}
                 />
               </View>
-            </View> */}
+            </View>
 
             {/* ── G-3.2 Typography ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.2 — Typography</Text>
 
               <Text style={styles.variantLabel}>Heading Variants</Text>
@@ -2625,10 +2625,10 @@ export default function App() {
                   />
                 </View>
               </View>
-            </View> */}
+            </View>
 
             {/* ── G-3.3 Breadcrumb ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.3 — Breadcrumb</Text>
 
               <Text style={styles.variantLabel}>Default (2 items)</Text>
@@ -2742,10 +2742,10 @@ export default function App() {
                   />
                 </React.Fragment>
               ))}
-            </View> */}
+            </View>
 
             {/* ── G-3.4 Pagination ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.4 — Pagination</Text>
               <Text style={styles.variantLabel}>Basic (Center Position)</Text>
               <Pagination
@@ -2755,10 +2755,10 @@ export default function App() {
                 language="en"
                 pageSize={0}
               />
-            </View> */}
+            </View>
 
             {/* ── G-3.5 AddMoreButton ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.5 — AddMoreButton</Text>
 
               <Text style={styles.variantLabel}>Default (English)</Text>
@@ -2783,10 +2783,10 @@ export default function App() {
                 plusIcon={<Plus size={24} color="#3b82f6" />}
                 language="en"
               />
-            </View> */}
+            </View>
 
             {/* ── G-3.6 Prompt ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.6 — Prompt</Text>
 
               <Text style={styles.variantLabel}>Default (English)</Text>
@@ -2797,22 +2797,22 @@ export default function App() {
                 onNoClick={() => console.log("No clicked")}
                 language="en"
               />
-            </View> */}
+            </View>
 
             {/* ── G-3.7 ScreenLoader ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-3.7 — ScreenLoader</Text>
 
               <Text style={styles.variantLabel}>Default </Text>
               <ScreenLoader isLoading={false} />
-            </View> */}
+            </View>
 
             {/* ═══════════════════════════════════════════════ */}
             {/* G-4 — Recommended placement                   */}
             {/* ═══════════════════════════════════════════════ */}
 
             {/* ── G-4.1 TitleBar ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-4.1 — TitleBar</Text>
 
               <Text style={styles.variantLabel}>Default Title</Text>
@@ -2936,10 +2936,10 @@ export default function App() {
                   />
                 </React.Fragment>
               ))}
-            </View> */}
+            </View>
 
             {/* ── G-4.2 OwnerSearch ── */}
-            {/* <View style={styles.section}>
+            <View style={styles.section}>
               <Text style={styles.sectionTitle}>G-4.2 — OwnerSearch</Text>
               <OwnerSearch
                 title="Search Owner"
@@ -2952,7 +2952,7 @@ export default function App() {
                 // onSubmit={handleSubmit}
                 platform="mobile"
               />
-            </View> */}
+            </View>
 
             {/* ── G-4.3 FilterBar ── */}
             {/* <View style={styles.section}>

@@ -8,7 +8,7 @@ import ToastActionIcon from "~/assets/svg/icons/toast/Action";
 
 export type { ToastProps, ToastStatus };
 
-const AUTO_HIDE_MS = 5000000000;
+const AUTO_HIDE_MS = 5000;
 
 const STATUS_COLORS: Record<
   ToastStatus,
