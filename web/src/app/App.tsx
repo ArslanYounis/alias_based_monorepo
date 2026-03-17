@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Layout } from "@/ui/Layout";
-// import { Layout } from "../../../shared/components/Layout";
+import { Layout } from "@platform/Layout";
 // G-0
 import { Label } from "@/ui/Label";
 import { Caption } from "@/ui/Caption";
@@ -573,7 +572,6 @@ function App() {
     <QueryClientProvider client={new QueryClient()}>
       <Layout
         language={language}
-        theme="light"
         onToggleLanguage={() => setLanguage((l) => (l === "en" ? "ar" : "en"))}
         isEditing={false}
         menuItems={layoutMenuItems}
@@ -583,7 +581,7 @@ function App() {
         showFooter
         toast={{ message: "", status: "success" }}
       >
-        <div className="p-6 flex flex-col gap-10 max-w-5xl">
+        <div className="p-6 flex flex-col gap-10">
           {/* ══════════════════════════ G-0.1 Label ══════════════════════════ */}
           {/* <section className="flex flex-col gap-2">
             <h2 className={ST}>G-0.1 — Label</h2>
