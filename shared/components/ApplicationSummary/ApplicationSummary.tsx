@@ -28,6 +28,7 @@ import type {
   ApplicationSummaryProps,
   UploadDocumentsProps,
 } from "./ApplicationSummary.types";
+import { SwitchButton } from "@platform/SwitchButton";
 
 /* Component */
 const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
@@ -218,23 +219,9 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
           {isExpanded && (
             <>
               {/* Toggle track — click handled by wrapping Container following existing project pattern */}
-              <Container
-                className="relative inline-flex items-center cursor-pointer"
-                onClick={handleToggle}
-              >
-                <Container className="w-[48px] h-[24px] border border-text-dimmed bg-Base-White rounded-full transition-colors duration-300" />
-                <Container
-                  className={`absolute left-0.5 top-0.5 ${
-                    type === "Standard" ? "bg-text-link" : "bg-text-dimmed"
-                  } w-5 h-5 rounded-full transition-transform duration-300`}
-                  // style={{
-                  //   transform:
-                  //     platform === "web" && type === "Standard"
-                  //       ? "translateX(24px)"
-                  //       : "translateX(0)",
-                  // }}
-                />
-              </Container>
+
+              <SwitchButton type={type} onToggle={handleToggle} />
+
               <Text className="text-bold-xs text-text-default">
                 {type === "Compact" ? (
                   <SharedLanguageSwitchRenderer
