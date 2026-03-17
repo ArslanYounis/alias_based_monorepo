@@ -61,7 +61,6 @@
     }
   },
   "dependencies": {
-    "@gorhom/bottom-sheet": "^5.2.8",
     "@react-native-community/datetimepicker": "8.4.4",
     "@rn-primitives/dropdown-menu": "^1.2.0",
     "@rn-primitives/popover": "^1.2.0",
@@ -79,6 +78,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@gorhom/bottom-sheet": "^5.2.8",
     "@tanstack/react-query": "^5.90.20",
     "@types/react": "~19.1.0",
     "@types/react-native": "^0.72.8",

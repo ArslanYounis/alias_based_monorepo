@@ -10,11 +10,13 @@ const config: StorybookConfig = {
     "../src/ui/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../../shared/components/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
-  addons: [],
+  addons: ["@storybook/addon-docs"],
   framework: {
     name: "@storybook/react-vite",
     options: {},
   },
+  docs: {},
+  staticDirs: ["../public"],
   async viteFinal(config) {
     return mergeConfig(config, {
       resolve: {

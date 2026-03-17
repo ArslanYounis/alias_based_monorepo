@@ -2,17 +2,44 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CheckRadioLabel } from "./CheckRadioLabel";
 
 const meta: Meta<typeof CheckRadioLabel> = {
+  title: "Components/InputAndFormElements/CheckRadioLabel",
   component: CheckRadioLabel,
-  title: "UI/CheckRadioLabel",
+  tags: ["autodocs"],
+  argTypes: {
+    label: { control: "text" },
+    disabled: { control: "boolean" },
+  },
 };
-export default meta;
 
+export default meta;
 type Story = StoryObj<typeof CheckRadioLabel>;
 
 export const Default: Story = {
-  args: { label: "Label text" },
+  args: {
+    label: "Add Label",
+    disabled: false,
+  },
 };
 
 export const Disabled: Story = {
-  args: { label: "Disabled label", disabled: true },
+  args: {
+    label: "Add Label",
+    disabled: true,
+  },
+};
+
+export const ArabicLight: Story = {
+  args: {
+    label_ar: "تسمية",
+    disabled: false,
+    language: "ar",
+  },
+};
+
+export const ArabicDark: Story = {
+  args: {
+    label_ar: "تسمية",
+    disabled: false,
+    language: "ar",
+  },
 };

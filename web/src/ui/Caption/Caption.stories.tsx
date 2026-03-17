@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Caption } from "./Caption";
 
 const meta: Meta<typeof Caption> = {
+  title: "Components/InputAndFormElements/Caption",
   component: Caption,
-  title: "UI/Caption",
   tags: ["autodocs"],
   argTypes: {
     captionLeft: { control: "text" },
@@ -11,12 +11,11 @@ const meta: Meta<typeof Caption> = {
     hasError: { control: "boolean" },
     disabled: { control: "boolean" },
     errorMessage: { control: "text" },
-    theme: { control: { type: "select" }, options: ["light", "dark"] },
-    language: { control: { type: "select" }, options: ["en", "ar"] },
+    theme: { control: { type: "select" }, options: ["light", "dark"], defaultValue: "light" },
   },
 };
-export default meta;
 
+export default meta;
 type Story = StoryObj<typeof Caption>;
 
 export const Default: Story = {
@@ -44,7 +43,7 @@ export const EnglishCaptions: Story = {
 export const ArabicCaptions: Story = {
   args: {
     captionLeft_ar: "التسمية على اليسار",
-    captionRight_ar: "التسمية على اليمين",
+    captionRight_ar: " التسمية على اليمين",
     hasError: false,
     disabled: false,
     theme: "light",
@@ -54,8 +53,6 @@ export const ArabicCaptions: Story = {
 
 export const WithError: Story = {
   args: {
-    captionLeft: "Left caption",
-    captionRight: "Right caption",
     hasError: true,
     errorMessage: "This is an error message.",
     disabled: false,
@@ -66,8 +63,6 @@ export const WithError: Story = {
 
 export const WithErrorArabic: Story = {
   args: {
-    captionLeft: "Left",
-    captionRight: "Right",
     hasError: true,
     errorMessage: "هذه رسالة خطأ.",
     errorMessage_ar: "هذه رسالة خطأ.",
