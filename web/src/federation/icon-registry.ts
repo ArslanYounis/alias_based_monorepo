@@ -13,16 +13,16 @@ export const iconRegistry: Record<string, IconRegistryItem> = {
   ArrowRight: {
     iconColor: "#000000",
     component: ArrowRight,
-    types: ["button", "input"],
+    types: ["button", "input", "form"],
   },
   ArrowLeft: {
     iconColor: "#000000",
     component: ArrowLeft,
-    types: ["button", "input"],
+    types: ["button", "input", "form"],
   },
   Luggage: {
     iconColor: "#000000",
     component: Luggage,
-    types: ["button", "input"],
+    types: ["button", "input", "form"],
   },
 };

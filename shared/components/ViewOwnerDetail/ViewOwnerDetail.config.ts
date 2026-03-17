@@ -1,0 +1,80 @@
+import { UserCogIcon } from "lucide-react";
+import type { ComponentConfig } from "@shared/types/dls.types";
+import ViewOwnerDetail, { type ViewOwnerDetailProps } from "./ViewOwnerDetail";
+
+const ViewOwnerDetailConfigs: ComponentConfig<ViewOwnerDetailProps> = {
+  id: "viewOwnerDetail",
+  icon: UserCogIcon,
+  name: "Owner Detail",
+  Component: ViewOwnerDetail,
+  controls: {
+    mainTitle: {
+      type: ["text", "code"],
+      label: "Main Title",
+      hasArabic: true,
+      defaultValue: "Owner Detail",
+      defaultValueAr: "تفاصيل المالك",
+      defaultCode: 'return "Owner Detail"',
+      defaultCodeAr: 'return "تفاصيل المالك"',
+    },
+    plotCode: {
+      type: ["text", "code"],
+      label: "Plot Code",
+      hasArabic: true,
+      defaultValue: "0-222-000-RCH9999",
+      defaultValueAr: "0-222-000-RCH9999",
+      defaultCode: 'return "0-222-000-RCH9999"',
+      defaultCodeAr: 'return "0-222-000-RCH9999"',
+    },
+    ownerText: {
+      type: ["text", "code"],
+      label: "Owner Text",
+      hasArabic: true,
+      defaultValue: "Owner",
+      defaultValueAr: "المالك",
+      defaultCode: 'return "Owner"',
+      defaultCodeAr: 'return "المالك"',
+    },
+    theme: {
+      type: ["select"],
+      label: "Theme",
+      options: ["light", "dark"],
+      defaultValue: "dark",
+    },
+    owner: {
+      type: ["code"],
+      label: "Owner Detail",
+      defaultValue: {
+        details: [
+          { label: "UAE National ID", value: "N/A" },
+          { label: "MOI Unified Number", value: "N/A" },
+          { label: "Archive Number", value: "" },
+          { label: "Nationality", value: "Unknown" },
+          { label: "Special Nationality", value: "No" },
+          { label: "Share", value: "100% Allotment 50% Share" },
+          { label: "Right Hold Type", value: "Ownership Musataha" },
+        ],
+        name: "",
+      },
+      defaultCode: `return {
+  details: [
+    { label: "UAE National ID", value: "N/A" },
+    { label: "MOI Unified Number", value: "N/A" },
+    { label: "Archive Number", value: "" },
+    { label: "Nationality", value: "Unknown" },
+    { label: "Special Nationality", value: "No" },
+    { label: "Share", value: "100% Allotment 50% Share" },
+    { label: "Right Hold Type", value: "Ownership Musataha" },
+  ],
+  name: ""
+}`,
+    },
+    propsOverride: {
+      type: ["propsOverride"],
+      label: "Props Override",
+      defaultCode: "return {}",
+    },
+  },
+};
+
+export default ViewOwnerDetailConfigs;

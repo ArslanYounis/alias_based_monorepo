@@ -1,11 +1,11 @@
-import { FilterIcon } from "lucide-react";
+import { Filter } from "lucide-react-native";
 import type { ComponentConfig } from "@shared/types/dls.types";
-import FilterBar from "./FilterBar";
+import { FilterBar } from "./FilterBar";
 import type { FilterBarProps } from "./FilterBar";
 
-const FilterBarConfigs: ComponentConfig<FilterBarProps> = {
+const FilterBarConfig: ComponentConfig<FilterBarProps> = {
   id: "filterBar",
-  icon: FilterIcon,
+  icon: Filter,
   name: "Filter Bar",
   Component: FilterBar,
   controls: {
@@ -53,4 +53,4 @@ const FilterBarConfigs: ComponentConfig<FilterBarProps> = {
   },
 };
 
-export default FilterBarConfigs;
+export default FilterBarConfig;
