@@ -1,6 +1,6 @@
 import { Filter } from "lucide-react-native";
 import type { ComponentConfig } from "@shared/types/dls.types";
-import { FilterBar } from "./FilterBar";
+import FilterBar from "./FilterBar";
 import type { FilterBarProps } from "./FilterBar";
 
 const FilterBarConfig: ComponentConfig<FilterBarProps> = {

@@ -25,5 +25,9 @@ export interface DateInputProps {
   captionPosition?: "left" | "right";
   language?: "en" | "ar";
   value?: string;
+  showInfoIcon?: boolean;
+  tooltipText?: string;
+  tooltipText_ar?: string;
+  onChange?: (value: string) => void;
   testId?: string;
 }

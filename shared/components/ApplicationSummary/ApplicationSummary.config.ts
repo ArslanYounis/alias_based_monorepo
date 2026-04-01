@@ -1,34 +1,24 @@
-import { FileBarChartIcon } from "lucide-react";
-import ApplicationSummary from "./ApplicationSummary";
+import type {
+  ComponentConfig,
+  IconType,
+} from "@shared/types/dls.types";
 import type { ApplicationSummaryProps } from "./ApplicationSummary.types";
+import type { ComponentType } from "react";
 
-interface ComponentConfig<T> {
-  id: string;
-  icon: typeof FileBarChartIcon;
-  name: string;
-  Component: React.FC<T>;
-  controls: Record<string, unknown>;
-}
-
-const ApplicationSummaryConfigs: ComponentConfig<ApplicationSummaryProps> = {
-  id: "applicationSummary",
-  icon: FileBarChartIcon,
-  name: "Application Summary",
-  Component: ApplicationSummary,
-  controls: {
-    title: {
-      type: ["text", "code"],
-      label: "Title",
-      hasArabic: true,
-      defaultValue: "Application Summary",
-      defaultValueAr: "ملخص الطلب",
-      defaultCode: 'return "Application Summary"',
-      defaultCodeAr: 'return "ملخص الطلب"',
-    },
-    data: {
-      type: ["code"],
-      label: "Data",
-      defaultCode: `return [
+const controls: ComponentConfig<ApplicationSummaryProps>["controls"] = {
+  title: {
+    type: ["text", "code"],
+    label: "Title",
+    hasArabic: true,
+    defaultValue: "Application Summary",
+    defaultValueAr: "ملخص الطلب",
+    defaultCode: 'return "Application Summary"',
+    defaultCodeAr: 'return "ملخص الطلب"',
+  },
+  data: {
+    type: ["code"],
+    label: "Data",
+    defaultCode: `return [
   [
     {
       type: "agent",
@@ -240,13 +230,23 @@ const ApplicationSummaryConfigs: ComponentConfig<ApplicationSummaryProps> = {
     },
   ],
 ];`,
-    },
-    propsOverride: {
-      type: ["propsOverride"],
-      label: "Props Override",
-      defaultCode: "return {}",
-    },
+  },
+  propsOverride: {
+    type: ["propsOverride"],
+    label: "Props Override",
+    defaultCode: "return {}",
   },
 };
 
-export default ApplicationSummaryConfigs;
+export function createApplicationSummaryConfig(
+  Component: ComponentType<ApplicationSummaryProps>,
+  icon: IconType
+): ComponentConfig<ApplicationSummaryProps> {
+  return {
+    id: "applicationSummary",
+    icon,
+    name: "Application Summary",
+    Component,
+    controls,
+  };
+}

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { View, PanResponder, GestureResponderEvent } from "react-native";
 import Svg, { Path } from "react-native-svg";
-import TitleBar from "~/src/components/TitleBar";
+import TitleBar from "~/src/ui/TitleBar";
 import { Buttons } from "~/src/ui/Buttons";
 
 export interface SignatureProps {

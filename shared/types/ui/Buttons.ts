@@ -13,6 +13,7 @@ export interface ButtonsProps {
   buttonType?: "button" | "submit" | "reset";
   onClick?: () => void;
   iconColor?: string;
+  theme?: "light" | "dark";
   tooltip?: {
     text: string;
     text_ar?: string;

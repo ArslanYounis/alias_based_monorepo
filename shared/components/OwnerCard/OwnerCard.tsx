@@ -20,6 +20,7 @@ export interface IOwnerCardProps {
   showPlotsButton?: boolean;
   showEditButton?: boolean;
   showDeleteButton?: boolean;
+  showChangeOwnerButton?: boolean;
   onPressAction?: (params: {
     action: "view" | "plot" | "edit" | "delete";
     owner: Owner;

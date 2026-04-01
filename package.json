@@ -22,6 +22,7 @@
     "build-storybook": "cd web && npm run build-storybook"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.24",
     "concurrently": "^8.2.2",
     "react": "19.1.0",
     "typescript": "^5.3.3"

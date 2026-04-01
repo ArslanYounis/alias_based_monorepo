@@ -34,10 +34,10 @@ export const getContractErrorMessages = (
 
 export const MeasurementSchema = z.object({
     units: z.enum(["Square Feet", "Square Meter"], {
-        required_error: "Please select a unit of measurement",
+        message: "Please select a unit of measurement",
     }),
     ranchType: z.enum(["3", "4", "5"], {
-        required_error: "Please select a ranch type",
+        message: "Please select a ranch type",
     }),
     rentFees: z.string().nonempty("Rent fees are required"),
     measurementRegistrationFees: z.string().nonempty("Registration fees are required"),
@@ -66,7 +66,7 @@ export const getMeasurementErrorMessages = (
 
 export const InsuranceSchema = z.object({
     insuranceFee: z.enum(["Yes", "No"], {
-        required_error: "Please select a insurance fee",
+        message: "Please select an insurance fee",
     }),
     insuranceRegistrationFees: z.string().nonempty("Registration fees are required"),
     insuranceAmountInWords: z.string().nonempty("Amount in words is required"),
@@ -90,7 +90,7 @@ export const getInsuranceErrorMessages = (
 
 export const RentSchema = z.object({
     insuranceFee: z.enum(["Yes", "No"], {
-        required_error: "Please select an insurance fee option",
+        message: "Please select an insurance fee option",
     }),
     rentPaymentStartDate: z
         .string()

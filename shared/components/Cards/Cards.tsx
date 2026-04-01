@@ -3,7 +3,7 @@ import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Avatar } from "@platform/Avatar";
 import { ProfileIconStatus } from "@platform/ProfileIconStatus";
-import PaymentCard from "../PaymentCard";
+import { PaymentCard } from "@platform/PaymentCard";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 
 export type StatusCardProps = {

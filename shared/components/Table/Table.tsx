@@ -68,12 +68,12 @@ export const Table: React.FC<ApplicationTableProps> = ({
 }) => {
   const tableData = data ?? [];
   const tableColumns = columns;
-  const columnCount = Math.min(Math.max(tableColumns.length, 1), 6);
+  const columnCount = Math.min(Math.max(tableColumns?.length, 1), 6);
 
   return (
     <Container className="w-full">
       {/* Column headers — visible on web, hidden on mobile (cards scroll horizontally) */}
-      {tableData.length > 0 && (
+      {tableData?.length > 0 && (
         <Container
           className="hidden md:grid gap-4 mb-4"
           style={{
@@ -101,7 +101,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
         <Container
           key={rowIndex}
           className={`mb-8 ${
-            rowIndex + 1 < tableData.length ? "border-b" : ""
+            rowIndex + 1 < tableData?.length ? "border-b" : ""
           } border-form-border pb-6`}
         >
           {platform === "web" ? (
@@ -124,7 +124,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
                     },
                     remaining:
                       language === "ar"
-                        ? row.daysRemaining_ar ?? ""
+                        ? (row.daysRemaining_ar ?? "")
                         : row.daysRemaining,
                   }}
                   onClick={row.onCardClick ?? undefined}
@@ -178,7 +178,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
                     },
                     remaining:
                       language === "ar"
-                        ? row.daysRemaining_ar ?? ""
+                        ? (row.daysRemaining_ar ?? "")
                         : row.daysRemaining,
                   }}
                   onClick={row.onCardClick ?? undefined}

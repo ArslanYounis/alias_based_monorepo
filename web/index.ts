@@ -26,7 +26,3 @@ export { CheckRadioLabel } from "./src/ui/CheckRadioLabel";
 export { ProfileIconStatus } from "./src/ui/ProfileIconStatus";
 export { Layout } from "./src/ui/Layout";
 
-// Re-export shared components (they import from @platform internally)
-export { LargeComponent } from "../shared/components/LargeComponent";
-export { DummyComponent } from "../shared/components/DummyComponent";
-export { PlotSearch } from "../shared/components/PlotSearch";

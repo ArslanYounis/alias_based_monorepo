@@ -20,7 +20,7 @@ const controls: {
     defaultCode: 'return "Are you Sure?"',
     defaultCodeAr: 'return "هل أنت متأكد؟"',
   },
-  subtiltle: {
+  subtitle: {
     type: ["text", "code"],
     label: "Sub Title",
     hasArabic: true,

@@ -8,6 +8,9 @@ export interface ApplicationCardProps {
   totalDots?: number;
   cardsData: {
     id: string;
+    title?: string;
+    location?: string;
+    date?: string;
     stage: { complete: number; approval: number; inprogress: number };
     remaining: string;
   };

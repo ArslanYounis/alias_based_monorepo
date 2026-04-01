@@ -1,1 +1,0 @@
-export { LargeComponent } from "./LargeComponent";

@@ -269,16 +269,17 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
                   />
                 </Text>
                 <Text className="text-text-dimmed">|</Text>
-                <Text
-                  className={`text-bold-m cursor-pointer hover:underline text-text-link-hover`}
-                  onClick={onCloseDrawer}
-                >
-                  <SharedLanguageSwitchRenderer
-                    language={language}
-                    value="Edit"
-                    value_ar="تعديل"
-                  />
-                </Text>
+                <Container onClick={onCloseDrawer} className="cursor-pointer">
+                  <Text
+                    className={`text-bold-m cursor-pointer hover:underline text-text-link-hover`}
+                  >
+                    <SharedLanguageSwitchRenderer
+                      language={language}
+                      value="Edit"
+                      value_ar="تعديل"
+                    />
+                  </Text>
+                </Container>
               </Container>
             </Container>
             {getCurrentPageResults().map(renderResultCard)}

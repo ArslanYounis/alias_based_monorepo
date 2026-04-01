@@ -10,4 +10,5 @@ export interface PromptProps {
   onYesClick?: () => void;
   onNoClick?: () => void;
   language?: "en" | "ar";
+  theme?: "light" | "dark";
 }

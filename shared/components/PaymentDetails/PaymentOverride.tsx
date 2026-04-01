@@ -392,7 +392,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
                 <CheckboxField
                   id="ignore-duplicate"
                   checked={Boolean(field.state.value)}
-                  onChange={(_: string, checked: boolean) => {
+                  onChange={(checked: boolean) => {
                     field.handleChange(Boolean(checked));
                     validateField("ignoreDuplicate", Boolean(checked));
                   }}

@@ -1,35 +1,33 @@
-import { CreditCardIcon } from "lucide-react";
-import type { ComponentConfig } from "@shared/types/dls.types";
-import PageTitle, { type PageTitleProps } from "./PageTitle";
+import type {
+  ComponentConfig,
+  IconType,
+} from "@shared/types/dls.types";
+import type { PageTitleProps } from "./PageTitle";
+import type { ComponentType } from "react";
 
-const PageTitleConfig: ComponentConfig<PageTitleProps> = {
-  id: "pageTitle",
-  icon: CreditCardIcon,
-  name: "Page Title",
-  Component: PageTitle,
-  controls: {
-    label: {
-      type: ["text", "code"],
-      label: "Title (Expanded - EN)",
-      defaultValue: "Page Title",
-      defaultCode: "return 'Page Title'",
-    },
-    label_ar: {
-      type: ["text", "code"],
-      label: "Title (Expanded - AR)",
-      defaultValue: "عنوان الصفحة",
-      defaultCode: "return 'عنوان الصفحة'",
-    },
-    showButtons: {
-      type: ["boolean", "code"],
-      label: "Show Buttons",
-      defaultValue: false,
-      defaultCode: "return false",
-    },
-    buttons: {
-      type: ["code"],
-      label: "Buttons",
-      defaultCode: `
+const controls: ComponentConfig<PageTitleProps>["controls"] = {
+  label: {
+    type: ["text", "code"],
+    label: "Title (Expanded - EN)",
+    defaultValue: "Page Title",
+    defaultCode: "return 'Page Title'",
+  },
+  label_ar: {
+    type: ["text", "code"],
+    label: "Title (Expanded - AR)",
+    defaultValue: "عنوان الصفحة",
+    defaultCode: "return 'عنوان الصفحة'",
+  },
+  showButtons: {
+    type: ["boolean", "code"],
+    label: "Show Buttons",
+    defaultValue: false,
+    defaultCode: "return false",
+  },
+  buttons: {
+    type: ["code"],
+    label: "Buttons",
+    defaultCode: `
 return [
   {
     title: "Add Agent",
@@ -39,13 +37,23 @@ return [
   },
 ];
       `,
-    },
-    propsOverride: {
-      type: ["propsOverride"],
-      label: "Props Override",
-      defaultCode: "return {}",
-    },
+  },
+  propsOverride: {
+    type: ["propsOverride"],
+    label: "Props Override",
+    defaultCode: "return {}",
   },
 };
 
-export default PageTitleConfig;
+export function createPageTitleConfig(
+  Component: ComponentType<PageTitleProps>,
+  icon: IconType
+): ComponentConfig<PageTitleProps> {
+  return {
+    id: "pageTitle",
+    icon,
+    name: "Page Title",
+    Component,
+    controls,
+  };
+}

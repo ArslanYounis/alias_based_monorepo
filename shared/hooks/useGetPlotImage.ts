@@ -39,7 +39,7 @@ export const getPlotImage = async (plotId?: string): Promise<Blob | null> => {
     const data = resp.data;
 
     if (data && (data instanceof ArrayBuffer || ArrayBuffer.isView(data))) {
-      return new Blob([data], { type: contentType });
+      return new Blob([new Uint8Array(data as ArrayBuffer)] as any[], { type: contentType } as any);
     }
   } catch {
     // intentionally ignored, fallback below
@@ -74,7 +74,7 @@ export const getPlotImage = async (plotId?: string): Promise<Blob | null> => {
     const maybeHex = cleanHex(body);
     if (isHexString(maybeHex)) {
       const uint8 = hexToUint8Array(maybeHex);
-      return new Blob([uint8], { type: "image/png" });
+      return new Blob([uint8] as any[], { type: "image/png" } as any);
     }
 
     if (isBase64(body)) {

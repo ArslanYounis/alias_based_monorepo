@@ -17,9 +17,6 @@ export { createCheckboxInputConfig } from "./checkboxInput.config";
 export { createRadioFieldConfig } from "./radioField.config";
 export { createRadioInputConfig } from "./radioInput.config";
 export { createPhoneInputConfig } from "./phoneInput.config";
-export { createTestComponentConfig } from "./testComponent.config";
-export { createDummyConfig } from "../components/DummyComponent/config";
-export { createLargeComponentConfig } from "../components/LargeComponent/config";
 
 /** Config ids for service builder (used by web; mobile uses renderer only) */
 export const SERVICE_BUILDER_CONFIG_IDS = [
@@ -30,6 +27,4 @@ export const SERVICE_BUILDER_CONFIG_IDS = [
   "prompt",
   "screenLoader",
   "typography",
-  "dummy",
-  "largeComponent",
 ] as const;

@@ -35,7 +35,17 @@
     "../shared/components/**/*.tsx",
     "../shared/types/**/*.ts",
     "../shared/configs/**/*.ts",
-    "../shared/utils/**/*.ts"
+    "../shared/utils/**/*.ts",
+    "../shared/hooks/**/*.ts"
   ],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "../**/*.stories.ts",
+    "../**/*.stories.tsx"
+  ]
 }

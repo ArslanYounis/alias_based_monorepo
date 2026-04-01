@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { type ReactElement, useEffect, useState } from "react";
 import { Buttons } from "@/ui/Buttons";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
 
@@ -80,8 +80,8 @@ const TitleBar: React.FC<TitleBarProps> = ({
   const computedAcronym = acronym
     ? acronym.slice(0, 3).toUpperCase()
     : title
-    ? title.slice(0, 3).toUpperCase()
-    : "XXX";
+      ? title.slice(0, 3).toUpperCase()
+      : "XXX";
 
   return (
     <div

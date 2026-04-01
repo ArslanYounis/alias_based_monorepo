@@ -19,8 +19,7 @@ function PopoverContent({
   sideOffset = 4,
   portalHost,
   ...props
-}: PopoverPrimitive.ContentProps &
-  React.RefAttributes<PopoverPrimitive.ContentRef> & {
+}: PopoverPrimitive.ContentProps & {
     portalHost?: string;
   }) {
   return (
