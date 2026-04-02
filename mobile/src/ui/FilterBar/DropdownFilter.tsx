@@ -82,10 +82,7 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
           onPress={() => setActiveTab("sort")}
         >
           <View className="flex-row gap-s items-center justify-center">
-            <Filter
-              size={16}
-              color={activeTab === "sort" ? "#fff" : "#000"}
-            />
+            <Filter size={16} color={activeTab === "sort" ? "#fff" : "#000"} />
             <Text
               className={`text-m ${
                 activeTab === "sort"
@@ -105,7 +102,9 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
           {applicationOptions.length > 0 && (
             <View
               className="mb-4"
-              style={{ alignItems: language === "ar" ? "flex-end" : "flex-start" }}
+              style={{
+                alignItems: language === "ar" ? "flex-end" : "flex-start",
+              }}
             >
               {applicationOptions.map((option) => (
                 <View key={option.value} className="mb-2">
@@ -113,7 +112,7 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
                     id={option.value}
                     label={option.label}
                     label_ar={option.label_ar}
-                    checked={selectedApp === option.value}
+                    checked={selectedApp}
                     onChange={(id) => setSelectedApp(id)}
                     language={language}
                   />
@@ -123,7 +122,9 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
           )}
           {filterOptions.length > 0 && (
             <View
-              style={{ alignItems: language === "ar" ? "flex-end" : "flex-start" }}
+              style={{
+                alignItems: language === "ar" ? "flex-end" : "flex-start",
+              }}
             >
               {filterOptions.map((option) => (
                 <View key={option.value} className="mb-2">
@@ -132,10 +133,10 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
                     label={option.label}
                     label_ar={option.label_ar}
                     checked={!!checkedFilters[option.value]}
-                    onChange={(checked) =>
+                    onChange={(id, checked) =>
                       setCheckedFilters((f) => ({
                         ...f,
-                        [option.value]: !!checked,
+                        [id]: !!checked,
                       }))
                     }
                     language={language}
@@ -148,7 +149,9 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
       ) : (
         sortOptions.length > 0 && (
           <View
-            style={{ alignItems: language === "ar" ? "flex-end" : "flex-start" }}
+            style={{
+              alignItems: language === "ar" ? "flex-end" : "flex-start",
+            }}
           >
             {sortOptions.map((option) => (
               <View key={option.value} className="mb-2">
@@ -156,7 +159,7 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
                   id={option.value}
                   label={option.label}
                   label_ar={option.label_ar}
-                  checked={selectedSort === option.value}
+                  checked={selectedSort}
                   onChange={(id) => setSelectedSort(id)}
                   language={language}
                 />

@@ -4,7 +4,7 @@ export interface CheckboxFieldProps {
   label_ar?: string;
   required?: boolean;
   checked?: boolean;
-  onChange?: (checked: boolean) => void;
+  onChange?: (id: string, checked: boolean) => void;
   disabled?: boolean;
   hasError?: boolean;
   language?: "en" | "ar";

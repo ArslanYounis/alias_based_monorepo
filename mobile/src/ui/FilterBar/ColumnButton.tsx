@@ -108,7 +108,7 @@ const ColumnButton: React.FC<ColumnButtonProps> = ({
                         <RadioField
                           id={col}
                           label={col}
-                          checked={selectedColumns[0] === col}
+                          checked={selectedColumns[0]}
                           onChange={handleRadioChange}
                           theme={isDark ? "dark" : "light"}
                         />

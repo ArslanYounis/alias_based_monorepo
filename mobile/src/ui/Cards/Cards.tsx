@@ -108,6 +108,7 @@ export const Cards: React.FC<StatusCardProps> = ({
         className={`w-full min-w-[173px] h-[90.53px] ${
           type === "pending" ? "bg-status-pending-solid" : bgColor
         } rounded-xs flex flex-row border-b-2 ${borderColor} overflow-hidden`}
+        onClick={onCardClick}
       >
         <Container className="w-1/2 h-[90.53px]">
           <Image
@@ -170,6 +171,7 @@ export const Cards: React.FC<StatusCardProps> = ({
         direction === "vertical" ? "flex-col py-[8px]" : "flex py-7"
       } border-b-2 ${borderColor}`}
       style={{ boxShadow: "0px 2px 4px 0px #00000033" }}
+      onClick={onCardClick}
     >
       {imageURL ? (
         <Avatar imageUrl={imageURL} avatarSize={32} />

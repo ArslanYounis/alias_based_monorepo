@@ -49,7 +49,7 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   };
 
   return (
-    <View className="flex flex-1 flex-col">
+    <View className="flex flex-col gap-4 w-full">
       {documents?.map((doc, idx) => (
         <UploadDocument
           key={idx}

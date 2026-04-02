@@ -53,10 +53,9 @@ const UncheckedComponent = (args: React.ComponentProps<typeof CheckboxField>) =>
     <CheckboxField
       {...args}
       checked={isChecked}
-      onChange={(checked) =>
-      {
+      onChange={(_id, checked) => {
         setIsChecked(checked);
-        args.onChange?.(checked);
+        args.onChange?.(_id, checked);
       }}
     />
   );
@@ -71,10 +70,9 @@ const CheckedComponent = (args: React.ComponentProps<typeof CheckboxField>) =>
     <CheckboxField
       {...args}
       checked={isChecked}
-      onChange={(checked) =>
-      {
+      onChange={(_id, checked) => {
         setIsChecked(checked);
-        args.onChange?.(checked);
+        args.onChange?.(_id, checked);
       }}
     />
   );

@@ -59,7 +59,7 @@ export const CheckboxInput: React.FC<CheckboxInputProps> = ({
                 checked={value.includes(option.value)}
                 disabled={disabled}
                 hasError={hasError && value.length === 0}
-                onChange={(checked) =>
+                onChange={(_id, checked) =>
                   handleCheckboxChange(option.value, checked)
                 }
               />

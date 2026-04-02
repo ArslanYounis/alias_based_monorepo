@@ -111,7 +111,7 @@ const Measurement: React.FC<MeasurementProps> = ({
                     <RadioField
                       key={id}
                       id={id}
-                      checked={field.state.value === type}
+                      checked={field.state.value === type ? id : undefined}
                       label={
                         type === "Square Feet" ? "Square Feet" : "Square Meters"
                       }

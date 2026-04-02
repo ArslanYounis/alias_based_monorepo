@@ -49,7 +49,7 @@ const Contract: React.FC<ContractProps> = ({
                     <RadioField
                       key={id}
                       id={id}
-                      checked={field.state.value === type}
+                      checked={field.state.value === type ? id : undefined}
                       label={type === "new" ? "New Tenancy" : "Renew Tenancy"}
                       label_ar={
                         type === "new" ? "عقد إيجار جديد" : "تجديد عقد الإيجار"

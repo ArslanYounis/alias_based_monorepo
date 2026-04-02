@@ -7,18 +7,15 @@ import { CheckRadioLabel } from "../CheckRadioLabel";
 export type { RadioFieldProps };
 
 export const RadioField: React.FC<RadioFieldProps> = ({
-  id: idProp,
+  id = "",
   label = "",
   label_ar = "",
-  required = false,
-  checked = false,
+  checked = "",
   onChange = () => {},
   disabled = false,
   hasError = false,
-  value = "",
   language = "en",
 }) => {
-  const id = (idProp ?? value) || "radio-field";
   const [internalError, setInternalError] = useState(hasError);
 
   useEffect(() => {
@@ -27,7 +24,7 @@ export const RadioField: React.FC<RadioFieldProps> = ({
 
   const handleRadioChange = (_id: string, _checked: boolean) => {
     setInternalError(false);
-    onChange?.(value || id);
+    onChange?.(id, true);
   };
 
   return (
@@ -37,7 +34,7 @@ export const RadioField: React.FC<RadioFieldProps> = ({
     >
       <Radio
         id={id}
-        checked={checked}
+        checked={checked === id}
         disabled={disabled}
         hasError={internalError}
         onChange={handleRadioChange}

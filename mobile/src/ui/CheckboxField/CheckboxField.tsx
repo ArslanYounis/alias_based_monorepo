@@ -24,13 +24,13 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
     setInternalError(hasError);
   }, [hasError]);
 
-  const handleCheckboxChange = (_checkboxId: string, newChecked: boolean) => {
+  const handleCheckboxChange = (id: string, newChecked: boolean) => {
     if (internalError) {
       setInternalError(false);
-      onChange?.(true);
+      onChange?.(id, true);
       return;
     }
-    onChange?.(newChecked);
+    onChange?.(id, newChecked);
   };
 
   return (

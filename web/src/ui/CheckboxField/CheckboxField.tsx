@@ -9,7 +9,6 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   id: idProp,
   label = "",
   label_ar = "",
-  required = false,
   checked = false,
   onChange = () => {},
   disabled = false,
@@ -26,10 +25,10 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   const handleCheckboxChange = (checkboxId: string, newChecked: boolean) => {
     if (internalError) {
       setInternalError(false);
-      onChange?.(true);
+      onChange?.(checkboxId, true);
       return;
     }
-    onChange?.(newChecked);
+    onChange?.(checkboxId, newChecked);
   };
 
   return (

@@ -25,17 +25,16 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
     { label: "All Applications", value: "all" },
   ],
   language = "en",
-  theme = "light",
 }) => {
   const [activeTab, setActiveTab] = useState<"filter" | "sort">("filter");
   const [selectedApp, setSelectedApp] = useState(
-    applicationOptions.length > 0 ? applicationOptions[0].value : ""
+    applicationOptions.length > 0 ? applicationOptions[0].value : "",
   );
   const [checkedFilters, setCheckedFilters] = useState<{
     [key: string]: boolean;
   }>({});
   const [selectedSort, setSelectedSort] = useState(
-    sortOptions.length > 0 ? sortOptions[0].value : ""
+    sortOptions.length > 0 ? sortOptions[0].value : "",
   );
 
   const filterByText = language === "ar" ? "تصفية حسب" : "Filter By";
@@ -85,8 +84,8 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
                     id={option.value}
                     label={option.label}
                     label_ar={option.label_ar}
-                    checked={selectedApp === option.value}
-                    onChange={(id) => setSelectedApp(id)}
+                    checked={selectedApp}
+                    onChange={(value) => setSelectedApp(value)}
                     language={language}
                   />
                 </div>
@@ -102,10 +101,10 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
                     label={option.label}
                     label_ar={option.label_ar}
                     checked={!!checkedFilters[option.value]}
-                    onChange={(checked) =>
+                    onChange={(id, checked) =>
                       setCheckedFilters((f) => ({
                         ...f,
-                        [option.value]: !!checked,
+                        [id]: !!checked,
                       }))
                     }
                     language={language}
@@ -124,8 +123,8 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
                   id={option.value}
                   label={option.label}
                   label_ar={option.label_ar}
-                  checked={selectedSort === option.value}
-                  onChange={(id) => setSelectedSort(id)}
+                  checked={selectedSort}
+                  onChange={(value) => setSelectedSort(value)}
                   language={language}
                 />
               </div>

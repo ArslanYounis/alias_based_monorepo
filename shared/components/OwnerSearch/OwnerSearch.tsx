@@ -61,7 +61,7 @@ const OwnerSearch = ({
 
   return (
     <Container
-      className="flex flex-1 flex-col"
+      className="flex flex-col w-full shrink-0"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {!!title && (

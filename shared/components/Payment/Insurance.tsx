@@ -51,8 +51,7 @@ const Insurance: React.FC<InsuranceProps> = ({
                       <RadioField
                         key={id}
                         id={id}
-                        value={type}
-                        checked={field.state.value === type}
+                        checked={field.state.value === type ? id : undefined}
                         onChange={() => {
                           setInsuranceFee(type);
                           field.handleChange(type);

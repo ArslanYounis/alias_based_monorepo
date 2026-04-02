@@ -1,7 +1,12 @@
 import { View } from "react-native";
 import type { CustomDrawerProps, DrawerSize } from "@shared/types";
 import React, { useCallback, useMemo, useRef, useEffect } from "react";
-import { BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import {
+  BottomSheetModal,
+  BottomSheetScrollView,
+  BottomSheetBackdrop,
+} from "@gorhom/bottom-sheet";
+import type { BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
 
 export type { CustomDrawerProps, DrawerSize };
 
@@ -32,6 +37,18 @@ export const CustomDrawer: React.FC<CustomDrawerProps> = ({
     [onOpenChange]
   );
 
+  const renderBackdrop = useCallback(
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+        pressBehavior={dismissible ? "close" : "none"}
+      />
+    ),
+    [dismissible]
+  );
+
   // control open / close
   useEffect(() => {
     if (open) {
@@ -47,6 +64,7 @@ export const CustomDrawer: React.FC<CustomDrawerProps> = ({
       snapPoints={snapPoints}
       enablePanDownToClose={dismissible}
       onChange={handleSheetChanges}
+      backdropComponent={renderBackdrop}
       backgroundStyle={{ backgroundColor: "#fff" }}
       handleIndicatorStyle={{ backgroundColor: "#ccc" }}
     >

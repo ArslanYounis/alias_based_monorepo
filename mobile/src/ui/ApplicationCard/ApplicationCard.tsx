@@ -18,7 +18,7 @@ export interface ApplicationCardProps {
 
 export const ApplicationCard: React.FC<ApplicationCardProps> = ({
   cardsData,
-  //   onClick,
+  onClick,
   totalDots = 6,
 }) => {
   const { complete = 0, approval = 0, inprogress = 0 } = cardsData.stage;
@@ -28,7 +28,7 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
   const remainingAfterApproval = remainingAfterComplete - safeApproval;
   const safeInprogress = Math.max(
     0,
-    Math.min(inprogress, remainingAfterApproval)
+    Math.min(inprogress, remainingAfterApproval),
   );
 
   const statusBalls = [
@@ -43,7 +43,10 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
   ];
 
   return (
-    <Container className="bg-base-white border border-border-light w-full min-w-[173px] h-[90.53px] rounded-xs py-xs px-s flex flex-col flex-grow justify-center gap-xs border-b-2 border-b-status-pending-solid">
+    <Container
+      className="bg-base-white border border-border-light w-full min-w-[173px] h-[90.53px] rounded-xs py-xs px-s flex flex-col flex-grow justify-center gap-xs border-b-2 border-b-status-pending-solid"
+      onClick={onClick}
+    >
       <Text className="text-bold-xs text-base-black">{cardsData.id}</Text>
       <Text className="text-xs text-base-black">{cardsData.remaining}</Text>
 

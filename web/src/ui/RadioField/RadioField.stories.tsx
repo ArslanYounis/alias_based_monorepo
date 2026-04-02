@@ -8,7 +8,10 @@ const meta: Meta<typeof RadioField> = {
   argTypes: {
     id: { control: "text", description: "Unique id for the radio field" },
     label: { control: "text" },
-    checked: { control: "boolean", description: "Whether the radio is checked" },
+    checked: {
+      control: "boolean",
+      description: "Whether the radio is checked",
+    },
     disabled: { control: "boolean" },
     hasError: { control: "boolean" },
     onChange: {
@@ -22,7 +25,7 @@ const meta: Meta<typeof RadioField> = {
   args: {
     id: "radio1",
     label: "Label",
-    checked: false,
+    checked: "",
     disabled: false,
     hasError: false,
   },
@@ -34,14 +37,14 @@ type Story = StoryObj<typeof RadioField>;
 
 // Interactive Unchecked Component
 const UncheckedComponent = (args: React.ComponentProps<typeof RadioField>) => {
-  const [selected, setSelected] = useState(false);
+  const [selectedId, setSelectedId] = useState("");
   return (
     <RadioField
       {...args}
-      checked={selected}
-      onChange={(value) => {
-        setSelected(true);
-        args.onChange?.(value);
+      checked={selectedId}
+      onChange={(id, checked) => {
+        if (checked) setSelectedId(id);
+        args.onChange?.(id, checked);
       }}
     />
   );
@@ -49,14 +52,14 @@ const UncheckedComponent = (args: React.ComponentProps<typeof RadioField>) => {
 
 // Interactive Checked Component
 const CheckedComponent = (args: React.ComponentProps<typeof RadioField>) => {
-  const [selected, setSelected] = useState(true);
+   const [selectedId, setSelectedId] = useState(args.id ?? "radio2");
   return (
     <RadioField
       {...args}
-      checked={selected}
-      onChange={(value) => {
-        setSelected(true);
-        args.onChange?.(value);
+      checked={selectedId}
+      onChange={(id, checked) => {
+        if (checked) setSelectedId(id);
+        args.onChange?.(id, checked);
       }}
     />
   );
@@ -64,15 +67,15 @@ const CheckedComponent = (args: React.ComponentProps<typeof RadioField>) => {
 
 // Interactive Error Component
 const ErrorComponent = (args: React.ComponentProps<typeof RadioField>) => {
-  const [selected, setSelected] = useState(false);
+    const [selectedId, setSelectedId] = useState("");
   return (
     <RadioField
       {...args}
-      checked={selected}
-      hasError={!selected}
-      onChange={(value) => {
-        setSelected(true);
-        args.onChange?.(value);
+      checked={selectedId}
+      hasError={selectedId !== args.id}
+      onChange={(id, checked) => {
+        if (checked) setSelectedId(id);
+        args.onChange?.(id, checked);
       }}
     />
   );
@@ -83,7 +86,7 @@ export const Unchecked: Story = {
   args: {
     id: "radio1",
     label: "Label",
-    checked: false,
+    checked: "",
     disabled: false,
     hasError: false,
   },
@@ -94,7 +97,7 @@ export const Checked: Story = {
   args: {
     id: "radio2",
     label: "Label",
-    checked: true,
+    checked: "radio2",
     disabled: false,
     hasError: false,
   },
@@ -104,7 +107,7 @@ export const Disabled: Story = {
   args: {
     id: "radio3",
     label: "Label",
-    checked: false,
+    checked: "",
     disabled: true,
     hasError: false,
   },
@@ -115,7 +118,7 @@ export const Error: Story = {
   args: {
     id: "radio4",
     label: "Label",
-    checked: false,
+    checked: "",
     disabled: false,
     hasError: true,
   },

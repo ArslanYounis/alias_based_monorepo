@@ -14,7 +14,7 @@ export const RadioInput: React.FC<RadioInputProps> = ({
   showInfoIcon = false,
   tooltipText = "",
   tooltipText_ar = "",
-  value = "",
+  checked = "",
   onChange = () => {},
   options = [],
   disabled = false,
@@ -27,8 +27,10 @@ export const RadioInput: React.FC<RadioInputProps> = ({
   captionRight_ar = "",
   language = "en",
 }) => {
-  const handleRadioChange = (selectedValue: string) => {
-    onChange(selectedValue);
+  const handleRadioChange = (id: string) => {
+    if (checked) {
+      onChange(id);
+    }
   };
 
   return (
@@ -58,10 +60,9 @@ export const RadioInput: React.FC<RadioInputProps> = ({
             <RadioField
               key={option.value}
               id={option.value}
-              value={option.value}
               label={option.label}
               label_ar={option.label_ar}
-              checked={value === option.value}
+              checked={checked}
               disabled={disabled}
               hasError={hasError}
               onChange={handleRadioChange}

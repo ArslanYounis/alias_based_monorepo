@@ -3,11 +3,10 @@ export interface RadioFieldProps {
   label?: string;
   label_ar?: string;
   required?: boolean;
-  checked?: boolean;
-  onChange?: (value: string) => void;
+  checked?: string;
+  onChange?: (_id: string, checked: boolean) => void;
   disabled?: boolean;
   hasError?: boolean;
-  value?: string;
   language?: "en" | "ar";
   theme?: "light" | "dark";
 }

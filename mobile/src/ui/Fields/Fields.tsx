@@ -13,6 +13,7 @@ import {
   Modal,
   TextInput,
   ScrollView,
+  Pressable,
   TouchableOpacity,
   type NativeSyntheticEvent,
 } from "react-native";
@@ -328,13 +329,11 @@ export const Fields: React.FC<FormFieldProps> = ({
           animationType="fade"
           onRequestClose={() => setIsOpen(false)}
         >
-          <TouchableOpacity
-            activeOpacity={1}
+          <Pressable
             className="flex-1 justify-end bg-black/50"
             onPress={() => setIsOpen(false)}
           >
-            <TouchableOpacity
-              activeOpacity={1}
+            <Pressable
               onPress={() => {}}
               className="max-h-[70%] rounded-t-xl bg-white p-l dark:bg-neutral-900"
             >
@@ -384,6 +383,7 @@ export const Fields: React.FC<FormFieldProps> = ({
                           label_ar={option.label_ar}
                           disabled={false}
                           language={language}
+                          onClick={() => handleSelect(option.value)}
                         />
                       </TouchableOpacity>
                     );
@@ -401,8 +401,8 @@ export const Fields: React.FC<FormFieldProps> = ({
                   </Text>
                 </View>
               )}
-            </TouchableOpacity>
-          </TouchableOpacity>
+            </Pressable>
+          </Pressable>
         </Modal>
         {renderError()}
       </View>
@@ -447,6 +447,9 @@ export const Fields: React.FC<FormFieldProps> = ({
 
   if (type === "currency" || type === "phone") {
     const prefix = type === "currency" ? currencySymbol : phoneCode;
+    const numericOnly = type === "phone"
+      ? (text: string) => text.replace(/[^0-9]/g, "")
+      : (text: string) => text.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
     return (
       <View>
         <View className="relative flex-row items-center">
@@ -466,6 +469,11 @@ export const Fields: React.FC<FormFieldProps> = ({
             data-testid={testId}
             keyboardType="numeric"
             value={value ? value : internalValue}
+            onChange={(e) => {
+              const filtered = numericOnly(e.nativeEvent.text);
+              setInternalValue(filtered);
+              onChange(filtered);
+            }}
             className={`${baseInputClass} ${getInputClasses()} px-xxxl`}
           />
         </View>
@@ -490,6 +498,11 @@ export const Fields: React.FC<FormFieldProps> = ({
             data-testid={testId}
             keyboardType="numeric"
             value={value ? value : internalValue}
+            onChange={(e) => {
+              const filtered = e.nativeEvent.text.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+              setInternalValue(filtered);
+              onChange(filtered);
+            }}
             className={`${baseInputClass} ${getInputClasses()} ${
               icon ? "px-xxl" : ""
             }`}

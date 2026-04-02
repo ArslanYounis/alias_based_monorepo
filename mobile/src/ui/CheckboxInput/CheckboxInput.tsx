@@ -58,7 +58,10 @@ export const CheckboxInput: React.FC<CheckboxInputProps> = ({
           }}
         >
           {options.map((option) => (
-            <View key={option.value} style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+            <View
+              key={option.value}
+              style={{ flexDirection: "row", alignItems: "center", gap: 4 }}
+            >
               <CheckboxField
                 id={option.value}
                 label={option.label}
@@ -67,7 +70,7 @@ export const CheckboxInput: React.FC<CheckboxInputProps> = ({
                 checked={value.includes(option.value)}
                 disabled={disabled}
                 hasError={hasError && value.length === 0}
-                onChange={(checked) =>
+                onChange={(_id, checked) =>
                   handleCheckboxChange(option.value, checked)
                 }
               />

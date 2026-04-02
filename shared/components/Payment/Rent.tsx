@@ -47,8 +47,7 @@ const Rent: React.FC<RentProps> = ({ language, form, onLiveValidate }) => {
                       <RadioField
                         key={id}
                         id={id}
-                        value={type}
-                        checked={field.state.value === type}
+                        checked={field.state.value === type ? id : undefined}
                         onChange={() => {
                           field.handleChange(type);
                           onLiveValidate?.();
