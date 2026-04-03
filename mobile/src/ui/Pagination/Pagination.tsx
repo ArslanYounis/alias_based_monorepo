@@ -123,7 +123,7 @@ const Pagination: React.FC<PaginationProps> = ({
         {showPageNumbers &&
           pages.map((page, idx) =>
             page === "..." ? (
-              <Text key={`ellipsis-${idx}`} className="text-Dark-6 text-m">
+              <Text key={`ellipsis-${idx}`} className="text-text-dimmed text-m">
                 ...
               </Text>
             ) : (
@@ -138,7 +138,7 @@ const Pagination: React.FC<PaginationProps> = ({
               >
                 <Text
                   className={`text-m ${
-                    currentPage === page ? "text-text-default" : "text-Dark-6"
+                    currentPage === page ? "text-text-default" : "text-text-dimmed"
                   }`}
                 >
                   {language === "ar" ? toArabicDigits(page) : page}

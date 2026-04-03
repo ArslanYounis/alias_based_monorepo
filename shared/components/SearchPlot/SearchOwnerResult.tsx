@@ -137,13 +137,13 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
     return (
       <Container
         key={index}
-        className={`mb-4 rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer border border-cards-stroke ${
+        className={`mb-m rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer border border-cards-stroke ${
           isSelected
             ? "bg-cards-searchResult-selected"
             : "bg-cards-searchResult"
         }`}
       >
-        <Container className="flex flex-row justify-between mb-3">
+        <Container className="flex flex-row justify-between mb-s">
           <Text className={`text-bold-l text-text-default line-clamp-1 mr-xxs`}>
             <SharedLanguageSwitchRenderer
               language={language}
@@ -151,7 +151,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
               value_ar={result.ownerName_A || result.ownerName_E}
             />
           </Text>
-          <Container className="flex flex-row items-center gap-4">
+          <Container className="flex flex-row items-center gap-m">
             <Buttons
               title="Plots"
               title_ar="القطع"
@@ -191,7 +191,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
             key={label}
             className={`flex flex-row ${
               idx !== array.length - 1
-                ? "border-b pb-2 border-text-dimmed mb-2"
+                ? "border-b pb-xs border-text-dimmed mb-xs"
                 : ""
             }`}
           >
@@ -225,7 +225,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
         <Text
           className={`${
             platform === "web" ? "text-heading-h1" : "text-heading-h3"
-          } font-bold pb-8 text-text-default`}
+          } font-bold pb-xl text-text-default`}
         >
           <SharedLanguageSwitchRenderer
             language={language}
@@ -239,7 +239,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
           </Container>
         ) : (
           <>
-            <Container className="flex flex-col gap-3 pb-8">
+            <Container className="flex flex-col gap-s pb-xl">
               <Text className={`text-m text-text-default`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -260,7 +260,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
                   value_ar="لمعايير البحث التالية:"
                 />
               </Text>
-              <Container className="flex flex-row items-center gap-2">
+              <Container className="flex flex-row items-center gap-xs">
                 <Text className={`text-bold-m text-text-default`}>
                   <SharedLanguageSwitchRenderer
                     language={language}

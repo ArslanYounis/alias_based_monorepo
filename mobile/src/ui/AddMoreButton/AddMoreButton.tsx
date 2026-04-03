@@ -17,7 +17,7 @@ const AddMoreButton: React.FC<AddMoreButtonProps> = ({
     <View className="flex flex-1 flex-row items-center gap-s">
       <Pressable
         onPress={onClick}
-        className="w-full h-12 flex-row items-center px-4 rounded-[5px] bg-form-fields-file-upload-default"
+        className="w-full h-12 flex-row items-center px-m rounded-xxs bg-form-fields-file-upload-default"
       >
         <View className="mr-2 justify-center">{plusIcon}</View>
         <View className="flex-1 justify-center">

@@ -5,21 +5,21 @@ import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwit
 export type { TypographyProps };
 
 const variantClasses: Record<string, string> = {
-  "h1-shouting": "text-[80px] font-bold leading-auto",
-  "h1-hero": "text-[64px] font-bold leading-auto",
-  h1: "text-[48px] leading-[56px] font-bold",
-  h2: "text-[32px] leading-[40px] font-bold",
-  h3: "text-[24px] leading-[32px] font-bold",
-  h4: "text-[16px] leading-[20px] font-bold",
-  "text-lg": "text-[20px] leading-[24px] font-normal",
-  "text-md": "text-[16px] leading-[20px] font-normal",
-  "text-sm": "text-[14px] leading-[18px] font-normal",
-  "text-xs": "text-[12px] leading-[16px] font-normal",
-  "text-bold-lg": "text-[20px] leading-[24px] font-bold",
-  "text-bold-md": "text-[16px] leading-[20px] font-bold",
-  "text-bold-sm": "text-[14px] leading-[18px] font-bold",
-  "text-bold-xs": "text-[12px] leading-[18px] font-bold",
-  "text-bold-xxs": "text-[10px] leading-auto font-bold",
+  "h1-shouting": "text-heading-h1-shouting font-bold",
+  "h1-hero": "text-heading-h1-hero font-bold",
+  h1: "text-heading-h1 font-bold",
+  h2: "text-heading-h2 font-bold",
+  h3: "text-heading-h3 font-bold",
+  h4: "text-heading-h4 font-bold",
+  "text-lg": "text-l font-normal",
+  "text-md": "text-m font-normal",
+  "text-sm": "text-s font-normal",
+  "text-xs": "text-xs font-normal",
+  "text-bold-lg": "text-bold-l",
+  "text-bold-md": "text-bold-m",
+  "text-bold-sm": "text-bold-s",
+  "text-bold-xs": "text-bold-xs",
+  "text-bold-xxs": "text-bold-xxs",
 };
 
 const Typography: React.FC<TypographyProps> = ({

@@ -18,7 +18,7 @@ export const MenuColumn: React.FC<LayoutSidebarProps> = ({
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <span className="text-structure-menu-text font-medium">Menu</span>
-      <span className="text-structure-menu-text text-sm mt-2">(MenuColumn stub — migrate from ADREC)</span>
+      <span className="text-structure-menu-text text-s mt-2">(MenuColumn stub — migrate from ADREC)</span>
     </aside>
   );
 };

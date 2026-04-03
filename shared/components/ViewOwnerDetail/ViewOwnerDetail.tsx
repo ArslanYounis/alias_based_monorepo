@@ -79,7 +79,7 @@ const ViewOwnerDetail: React.FC<ViewOwnerDetailProps> = ({
         ) : null} */}
       </Container>
       <Container
-        className={`flex flex-col w-full gap-4 mb-s text-text-default`}
+        className={`flex flex-col w-full gap-m mb-s text-text-default`}
       >
         <Container className="flex flex-row items-center justify-between">
           <Text className={`text-heading-h3 font-bold text-text-default`}>
@@ -99,10 +99,10 @@ const ViewOwnerDetail: React.FC<ViewOwnerDetailProps> = ({
         </Container>
 
         <Container
-          className={`py-m px-l gap-l bg-cards-base-l2 border border-cards-stroke rounded-xs mb-8`}
+          className={`py-m px-l gap-l bg-cards-base-l2 border border-cards-stroke rounded-xs mb-xl`}
         >
           <Text
-            className={`text-bold-ml pb-3 mb-3 text-text-default line-clamp-1`}
+            className={`text-bold-ml pb-s mb-s text-text-default line-clamp-1`}
           >
             {owner?.name}
           </Text>
@@ -110,7 +110,7 @@ const ViewOwnerDetail: React.FC<ViewOwnerDetailProps> = ({
           {owner?.details?.map(({ label, label_ar, value, value_ar }, idx) => (
             <Container
               key={idx}
-              className={`flex flex-row gap-l pb-3 mb-s border-b border-border-dimmed last:border-b-none text-text-default`}
+              className={`flex flex-row gap-l pb-s mb-s border-b border-border-dimmed last:border-b-none text-text-default`}
             >
               <Text className={"sm:w-[40%] w-[50%] text-bold-m"}>
                 <SharedLanguageSwitchRenderer

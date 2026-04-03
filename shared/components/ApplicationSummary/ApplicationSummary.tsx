@@ -201,7 +201,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
   /* Render */
   return (
     <Container
-      className="bg-grey-form-back border border-grey-form-border py-m px-l w-full"
+      className="bg-grey-form-back border border-cards-stroke py-m px-l w-full"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Header */}

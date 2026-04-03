@@ -186,7 +186,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = (props) => {
         <Container
           className={`w-1/2 flex flex-col items-center justify-center ${hybridLeftBg}`}
         >
-          <Container className="flex flex-col items-center gap-3 px-2 py-[3px]">
+          <Container className="flex flex-col items-center gap-3 px-xs py-xxs">
             {/* <Container className="w-7 h-7">
               <ProfileIconStatus status={status} width={26} height={26} />
             </Container> */}
@@ -209,7 +209,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = (props) => {
               </Text> */}
             </Container>
           </Container>
-          <Container className="flex flex-col items-center gap-3 py-[3px] px-2">
+          <Container className="flex flex-col items-center gap-3 py-xxs px-xs">
             {/* <Avatar imageUrl={imageURL} avatarSize={26} /> */}
             <Container className="flex flex-start flex-col items-start">
               <Text
@@ -232,7 +232,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = (props) => {
           </Container>
         </Container>
         <Container
-          className={`w-1/2 ${hybridRightBg} flex flex-col justify-center px-2 gap-3`}
+          className={`w-1/2 ${hybridRightBg} flex flex-col justify-center px-xs gap-3`}
         >
           <Container className="flex flex-start flex-col items-center gap-2">
             <Text className={`text-bold-xs ${hybridRightText} line-clamp-1`}>
@@ -266,9 +266,9 @@ export const PaymentCard: React.FC<PaymentCardProps> = (props) => {
     <Container
       dir={dir}
       onClick={onCardClick}
-      className={`${bgColor} w-full min-w-[173px] h-[90.53px] rounded-xs py-2 flex flex-col justify-center gap-2 cursor-pointer border-b-2 ${borderColor}`}
+      className={`${bgColor} w-full min-w-[173px] h-[90.53px] rounded-xs py-xs flex flex-col justify-center gap-2 cursor-pointer border-b-2 ${borderColor}`}
     >
-      <Container className="flex flex-row items-center gap-3 px-2 py-[3px]">
+      <Container className="flex flex-row items-center gap-3 px-xs py-xxs">
         <Container className="w-8 h-8">
           <ProfileIconStatus status={status} width={32} height={32} />
         </Container>
@@ -289,7 +289,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = (props) => {
           </Text>
         </Container>
       </Container>
-      <Container className="flex flex-row items-center gap-3 px-2 py-[3px] text-center">
+      <Container className="flex flex-row items-center gap-3 px-xs py-xxs text-center">
         <Avatar imageUrl={imageURL} avatarSize={28} />
         <Container className="flex flex-start flex-col items-start">
           <Text className={`text-bold-s font-bold line-clamp-1 ${textColor}`}>

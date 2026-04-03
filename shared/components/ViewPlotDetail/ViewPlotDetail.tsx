@@ -237,11 +237,11 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
     : staticOwner?.name || "";
 
   return (
-    <Container className="mb-8">
+    <Container className="mb-xl">
       <Text
         className={`${
           platform === "web" ? "text-heading-h1" : "text-heading-h3"
-        } font-bold mb-8 text-text-default`}
+        } font-bold mb-xl text-text-default`}
       >
         <SharedLanguageSwitchRenderer
           language={language}
@@ -268,14 +268,14 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
         </Container>
 
         <Container
-          className={`py-m px-l bg-cards-base-l2 border border-cards-stroke rounded-xs mb-8`}
+          className={`py-m px-l bg-cards-base-l2 border border-cards-stroke rounded-xs mb-xl`}
         >
           <Container className="flex flex-row gap-m mb-xs">
             <Container className="w-1/2">
               {plotLeftDetails.map((item, idx) => (
                 <Container
                   key={idx}
-                  className={`flex flex-col border-b border-text-dimmed pb-s mb-s gap-1`}
+                  className={`flex flex-col border-b border-text-dimmed pb-s mb-s gap-xxs`}
                 >
                   <Text className={`text-bold-m text-text-default`}>
                     <SharedLanguageSwitchRenderer
@@ -338,7 +338,7 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
 
       {/* Owner Section */}
       {showOwnerDetails && (plotDetail?.ownersList || staticOwner) && (
-        <Container className={`flex flex-col gap-xxs mb-8 text-text-default`}>
+        <Container className={`flex flex-col gap-xxs mb-xl text-text-default`}>
           <Container className="flex flex-row items-center justify-between">
             <Text className="text-bold-m">
               <SharedLanguageSwitchRenderer
@@ -358,7 +358,7 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
           </Container>
 
           <Container
-            className={`py-m px-l bg-cards-base-l2 border border-cards-stroke rounded-xs mb-8`}
+            className={`py-m px-l bg-cards-base-l2 border border-cards-stroke rounded-xs mb-xl`}
           >
             <Text className="text-heading-h3 pb-s mb-s">
               <SharedLanguageSwitchRenderer

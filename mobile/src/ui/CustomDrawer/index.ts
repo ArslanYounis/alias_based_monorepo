@@ -1,2 +1,6 @@
 export { CustomDrawer } from "./CustomDrawer";
-export type { CustomDrawerProps, DrawerSize } from "./CustomDrawer";
+export type {
+  CustomDrawerProps,
+  CustomDrawerRef,
+  DrawerSize,
+} from "./CustomDrawer";

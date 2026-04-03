@@ -10,7 +10,7 @@ const ScreenLoader: React.FC<ScreenLoaderProps> = ({
 }) => {
   if (!isLoading) return null;
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 w-screen h-screen bg-[#CCCCCC66] backdrop-blur-xs">
+    <div className="fixed inset-0 flex items-center justify-center z-50 w-screen h-screen bg-dark-1/40 backdrop-blur-xs">
       <img src={gifSrc} alt={alt} className="w-20 h-20" />
     </div>
   );

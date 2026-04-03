@@ -114,9 +114,9 @@ const PlotCard: React.FC<IPlotCardProps> = ({
                 showTitleSection
                 title={title}
                 title_ar={title_ar ?? title}
-                cardTitleLabel={isExpanded ? title : "Plot Number"}
+                cardTitleLabel={isExpanded ? title : plot.plotNumber}
                 cardTitleLabel_ar={
-                  isExpanded ? title_ar ?? title : "رقم القطعة"
+                  isExpanded ? (title_ar ?? title) : plot.plotNumber
                 }
                 cardTitleValue={plot.plotNumber}
                 cardTitleValue_ar={plot.plotNumber_ar ?? plot.plotNumber}

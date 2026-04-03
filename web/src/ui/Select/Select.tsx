@@ -32,7 +32,7 @@ export const Select: React.FC<SelectProps> = ({
 }) => {
   return (
     <div
-      className="flex flex-col gap-2 w-full relative"
+      className="flex flex-col gap-xs w-full relative"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <Label

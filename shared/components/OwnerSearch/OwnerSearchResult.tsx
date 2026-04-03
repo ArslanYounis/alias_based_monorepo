@@ -3,6 +3,7 @@ import { some } from "lodash";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Buttons } from "@platform/Buttons";
+import { Radio } from "@platform/Radio";
 import { Pagination } from "@platform/Pagination";
 import { CustomDrawer } from "@platform/CustomDrawer";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
@@ -118,14 +119,14 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
     return (
       <Container
         key={index}
-        className={`mb-4 rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer border border-cards-stroke ${
+        className={`mb-m rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer border border-cards-stroke ${
           isSelected
             ? "bg-cards-searchResult-selected"
             : "bg-cards-searchResult"
         }`}
         onClick={() => handleRadioSelect(result)}
       >
-        <Container className="flex flex-row justify-between mb-3">
+        <Container className="flex flex-row justify-between mb-s">
           <Text className="text-bold-l text-text-default line-clamp-1 mr-xxs">
             <SharedLanguageSwitchRenderer
               language={language}
@@ -133,7 +134,7 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
               value_ar={result.ownerName_A || result.ownerName_E}
             />
           </Text>
-          <Container className="flex flex-row items-center gap-4">
+          <Container className="flex flex-row items-center gap-m">
             <Buttons
               title="Details"
               title_ar="التفاصيل"
@@ -144,6 +145,11 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
                 setSelectedOwnerDetail(result);
                 setIsDetailDrawerOpen(true);
               }}
+            />
+            <Radio
+              id={result.ownerId}
+              checked={isSelected}
+              onChange={() => handleRadioSelect(result)}
             />
           </Container>
         </Container>
@@ -165,7 +171,7 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
             key={label}
             className={`flex flex-row ${
               idx !== array.length - 1
-                ? "border-b pb-2 border-text-dimmed mb-2"
+                ? "border-b pb-xs border-text-dimmed mb-xs"
                 : ""
             }`}
           >
@@ -199,7 +205,7 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
         <Text
           className={`${
             platform === "web" ? "text-heading-h1" : "text-heading-h3"
-          } font-bold pb-8 text-text-default`}
+          } font-bold pb-xl text-text-default`}
         >
           <SharedLanguageSwitchRenderer
             language={language}
@@ -219,7 +225,7 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
           </Container>
         ) : (
           <>
-            <Container className="flex flex-col gap-3 pb-8">
+            <Container className="flex flex-col gap-s pb-xl">
               <Text className="text-m text-text-default">
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -240,7 +246,7 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
                   value_ar="لمعايير البحث التالية:"
                 />
               </Text>
-              <Container className="flex flex-row items-center gap-2">
+              <Container className="flex flex-row items-center gap-xs">
                 <Text className="text-bold-m text-text-default">
                   <SharedLanguageSwitchRenderer
                     language={language}

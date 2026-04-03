@@ -38,7 +38,7 @@ const Prompt: React.FC<PromptProps> = ({
             language={language}
           />
         </p>
-        <div className={`flex gap-4 ${isRTL ? "flex-row-reverse" : ""}`}>
+        <div className={`flex gap-m ${isRTL ? "flex-row-reverse" : ""}`}>
           <Buttons
             title={noText}
             title_ar={noText_ar}

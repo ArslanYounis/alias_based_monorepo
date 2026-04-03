@@ -32,7 +32,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
         <div className="text-filter-button-text">
           {icon ? icon : <FilterIcon />}
         </div>
-        <span className="text-base text-filter-button-text">{label}</span>
+        <span className="text-m text-filter-button-text">{label}</span>
         {count > 0 && (
           <div className="flex justify-center items-center w-5 h-5 border-1.5 border-structure-primary-9 text-structure-primary-9">
             {count}

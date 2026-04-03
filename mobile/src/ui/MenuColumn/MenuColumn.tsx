@@ -17,8 +17,8 @@ export const MenuColumn: React.FC<LayoutSidebarProps> = ({
         isEditing ? "opacity-60" : ""
       }`}
     >
-      <Text className="font-semibold text-structure-menu-text mb-2">Menu</Text>
-      <Text className="text-sm text-structure-menu-text">(MenuColumn stub — migrate from ADREC)</Text>
+      <Text className="font-bold text-structure-menu-text mb-xs">Menu</Text>
+      <Text className="text-s text-structure-menu-text">(MenuColumn stub — migrate from ADREC)</Text>
     </View>
   );
 };

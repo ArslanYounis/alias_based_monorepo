@@ -262,7 +262,7 @@ module.exports = {
         "yellow-0": "var(--color-Yellow-0)",
 
         /*  Drop shadow modal layer 1 */
-        "drop-shadow-modal-1": "var(--drop-shadow-modal-1)",
+        "drop-shadow-modal-1": "var(--Shadow-Modal-Layer-1)",
 
         /* Form colors */
         "grey-form-back": "var(--color-Form-Back)",
@@ -370,7 +370,7 @@ module.exports = {
         "text-dimmed": "var(--Text-Dimmed)",
         "text-primary": "var(--Text-Primary)",
         "text-link": "var(--Text-Link)",
-        "text-hover": "var(--Text-Hover)",
+        "text-hover": "var(--Text-Link-Hover)",
 
         /* Button colors */
         "button-primary-default-bg": "var(--Button-Primary-Default-bg)",

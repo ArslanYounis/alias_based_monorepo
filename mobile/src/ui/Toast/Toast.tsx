@@ -90,7 +90,7 @@ export const Toast: React.FC<ToastProps> = ({
         hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
         className="w-9 h-9 items-center justify-center"
       >
-        <Text className="text-dark-9 text-lg font-medium">×</Text>
+        <Text className="text-dark-9 text-l font-bold">×</Text>
       </TouchableOpacity>
     </View>
   );

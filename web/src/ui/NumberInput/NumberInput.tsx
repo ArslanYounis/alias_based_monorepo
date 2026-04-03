@@ -30,7 +30,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
 }) => {
   const valueStr = typeof value === "number" ? String(value) : value ?? "";
   return (
-    <div className="flex flex-col gap-[10px]">
+    <div className="flex flex-col gap-s">
       <Label
         label={label}
         label_ar={label_ar}

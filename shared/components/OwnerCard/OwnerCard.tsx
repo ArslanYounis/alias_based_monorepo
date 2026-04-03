@@ -80,7 +80,7 @@ const OwnerCard: React.FC<IOwnerCardProps> = ({
   return (
     <Container className="w-full flex flex-col shrink-0">
       <Container
-        className={`grid gap-8 ${
+        className={`grid gap-xl ${
           itemsPerRow === "2" ? "grid-cols-2" : "grid-cols-1"
         }`}
         style={itemsPerRow === "2" ? { gridAutoFlow: "dense" } : undefined}
@@ -134,8 +134,8 @@ const OwnerCard: React.FC<IOwnerCardProps> = ({
               variant="small"
               cardTitleValue={owner.name}
               cardTitleValue_ar={owner.name_ar ?? owner.name}
-              cardTitleLabel="Name"
-              cardTitleLabel_ar="الاسم"
+              cardTitleLabel={owner.name}
+              cardTitleLabel_ar={owner.name_ar ?? owner.name}
               rowsData={owner.fields}
               language={language}
               showTitleSection={isExpandable}

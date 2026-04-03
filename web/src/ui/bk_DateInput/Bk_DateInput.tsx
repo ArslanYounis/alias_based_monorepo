@@ -76,7 +76,7 @@ export const Bk_DateInput: React.FC<DateInputProps> = ({
 
   return (
     <div
-      className="flex flex-col gap-[10px]"
+      className="flex flex-col gap-s"
       dir={language === "ar" ? "rtl" : "ltr"}
       data-testid={testId}
     >
@@ -110,7 +110,7 @@ export const Bk_DateInput: React.FC<DateInputProps> = ({
             disabled={disabled}
             variant="outline"
             className={cn(
-              "w-full flex justify-between px-m font-normal text-base items-center cursor-pointer h-[50px] placeholder:text-form-fields-input-form-placeholder",
+              "w-full flex justify-between px-m font-normal text-m items-center cursor-pointer h-[50px] placeholder:text-form-fields-input-form-placeholder",
               disabled
                 ? "bg-form-fields-input-form-bg text-text-default border border-form-fields-input-form-border"
                 : hasError

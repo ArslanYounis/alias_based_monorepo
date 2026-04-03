@@ -128,7 +128,7 @@ export const UploadDocument: React.FC<DocumentUploaderProps> = ({
     <View className={`flex flex-col ${isRtl ? "flex-row-reverse" : ""}`}>
       <View className="flex-row items-center gap-2">
         <View
-          className={`flex-1 h-[50px] flex-row items-center px-4 rounded-[5px] ${borderColorClass} ${backgroundColorClass}`}
+          className={`flex-1 h-[50px] flex-row items-center px-4 rounded-xxs ${borderColorClass} ${backgroundColorClass}`}
         >
           {!hasFile && (
             <TouchableOpacity

@@ -35,7 +35,7 @@ import { Prompt } from "@/ui/Prompt";
 import { ScreenLoader } from "@/ui/ScreenLoader";
 import TitleBar from "@/components/TitleBar";
 import { FilterBar } from "@/ui/FilterBar";
-import Signature from "@/components/Signature";
+import Signature from "@/ui/Signature";
 import { UploadDocuments } from "@platform/UploadDocuments";
 import axios from "axios";
 import { ViewPlotDetail } from "@shared/components/ViewPlotDetail";

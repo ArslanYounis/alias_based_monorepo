@@ -107,10 +107,10 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
     return (
       <Container
         key={index}
-        className="mb-2"
+        className="mb-xs"
       >
         <Container
-          className={`w-full h-12 flex flex-row items-center px-4 rounded-[5px] bg-form-fields-file-upload-uploaded ${firstAttachment ? "cursor-pointer" : ""}`}
+          className={`w-full h-12 flex flex-row items-center px-m rounded-xxs bg-form-fields-file-upload-uploaded ${firstAttachment ? "cursor-pointer" : ""}`}
           style={{ cursor: firstAttachment ? "pointer" : "default" }}
           onClick={firstAttachment ? handleClick : undefined}
         >
@@ -145,8 +145,8 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
     content: React.ReactNode,
     buttons?: { text: string; onClick: () => void }[]
   ) => (
-    <Container className="mb-4 text-text-default">
-      <Container className="flex flex-row justify-between items-center mb-4">
+    <Container className="mb-m text-text-default">
+      <Container className="flex flex-row justify-between items-center mb-m">
         <Text className="text-heading-h3 font-bold text-text-default">
           {title}
         </Text>
@@ -178,13 +178,13 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
     return (
       <Container
         key={index}
-        className={`w-full rounded-xs mb-4 px-m pt-m pb-xs gap-l ${isCompleted ? "bg-[#2B8A3E1A]" : "bg-Dark-8"} ${isCompleted ? "border border-Green-9" : ""}`}
+        className={`w-full rounded-xs mb-m px-m pt-m pb-xs gap-l ${isCompleted ? "bg-green-9/10" : "bg-dark-8"} ${isCompleted ? "border border-green-9" : ""}`}
         style={{ height: 128 }}
       >
-        <Container className="flex flex-row items-start gap-4" style={{ height: "100%" }}>
+        <Container className="flex flex-row items-start gap-m" style={{ height: "100%" }}>
           {/* Status icon circle */}
           <Container
-            className={`flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-full border ${isCompleted ? "border-Green-9" : "border-Teal-9"}`}
+            className={`flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-full border ${isCompleted ? "border-green-9" : "border-Teal-9"}`}
           >
             {isCompleted ? <CheckIcon /> : <SendIcon />}
           </Container>
@@ -223,7 +223,7 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
                 </Text>
               </Container>
               <Container className="flex-1">
-                <Text className="text-m ml-4 text-text-default">{card.author}</Text>
+                <Text className="text-m ml-m text-text-default">{card.author}</Text>
               </Container>
             </Container>
 
@@ -240,7 +240,7 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
                 </Text>
               </Container>
               <Container className="flex-1">
-                <Text className="text-m ml-4 text-text-default">{card.date}</Text>
+                <Text className="text-m ml-m text-text-default">{card.date}</Text>
               </Container>
             </Container>
           </Container>
@@ -250,14 +250,14 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
   };
 
   return (
-    <Container className="px-6 w-full" dir={language === "ar" ? "rtl" : "ltr"}>
+    <Container className="px-l w-full" dir={language === "ar" ? "rtl" : "ltr"}>
       {/* Page title */}
-      <Text className="text-heading-h1 font-bold mb-8 text-text-default">
+      <Text className="text-heading-h1 font-bold mb-xl text-text-default">
         {language === "en" ? applicationTitle : applicationTitle_ar}
       </Text>
 
       {/* Application Details Card */}
-      <Container className="w-full px-l py-m gap-l mb-8 rounded-xs bg-cards-base-l1 border border-cards-stroke">
+      <Container className="w-full px-l py-m gap-l mb-xl rounded-xs bg-cards-base-l1 border border-cards-stroke">
         {renderDetailRow(
           language === "en" ? "Application Number" : "رقم الطلب",
           application?.applicationNumber || ""
@@ -321,19 +321,19 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
         )}
 
       {/* Interaction History Section */}
-      <Container className="mb-4">
-        <Text className="text-heading-h3 font-bold mb-4 text-text-default">
+      <Container className="mb-m">
+        <Text className="text-heading-h3 font-bold mb-m text-text-default">
           {language === "en" ? "Interaction History" : "سجل التفاعل"}
         </Text>
         {interactionCards.map(renderInteractionCard)}
       </Container>
 
       {/* Documents Section */}
-      <Container className="mb-4">
-        <Text className="text-heading-h3 font-bold mb-4 text-text-default">
+      <Container className="mb-m">
+        <Text className="text-heading-h3 font-bold mb-m text-text-default">
           {language === "en" ? "Documents" : "المستندات"}
         </Text>
-        <Container className="gap-2">
+        <Container className="gap-xs">
           {documentCards.map(renderUploadedDocumentCard)}
         </Container>
       </Container>

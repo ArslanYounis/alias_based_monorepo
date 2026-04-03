@@ -104,7 +104,7 @@ export const Buttons = ({
   if (tooltip) {
     return (
       <div
-        className="flex items-center justify-center gap-4 relative"
+        className="flex items-center justify-center gap-m relative"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         style={{ zIndex: 20 }}
@@ -137,7 +137,7 @@ export const Buttons = ({
         </button>
         {showTooltip && (
           <div
-            className="absolute left-full ml-2 top-1/2 -translate-y-1/2"
+            className="absolute left-full ml-xs top-1/2 -translate-y-1/2"
             onMouseEnter={() => setIsTooltipHovered(true)}
             onMouseLeave={() => setIsTooltipHovered(false)}
           >

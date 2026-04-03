@@ -75,7 +75,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
       {/* Column headers — visible on web, hidden on mobile (cards scroll horizontally) */}
       {tableData?.length > 0 && (
         <Container
-          className="hidden md:grid gap-4 mb-4"
+          className="hidden md:grid gap-m mb-m"
           style={{
             gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
           }}
@@ -83,7 +83,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
           {tableColumns?.map((col, index) => (
             <Text
               key={index}
-              className={`text-sm font-bold text-[#000000] ${
+              className={`text-s font-bold text-text-default ${
                 index >= 3 ? "!hidden md:!block" : ""
               }`}
             >
@@ -100,9 +100,9 @@ export const Table: React.FC<ApplicationTableProps> = ({
       {tableData?.map((row, rowIndex) => (
         <Container
           key={rowIndex}
-          className={`mb-8 ${
+          className={`mb-xl ${
             rowIndex + 1 < tableData?.length ? "border-b" : ""
-          } border-form-border pb-6`}
+          } border-form-border pb-l`}
         >
           {platform === "web" ? (
             <Container className="flex flex-row gap-xs w-full">

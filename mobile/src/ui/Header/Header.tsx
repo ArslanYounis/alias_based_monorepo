@@ -22,17 +22,17 @@ export const Header: React.FC<HeaderProps> = ({
       }`}
     >
       {/* Left Section */}
-      <Container className="flex flex-row items-center gap-3">
+      <Container className="flex flex-row items-center gap-s">
         {/* Avatar */}
         <Pressable
           onPress={onAvatarPress}
-          className="flex-row items-center gap-2"
+          className="flex-row items-center gap-xs"
         >
           <Avatar imageUrl={avatarUrl} status="complete" />
         </Pressable>
       </Container>
       {/* Right Section */}
-      <Container className="flex flex-row items-center gap-3">
+      <Container className="flex flex-row items-center gap-s">
         <IconButton icon={<Settings className="text-text-default" />} />
         <IconButton icon={<StatusUp className="text-text-default" />} />
       </Container>

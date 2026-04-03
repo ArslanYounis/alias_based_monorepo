@@ -32,7 +32,7 @@ export const Bk_TextInput: React.FC<TextInputProps> = ({
   selectType = "single",
 }) => {
   return (
-    <div className="flex flex-col gap-[10px]">
+    <div className="flex flex-col gap-s">
       <Label
         label={label}
         label_ar={label_ar}

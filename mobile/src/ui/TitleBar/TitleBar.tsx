@@ -63,10 +63,10 @@ const TitleBar: React.FC<TitleBarProps> = ({
       className="flex gap-xl items-center justify-between w-full"
       style={{ flexDirection }}
     >
-      <View className="flex flex-row items-center gap-3 md:gap-8 min-w-0 self-start">
+      <View className="flex flex-row items-center gap-s md:gap-xl min-w-0 self-start">
         {showAcronym && computedAcronym && (
-          <View className="rounded-[10px] h-10 w-10 flex justify-center items-center bg-structure-primary-7">
-            <Text className="text-16 font-bold text-structure-primary-4">
+          <View className="rounded-s h-10 w-10 flex justify-center items-center bg-structure-primary-7">
+            <Text className="text-heading-h4 font-bold text-structure-primary-4">
               {computedAcronym}
             </Text>
           </View>
@@ -77,7 +77,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
               language={language}
               value={title}
               value_ar={title_ar}
-              className="text-48 font-bold text-text-default capitalize"
+              className="text-heading-h3 font-bold text-text-default capitalize"
             />
           </View>
         )}

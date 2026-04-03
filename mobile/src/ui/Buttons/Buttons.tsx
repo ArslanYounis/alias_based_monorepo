@@ -80,9 +80,9 @@ export const Buttons = ({
         disabled={disabled}
         className={`flex flex-row items-center justify-center rounded-xl ${sizeClasses[size]} ${backgroundColorClasses[type]}`}
       >
-        {leftIcon && <View className="mr-2">{renderIcon(leftIcon)}</View>}
+        {leftIcon && <View className="mr-xs">{renderIcon(leftIcon)}</View>}
 
-        <Text className={`${leftIcon || rightIcon ? "mx-1" : ""}`}>
+        <Text className={`${leftIcon || rightIcon ? "mx-xxs" : ""}`}>
           <SharedLanguageSwitchRenderer
             language={language}
             value={title}
@@ -91,7 +91,7 @@ export const Buttons = ({
           />
         </Text>
 
-        {rightIcon && <View className="ml-2">{renderIcon(rightIcon)}</View>}
+        {rightIcon && <View className="ml-xs">{renderIcon(rightIcon)}</View>}
       </TouchableOpacity>
 
       {tooltip && isTooltipVisible && (

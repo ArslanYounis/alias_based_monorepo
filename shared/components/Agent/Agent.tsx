@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Avatar } from "@platform/Avatar";
+import CardTitle from "../CardTitle";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 
 export interface Agent {
@@ -28,16 +29,16 @@ const Agent: React.FC<AgentProps> = ({
   platform = "web",
 }) => {
   return (
-    <Container className="flex flex-col gap-2">
-      <Text className={`text-bold-ml text-text-default mb-xs`}>
-        <SharedLanguageSwitchRenderer
-          language={language}
-          value={title}
-          value_ar={title_ar}
-        />
-      </Text>
+    <Container className="flex flex-col gap-xs">
+      <CardTitle
+        title={title}
+        title_ar={title_ar}
+        variant="small"
+        language={language}
+        platform={platform}
+      />
       {platform === "web" ? (
-        <Container className="flex flex-row gap-m items-center px-s py-xs bg-cards-base-l1 rounded-[5px]">
+        <Container className="flex flex-row gap-m items-center px-s py-xs bg-cards-base-l1 rounded-xxs">
           <Avatar
             imageUrl={
               agent?.image ||
@@ -64,7 +65,7 @@ const Agent: React.FC<AgentProps> = ({
           </Container>
         </Container>
       ) : (
-        <Container className="flex flex-row gap-m items-center px-s py-xs bg-cards-base-l1 rounded-[5px]">
+        <Container className="flex flex-row gap-m items-center px-s py-xs bg-cards-base-l1 rounded-xxs">
           <Avatar
             imageUrl={
               agent?.image ||

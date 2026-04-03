@@ -193,7 +193,7 @@ const FilterBar = ({
               <div className="text-filter-button-text rounded-md px-2 py-1">
                 <DefaultIcon className="text-filter-button-text" />
               </div>
-              <span className="text-base !hidden sm:!block text-filter-button-text">
+              <span className="text-m !hidden sm:!block text-filter-button-text">
                 {language === "en"
                   ? resetButtonLabel
                   : resetButtonLabel_ar || resetButtonLabel}

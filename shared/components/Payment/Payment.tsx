@@ -268,7 +268,7 @@ const Payment: React.FC<PaymentProps> = ({
     <Container className="flex flex-col flex-1 rounded-md">
       <Container className="flex flex-col flex-1">
         {/* Payment / No Payment choice */}
-        <Container className="mb-8 flex flex-row gap-4">
+        <Container className="mb-xl flex flex-row gap-m">
           <RadioCard
             icon={paymentIcon}
             label="Payment"
@@ -332,7 +332,7 @@ const Payment: React.FC<PaymentProps> = ({
               />
             </Text>
 
-            <Container className="mb-6">
+            <Container className="mb-l">
               {step === 0 &&
                 (isStepInfoPending ? (
                   <Text className="flex items-center justify-center">

@@ -232,7 +232,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
       </Text>
 
       <Container className="flex items-center mb-xl">
-        <Container className="w-1/2 flex flex-col gap-3">
+        <Container className="w-1/2 flex flex-col gap-s">
           <Text className="text-bold-m text-text-default">
             <SharedLanguageSwitchRenderer
               value={labels.serviceName}
@@ -256,7 +256,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
           </Text>
         </Container>
 
-        <Container className="w-1/2 flex flex-col gap-3">
+        <Container className="w-1/2 flex flex-col gap-s">
           <Text className="text-text-default text-m">
             <SharedLanguageSwitchRenderer
               value={ServiceName}

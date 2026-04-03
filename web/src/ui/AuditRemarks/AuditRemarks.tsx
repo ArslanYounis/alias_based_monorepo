@@ -100,7 +100,7 @@ const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
             value_ar="الوكيل"
           />
         </p>
-        <div className="flex gap-m items-center px-s py-xs bg-cards-base-l1 rounded-[5px]">
+        <div className="flex gap-m items-center px-s py-xs bg-cards-base-l1 rounded-xxs">
           <img
             src={agent.image || ""}
             alt="agent"
@@ -131,7 +131,7 @@ const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
           />
         </h3>
         <textarea
-          className="w-full rounded-[8px] border border-form-fields-input-form-border bg-form-fields-input-form-bg text-text-default text-base p-m gap-m resize-none focus:outline-none"
+          className="w-full rounded-[8px] border border-form-fields-input-form-border bg-form-fields-input-form-bg text-text-default text-m p-m gap-m resize-none focus:outline-none"
           placeholder=""
           rows={3}
           value={value}
@@ -359,15 +359,15 @@ const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
             {documents.map((doc, idx) => (
               <div
                 key={idx}
-                className="flex justify-between items-center gap-xs px-[15px] py-[13px] rounded-[5px] bg-form-fields-file-upload-default cursor-pointer"
+                className="flex justify-between items-center gap-xs px-[15px] py-[13px] rounded-xxs bg-form-fields-file-upload-default cursor-pointer"
                 onClick={() => window.open(doc.downloadUrl, "_blank")}
                 tabIndex={0}
                 role="button"
               >
-                <span className="text-text-default text-sm">
+                <span className="text-text-default text-s">
                   {language === "ar" ? doc.documentNameA : doc.documentNameE}
                 </span>
-                <Document className="text-text-default text-lg" />
+                <Document className="text-text-default text-l" />
               </div>
             ))}
           </>
@@ -384,7 +384,7 @@ const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
           </h3>
           <textarea
             rows={3}
-            className="w-full text-text-default rounded-[8px] bg-form-fields-input-form-bg border border-form-fields-input-form-border text-base p-3 resize-none focus:outline-none"
+            className="w-full text-text-default rounded-[8px] bg-form-fields-input-form-bg border border-form-fields-input-form-border text-m p-s resize-none focus:outline-none"
             placeholder=""
             value=""
             readOnly

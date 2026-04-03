@@ -87,7 +87,7 @@ const ApplicationSummaryDetail: React.FC<ApplicationSummaryDetailProps> = ({
 
       <Container className="flex-1">
         {isInput ? (
-          <Container className="text-text-default bg-form-fields-input-form-bg border border-form-fields-input-form-border w-full h-9 rounded-[5px] px-m py-xs flex items-center">
+          <Container className="text-text-default bg-form-fields-input-form-bg border border-form-fields-input-form-border w-full h-9 rounded-xxs px-m py-xs flex items-center">
             <Text className="text-m text-text-default">
               {renderValue(
                 isArabic ? valueAr : valueEn,

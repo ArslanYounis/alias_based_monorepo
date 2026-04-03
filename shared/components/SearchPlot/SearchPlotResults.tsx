@@ -105,14 +105,14 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
     return (
       <Container
         key={index}
-        className={`mb-4 rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer border border-cards-stroke ${
+        className={`mb-m rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer border border-cards-stroke ${
           isSelected
             ? "bg-cards-searchResult-selected"
             : "bg-cards-searchResult"
         }`}
         onClick={() => handleRadioSelect(result)}
       >
-        <Container className="flex flex-row justify-between mb-3">
+        <Container className="flex flex-row justify-between mb-s">
           <Text className={`text-bold-l mr-s ${textColor}`}>
             <SharedLanguageSwitchRenderer
               language={language}
@@ -162,7 +162,7 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
             key={label}
             className={`flex flex-row ${
               idx !== array.length - 1
-                ? "border-b border-text-dimmed pb-2 mb-2"
+                ? "border-b border-text-dimmed pb-xs mb-xs"
                 : ""
             }`}
           >
@@ -196,7 +196,7 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
         <Text
           className={`${
             platform === "web" ? "text-heading-h1" : "text-heading-h3"
-          } font-bold mb-4 text-text-default`}
+          } font-bold mb-m text-text-default`}
         >
           <SharedLanguageSwitchRenderer
             language={language}
@@ -216,7 +216,7 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
           </Container>
         ) : (
           <>
-            <Container className="flex flex-col gap-3 mb-8">
+            <Container className="flex flex-col gap-s mb-xl">
               <Text className={`text-m ${textColor}`}>
                 <SharedLanguageSwitchRenderer
                   language={language}

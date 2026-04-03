@@ -29,15 +29,15 @@ export interface TitleBarProps {
 
 const sizeClasses = {
   s: {
-    button: "px-4 h-6 py-[6px] text-xs",
+    button: "px-m h-6 py-xxs text-xs",
     icon: "h-3 w-3 ",
   },
   m: {
-    button: "px-4 h-7 py-[6.5px] text-base",
+    button: "px-m h-7 py-xxs text-m",
     icon: "h-[15px] w-[15px]",
   },
   l: {
-    button: "px-6 h-10 py-3 text-xl",
+    button: "px-l h-10 py-s text-l",
     icon: "h-[18px] w-[18px]",
   },
 };
@@ -88,16 +88,16 @@ const TitleBar: React.FC<TitleBarProps> = ({
       className="flex flex-col-reverse md:flex-row gap-xl md:gap-none items-center justify-between w-full"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
-      <div className="flex items-center gap-[12px] md:gap-[32px] min-w-0 self-start">
+      <div className="flex items-center gap-s md:gap-xl min-w-0 self-start">
         {showAcronym && computedAcronym && (
-          <div className="!rounded-[7px] sm:!rounded-[10px] md:!rounded-[12px] !h-[30px] sm:!h-[40px] !w-[30px] sm:!w-[40px] md:!h-[64px] md:!w-[64px] flex justify-center items-center bg-structure-primary-7">
-            <p className="!text-10 sm:!text-16 md:!text-24 font-bold text-structure-primary-4">
+          <div className="rounded-xxs! sm:rounded-s! md:rounded-s! h-[30px]! sm:h-[40px]! w-[30px]! sm:w-[40px]! md:h-[64px]! md:w-[64px]! flex justify-center items-center bg-structure-primary-7">
+            <p className="text-xxs! sm:text-heading-h4! md:text-heading-h3! font-bold text-structure-primary-4">
               {computedAcronym}
             </p>
           </div>
         )}
         {showTitle && title && (
-          <h1 className="text-32 sm:text-48 font-bold text-text-default capitalize">
+          <h1 className="text-heading-h2 sm:text-heading-h1 font-bold text-text-default capitalize">
             <SharedLanguageSwitchRenderer
               language={language}
               value={title}

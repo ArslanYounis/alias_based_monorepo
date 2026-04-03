@@ -120,7 +120,7 @@ export const Cards: React.FC<StatusCardProps> = ({
         <Container
           className={`w-1/2 flex flex-col justify-center px-2 ${bgColor}`}
         >
-          <Text className={`text-sm font-bold ${textColor} line-clamp-2`}>
+          <Text className={`text-s font-bold ${textColor} line-clamp-2`}>
             <SharedLanguageSwitchRenderer
               language={language}
               value={action}
@@ -185,7 +185,7 @@ export const Cards: React.FC<StatusCardProps> = ({
             : "text-center mt-2 flex flex-col"
         }
       >
-        <Text className={`text-sm font-bold ${textColor}`}>
+        <Text className={`text-s font-bold ${textColor}`}>
           <SharedLanguageSwitchRenderer
             language={language}
             value={action}

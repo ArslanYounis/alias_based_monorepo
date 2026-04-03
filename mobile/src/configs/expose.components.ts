@@ -9,6 +9,7 @@ import TypographyConfig from "~/src/ui/Typography/typography.config";
 import ScreenLoaderConfig from "~/src/ui/ScreenLoader/screenLoader.config";
 import AuditRemarksConfig from "~/src/ui/AuditRemarks/auditRemarks.config";
 import TitlesConfig from "~/src/ui/TitleBar/titleBar.config";
+import SignatureConfig from "~/src/ui/Signature/signature.config";
 
 // Shared config factory functions
 import { createCardTitleConfig } from "@shared/components/CardTitle/CardTitle.config";
@@ -124,6 +125,7 @@ const exposeComponents = [
   PageTitleConfigs,
   AuditRemarksConfig,
   TitlesConfig,
+  SignatureConfig,
 ];
 
 export default exposeComponents as any[];

@@ -4,7 +4,7 @@ import PaginationConfigs from "@/ui/Pagination/pagination.config";
 import TitlesConfigs from "@/components/TitleBar/titleBar.config";
 import AddMoreButtonConfigs from "@/ui/AddMoreButton/addMoreButton.config";
 import FilterBarConfigs from "@/ui/FilterBar/filterBar.config";
-import SignatureConfigs from "@/components/Signature/signature.config";
+import SignatureConfigs from "@/ui/Signature/signature.config";
 import UploadDocumentsConfigs from "@/ui/UploadDocuments/UploadDocuments.config";
 import PromptConfigs from "@/ui/Prompt/prompt.config";
 import TypographyConfigs from "@/ui/Typography/typography.config";

@@ -38,7 +38,7 @@ export const Bot: React.FC<BotProps> = ({
         <>
           {currentStatus === "open" && message.length > 0 && (
             <div
-              className={`absolute z-30 bottom-[70px] bg-structure-primary-0 text-text-default text-base px-6 py-4 font-normal rounded-lg min-w-[420px] rounded-bl-none mb-0.5 ${
+              className={`absolute z-30 bottom-[70px] bg-structure-primary-0 text-text-default text-m px-6 py-4 font-normal rounded-l min-w-[420px] rounded-bl-none mb-0.5 ${
                 language === "ar" ? "text-start" : ""
               }`}
               style={{

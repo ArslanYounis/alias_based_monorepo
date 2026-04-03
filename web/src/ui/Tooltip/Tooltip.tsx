@@ -87,7 +87,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   return (
     <div
-      className="relative w-fit max-w-[150px] bg-[#566C74] break-words whitespace-normal rounded-lg px-3 py-[15.5px] text-white text-xs text-center"
+      className="relative w-fit max-w-[150px] bg-primary-chrome-6 break-words whitespace-normal rounded-l px-s py-[15.5px] text-base-white text-xxs text-center"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <SharedLanguageSwitchRenderer

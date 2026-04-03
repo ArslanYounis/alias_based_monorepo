@@ -37,7 +37,7 @@ export const Checkbox = ({
   const disabledStyles =
     "bg-form-fields-checkbox-radio-cbr-select-disable border-form-fields-checkbox-radio-cbr-select-disable";
 
-  const checkedStyles = "bg-[#008DCB] border-[#008DCB]";
+  const checkedStyles = "bg-form-fields-checkbox-radio-cbr-bg-selected border-form-fields-checkbox-radio-cbr-border-selected";
 
   const errorStyles = "border-2 border-form-fields-error";
 

@@ -85,7 +85,7 @@ export const DateSelect: React.FC<DateSelectProps> = ({
   return (
     <View className="flex flex-col gap-[10px]" testID={testId}>
       {label && (
-        <View className="flex flex-row items-center gap-1">
+        <View className="flex flex-row items-center gap-xxs">
           <SharedLanguageSwitchRenderer
             language={language}
             value={label}
@@ -102,7 +102,7 @@ export const DateSelect: React.FC<DateSelectProps> = ({
         </View>
       )}
       {showInfo && infoText && (
-        <View className="bg-filter-dropdown-bg px-2 py-1 rounded">
+        <View className="bg-filter-dropdown-bg px-xs py-xxs rounded">
           <SharedLanguageSwitchRenderer
             language={language}
             value={infoText}
@@ -113,7 +113,7 @@ export const DateSelect: React.FC<DateSelectProps> = ({
       <Pressable
         disabled={disabled}
         onPress={() => setShowPicker(true)}
-        className={`flex flex-row items-center justify-between h-[50px] px-m rounded-[5px] border
+        className={`flex flex-row items-center justify-between h-[50px] px-m rounded-xxs border
           ${
             disabled
               ? "opacity-60 bg-form-fields-input-form-bg border-form-fields-input-form-border"

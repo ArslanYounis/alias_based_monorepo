@@ -69,33 +69,33 @@
 
 @layer base {
   :root {
-    /* ==== Base font sizes ==== */
+    /* ==== Base font sizes (mobile-optimized) ==== */
     --text-10: 10px;
     --text-12: 12px;
-    --text-14: 14px;
-    --text-16: 16px;
-    --text-18: 18px;
-    --text-20: 20px;
-    --text-24: 24px;
-    --text-32: 32px;
-    --text-48: 48px;
-    --text-64: 64px;
-    --text-80: 80px;
+    --text-14: 13px;
+    --text-16: 14px;
+    --text-18: 16px;
+    --text-20: 18px;
+    --text-24: 20px;
+    --text-32: 24px;
+    --text-48: 30px;
+    --text-64: 36px;
+    --text-80: 42px;
 
-    /* ==== Base line heights ==== */
+    /* ==== Base line heights (mobile-optimized) ==== */
     --lh-auto: normal;
-    --lh-12: 12px;
-    --lh-16: 16px;
+    --lh-12: 14px;
+    --lh-16: 18px;
     --lh-18: 18px;
     --lh-20: 20px;
-    --lh-23: 23px;
+    --lh-23: 22px;
     --lh-24: 24px;
-    --lh-28: 28px;
-    --lh-32: 32px;
-    --lh-36: 36px;
-    --lh-56: 56px;
-    --lh-64: 64px;
-    --lh-80: 80px;
+    --lh-28: 26px;
+    --lh-32: 30px;
+    --lh-36: 32px;
+    --lh-56: 38px;
+    --lh-64: 44px;
+    --lh-80: 50px;
 
     /* ==== Base ==== */
     --color-Base-Black: #000000;
@@ -427,38 +427,38 @@
     /* ==== Structure Footer ==== */
     --Structure-Footer-Background: var(--color-Base-White);
 
-    /* ==== Cementic Rule Spacing ==== */
+    /* ==== Semantic Rule Spacing (mobile-optimized) ==== */
     --spacing-none: 0px;
-    --spacing-xxs: 4px;
-    --spacing-xs: 8px;
-    --spacing-s: 12px;
-    --spacing-m: 16px;
-    --spacing-l: 24px;
-    --spacing-xl: 32px;
-    --spacing-xxl: 48px;
-    --spacing-xxxl: 64px;
+    --spacing-xxs: 2px;
+    --spacing-xs: 4px;
+    --spacing-s: 8px;
+    --spacing-m: 12px;
+    --spacing-l: 16px;
+    --spacing-xl: 24px;
+    --spacing-xxl: 32px;
+    --spacing-xxxl: 48px;
 
-    /* ==== Cementic Rule Padding ==== */
+    /* ==== Semantic Rule Padding (mobile-optimized) ==== */
     --padding-none: 0px;
-    --padding-xxs: 4px;
-    --padding-xs: 8px;
-    --padding-s: 12px;
-    --padding-m: 16px;
-    --padding-l: 24px;
-    --padding-xl: 32px;
-    --padding-xxl: 48px;
-    --padding-xxxl: 64px;
+    --padding-xxs: 2px;
+    --padding-xs: 4px;
+    --padding-s: 8px;
+    --padding-m: 12px;
+    --padding-l: 16px;
+    --padding-xl: 24px;
+    --padding-xxl: 32px;
+    --padding-xxxl: 48px;
 
-    /* ==== Cementic Rule Radius ==== */
+    /* ==== Semantic Rule Radius (mobile-optimized) ==== */
     --radius-none: 0px;
-    --radius-xxs: 4px;
-    --radius-xs: 8px;
-    --radius-s: 12px;
-    --radius-m: 16px;
-    --radius-l: 24px;
-    --radius-xl: 32px;
-    --radius-xxl: 48px;
-    --radius-xxxl: 64px;
+    --radius-xxs: 2px;
+    --radius-xs: 4px;
+    --radius-s: 8px;
+    --radius-m: 12px;
+    --radius-l: 16px;
+    --radius-xl: 24px;
+    --radius-xxl: 32px;
+    --radius-xxxl: 48px;
 
     /* ==== Cementic Rule Opacity ==== */
     --opacity-0: 0;
@@ -709,77 +709,100 @@
 }
 
 @layer components {
-  /* ==== Typography Utilities ==== */
+  /* ==== Typography Utilities (variable-driven for responsiveness) ==== */
 
   /* Headings */
   .text-heading-h1-shouting {
-    @apply text-[80px] leading-none;
+    font-size: var(--text-80);
+    line-height: var(--lh-auto);
   }
 
   .text-heading-h1-hero {
-    @apply text-[64px] leading-none;
+    font-size: var(--text-64);
+    line-height: var(--lh-auto);
   }
 
   .text-heading-h1 {
-    @apply text-[48px] leading-[56px];
+    font-size: var(--text-48);
+    line-height: var(--lh-56);
   }
 
   .text-heading-h2 {
-    @apply text-[32px] leading-[36px];
+    font-size: var(--text-32);
+    line-height: var(--lh-36);
   }
 
   .text-heading-h3 {
-    @apply text-[24px] leading-[28px];
+    font-size: var(--text-24);
+    line-height: var(--lh-28);
   }
 
   .text-heading-h4 {
-    @apply text-[16px] leading-[20px];
+    font-size: var(--text-16);
+    line-height: var(--lh-20);
   }
 
   /* Text */
   .text-xxs {
-    @apply text-[10px] leading-[12px];
+    font-size: var(--text-10);
+    line-height: var(--lh-12);
   }
 
   .text-xs {
-    @apply text-[12px] leading-[16px];
+    font-size: var(--text-12);
+    line-height: var(--lh-16);
   }
 
   .text-s {
-    @apply text-[14px] leading-[18px];
+    font-size: var(--text-14);
+    line-height: var(--lh-18);
   }
 
   .text-m {
-    @apply text-[16px] leading-[20px];
+    font-size: var(--text-16);
+    line-height: var(--lh-20);
   }
 
   .text-l {
-    @apply text-[20px] leading-[24px];
+    font-size: var(--text-20);
+    line-height: var(--lh-24);
   }
 
   /* Text Bold */
   .text-bold-xxs {
-    @apply text-[10px] font-bold leading-none;
+    font-size: var(--text-10);
+    font-weight: 700;
+    line-height: var(--lh-auto);
   }
 
   .text-bold-xs {
-    @apply text-[12px] font-bold leading-[16px];
+    font-size: var(--text-12);
+    font-weight: 700;
+    line-height: var(--lh-16);
   }
 
   .text-bold-s {
-    @apply text-[14px] font-bold leading-[18px];
+    font-size: var(--text-14);
+    font-weight: 700;
+    line-height: var(--lh-18);
   }
 
   .text-bold-m {
-    @apply text-[16px] font-bold leading-[20px];
+    font-size: var(--text-16);
+    font-weight: 700;
+    line-height: var(--lh-20);
   }
 
   .text-bold-ml {
-    @apply text-[18px] font-bold leading-[23px];
+    font-size: var(--text-18);
+    font-weight: 700;
+    line-height: var(--lh-23);
   }
 
   .text-bold-l {
-    @apply text-[20px] font-bold leading-[24px];
+    font-size: var(--text-20);
+    font-weight: 700;
+    line-height: var(--lh-24);
   }
 
   .signature-container {
@@ -788,35 +811,35 @@
 
   .adrec-components {
     .rounded-xxs {
-      @apply rounded[4px];
+      border-radius: var(--radius-xxs);
     }
 
     .rounded-xs {
-      @apply rounded[8px];
+      border-radius: var(--radius-xs);
     }
 
     .rounded-s {
-      @apply rounded[12px];
+      border-radius: var(--radius-s);
     }
 
     .rounded-m {
-      @apply rounded[16px];
+      border-radius: var(--radius-m);
     }
 
     .rounded-l {
-      @apply rounded[24px];
+      border-radius: var(--radius-l);
     }
 
     .rounded-xl {
-      @apply rounded[32px];
+      border-radius: var(--radius-xl);
     }
 
     .rounded-xxl {
-      @apply rounded[48px];
+      border-radius: var(--radius-xxl);
     }
 
     .rounded-xxxl {
-      @apply rounded[64px];
+      border-radius: var(--radius-xxxl);
     }
   }
 }

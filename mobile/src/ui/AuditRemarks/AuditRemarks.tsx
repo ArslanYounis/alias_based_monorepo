@@ -139,7 +139,7 @@ const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
           />
         </Text>
         <TextInput
-          className="w-full rounded-[8px] border border-form-fields-input-form-border bg-form-fields-input-form-bg text-text-default text-base p-m"
+          className="w-full rounded-xs border border-form-fields-input-form-border bg-form-fields-input-form-bg text-text-default text-m p-m"
           placeholder=""
           multiline
           numberOfLines={3}
@@ -206,7 +206,7 @@ const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
         {plots?.map((plot, idx) => (
           <View
             key={idx}
-            className="rounded-[8px] bg-cards-base-l1 text-text-default border border-cards-stroke px-l py-m mb-4"
+            className="rounded-xs bg-cards-base-l1 text-text-default border border-cards-stroke px-l py-m mb-4"
           >
             <View className="flex flex-row justify-between items-center mb-3">
               <Text className="text-bold-ml">{plot.code}</Text>
@@ -368,10 +368,10 @@ const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
             {documents.map((doc, idx) => (
               <TouchableOpacity
                 key={idx}
-                className="flex flex-row justify-between items-center gap-xs px-[15px] py-[13px] rounded-[5px] bg-form-fields-file-upload-default"
+                className="flex flex-row justify-between items-center gap-xs px-[15px] py-[13px] rounded-xxs bg-form-fields-file-upload-default"
                 onPress={() => onDocumentPress?.(doc.downloadUrl)}
               >
-                <Text className="text-text-default text-sm">
+                <Text className="text-text-default text-s">
                   {language === "ar" ? doc.documentNameA : doc.documentNameE}
                 </Text>
                 <DocumentIcon />
@@ -392,7 +392,7 @@ const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
           <TextInput
             multiline
             numberOfLines={3}
-            className="w-full text-text-default rounded-[8px] bg-form-fields-input-form-bg border border-form-fields-input-form-border text-base p-3"
+            className="w-full text-text-default rounded-xs bg-form-fields-input-form-bg border border-form-fields-input-form-border text-m p-s"
             placeholder=""
             value=""
             editable={false}

@@ -65,7 +65,7 @@ export const Caption: React.FC<CaptionProps> = ({
               language={language}
               value={errorMessage || ""}
               value_ar={errorMessage_ar || ""}
-              className="text-xs text-form-fields-error"
+              className="text-xxs text-form-fields-error"
             />
           </Text>
         </View>

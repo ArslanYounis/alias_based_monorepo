@@ -105,7 +105,7 @@ const SearchPlot = ({
         </Text>
       )}
       {!!subtitle && (
-        <Text className="text-m text-text-default mb-8">
+        <Text className="text-m text-text-default mb-xl">
           <SharedLanguageSwitchRenderer
             language={language}
             value={subtitle}
@@ -116,7 +116,7 @@ const SearchPlot = ({
 
       {/* Owner Type Selection */}
       {platform === "web" ? (
-        <Container className="flex flex-row gap-l mb-8">
+        <Container className="flex flex-row gap-l mb-xl">
           <RadioCard
             icon={
               <PlotIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
@@ -174,7 +174,7 @@ const SearchPlot = ({
         </Container>
       ) : (
         <ScrollContainer horizontal className="flex flex-row gap-xs w-full">
-          <Container className="flex flex-row gap-l mb-8">
+          <Container className="flex flex-row gap-l mb-xl">
             <RadioCard
               icon={
                 <PlotIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />

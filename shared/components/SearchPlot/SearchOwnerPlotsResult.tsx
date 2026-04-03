@@ -79,8 +79,8 @@ const SearchOwnerPlotsResult: React.FC<SearchOwnerPlotsResultProps> = ({
 
   return (
     <>
-      <Container className="flex flex-col gap-3">
-        <Text className={`text-heading-h1 font-bold pb-8 text-text-default`}>
+      <Container className="flex flex-col gap-s">
+        <Text className={`text-heading-h1 font-bold pb-xl text-text-default`}>
           <SharedLanguageSwitchRenderer
             language={language}
             value="Select Plot"
@@ -93,14 +93,14 @@ const SearchOwnerPlotsResult: React.FC<SearchOwnerPlotsResultProps> = ({
           return (
             <Container
               key={String(plot.plotId)}
-              className={`mb-4 rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer border border-cards-stroke ${
+              className={`mb-m rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer border border-cards-stroke ${
                 isSelected
                   ? "bg-cards-searchResult-selected"
                   : "bg-cards-searchResult"
               }`}
               onClick={() => onSelectPlot?.(plot)}
             >
-              <Container className="flex justify-between mb-3">
+              <Container className="flex justify-between mb-s">
                 <Text className="text-bold-l text-text-default line-clamp-1 mr-xxs">
                   <SharedLanguageSwitchRenderer
                     language={language}
@@ -108,7 +108,7 @@ const SearchOwnerPlotsResult: React.FC<SearchOwnerPlotsResultProps> = ({
                     value_ar={plot.communityName}
                   />
                 </Text>
-                <Container className="flex items-center gap-4">
+                <Container className="flex items-center gap-m">
                   <Buttons
                     title="Details"
                     title_ar="التفاصيل"
@@ -146,7 +146,7 @@ const SearchOwnerPlotsResult: React.FC<SearchOwnerPlotsResultProps> = ({
                   key={label}
                   className={`flex ${
                     index !== array.length - 1
-                      ? "border-b pb-2 border-text-dimmed mb-2"
+                      ? "border-b pb-xs border-text-dimmed mb-xs"
                       : ""
                   }`}
                 >

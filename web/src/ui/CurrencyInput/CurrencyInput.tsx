@@ -29,7 +29,7 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
   currencySymbol = "AED",
 }) => {
   return (
-    <div className="flex flex-col gap-[10px]">
+    <div className="flex flex-col gap-s">
       <Label
         label={label}
         label_ar={label_ar}

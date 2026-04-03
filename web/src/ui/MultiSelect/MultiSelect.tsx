@@ -41,7 +41,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
 
   return (
     <div
-      className="flex flex-col gap-2 w-full"
+      className="flex flex-col gap-xs w-full"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <Label

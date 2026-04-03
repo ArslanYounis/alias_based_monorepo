@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({
   const [botStatus, setBotStatus] = useState<"open" | "close">("close");
   return (
     <div className="flex items-center justify-between p-m h-[98px]">
-      <div className="!hidden sm:!flex items-center space-x-4">
+      <div className="!hidden sm:!flex items-center space-x-m">
         {showLogo && (
           <Logo
             type={logoType}
@@ -58,7 +58,7 @@ export const Footer: React.FC<FooterProps> = ({
         )}
       </div>
       <div className="sm:!hidden !flex flex-col items-center w-full">
-        <div onClick={() => setOpen(!open)} className="cursor-pointer mb-2">
+        <div onClick={() => setOpen(!open)} className="cursor-pointer mb-xs">
           {open ? <PullyUpIconSvg /> : <PullyDownIconSvg />}
         </div>
         {open && (

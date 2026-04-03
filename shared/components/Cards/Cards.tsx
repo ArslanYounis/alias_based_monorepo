@@ -116,9 +116,9 @@ const Cards: React.FC<StatusCardProps> = ({
           /> */}
         </Container>
         <Container
-          className={`w-1/2 flex flex-col justify-center px-2 ${bgColor}`}
+          className={`w-1/2 flex flex-col justify-center px-xs ${bgColor}`}
         >
-          <Text className={`text-sm font-bold ${textColor} line-clamp-2`}>
+          <Text className={`text-s font-bold ${textColor} line-clamp-2`}>
             <SharedLanguageSwitchRenderer
               language={language}
               value={action}
@@ -166,7 +166,7 @@ const Cards: React.FC<StatusCardProps> = ({
       className={`${bgColor} flex items-center w-full min-w-auto h-[96px] rounded-xs py-xs px-s overflow-hidden ${
         direction === "vertical" ? "" : "space-x-[10px]"
       } ${
-        direction === "vertical" ? "flex-col py-[8px]" : "flex py-7"
+        direction === "vertical" ? "flex-col py-xs" : "flex py-xl"
       } border-b-2 ${borderColor}`}
       style={{ boxShadow: "0px 2px 4px 0px #00000033" }}
     >
@@ -179,10 +179,10 @@ const Cards: React.FC<StatusCardProps> = ({
         className={
           direction === "horizontal"
             ? "text-start"
-            : "text-center mt-2 flex flex-col"
+            : "text-center mt-xs flex flex-col"
         }
       >
-        <Text className={`text-sm font-bold ${textColor}`}>
+        <Text className={`text-s font-bold ${textColor}`}>
           <SharedLanguageSwitchRenderer
             language={language}
             value={action}

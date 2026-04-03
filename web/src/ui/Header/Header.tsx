@@ -40,16 +40,16 @@ export const Header = ({
   return (
     <div dir={language === "ar" ? "rtl" : "ltr"}>
       <nav
-        className={`flex items-center justify-between md:px-16 py-3 h-[92px] ${
+        className={`flex items-center justify-between md:px-16 py-s h-[92px] ${
           isEditing ? "blur-xs pointer-events-none" : ""
         }`}
       >
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-m">
           <div className="hidden! md:flex!">
             <Breadcrumb language={language} items={breadcrumbItems} />
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-s">
           <Buttons
             title={languageText + " " + "English"}
             title_ar={languageText_ar + " " + "العربية"}
@@ -58,7 +58,7 @@ export const Header = ({
             language={language}
             onClick={onToggleLanguage}
           />
-          <div className="flex items-center gap-[24px] mr-1">
+          <div className="flex items-center gap-l mr-xxs">
             <IconButton
               icon={<IconoirSettingsSvg className="text-text-default" />}
             />
@@ -73,7 +73,7 @@ export const Header = ({
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <div className="flex items-center space-x-3 cursor-pointer bg-transparent border-0 p-0">
+              <div className="flex items-center space-x-s cursor-pointer bg-transparent border-0 p-0">
                 <div className="relative w-[42px] h-[42px]">
                   <Avatar
                     imageUrl={avatarUrl}
@@ -81,7 +81,7 @@ export const Header = ({
                     badgeSize={18}
                   />
                 </div>
-                <p className="text-[16px] text-text-default font-bold max-md:!hidden">
+                <p className="text-m text-text-default font-bold max-md:!hidden">
                   <SharedLanguageSwitchRenderer
                     language={language}
                     value={userName}
@@ -101,7 +101,7 @@ export const Header = ({
                 <DropdownMenuItem
                   dir={language === "ar" ? "rtl" : "ltr"}
                   key={idx}
-                  className={`cursor-pointer px-4 py-2 hover:bg-gray-100 ${
+                  className={`cursor-pointer px-m py-xs hover:bg-structure-primary-0 ${
                     item.className || ""
                   }`}
                   onClick={item.onClick}

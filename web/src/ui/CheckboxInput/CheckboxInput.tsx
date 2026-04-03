@@ -48,7 +48,7 @@ export const CheckboxInput: React.FC<CheckboxInputProps> = ({
       />
 
       <div className="flex flex-col gap-2">
-        <div className="flex gap-4 flex-wrap justify-between">
+        <div className="flex gap-m flex-wrap justify-between">
           {options.map((option) => (
             <div key={option.value} className="flex items-center gap-1">
               <CheckboxField

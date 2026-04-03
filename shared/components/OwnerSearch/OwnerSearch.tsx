@@ -74,7 +74,7 @@ const OwnerSearch = ({
         </Text>
       )}
       {!!subtitle && (
-        <Text className="text-m text-text-default mb-8">
+        <Text className="text-m text-text-default mb-xl">
           <SharedLanguageSwitchRenderer
             language={language}
             value={subtitle}
@@ -84,7 +84,7 @@ const OwnerSearch = ({
       )}
 
       {/* RadioCard Tab Selection */}
-      <Container className="mb-8 flex flex-row justify-center items-center gap-8">
+      <Container className="mb-xl flex flex-row justify-center items-center gap-xl">
         <RadioCard
           icon={
             <CompanyIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />

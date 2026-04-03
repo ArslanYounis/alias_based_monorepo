@@ -36,8 +36,6 @@ export interface IGenericCardProps extends ICardTitleProps {
   onToggleExpand?: () => void;
   hasDocuments?: boolean;
   documents?: IDocument[];
-  documentName?: string;
-  documentName_ar?: string;
   documentTitle?: string;
   documentTitle_ar?: string;
   documentDescription?: string;
@@ -136,7 +134,7 @@ const GenericCard: React.FC<IGenericCardProps> = ({
       {expanded ? (
         <Container className="rounded-xs bg-cards-base-l1 text-text-default px-l py-m border border-cards-stroke">
           {(cardTitleLabel || cardTitleLabel_ar || showButtons) && (
-            <Container className="flex flex-row justify-between items-center mb-3">
+            <Container className="flex flex-row justify-between items-center mb-s">
               <Text
                 className={`text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal min-w-0 ${
                   platform === "mobile" ? "w-[50%]" : ""

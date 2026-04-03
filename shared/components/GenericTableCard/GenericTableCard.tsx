@@ -135,7 +135,7 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
             platform === "web" ? "px-l" : "px-s"
           } py-m border border-cards-stroke`}
         >
-          <Container className="flex flex-row justify-between items-center mb-3">
+          <Container className="flex flex-row justify-between items-center mb-s">
             <Text className="text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal min-w-0">
               <SharedLanguageSwitchRenderer
                 language={language}

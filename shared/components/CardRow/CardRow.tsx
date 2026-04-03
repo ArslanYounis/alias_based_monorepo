@@ -188,7 +188,7 @@ const CardRow: React.FC<ICardRowProps> = ({
 
       {/* bottom — stacks vertically on mobile, two columns on md+ */}
       {rowVariant === "bottom" && (
-        <Container className="gap-xxs pb-s flex flex-col md:flex-row flex-wrap items-center text-text-default border-b border-border-dimmed py-3">
+        <Container className="gap-xxs pb-s flex flex-col md:flex-row flex-wrap items-center text-text-default border-b border-border-dimmed py-s">
           {allItems.map((item, idx) => (
             // Each item takes half the row on md screens (mirrors grid-cols-2)
             <Container key={idx} className="w-full md:w-1/2">

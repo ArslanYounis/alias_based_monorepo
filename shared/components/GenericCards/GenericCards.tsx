@@ -82,7 +82,7 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <Container
-        className={`grid gap-8 ${gridCols}`}
+        className={`grid gap-xl ${gridCols}`}
         style={itemsPerRow !== "1" ? { gridAutoFlow: "dense" } : undefined}
       >
         {cardsData?.map((card, idx) => {

@@ -55,14 +55,17 @@ export const Radio: React.FC<RadioProps> = ({
       accessibilityRole="radio"
       accessibilityState={{ checked: isChecked, disabled }}
       accessibilityLabel={id}
-      className={`w-6 h-6 rounded-full items-center justify-center ${styleClass}`}
     >
-      {isChecked && !hasError && (
-        <View className="w-3 h-3 rounded-full bg-form-fields-checkbox-radio-cb-icon-selected" />
-      )}
-      {isChecked && hasError && (
-        <View className="w-3 h-3 rounded-full bg-status-failed-solid" />
-      )}
+      <View
+        className={`w-6 h-6 rounded-full items-center justify-center ${styleClass}`}
+      >
+        {isChecked && !hasError && (
+          <View className="w-3 h-3 rounded-full bg-form-fields-checkbox-radio-cbr-bg-selected" />
+        )}
+        {isChecked && hasError && (
+          <View className="w-3 h-3 rounded-full bg-status-failed-solid" />
+        )}
+      </View>
     </Pressable>
   );
 };

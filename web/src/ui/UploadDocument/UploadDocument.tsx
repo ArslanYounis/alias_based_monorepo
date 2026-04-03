@@ -162,9 +162,9 @@ export const UploadDocument: React.FC<DocumentUploaderProps> = ({
       className="flex flex-col flex-1"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-xs">
         <div
-          className={`w-full h-12 flex items-center px-4 font-bold text-m rounded-[5px] ${backgroundColorClass} ${borderColorClass} focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#169F9F]`}
+          className={`w-full h-12 flex items-center px-m font-bold text-m rounded-xxs ${backgroundColorClass} ${borderColorClass} focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#169F9F]`}
         >
           {!hasFile && (
             <div
@@ -210,7 +210,7 @@ export const UploadDocument: React.FC<DocumentUploaderProps> = ({
       </div>
 
       {error && errorType && (
-        <div className="text-form-fields-error text-sm mt-1">
+        <div className="text-form-fields-error text-s mt-1">
           {errorType === "fileType" ? (
             <SharedLanguageSwitchRenderer
               language={language}
@@ -230,7 +230,7 @@ export const UploadDocument: React.FC<DocumentUploaderProps> = ({
       )}
 
       {!error && allowedTypes && allowedTypes.length > 0 && !hasFile && (
-        <div className={`${textColorClass} text-sm mt-1`}>
+        <div className={`${textColorClass} text-s mt-1`}>
           <SharedLanguageSwitchRenderer
             language={language}
             value={`Accepted formats: ${(allowedTypes ?? []).join(", ")}`}
