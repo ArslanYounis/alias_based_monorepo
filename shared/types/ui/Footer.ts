@@ -10,4 +10,6 @@ export interface FooterProps {
   botMessage_ar?: string;
   botStatus?: "close" | "open";
   botClassName?: string;
+  active?: string;
+  onPressMenu?: (menuItem: string) => void;
 }

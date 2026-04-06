@@ -27,46 +27,177 @@ interface ClassNameProps {
 // ─── Payment Icons (existing) ────────────────────────────────────────────────
 
 export const PaymentIcon = () => (
-  <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <Path
-      d="M21 4H3C1.89543 4 1 4.89543 1 6V18C1 19.1046 1.89543 20 3 20H21C22.1046 20 23 19.1046 23 18V6C23 4.89543 22.1046 4 21 4Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+  <Svg width="25" height="25" viewBox="0 0 50 50" fill="none">
+    <Rect
+      x="3"
+      y="7"
+      width="34"
+      height="26.2286"
+      rx="4"
+      fill="url(#paint0_linear_2839_92959)"
+    />
+    <Rect
+      x="3"
+      y="7"
+      width="34"
+      height="26.2286"
+      rx="4"
+      fill="url(#paint1_linear_2839_92959)"
+    />
+    <Rect x="3" y="11.8555" width="34" height="4.85714" fill="black" />
+    <Rect
+      x="6.88672"
+      y="23.5156"
+      width="7.77143"
+      height="4.85714"
+      rx="2.42857"
+      fill="black"
     />
     <Path
-      d="M1 10H23"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M48.75 37.5C48.75 34.5163 47.5647 31.6548 45.455 29.545C43.3452 27.4353 40.4837 26.25 37.5 26.25C34.5163 26.25 31.6548 27.4353 29.545 29.545C27.4353 31.6548 26.25 34.5163 26.25 37.5C26.25 40.4837 27.4353 43.3452 29.545 45.455C31.6548 47.5647 34.5163 48.75 37.5 48.75C40.4837 48.75 43.3452 47.5647 45.455 45.455C47.5647 43.3452 48.75 40.4837 48.75 37.5Z"
+      fill="url(#paint2_linear_2839_92959)"
     />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M43.3866 32.8672C43.503 32.9833 43.5953 33.1213 43.6584 33.2732C43.7214 33.425 43.7538 33.5878 43.7538 33.7522C43.7538 33.9167 43.7214 34.0795 43.6584 34.2313C43.5953 34.3832 43.503 34.5211 43.3866 34.6372L35.8866 42.1372C35.7705 42.2536 35.6325 42.346 35.4807 42.409C35.3288 42.472 35.166 42.5045 35.0016 42.5045C34.8372 42.5045 34.6744 42.472 34.5225 42.409C34.3706 42.346 34.2327 42.2536 34.1166 42.1372L31.6166 39.6372C31.3819 39.4025 31.25 39.0842 31.25 38.7522C31.25 38.4203 31.3819 38.102 31.6166 37.8672C31.8513 37.6325 32.1696 37.5007 32.5016 37.5007C32.8335 37.5007 33.1519 37.6325 33.3866 37.8672L35.0016 39.4847L41.6166 32.8672C41.7327 32.7508 41.8706 32.6585 42.0225 32.5955C42.1744 32.5324 42.3372 32.5 42.5016 32.5C42.666 32.5 42.8288 32.5324 42.9807 32.5955C43.1325 32.6585 43.2705 32.7508 43.3866 32.8672Z"
+      fill="url(#paint3_linear_2839_92959)"
+    />
+    <Defs>
+      <LinearGradient
+        id="paint0_linear_2839_92959"
+        x1="15.1429"
+        y1="7"
+        x2="23.3638"
+        y2="33.3157"
+        gradientUnits="userSpaceOnUse"
+      >
+        <Stop stopColor="#B3E0FF" />
+        <Stop offset="1" stopColor="#8CD0FF" />
+      </LinearGradient>
+      <LinearGradient
+        id="paint1_linear_2839_92959"
+        x1="23.6429"
+        y1="17.7299"
+        x2="28.3329"
+        y2="39.2261"
+        gradientUnits="userSpaceOnUse"
+      >
+        <Stop stopColor="#DCF8FF" stopOpacity="0" />
+        <Stop offset="1" stopColor="#FF6CE8" stopOpacity="0.7" />
+      </LinearGradient>
+      <LinearGradient
+        id="paint2_linear_2839_92959"
+        x1="27.0525"
+        y1="30.47"
+        x2="42.58"
+        y2="46.6025"
+        gradientUnits="userSpaceOnUse"
+      >
+        <Stop stopColor="#52D17C" />
+        <Stop offset="1" stopColor="#22918B" />
+      </LinearGradient>
+      <LinearGradient
+        id="paint3_linear_2839_92959"
+        x1="33.5966"
+        y1="33.5222"
+        x2="36.1166"
+        y2="44.6522"
+        gradientUnits="userSpaceOnUse"
+      >
+        <Stop stopColor="white" />
+        <Stop offset="1" stopColor="#E3FFD9" />
+      </LinearGradient>
+    </Defs>
   </Svg>
 );
 
+
 export const NoPaymentIcon = () => (
-  <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <Path
-      d="M21 4H3C1.89543 4 1 4.89543 1 6V18C1 19.1046 1.89543 20 3 20H21C22.1046 20 23 19.1046 23 18V6C23 4.89543 22.1046 4 21 4Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M1 10H23"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M4 4L20 20"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
+  <Svg width="25" height="25" viewBox="0 0 50 50" fill="none">
+    <G opacity="0.5">
+      <Rect
+        x="3"
+        y="7"
+        width="34"
+        height="26.2286"
+        rx="4"
+        fill="url(#paint0_linear_2839_82688)"
+      />
+      <Rect
+        x="3"
+        y="7"
+        width="34"
+        height="26.2286"
+        rx="4"
+        fill="url(#paint1_linear_2839_82688)"
+      />
+      <Rect x="3" y="11.8555" width="34" height="4.85714" fill="black" />
+      <Rect
+        x="6.88672"
+        y="23.5156"
+        width="7.77143"
+        height="4.85714"
+        rx="2.42857"
+        fill="black"
+      />
+      <Path
+        d="M48.75 37.5C48.75 40.4837 47.5647 43.3452 45.455 45.455C43.3452 47.5647 40.4837 48.75 37.5 48.75C34.5163 48.75 31.6548 47.5647 29.545 45.455C27.4353 43.3452 26.25 40.4837 26.25 37.5C26.25 34.5163 27.4353 31.6548 29.545 29.545C31.6548 27.4353 34.5163 26.25 37.5 26.25C40.4837 26.25 43.3452 27.4353 45.455 29.545C47.5647 31.6548 48.75 34.5163 48.75 37.5Z"
+        fill="url(#paint2_linear_2839_82688)"
+      />
+      <Path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M32.8672 32.8672C32.9833 32.7508 33.1213 32.6585 33.2732 32.5955C33.425 32.5324 33.5878 32.5 33.7522 32.5C33.9167 32.5 34.0795 32.5324 34.2313 32.5955C34.3832 32.6585 34.5211 32.7508 34.6372 32.8672L37.5022 35.7347L40.3672 32.8672C40.6019 32.6325 40.9203 32.5007 41.2522 32.5007C41.5842 32.5007 41.9025 32.6325 42.1372 32.8672C42.372 33.102 42.5038 33.4203 42.5038 33.7522C42.5038 34.0842 42.372 34.4025 42.1372 34.6372L39.2697 37.5022L42.1372 40.3672C42.2535 40.4835 42.3456 40.6214 42.4085 40.7733C42.4714 40.9251 42.5038 41.0879 42.5038 41.2522C42.5038 41.4166 42.4714 41.5793 42.4085 41.7312C42.3456 41.883 42.2535 42.021 42.1372 42.1372C42.021 42.2535 41.883 42.3456 41.7312 42.4085C41.5793 42.4714 41.4166 42.5038 41.2522 42.5038C41.0879 42.5038 40.9251 42.4714 40.7733 42.4085C40.6214 42.3456 40.4835 42.2535 40.3672 42.1372L37.5022 39.2697L34.6372 42.1372C34.4025 42.372 34.0842 42.5038 33.7522 42.5038C33.4203 42.5038 33.102 42.372 32.8672 42.1372C32.6325 41.9025 32.5007 41.5842 32.5007 41.2522C32.5007 40.9203 32.6325 40.602 32.8672 40.3672L35.7347 37.5022L32.8672 34.6372C32.7508 34.5211 32.6585 34.3832 32.5955 34.2313C32.5324 34.0795 32.5 33.9167 32.5 33.7522C32.5 33.5878 32.5324 33.425 32.5955 33.2732C32.6585 33.1213 32.7508 32.9833 32.8672 32.8672Z"
+        fill="url(#paint3_linear_2839_82688)"
+      />
+    </G>
+    <Defs>
+      <LinearGradient
+        id="paint0_linear_2839_82688"
+        x1="15.1429"
+        y1="7"
+        x2="23.3638"
+        y2="33.3157"
+        gradientUnits="userSpaceOnUse"
+      >
+        <Stop stopColor="#B3E0FF" />
+        <Stop offset="1" stopColor="#8CD0FF" />
+      </LinearGradient>
+      <LinearGradient
+        id="paint1_linear_2839_82688"
+        x1="23.6429"
+        y1="17.7299"
+        x2="28.3329"
+        y2="39.2261"
+        gradientUnits="userSpaceOnUse"
+      >
+        <Stop stopColor="#DCF8FF" stopOpacity="0" />
+        <Stop offset="1" stopColor="#FF6CE8" stopOpacity="0.7" />
+      </LinearGradient>
+      <LinearGradient
+        id="paint2_linear_2839_82688"
+        x1="29.765"
+        y1="27.6575"
+        x2="44.5325"
+        y2="49.4525"
+        gradientUnits="userSpaceOnUse"
+      >
+        <Stop stopColor="#F83F54" />
+        <Stop offset="1" stopColor="#CA2134" />
+      </LinearGradient>
+      <LinearGradient
+        id="paint3_linear_2839_82688"
+        x1="33.6947"
+        y1="37.8822"
+        x2="38.1797"
+        y2="42.5472"
+        gradientUnits="userSpaceOnUse"
+      >
+        <Stop stopColor="#FDFDFD" />
+        <Stop offset="1" stopColor="#FECBE6" />
+      </LinearGradient>
+    </Defs>
   </Svg>
 );
 

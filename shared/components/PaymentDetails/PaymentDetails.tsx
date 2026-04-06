@@ -19,6 +19,7 @@ import {
   usePrintPaymentSlip,
   type PrintPaymentSlipPayload,
 } from "@shared/hooks/usePrintPaymentSlip";
+import { useDownload } from "@platform/sharedHooks/useDownload";
 
 export interface ApplicationPayment {
   applicationPaymentId?: string | number;
@@ -85,6 +86,8 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
 
   const [printingId, setPrintingId] = useState<number | null>(null);
 
+  const { download } = useDownload();
+
   const { mutate: verifyPayment } = useVerifyPayment();
   const { mutate: overridePayment, isPending: isOverridePaymentPending } =
     useOverridePayment();
@@ -117,10 +120,10 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
             closeOverrideDrawer();
             onOverrideComplete?.();
           },
-        }
+        },
       );
     },
-    [overridePayment, args, selectedPayment, onOverrideComplete]
+    [overridePayment, args, selectedPayment, onOverrideComplete],
   );
 
   if (isLoading) {
@@ -217,10 +220,11 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                       onSuccess: (data) => {
                         const downloadUrl = data?.result?.downloadUrl;
                         if (downloadUrl) {
+                          download(downloadUrl);
                         }
                       },
                       onSettled: () => setPrintingId(null),
-                    }
+                    },
                   );
                 }}
               />
@@ -244,7 +248,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                           onSuccess: () => {
                             onVerifyComplete?.();
                           },
-                        }
+                        },
                       );
                     }}
                   />
@@ -265,7 +269,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
       })}
 
       {/* FOOTER BUTTONS */}
-      <Container className="flex pt-xl items-center justify-end gap-xs">
+      <Container className="flex flex-row pt-xl items-center justify-end gap-xs">
         {showButtons &&
           buttons?.map((button) => (
             <Buttons

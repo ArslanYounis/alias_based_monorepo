@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Linking } from "react-native";
+import { View } from "react-native";
 import { UploadDocument } from "../UploadDocument/UploadDocument";
+import { useDownload } from "../sharedHooks/useDownload";
 
 export interface DocumentConfig {
   documentName?: string;
@@ -40,12 +41,13 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   type = "default",
   onFileChange,
 }) => {
-  const handleDownload = (downloadUrl?: string) => {
+  const { download } = useDownload();
+
+  const handleDownload = (downloadUrl?: string, documentName?: string) => {
     if (!downloadUrl) return;
-    // On mobile, open the download URL in the system browser / native handler
-    Linking.openURL(downloadUrl).catch((e) =>
-      console.error("Failed to open download URL", e)
-    );
+    const fileName =
+      documentName ?? downloadUrl.split("/").pop() ?? "download";
+    download(downloadUrl, fileName);
   };
 
   return (
@@ -71,7 +73,7 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               onFileChange({ file, uploadUrl: doc?.uploadUrl as string });
             }
           }}
-          onDownloadClick={() => handleDownload(doc.downloadUrl)}
+          onDownloadClick={() => handleDownload(doc.downloadUrl, doc.documentName)}
         />
       ))}
     </View>

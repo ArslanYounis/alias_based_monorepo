@@ -119,24 +119,34 @@ import {
 
 export type { FooterProps };
 
-export const Footer: React.FC<FooterProps> = ({ language = "en" }) => {
-  const [activeMenu, setActiveMenu] = useState("Home");
+export const Footer: React.FC<FooterProps> = ({
+  language = "en",
+  active,
+  onPressMenu,
+}) => {
+  const [activeMenu, setActiveMenu] = useState(active ?? "Home");
+
+  const currentActive = active ?? activeMenu;
 
   const getColorClass = (menuItem: string) => {
-    return activeMenu === menuItem
+    return currentActive === menuItem
       ? "text-structure-menu-select-text"
       : "text-structure-menu-text";
   };
   const getIconColor = (menuItem: string) => {
-    return activeMenu === menuItem ? "#000000" : "#717176";
+    return currentActive === menuItem ? "#000000" : "#717176";
   };
 
   const handleMenuPress = (menuItem: string) => {
-    setActiveMenu(menuItem);
+    if (onPressMenu) {
+      onPressMenu(menuItem);
+    } else {
+      setActiveMenu(menuItem);
+    }
   };
 
   return (
-    <Container className="bg-base-white flex flex-row items-center justify-between h-[56px] py-s">
+    <Container className="bg-base-white flex flex-row items-center justify-between h-[56px] py-s px-m">
       <Pressable
         className="flex flex-col justify-center items-center"
         onPress={() => handleMenuPress("Home")}

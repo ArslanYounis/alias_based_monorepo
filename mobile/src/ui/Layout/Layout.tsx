@@ -23,6 +23,9 @@ interface LayoutProps {
   toast?: ToastProps;
   topMargin?: number;
   bottomMargin?: number;
+  onProfileClick?: () => void;
+  active?: string;
+  onPressMenu?: (menuItem: string) => void;
 }
 
 export const Layout: React.FC<LayoutProps> = ({
@@ -34,13 +37,16 @@ export const Layout: React.FC<LayoutProps> = ({
   toast = { message: "", status: "success" },
   topMargin = 0,
   bottomMargin = 0,
+  onProfileClick,
+  active,
+  onPressMenu,
 }) => {
   return (
     <View style={{ flex: 1, marginTop: topMargin, marginBottom: bottomMargin }}>
       {/* Fixed Header */}
       {showHeader && (
         <Container className="w-full bg-structure-header-background">
-          <Header isEditing={isEditing} />
+          <Header isEditing={isEditing} onAvatarPress={onProfileClick} />
         </Container>
       )}
 
@@ -68,7 +74,7 @@ export const Layout: React.FC<LayoutProps> = ({
             isEditing ? "blur-xs pointer-events-none" : ""
           }`}
         >
-          <Footer language={language} />
+          <Footer language={language} active={active} onPressMenu={onPressMenu} />
         </Container>
       )}
     </View>

@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <Container
-      className={`bg-base-white flex flex-row items-center justify-between pt-4 pb-3 ${
+      className={`bg-base-white flex flex-row items-center justify-between pt-4 pb-3 px-m ${
         isEditing ? "opacity-50" : ""
       }`}
     >
