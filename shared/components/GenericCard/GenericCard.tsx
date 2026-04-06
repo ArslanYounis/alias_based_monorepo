@@ -155,6 +155,8 @@ const GenericCard: React.FC<IGenericCardProps> = ({
                       type={button.type || "secondary"}
                       {...button}
                       language={language}
+                      showIconOnMobile={platform === "mobile" && !!button.mobileIcon}
+                      mobileIcon={button.mobileIcon}
                     />
                   ))}
               </Container>
@@ -232,6 +234,8 @@ const GenericCard: React.FC<IGenericCardProps> = ({
               type={button.type || "secondary"}
               {...button}
               language={language}
+              showIconOnMobile={platform === "mobile" && !!button.mobileIcon}
+              mobileIcon={button.mobileIcon}
             />
           ))}
         </Container>

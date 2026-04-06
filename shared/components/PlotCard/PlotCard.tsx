@@ -86,6 +86,7 @@ const PlotCard: React.FC<IPlotCardProps> = ({
                     title: "Change Plot",
                     title_ar: "تغيير القطعة",
                     onClick: () => handleAction("change_plot", plot),
+                    mobileIcon: { iconName: "RefreshCw", iconColor: "#0066cc", iconType: "lucide" as const, iconWidth: 16, iconHeight: 16 },
                   },
                 ]
               : []),
@@ -95,6 +96,7 @@ const PlotCard: React.FC<IPlotCardProps> = ({
                     title: "Owners",
                     title_ar: "أصحاب",
                     onClick: () => handleAction("owners", plot),
+                    mobileIcon: { iconName: "Group", iconColor: "#0066cc", iconType: "lucide" as const, iconWidth: 16, iconHeight: 16 },
                   },
                 ]
               : []),
@@ -104,6 +106,7 @@ const PlotCard: React.FC<IPlotCardProps> = ({
                     title: "View",
                     title_ar: "عرض",
                     onClick: () => handleAction("view", plot),
+                    mobileIcon: { iconName: "Eye", iconColor: "#0066cc", iconType: "lucide" as const, iconWidth: 16, iconHeight: 16 },
                   },
                 ]
               : []),

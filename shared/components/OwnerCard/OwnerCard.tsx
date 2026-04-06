@@ -94,6 +94,7 @@ const OwnerCard: React.FC<IOwnerCardProps> = ({
                     title: "View",
                     title_ar: "المشاهدة",
                     onClick: () => handleAction("view", owner),
+                    mobileIcon: { iconName: "Eye", iconColor: "#0066cc", iconType: "lucide" as const, iconWidth: 16, iconHeight: 16 },
                   },
                 ]
               : []),
@@ -103,6 +104,7 @@ const OwnerCard: React.FC<IOwnerCardProps> = ({
                     title: "Plots",
                     title_ar: "قطعة الأرض",
                     onClick: () => handleAction("plot", owner),
+                    mobileIcon: { iconName: "MapPin", iconColor: "#0066cc", iconType: "lucide" as const, iconWidth: 16, iconHeight: 16 },
                   },
                 ]
               : []),
@@ -112,6 +114,7 @@ const OwnerCard: React.FC<IOwnerCardProps> = ({
                     title: "Edit",
                     title_ar: "تعديل",
                     onClick: () => handleAction("edit", owner),
+                    mobileIcon: { iconName: "Pencil", iconColor: "#0066cc", iconType: "lucide" as const, iconWidth: 16, iconHeight: 16 },
                   },
                 ]
               : []),
@@ -122,6 +125,7 @@ const OwnerCard: React.FC<IOwnerCardProps> = ({
                     title_ar: "حذف",
                     type: "delete" as ButtonType["type"],
                     onClick: () => handleAction("delete", owner),
+                    mobileIcon: { iconName: "Trash2", iconColor: "#cc0000", iconType: "lucide" as const, iconWidth: 16, iconHeight: 16 },
                   },
                 ]
               : []),

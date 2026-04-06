@@ -22,7 +22,7 @@ export type {
   BreadcrumbItem,
   BreadcrumbProps,
 } from "./Breadcrumb";
-export type { ButtonsProps } from "./Buttons";
+export type { ButtonsProps, IconProp } from "./Buttons";
 export type { CaptionProps } from "./Caption";
 export type { CustomCheckboxProps } from "./Checkbox";
 export type { CheckRadioLabelProps } from "./CheckRadioLabel";

@@ -4,6 +4,7 @@ import { Text } from "@platform/Text";
 import { Buttons } from "@platform/Buttons";
 import { ChevronDownIcon, ChevronUpIcon } from "@platform/icons";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
+import type { IconProp } from "@shared/types";
 
 export type ButtonType = {
   title: string;
@@ -14,6 +15,7 @@ export type ButtonType = {
   disabled?: boolean;
   leftIcon?: ReactElement;
   rightIcon?: ReactElement;
+  mobileIcon?: IconProp | null;
 };
 
 export interface ICardTitleProps {
@@ -129,7 +131,6 @@ const CardTitle: React.FC<ICardTitleProps> = ({
             <Container className="flex flex-row flex-wrap items-center justify-between gap-xs">
               {buttons?.map((btn: ButtonType, idx: number) => (
                 <Buttons
-                  // Buttons is platform-specific; we rely on it for clickability
                   key={idx}
                   size="s"
                   title={btn.title}
@@ -139,6 +140,8 @@ const CardTitle: React.FC<ICardTitleProps> = ({
                   language={language}
                   leftIcon={btn.leftIcon}
                   rightIcon={btn.rightIcon}
+                  showIconOnMobile={platform === "mobile" && !!btn.mobileIcon}
+                  mobileIcon={btn.mobileIcon}
                 />
               ))}
             </Container>
@@ -184,6 +187,8 @@ const CardTitle: React.FC<ICardTitleProps> = ({
                   language={language}
                   leftIcon={btn.leftIcon}
                   rightIcon={btn.rightIcon}
+                  showIconOnMobile={platform === "mobile" && !!btn.mobileIcon}
+                  mobileIcon={btn.mobileIcon}
                 />
               ))}
             </Container>

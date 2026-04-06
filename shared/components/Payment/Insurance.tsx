@@ -26,7 +26,7 @@ const Insurance: React.FC<InsuranceProps> = ({
 
   return (
     <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l">
-      <Container className="space-t-m sm:col-span-2">
+      <Container className="pt-m sm:col-span-2">
         <form.Field
           name={"insuranceFee"}
           children={(field) => {

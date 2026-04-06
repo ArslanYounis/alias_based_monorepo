@@ -1,5 +1,13 @@
 import type { ReactElement } from "react";
 
+export interface IconProp {
+  iconName: string;
+  iconColor: string;
+  iconType?: "remote" | "lucide";
+  iconWidth?: number;
+  iconHeight?: number;
+}
+
 export interface ButtonsProps {
   language?: "en" | "ar";
   size?: "s" | "m" | "l";
@@ -33,4 +41,6 @@ export interface ButtonsProps {
       | "right-bottom"
       | "none";
   };
+  showIconOnMobile?: boolean;
+  mobileIcon?: IconProp | null;
 }

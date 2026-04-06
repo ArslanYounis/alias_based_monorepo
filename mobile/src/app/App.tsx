@@ -8,6 +8,7 @@ import TitleBar from "@platform/TitleBar";
 import { CustomDrawer } from "@platform/CustomDrawer";
 import { OwnerSearch } from "@shared/components/OwnerSearch";
 import type { IOwnerSearchResult } from "@shared/components/OwnerSearch";
+import { Buttons } from "~/src/ui/Buttons/Buttons";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,75 @@ export default function App() {
               onClick={() => setDrawerOpen(true)}
             />
 
+            <View style={{ gap: 12, padding: 16 }}>
+              <Buttons
+                type="primary"
+                title="Primary"
+                size="l"
+                showIconOnMobile
+                mobileIcon={{
+                  iconName: "House",
+                  iconColor: "#ffffff",
+                  iconType: "lucide",
+                  iconWidth: 20,
+                  iconHeight: 20,
+                }}
+                onClick={() => console.log("primary")}
+              />
+              <Buttons
+                type="secondary"
+                title="Secondary"
+                showIconOnMobile
+                mobileIcon={{
+                  iconName: "Search",
+                  iconColor: "#0066cc",
+                  iconType: "lucide",
+                  iconWidth: 20,
+                  iconHeight: 20,
+                }}
+                onClick={() => console.log("secondary")}
+              />
+              <Buttons
+                type="tertiary"
+                title="Tertiary"
+                showIconOnMobile
+                mobileIcon={{
+                  iconName: "Settings",
+                  iconColor: "#333333",
+                  iconType: "lucide",
+                  iconWidth: 20,
+                  iconHeight: 20,
+                }}
+                onClick={() => console.log("tertiary")}
+              />
+              <Buttons
+                type="text-link"
+                title="Text Link"
+                showIconOnMobile
+                mobileIcon={{
+                  iconName: "Link",
+                  iconColor: "#0066cc",
+                  iconType: "lucide",
+                  iconWidth: 20,
+                  iconHeight: 20,
+                }}
+                onClick={() => console.log("text-link")}
+              />
+              <Buttons
+                type="delete"
+                title="Delete"
+                showIconOnMobile
+                mobileIcon={{
+                  iconName: "Trash2",
+                  iconColor: "#cc0000",
+                  iconType: "lucide",
+                  iconWidth: 20,
+                  iconHeight: 20,
+                }}
+                onClick={() => console.log("delete")}
+              />
+            </View>
+
             <OwnerSearch
               title="Owner Search"
               title_ar="بحث المالك"
@@ -59,7 +129,9 @@ export default function App() {
               onOpenChange={setDrawerOpen}
               size="layer2"
               dismissible
-              header={<Text style={{ fontSize: 18, fontWeight: "bold" }}>Menu</Text>}
+              header={
+                <Text style={{ fontSize: 18, fontWeight: "bold" }}>Menu</Text>
+              }
             >
               <View style={{ gap: 16 }}>
                 <Text style={{ fontSize: 16 }}>Navigation Item 1</Text>
