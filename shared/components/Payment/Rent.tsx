@@ -144,7 +144,7 @@ const Rent: React.FC<RentProps> = ({ language, form, onLiveValidate }) => {
               id="is-first-year-free-of-payment"
               checked={Boolean(field.state.value)}
               onChange={() => {
-                field.handleChange(field.state.value);
+                field.handleChange(!field.state.value);
                 onLiveValidate?.();
               }}
               label="Rent payment is free for the year"
@@ -163,7 +163,7 @@ const Rent: React.FC<RentProps> = ({ language, form, onLiveValidate }) => {
               id="exempt-social-assistance"
               checked={Boolean(field.state.value)}
               onChange={() => {
-                field.handleChange(field.state.value);
+                field.handleChange(!field.state.value);
                 onLiveValidate?.();
               }}
               label="Exempt social assistance recipient"

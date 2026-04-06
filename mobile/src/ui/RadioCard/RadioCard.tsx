@@ -78,7 +78,7 @@ export const RadioCard: React.FC<RadioCardProps> = ({
         {icon && (
           <View
             className={
-              disabled ? "opacity-50 w-[50px] h-[50px]" : "w-[50px] h-[50px]"
+              disabled ? "opacity-50 w-[50px] h-[25px]" : "w-[50px] h-[25px]"
             }
           >
             {icon}
