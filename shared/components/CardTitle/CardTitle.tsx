@@ -77,7 +77,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
 
   return (
     <Container
-      className={`flex flex-col flex-1 pb-s ${
+      className={`flex flex-col pb-s ${
         shouldShowBorder ? "border-b border-b-border-dimmed mb-m" : ""
       }`}
       dir={language === "ar" ? "rtl" : "ltr"}

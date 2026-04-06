@@ -231,7 +231,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
         />
       </Text>
 
-      <Container className="flex items-center mb-xl">
+      <Container className="flex flex-row items-center mb-xl">
         <Container className="w-1/2 flex flex-col gap-s">
           <Text className="text-bold-m text-text-default">
             <SharedLanguageSwitchRenderer
@@ -284,21 +284,14 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
       <Container className="rounded-xs bg-cards-base-l1 gap-l px-l py-m mb-l">
         <Container className="w-full space-y-xxs">
           {/* Reference Number */}
-          <Container className="flex flex-col sm:flex-row sm:items-center gap-s">
-            <Container className="sm:w-[35%] flex-shrink-0">
-              <Text className="text-bold-m text-text-default">
-                <SharedLanguageSwitchRenderer
-                  value={labels.referenceNumber}
-                  value_ar={labels.referenceNumber_ar}
-                  language={language}
-                />
-              </Text>
-            </Container>
+          <Container className="flex flex-col sm:flex-row sm:items-center gap-s pb-s">
             <Container className="flex-1">
               <form.Field
                 name={"referenceNumber"}
                 children={(field) => (
                   <TextInput
+                    label={labels.referenceNumber}
+                    label_ar={labels.referenceNumber_ar}
                     value={field.state.value}
                     onChange={(val: string) => {
                       field.handleChange(val);
@@ -317,22 +310,15 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
           </Container>
 
           {/* Receipt Date */}
-          <Container className="flex flex-col sm:flex-row sm:items-center gap-s">
-            <Container className="sm:w-[35%] flex-shrink-0">
-              <Text className="text-bold-m text-text-default">
-                <SharedLanguageSwitchRenderer
-                  value={labels.receiptDate}
-                  value_ar={labels.receiptDate_ar}
-                  language={language}
-                />
-              </Text>
-            </Container>
+          <Container className="flex flex-col sm:flex-row sm:items-center gap-s pb-s">
             <Container className="flex-1">
               <form.Field
                 name={"receiptDate"}
                 children={(field) => (
                   <TextInput
                     fieldType="date"
+                    label={labels.receiptDate}
+                    label_ar={labels.receiptDate_ar}
                     value={field.state.value}
                     onChange={(val: string) => {
                       field.handleChange(val);
@@ -351,22 +337,15 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
           </Container>
 
           {/* Amount */}
-          <Container className="flex flex-col sm:flex-row sm:items-center gap-s">
-            <Container className="sm:w-[35%] flex-shrink-0">
-              <Text className="text-bold-m text-text-default">
-                <SharedLanguageSwitchRenderer
-                  value={labels.amount}
-                  value_ar={labels.amount_ar}
-                  language={language}
-                />
-              </Text>
-            </Container>
+          <Container className="flex flex-col sm:flex-row sm:items-center gap-s pb-s">
             <Container className="flex-1">
               <form.Field
                 name={"amount"}
                 children={(field) => (
                   <TextInput
                     fieldType="currency"
+                    label={labels.amount}
+                    label_ar={labels.amount_ar}
                     value={field.state.value}
                     onChange={(val: string) => {
                       field.handleChange(val);
@@ -385,7 +364,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
           </Container>
 
           {/* Ignore Duplicate */}
-          <Container className="flex gap-s items-center py-m">
+          <Container className="flex flex-row gap-s items-center py-m">
             <form.Field
               name={"ignoreDuplicate"}
               children={(field) => (
@@ -404,7 +383,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
             />
           </Container>
 
-          <Container className="flex justify-end pt-s">
+          <Container className="flex flex-row justify-start pt-s">
             <Buttons
               type="primary"
               size="l"
