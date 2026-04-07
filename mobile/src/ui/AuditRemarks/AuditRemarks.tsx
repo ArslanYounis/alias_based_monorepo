@@ -1,70 +1,14 @@
 import React from "react";
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import type {
+  ApprovalModalProps,
+  AuditRemarksProps,
+} from "@shared/types";
 import { Buttons } from "../Buttons";
 import DocumentIcon from "~/assets/svg/icons/Document";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
-interface Agent {
-  name: string;
-  email: string;
-  phone: string;
-  image: string;
-}
-
-interface ApplicationDetail {
-  applicationNumber: string;
-  applicationDate: string;
-  referenceNumber: string;
-}
-
-interface Plot {
-  plotId?: string;
-  plotArgs?: string;
-  code: string;
-  municipality: string;
-  zone: string;
-  sector: string;
-  address: string;
-}
-
-interface Owner {
-  ownerId?: string;
-  ownerArgs?: string;
-  name: string;
-  familyBook: string;
-  city: string;
-  propertyCard: string;
-}
-
-interface Documents {
-  documentNameA: string;
-  documentNameE: string;
-  downloadUrl: string;
-}
-
-export interface ApprovalModalProps {
-  agent: Agent;
-  title_ar?: string;
-  language?: "en" | "ar";
-  applicationDetails: ApplicationDetail[];
-  plots: Plot[];
-  owners: Owner[];
-  documents: Documents[];
-  title: string;
-  theme?: "light" | "dark";
-  onOwnerClick?: (data: {
-    ownerData: Owner;
-    action: "view" | "edit" | "plot";
-  }) => void;
-  onPlotClick?: (data: { PlotData: Plot; action: "view" }) => void;
-  onDocumentPress?: (downloadUrl: string) => void;
-}
-
-export type AuditRemarksProps = {
-  value?: string;
-  onChange?: (val: string) => void;
-  registrationRemarks?: string;
-};
+export type { ApprovalModalProps, AuditRemarksProps };
 
 const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
   agent,

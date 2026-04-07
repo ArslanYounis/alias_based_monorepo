@@ -1,5 +1,5 @@
 import type { AddButtonProps } from "@shared/types";
-import PlusIcon from "~/assets/svg/icons/Plus";
+import { PlusIcon } from "../icons";
 import { TouchableOpacity, View } from "react-native";
 
 export type { AddButtonProps };
@@ -20,8 +20,7 @@ export const AddButton = ({
         className={`flex items-center justify-center rounded-xs gap-sm py-xs px-l w-[66px] h-[50px] border ${borderClass}`}
       >
         <PlusIcon
-          width={18}
-          height={18}
+          size={18}
           color={disabled ? "#e7e7e8" : "#008dcb"}
         />
       </TouchableOpacity>

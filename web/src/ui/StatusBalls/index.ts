@@ -1,2 +1,2 @@
 export { StatusBalls } from "./StatusBalls";
-export type { StatusBallsProps } from "./StatusBalls";
+export type { StatusBallsProps } from "@shared/types";

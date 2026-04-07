@@ -1,11 +1,7 @@
 import React from "react";
 import { Container } from "@platform/Container";
-import type { ApplicationType } from "@shared/components/ApplicationSummary";
-
-export interface SwitchButtonProps {
-  type: ApplicationType;
-  onToggle: () => void;
-}
+import type { SwitchButtonProps } from "@shared/types";
+export type { SwitchButtonProps };
 
 export const SwitchButton: React.FC<SwitchButtonProps> = ({
   type,

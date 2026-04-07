@@ -3,25 +3,8 @@ import { Plus } from "lucide-react";
 import SharedLanguageSwitchRenderer from "@shared/components/SharedLanguageSwitchRenderer";
 import Document from "@/assets/svg/document";
 
-export interface DocumentUploaderProps {
-  documentName?: string;
-  documentName_ar?: string;
-  documentIcon?: React.ReactElement;
-  plusIcon?: React.ReactElement;
-  fileTypeErrorMessage?: string;
-  fileTypeErrorMessage_ar?: string;
-  fileSize?: number;
-  fileSizeErrorMessage?: string;
-  fileSizeErrorMessage_ar?: string;
-  allowedTypes?: string[];
-  isDark?: boolean;
-  language?: "en" | "ar";
-  theme?: "light" | "dark";
-  type?: "default" | "base";
-  onFileChange?: (file: File | null) => void;
-  isUploaded?: boolean;
-  onDownloadClick?: () => void;
-}
+import type { DocumentUploaderProps, UploadedFile } from "@shared/types";
+export type { DocumentUploaderProps };
 
 export const UploadDocument: React.FC<DocumentUploaderProps> = ({
   documentName,
@@ -109,7 +92,12 @@ export const UploadDocument: React.FC<DocumentUploaderProps> = ({
         setError(null);
         setErrorType(null);
         setHasFile(true);
-        onFileChange?.(file);
+        onFileChange?.({
+          name: file.name,
+          uri: URL.createObjectURL(file),
+          size: file.size,
+          mimeType: file.type,
+        });
       } else {
         setError(null);
         setErrorType(null);

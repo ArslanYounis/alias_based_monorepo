@@ -4,25 +4,8 @@ import { Plus, FileText } from "lucide-react-native";
 import * as DocumentPicker from "expo-document-picker";
 import SharedLanguageSwitchRenderer from "@shared/components/SharedLanguageSwitchRenderer";
 
-export interface DocumentUploaderProps {
-  documentName?: string;
-  documentName_ar?: string;
-  fileTypeErrorMessage?: string;
-  fileTypeErrorMessage_ar?: string;
-  fileSize?: number;
-  fileSizeErrorMessage?: string;
-  fileSizeErrorMessage_ar?: string;
-  allowedTypes?: string[];
-  isDark?: boolean;
-  language?: "en" | "ar";
-  theme?: "light" | "dark";
-  type?: "default" | "base";
-  onFileChange?: (
-    file: { name: string; uri: string; size?: number; mimeType?: string } | null
-  ) => void;
-  isUploaded?: boolean;
-  onDownloadClick?: () => void;
-}
+import type { DocumentUploaderProps } from "@shared/types";
+export type { DocumentUploaderProps };
 
 export const UploadDocument: React.FC<DocumentUploaderProps> = ({
   documentName,

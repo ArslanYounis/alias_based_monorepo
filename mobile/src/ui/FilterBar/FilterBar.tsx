@@ -6,41 +6,8 @@ import FilterButton from "./FilterButton";
 import DropdownFilter from "./DropdownFilter";
 import ColumnButton from "./ColumnButton";
 
-export type FilterBarProps = {
-  language?: "en" | "ar";
-
-  // SearchField props
-  searchValue?: string;
-  onSearchChange?: (text: string) => void;
-  searchPlaceholder?: string;
-  searchPlaceholder_ar?: string;
-  searchColumns?: string[];
-  selectedSearchColumns?: string[];
-  onSearchColumnsChange?: (cols: string[]) => void;
-  theme?: "light" | "dark";
-
-  // FilterButton props
-  filterButtonLabel?: string;
-  filterButtonLabel_ar?: string;
-  filterButtonCount?: number;
-  filterButtonIcon?: React.ReactElement;
-  filterButtonClassName?: string;
-
-  // DropdownFilter props
-  filterOptions?: string[];
-  sortOptions?: string[];
-  applicationOptions?: string[];
-
-  // Mobile props
-  mobileColumnTitle?: string;
-  mobileColumnTitle_ar?: string;
-
-  // Reset functionality
-  onReset?: () => void;
-  showResetButton?: boolean;
-  resetButtonLabel?: string;
-  resetButtonLabel_ar?: string;
-};
+import type { FilterBarProps } from "@shared/types";
+export type { FilterBarProps };
 
 const FilterBar = ({
   language = "en",

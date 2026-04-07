@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-
 export interface SelectOption {
   label?: string;
   label_ar?: string;
@@ -15,8 +13,6 @@ export interface SelectProps {
   tooltipText_ar?: string;
   placeholder?: string;
   placeholder_ar?: string;
-  value?: string;
-  // onChange?: (value: string) => void;
   checked?: string;
   onChange: (checked: string) => void;
   hasError?: boolean;

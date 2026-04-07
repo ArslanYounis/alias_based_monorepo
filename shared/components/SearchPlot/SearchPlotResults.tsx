@@ -113,14 +113,14 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
         onClick={() => handleRadioSelect(result)}
       >
         <Container className="flex flex-row justify-between mb-s">
-          <Text className={`text-bold-l mr-s ${textColor}`}>
+          <Text className={`text-bold-l line-clamp-2 min-w-0 flex-1 mr-s ${textColor}`}>
             <SharedLanguageSwitchRenderer
               language={language}
               value={result?.communityName}
               value_ar={result?.communityName}
             />
           </Text>
-          <Container className="flex flex-row flex-wrap items-center gap-m">
+          <Container className="flex flex-row flex-wrap items-center gap-m shrink-0">
             <Buttons
               title="Owners"
               title_ar="المالكون"
@@ -237,7 +237,7 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
                   value_ar="لمعايير البحث التالية:"
                 />
               </Text>
-              <Container className="flex flex-row items-center">
+              <Container className="flex flex-row items-center flex-wrap gap-y-xs">
                 {[
                   {
                     value: municipality,
@@ -248,7 +248,7 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
                 ].map((item, idx) => (
                   <React.Fragment key={idx}>
                     <Text
-                      className={`text-bold-m gap-xxs line-clamp-1 ${textColor}`}
+                      className={`text-bold-m gap-xxs line-clamp-2 ${textColor}`}
                     >
                       <SharedLanguageSwitchRenderer
                         language={language}

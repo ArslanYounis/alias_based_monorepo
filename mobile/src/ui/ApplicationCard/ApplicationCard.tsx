@@ -2,19 +2,7 @@ import React from "react";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { StatusBalls } from "@platform/StatusBalls";
-
-export interface ApplicationCardProps {
-  onClick?: () => void;
-  totalDots?: number;
-  cardsData: {
-    id: string;
-    title?: string;
-    location?: string;
-    date?: string;
-    stage: { complete: number; approval: number; inprogress: number };
-    remaining: string;
-  };
-}
+import type { ApplicationCardProps } from "@shared/types";
 
 export const ApplicationCard: React.FC<ApplicationCardProps> = ({
   cardsData,

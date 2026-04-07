@@ -1,15 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
-import TitleBar from "@/components/TitleBar";
+import TitleBar from "@/ui/TitleBar";
 import { Buttons } from "@/ui/Buttons";
 
-export interface SignatureProps {
-  language?: "en" | "ar";
-  title?: string;
-  title_ar?: string;
-  buttonText?: string;
-  buttonText_ar?: string;
-  onSubmit?: (val: { signature: string }) => void;
-}
+import type { SignatureProps } from "@shared/types";
+export type { SignatureProps };
 
 const Signature: React.FC<SignatureProps> = ({
   language = "en",

@@ -9,7 +9,7 @@ import React, {
   isValidElement,
 } from "react";
 import { Checkbox } from "../Checkbox";
-import { Bk_DateInput } from "../bk_DateInput";
+import { DateSelect } from "../DateSelect";
 import { AddButton } from "../AddButton";
 import { CheckRadioLabel } from "../CheckRadioLabel";
 import SelectArrow from "@/assets/svg/selectArrow";
@@ -470,7 +470,7 @@ export const Fields: React.FC<FormFieldProps> = ({
   // DATE
   if (type === "date") {
     return (
-      <Bk_DateInput
+      <DateSelect
         placeholder={placeholder}
         placeholder_ar={placeholder_ar}
         hasError={hasError}

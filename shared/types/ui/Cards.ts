@@ -1,0 +1,20 @@
+export type StatusCardProps = {
+  type?: "pending" | "action" | "action-other" | "failed" | "success" | string;
+  direction?: "horizontal" | "vertical" | string;
+  version?: "hybrid" | "multi-row" | "single-row" | "image-row" | string;
+  action: string;
+  action_ar?: string;
+  stepName?: string;
+  stepName_ar?: string;
+  userName?: string;
+  userName_ar?: string;
+  language?: "en" | "ar";
+  role?: string;
+  role_ar?: string;
+  imageURL?: string;
+  currentStep?: number;
+  onCardClick?: () => void;
+  totalSteps?: number;
+  completedSteps?: number;
+  currentStepStatus?: "pending" | "failed" | "complete" | "inProgress" | "fixed";
+};

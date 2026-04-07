@@ -2,11 +2,8 @@ import React from "react";
 import { Container } from "@platform/Container";
 import LinearGradient from "react-native-linear-gradient";
 
-export interface StatusBallsProps {
-  status?: "pending" | "inProgress" | "complete" | "fixed" | "failed" | "mixed";
-  width?: number | string;
-  height?: number | string;
-}
+import type { StatusBallsProps } from "@shared/types";
+export type { StatusBallsProps };
 
 export const StatusBalls: React.FC<StatusBallsProps> = ({
   status = "pending",

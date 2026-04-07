@@ -9,7 +9,7 @@ export const RadioField: React.FC<RadioFieldProps> = ({
   id = "",
   label = "",
   label_ar = "",
-  checked = false,
+  checked = "",
   onChange = () => {},
   disabled = false,
   hasError = false,

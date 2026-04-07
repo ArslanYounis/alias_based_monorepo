@@ -144,14 +144,14 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
         }`}
       >
         <Container className="flex flex-row justify-between mb-s">
-          <Text className={`text-bold-l text-text-default line-clamp-1 mr-xxs`}>
+          <Text className={`text-bold-l text-text-default line-clamp-2 min-w-0 flex-1 mr-xxs`}>
             <SharedLanguageSwitchRenderer
               language={language}
               value={result.ownerName_E}
               value_ar={result.ownerName_A || result.ownerName_E}
             />
           </Text>
-          <Container className="flex flex-row items-center gap-m">
+          <Container className="flex flex-row items-center gap-m shrink-0">
             <Buttons
               title="Plots"
               title_ar="القطع"
@@ -260,7 +260,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
                   value_ar="لمعايير البحث التالية:"
                 />
               </Text>
-              <Container className="flex flex-row items-center gap-xs">
+              <Container className="flex flex-row items-center gap-xs flex-wrap">
                 <Text className={`text-bold-m text-text-default`}>
                   <SharedLanguageSwitchRenderer
                     language={language}

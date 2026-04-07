@@ -122,6 +122,7 @@ export const CustomDrawer = forwardRef<CustomDrawerRef, CustomDrawerProps>(
       <BottomSheetModal
         ref={bottomSheetRef}
         snapPoints={snapPoints}
+        stackBehavior="push"
         enableDynamicSizing={false}
         enablePanDownToClose={dismissible}
         onChange={handleSheetChanges}

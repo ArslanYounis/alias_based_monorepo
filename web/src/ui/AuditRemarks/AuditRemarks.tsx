@@ -1,70 +1,15 @@
 import React from "react";
+import type {
+  ApprovalModalProps,
+  AuditRemarksProps,
+} from "@shared/types";
 import { Buttons } from "../Buttons";
 import Document from "@/assets/svg/document";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
 
-interface Agent {
-  name: string;
-  email: string;
-  phone: string;
-  image: string;
-}
+export type { ApprovalModalProps, AuditRemarksProps };
 
-interface ApplicationDetail {
-  applicationNumber: string;
-  applicationDate: string;
-  referenceNumber: string;
-}
-
-interface Plot {
-  plotId?: string;
-  plotArgs?: string;
-  code: string;
-  municipality: string;
-  zone: string;
-  sector: string;
-  address: string;
-}
-
-interface Owner {
-  ownerId?: string;
-  ownerArgs?: string;
-  name: string;
-  familyBook: string;
-  city: string;
-  propertyCard: string;
-}
-
-interface Documents {
-  documentNameA: string;
-  documentNameE: string;
-  downloadUrl: string;
-}
-
-export interface ApprovalModalProps {
-  agent: Agent;
-  title_ar?: string;
-  language?: "en" | "ar";
-  applicationDetails: ApplicationDetail[];
-  plots: Plot[];
-  owners: Owner[];
-  documents: Documents[];
-  title: string;
-  theme?: "light" | "dark";
-  onOwnerClick?: (data: {
-    ownerData: Owner;
-    action: "view" | "edit" | "plot";
-  }) => void;
-  onPlotClick?: (data: { PlotData: Plot; action: "view" }) => void;
-}
-
-export type AuditRemarksProps = {
-  value?: string;
-  onChange?: (val: string) => void;
-  registrationRemarks?: string;
-};
-
-const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
+export const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
   agent,
   applicationDetails = [],
   plots = [],
@@ -79,6 +24,7 @@ const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
   theme = "dark",
   onOwnerClick,
   onPlotClick,
+  onDocumentPress,
 }) => {
   return (
     <div className="w-full" dir={language === "ar" ? "rtl" : "ltr"}>
@@ -360,7 +306,11 @@ const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
               <div
                 key={idx}
                 className="flex justify-between items-center gap-xs px-[15px] py-[13px] rounded-xxs bg-form-fields-file-upload-default cursor-pointer"
-                onClick={() => window.open(doc.downloadUrl, "_blank")}
+                onClick={() =>
+                  onDocumentPress
+                    ? onDocumentPress(doc.downloadUrl)
+                    : window.open(doc.downloadUrl, "_blank")
+                }
                 tabIndex={0}
                 role="button"
               >

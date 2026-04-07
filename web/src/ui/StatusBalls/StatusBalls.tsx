@@ -1,11 +1,8 @@
 import React from "react";
 import { Container } from "@platform/Container";
 
-export interface StatusBallsProps {
-  status?: "pending" | "inProgress" | "complete" | "fixed" | "failed" | "mixed";
-  width?: number | string;
-  height?: number | string;
-}
+import type { StatusBallsProps } from "@shared/types";
+export type { StatusBallsProps };
 
 const statusConfig: Record<
   string,

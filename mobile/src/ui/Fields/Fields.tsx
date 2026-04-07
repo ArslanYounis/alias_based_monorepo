@@ -3,6 +3,8 @@ import React, {
   type SVGProps,
   useState,
   useEffect,
+  useRef,
+  useCallback,
   type ReactNode,
   cloneElement,
   isValidElement,
@@ -10,17 +12,21 @@ import React, {
 import {
   View,
   Text,
-  Modal,
   TextInput,
-  ScrollView,
-  Pressable,
   TouchableOpacity,
   type NativeSyntheticEvent,
 } from "react-native";
+import {
+  BottomSheetModal,
+  BottomSheetScrollView,
+  BottomSheetBackdrop,
+  BottomSheetTextInput,
+} from "@gorhom/bottom-sheet";
+import type { BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
 
 import { Checkbox } from "../Checkbox";
 import { AddButton } from "../AddButton";
-import { Bk_DateInput } from "../bk_DateInput";
+import { DateSelect } from "../DateSelect";
 import { CheckRadioLabel } from "../CheckRadioLabel";
 import SelectArrow from "~/assets/svg/icons/SelectArrow";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
@@ -89,6 +95,29 @@ export const Fields: React.FC<FormFieldProps> = ({
       return label?.toLowerCase().includes(lower);
     });
   }, [options, searchValue, language]);
+
+  const bottomSheetSelectRef = useRef<BottomSheetModal>(null);
+
+  useEffect(() => {
+    if (type !== "select") return;
+    if (isOpen) {
+      bottomSheetSelectRef.current?.present();
+    } else {
+      bottomSheetSelectRef.current?.dismiss();
+    }
+  }, [isOpen, type]);
+
+  const renderSelectBackdrop = useCallback(
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+        pressBehavior="close"
+      />
+    ),
+    []
+  );
 
   const formatUAEID = (input: string) => {
     const digits = input.replace(/\D/g, "");
@@ -240,7 +269,7 @@ export const Fields: React.FC<FormFieldProps> = ({
 
   if (type === "date") {
     return (
-      <Bk_DateInput
+      <DateSelect
         value={value}
         testId={testId}
         hasError={hasError}
@@ -248,7 +277,7 @@ export const Fields: React.FC<FormFieldProps> = ({
         language={language}
         placeholder={placeholder}
         placeholder_ar={placeholder_ar}
-        onDateChange={(date) => {
+        onDateChange={(date: Date | undefined) => {
           if (date) {
             const y = date.getFullYear();
             const m = String(date.getMonth() + 1).padStart(2, "0");
@@ -323,87 +352,84 @@ export const Fields: React.FC<FormFieldProps> = ({
           {showAddButton && <AddButton onClick={() => setIsOpen(true)} />}
         </View>
 
-        <Modal
-          visible={isOpen}
-          transparent
-          animationType="fade"
-          onRequestClose={() => setIsOpen(false)}
+        <BottomSheetModal
+          ref={bottomSheetSelectRef}
+          snapPoints={["50%"]}
+          stackBehavior="push"
+          enableDynamicSizing={false}
+          enablePanDownToClose
+          onChange={(index) => {
+            if (index === -1) setIsOpen(false);
+          }}
+          backdropComponent={renderSelectBackdrop}
+          backgroundStyle={{ backgroundColor: "#fff" }}
+          handleIndicatorStyle={{ backgroundColor: "#ccc" }}
         >
-          <Pressable
-            className="flex-1 justify-end bg-black/50"
-            onPress={() => setIsOpen(false)}
+          <BottomSheetScrollView
+            style={{ paddingHorizontal: 16, paddingBottom: 24 }}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
           >
-            <Pressable
-              onPress={() => {}}
-              className="max-h-[70%] rounded-t-xl bg-white p-l dark:bg-neutral-900"
-            >
-              {(title || title_ar) && (
-                <Text className="mb-m text-bold-l text-text-default">
-                  {language === "en" ? title : title_ar ?? title}
-                </Text>
-              )}
-              <TextInput
-                value={searchValue}
-                onChangeText={setSearchValue}
-                placeholder={language === "en" ? "Search..." : "بحث..."}
-                className="mb-m w-full rounded-[5px] border border-form-fields-input-form-border bg-form-fields-input-form-bg p-m text-text-default placeholder:text-form-fields-input-form-placeholder"
-                placeholderTextColor="#9ca3af"
-              />
-              {filteredOptions.length > 0 ? (
-                <ScrollView
-                  className="max-h-60"
-                  keyboardShouldPersistTaps="handled"
-                  showsVerticalScrollIndicator={false}
-                >
-                  {filteredOptions.map((option) => {
-                    const isSelected =
-                      selectType === "single"
-                        ? effectiveValue === option.value
-                        : selectedItems.includes(option.value);
-                    return (
-                      <TouchableOpacity
-                        key={option.value}
-                        onPress={() => handleSelect(option.value)}
-                        activeOpacity={0.7}
-                        className={`flex-row items-center gap-m p-s ${
-                          isSelected ? "bg-filter-search-selected-bg" : ""
-                        }`}
-                        accessibilityRole="button"
-                        accessibilityState={{ selected: isSelected }}
-                      >
-                        {selectType === "multi" && (
-                          <Checkbox
-                            id={option.value}
-                            checked={selectedItems.includes(option.value)}
-                            onChange={(id) => handleSelect(id)}
-                          />
-                        )}
-                        <CheckRadioLabel
-                          label={option.label}
-                          label_ar={option.label_ar}
-                          disabled={false}
-                          language={language}
-                          onClick={() => handleSelect(option.value)}
-                        />
-                      </TouchableOpacity>
-                    );
-                  })}
-                </ScrollView>
-              ) : (
-                <View className="p-m">
-                  <Text>
-                    <SharedLanguageSwitchRenderer
+            {(title || title_ar) && (
+              <Text className="mb-m text-bold-l text-text-default">
+                {language === "en" ? title : title_ar ?? title}
+              </Text>
+            )}
+            <BottomSheetTextInput
+              value={searchValue}
+              onChangeText={setSearchValue}
+              placeholder={language === "en" ? "Search..." : "بحث..."}
+              className="mb-m w-full rounded-[5px] border border-form-fields-input-form-border bg-form-fields-input-form-bg p-m text-text-default"
+              placeholderTextColor="#9ca3af"
+            />
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option) => {
+                const isSelected =
+                  selectType === "single"
+                    ? effectiveValue === option.value
+                    : selectedItems.includes(option.value);
+                return (
+                  <TouchableOpacity
+                    key={option.value}
+                    onPress={() => handleSelect(option.value)}
+                    activeOpacity={0.7}
+                    className={`flex-row items-center gap-m p-s ${
+                      isSelected ? "bg-filter-search-selected-bg" : ""
+                    }`}
+                    accessibilityRole="button"
+                    accessibilityState={{ selected: isSelected }}
+                  >
+                    {selectType === "multi" && (
+                      <Checkbox
+                        id={option.value}
+                        checked={selectedItems.includes(option.value)}
+                        onChange={(id) => handleSelect(id)}
+                      />
+                    )}
+                    <CheckRadioLabel
+                      label={option.label}
+                      label_ar={option.label_ar}
+                      disabled={false}
                       language={language}
-                      value="No options found"
-                      value_ar="لم يتم العثور على خيارات"
-                      className="text-text-dimmed"
+                      onClick={() => handleSelect(option.value)}
                     />
-                  </Text>
-                </View>
-              )}
-            </Pressable>
-          </Pressable>
-        </Modal>
+                  </TouchableOpacity>
+                );
+              })
+            ) : (
+              <View className="p-m">
+                <Text>
+                  <SharedLanguageSwitchRenderer
+                    language={language}
+                    value="No options found"
+                    value_ar="لم يتم العثور على خيارات"
+                    className="text-text-dimmed"
+                  />
+                </Text>
+              </View>
+            )}
+          </BottomSheetScrollView>
+        </BottomSheetModal>
         {renderError()}
       </View>
     );

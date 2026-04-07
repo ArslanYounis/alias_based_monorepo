@@ -1,32 +1,9 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { View, Text, useWindowDimensions } from "react-native";
 import { Buttons } from "~/src/ui/Buttons";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
-
-export type ButtonType =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "text-link"
-  | "delete";
-
-export interface TitleBarProps {
-  title?: string;
-  title_ar?: string;
-  showTitle?: boolean;
-  acronym?: string;
-  acronym_ar?: string;
-  acronymBGColor?: string;
-  showAcronym?: boolean;
-  showButton?: boolean;
-  buttonLabel?: string;
-  buttonLabel_ar?: string;
-  buttonType?: ButtonType;
-  leftIcon?: ReactElement;
-  rightIcon?: ReactElement;
-  onClick?: () => void;
-  language?: "en" | "ar";
-}
+import type { TitleBarProps, ButtonType } from "@shared/types";
+export type { TitleBarProps, ButtonType };
 
 const TitleBar: React.FC<TitleBarProps> = ({
   title,

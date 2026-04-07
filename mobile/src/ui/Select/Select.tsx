@@ -18,7 +18,7 @@ export const Select: React.FC<SelectProps> = ({
   tooltipText_ar = "",
   placeholder = "",
   placeholder_ar = "",
-  value = "",
+  checked = "",
   onChange = () => {},
   hasError = false,
   errorMessage = "",
@@ -49,7 +49,7 @@ export const Select: React.FC<SelectProps> = ({
         selectType="single"
         placeholder={placeholder}
         placeholder_ar={placeholder_ar}
-        value={value}
+        value={checked}
         onChange={onChange}
         hasError={hasError}
         errorMessage=""

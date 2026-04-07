@@ -203,6 +203,42 @@ export const NoPaymentIcon = () => (
 
 // ─── Chevron Icons ───────────────────────────────────────────────────────────
 
+export const ChevronLeftIcon = ({
+  size = 24,
+  color = "currentColor",
+}: SizeProps) => (
+  <Svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth={1.5}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <Path d="M15 6L9 12L15 18" />
+  </Svg>
+);
+
+export const ChevronRightIcon = ({
+  size = 24,
+  color = "currentColor",
+}: SizeProps) => (
+  <Svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth={1.5}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <Path d="M9 6L15 12L9 18" />
+  </Svg>
+);
+
 export const ChevronDownIcon = ({
   size = 24,
   color = "currentColor",
@@ -1328,3 +1364,24 @@ export const AdminIcon = ({
     </Svg>
   );
 };
+
+// ─── Action Icons ────────────────────────────────────────────────────────────
+
+export const PlusIcon = ({
+  size = 24,
+  color = "currentColor",
+}: SizeProps) => (
+  <Svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth={1.5}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <Line x1="12" y1="5" x2="12" y2="19" />
+    <Line x1="5" y1="12" x2="19" y2="12" />
+  </Svg>
+);

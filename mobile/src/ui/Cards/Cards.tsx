@@ -7,31 +7,8 @@ import { PaymentCard } from "@platform/PaymentCard";
 import { ProfileIconStatus } from "@platform/ProfileIconStatus";
 import SharedLanguageSwitchRenderer from "@shared/components/SharedLanguageSwitchRenderer";
 
-export type StatusCardProps = {
-  type?: "pending" | "action" | "action-other" | "failed" | "success" | string;
-  direction?: "horizontal" | "vertical" | string;
-  version?: "hybrid" | "multi-row" | "single-row" | "image-row" | string;
-  action: string;
-  action_ar?: string;
-  stepName?: string;
-  stepName_ar?: string;
-  userName?: string;
-  userName_ar?: string;
-  language?: "en" | "ar";
-  role?: string;
-  role_ar?: string;
-  imageURL?: string;
-  currentStep?: number;
-  onCardClick?: () => void;
-  totalSteps?: number;
-  completedSteps?: number;
-  currentStepStatus?:
-    | "pending"
-    | "failed"
-    | "complete"
-    | "inProgress"
-    | "fixed";
-};
+import type { StatusCardProps } from "@shared/types";
+export type { StatusCardProps };
 
 const getStateStyles = (state: StatusCardProps["type"]) => {
   switch (state) {

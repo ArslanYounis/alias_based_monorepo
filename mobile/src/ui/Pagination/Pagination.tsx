@@ -1,7 +1,7 @@
 import React from "react";
 import type { PaginationProps } from "@shared/types";
 import { View, Text, Pressable } from "react-native";
-import { ChevronLeft, ChevronRight } from "lucide-react-native";
+import { ChevronLeftIcon, ChevronRightIcon } from "../icons";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
 export type { PaginationProps };
@@ -114,9 +114,9 @@ const Pagination: React.FC<PaginationProps> = ({
           style={{ opacity: currentPage === 1 ? 0.5 : 1 }}
         >
           {language === "en" ? (
-            <ChevronLeft size={24} color="currentColor" />
+            <ChevronLeftIcon size={24} color="currentColor" />
           ) : (
-            <ChevronRight size={24} color="currentColor" />
+            <ChevronRightIcon size={24} color="currentColor" />
           )}
         </Pressable>
 
@@ -154,9 +154,9 @@ const Pagination: React.FC<PaginationProps> = ({
           style={{ opacity: currentPage === totalPages ? 0.5 : 1 }}
         >
           {language === "en" ? (
-            <ChevronRight size={24} color="currentColor" />
+            <ChevronRightIcon size={24} color="currentColor" />
           ) : (
-            <ChevronLeft size={24} color="currentColor" />
+            <ChevronLeftIcon size={24} color="currentColor" />
           )}
         </Pressable>
       </View>

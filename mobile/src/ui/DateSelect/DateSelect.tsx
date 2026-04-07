@@ -1,20 +1,20 @@
 import type { DateSelectProps } from "@shared/types";
+import { Caption } from "../Caption";
+import InfoSVG from "~/assets/svg/icons/Info";
+import React, { useEffect, useState } from "react";
+import CalendarIcon from "~/assets/svg/icons/Calendar";
+import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 import DateTimePicker, {
   type DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  Pressable,
-  Platform,
   Modal,
+  Platform,
+  Pressable,
   TouchableOpacity,
 } from "react-native";
-import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
-import InfoSVG from "~/assets/svg/icons/Info";
-import SelectArrow from "~/assets/svg/icons/SelectArrow";
-import { Caption } from "../Caption";
 
 export type { DateSelectProps };
 
@@ -29,23 +29,19 @@ export const DateSelect: React.FC<DateSelectProps> = ({
   infoText,
   infoText_ar,
   required = false,
-  // errMessage,
-  // errMessage_ar,
   errorMessage,
   errorMessage_ar,
-  // caption,
-  // caption_ar,
   captionLeft,
   captionLeft_ar,
   captionRight,
   captionRight_ar,
-  // captionPosition = "left",
   language = "en",
   value,
   testId,
 }) => {
   const controlledDate = value ? new Date(value) : undefined;
   const [date, setDate] = useState<Date | undefined>(controlledDate);
+  const [tempDate, setTempDate] = useState<Date | undefined>(controlledDate);
   const [showPicker, setShowPicker] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
 
@@ -54,18 +50,31 @@ export const DateSelect: React.FC<DateSelectProps> = ({
       const parsed = new Date(value);
       if (!isNaN(parsed.getTime())) {
         setDate(parsed);
+        setTempDate(parsed);
       }
     } else {
       setDate(undefined);
+      setTempDate(undefined);
     }
   }, [value]);
 
   const handleChange = (_: DateTimePickerEvent, selected?: Date) => {
-    setShowPicker(false);
     if (selected) {
-      setDate(selected);
-      onDateChange?.(selected);
+      setTempDate(selected);
     }
+  };
+
+  const handleDone = () => {
+    setShowPicker(false);
+    if (tempDate) {
+      setDate(tempDate);
+      onDateChange?.(tempDate);
+    }
+  };
+
+  const handleCancel = () => {
+    setShowPicker(false);
+    setTempDate(date);
   };
 
   const displayDate = date
@@ -76,6 +85,20 @@ export const DateSelect: React.FC<DateSelectProps> = ({
           day: "numeric",
         })
       : date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+    : "";
+
+  const displayTempDate = tempDate
+    ? language === "ar"
+      ? tempDate.toLocaleDateString("ar-EG", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : tempDate.toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
           day: "numeric",
@@ -140,18 +163,18 @@ export const DateSelect: React.FC<DateSelectProps> = ({
             ? placeholder_ar || placeholder
             : placeholder}
         </Text>
-        <SelectArrow color="#6B7280" />
+        <CalendarIcon color={hasError ? "#ee3e43" : "#414149"} />
       </Pressable>
       <Modal
         visible={showPicker}
         transparent
         animationType="fade"
-        onRequestClose={() => setShowPicker(false)}
+        onRequestClose={handleCancel}
       >
         <TouchableOpacity
           activeOpacity={1}
           className="flex-1 justify-end bg-black/50"
-          onPress={() => setShowPicker(false)}
+          onPress={handleCancel}
         >
           <TouchableOpacity
             activeOpacity={1}
@@ -159,14 +182,14 @@ export const DateSelect: React.FC<DateSelectProps> = ({
             className="max-h-[70%] rounded-t-xl bg-white p-l dark:bg-neutral-900"
           >
             <Text className="mb-m text-bold-l text-text-default">
-              {date
-                ? displayDate
+              {tempDate
+                ? displayTempDate
                 : language === "ar"
                 ? placeholder_ar || placeholder
                 : placeholder}
             </Text>
             <DateTimePicker
-              value={date ?? new Date()}
+              value={tempDate ?? new Date()}
               mode="date"
               display={Platform.OS === "ios" ? "spinner" : "default"}
               onChange={handleChange}
@@ -174,7 +197,7 @@ export const DateSelect: React.FC<DateSelectProps> = ({
             />
             {Platform.OS === "ios" && (
               <TouchableOpacity
-                onPress={() => setShowPicker(false)}
+                onPress={handleDone}
                 className="mt-m rounded-[5px] bg-form-fields-input-form-border py-m"
                 activeOpacity={0.7}
               >
@@ -186,30 +209,7 @@ export const DateSelect: React.FC<DateSelectProps> = ({
           </TouchableOpacity>
         </TouchableOpacity>
       </Modal>
-      {/* {hasError && errMessage && (
-        <Text className="text-xs text-form-fields-error">
-          <SharedLanguageSwitchRenderer
-            language={language}
-            value={errMessage}
-            value_ar={errMessage_ar}
-          />
-        </Text>
-      )}
-      {caption && (
-        <Text
-          className={`text-bold-xs ${
-            disabled
-              ? "text-text-dimmed"
-              : "text-form-fields-captions-text-color"
-          } ${captionPosition === "right" ? "text-right" : "text-left"}`}
-        >
-          <SharedLanguageSwitchRenderer
-            language={language}
-            value={caption}
-            value_ar={caption_ar}
-          />
-        </Text>
-      )} */}
+
       {(captionLeft ||
         captionRight ||
         captionLeft_ar ||

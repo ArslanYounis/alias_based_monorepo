@@ -1,5 +1,5 @@
 import type { AddButtonProps } from "@shared/types";
-import { Plus } from "lucide-react";
+import { PlusIcon } from "../icons";
 
 export type { AddButtonProps };
 
@@ -18,9 +18,8 @@ export const AddButton = ({
           : "cursor-pointer border-button-primary-default-bg"
       }`}
     >
-      <Plus
-        width={18}
-        height={18}
+      <PlusIcon
+        size={18}
         className={`${
           disabled
             ? "text-button-primary-disabled"

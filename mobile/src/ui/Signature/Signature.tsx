@@ -1,18 +1,16 @@
 import React, { useRef, useState } from "react";
-import { View, PanResponder, GestureResponderEvent } from "react-native";
+import {
+  View,
+  PanResponder,
+  GestureResponderEvent,
+  LayoutChangeEvent,
+} from "react-native";
 import Svg, { Path } from "react-native-svg";
 import TitleBar from "~/src/ui/TitleBar";
 import { Buttons } from "~/src/ui/Buttons";
 
-export interface SignatureProps {
-  language?: "en" | "ar";
-  title?: string;
-  title_ar?: string;
-  buttonText?: string;
-  buttonText_ar?: string;
-  theme?: "light" | "dark";
-  onSubmit?: (val: { signature: string }) => void;
-}
+import type { SignatureProps } from "@shared/types";
+export type { SignatureProps };
 
 type SvgPath = { d: string };
 
@@ -30,15 +28,30 @@ const Signature: React.FC<SignatureProps> = ({
 }) => {
   const [paths, setPaths] = useState<SvgPath[]>([]);
   const [isSigned, setIsSigned] = useState(false);
+  const [canvasSize, setCanvasSize] = useState({
+    width: CANVAS_WIDTH,
+    height: CANVAS_HEIGHT,
+  });
   const currentPathRef = useRef<string>("");
 
   // Pen color derived from theme — mirrors web's --signature-pen-color CSS variable behaviour
   const penColor = theme === "dark" ? "#FFFFFF" : "#000000";
 
+  const handleCanvasLayout = (e: LayoutChangeEvent) => {
+    const { width, height } = e.nativeEvent.layout;
+    if (width > 0 && height > 0) {
+      setCanvasSize({ width, height });
+    }
+  };
+
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
+      // Capture the gesture from parent handlers (e.g. BottomSheet) so the
+      // sheet does not resize while the user is drawing their signature.
+      onStartShouldSetPanResponderCapture: () => true,
+      onMoveShouldSetPanResponderCapture: () => true,
       onPanResponderGrant: (e: GestureResponderEvent) => {
         const { locationX, locationY } = e.nativeEvent;
         const startD = `M${locationX.toFixed(2)},${locationY.toFixed(2)}`;
@@ -70,9 +83,10 @@ const Signature: React.FC<SignatureProps> = ({
           `<path d="${p.d}" stroke="${penColor}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />`
       )
       .join("\n");
+    const { width: w, height: h } = canvasSize;
     const svgString = [
-      `<svg xmlns="http://www.w3.org/2000/svg" width="${CANVAS_WIDTH}" height="${CANVAS_HEIGHT}"`,
-      ` viewBox="0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}">`,
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"`,
+      ` viewBox="0 0 ${w} ${h}">`,
       pathsMarkup,
       "</svg>",
     ].join("");
@@ -92,11 +106,12 @@ const Signature: React.FC<SignatureProps> = ({
       <View
         className="bg-form-fields-input-form-bg rounded-m my-4 flex items-center justify-center signature-container"
         style={{ overflow: "hidden" }}
+        onLayout={handleCanvasLayout}
         {...panResponder.panHandlers}
       >
         <Svg
-          width={CANVAS_WIDTH}
-          height={CANVAS_HEIGHT}
+          width={canvasSize.width}
+          height={canvasSize.height}
           style={{ backgroundColor: "transparent" }}
         >
           {paths.map((p, idx) => (

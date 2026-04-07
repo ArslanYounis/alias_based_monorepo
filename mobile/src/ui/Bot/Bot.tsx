@@ -11,6 +11,7 @@ export const Bot: React.FC<BotProps> = ({
   status = "close",
   language = "en",
   message_ar = "مرحبا! كيف يمكنني مساعدتك اليوم؟",
+  className = "",
   onClick,
 }) => {
   const [currentStatus, setCurrentStatus] = useState<"open" | "close">(status);
@@ -29,7 +30,7 @@ export const Bot: React.FC<BotProps> = ({
     <TouchableOpacity
       onPress={handleClick}
       activeOpacity={0.8}
-      className="flex items-start relative flex-row"
+      className={`flex items-start relative flex-row ${className}`}
     >
       {currentStatus === "open" && message.length > 0 && (
         <View className="absolute bottom-18 left-0 bg-structure-primary-0 px-6 py-4 rounded-lg rounded-bl-none shadow-lg z-30 text-left min-w-[320px]">
