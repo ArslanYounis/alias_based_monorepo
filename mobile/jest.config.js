@@ -19,7 +19,10 @@ module.exports = {
         configFile: false,
         babelrc: false,
         presets: [
-          ["babel-preset-expo", { jsxImportSource: "react", reanimated: false }],
+          [
+            "babel-preset-expo",
+            { jsxImportSource: "react", reanimated: false },
+          ],
         ],
       },
     ],
@@ -68,9 +71,10 @@ module.exports = {
   // ** prefix is required — jest's shouldInstrument check uses micromatch against
   // absolute file paths, so patterns without ** never match absolute paths.
   collectCoverageFrom: [
-    "**/mobile/src/ui/AddButton/AddButton.tsx",
-    "**/shared/components/Agent/Agent.tsx",
-    "**/shared/components/SharedLanguageSwitchRenderer.tsx",
+    "**/mobile/src/ui/**/*.{ts,tsx}",
+    "**/mobile/src/hooks/**/*.{ts,tsx}",
+    "**/shared/components/**/*.{ts,tsx}",
+    "**/shared/hooks/**/*.{ts,tsx}",
   ],
 
   coverageThreshold: {

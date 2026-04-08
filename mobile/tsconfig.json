@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "jsx": "react-native",
     "moduleResolution": "node",
+    "types": ["jest"],
     "paths": {
       "~/*": ["./*"],
       "@platform/*": ["./src/ui/*"],

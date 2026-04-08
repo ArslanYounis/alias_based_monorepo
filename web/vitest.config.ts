@@ -1,5 +1,7 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 import { resolve } from "path";
 
 /**
@@ -12,7 +14,7 @@ import { resolve } from "path";
  *   @/*         → web/src/*
  */
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss(), tsconfigPaths()],
   resolve: {
     alias: {
       "@platform": resolve(__dirname, "src/ui"),
@@ -21,22 +23,30 @@ export default defineConfig({
     },
   },
   test: {
+    // Root set to monorepo root so shared/ is treated as internal (not external).
+    // This allows all:true to scan shared/ for coverage without allowExternal.
+    root: resolve(__dirname, ".."),
     environment: "jsdom",
     globals: true,
-    setupFiles: ["./src/setupTests.ts"],
-    include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    setupFiles: ["web/src/setupTests.ts"],
+    include: ["web/src/**/*.{test,spec}.{ts,tsx}"],
     coverage: {
-      provider: "istanbul",
-      reporter: ["text", "lcov", "html"],
-      // istanbul provider is required for allowExternal (files outside web/).
-      // Scope to only the components with tests in this first step.
-      allowExternal: true,
+      provider: "v8",
+      reporter: ["text", "json", "html", "lcov"],
+      reportsDirectory: resolve(__dirname, "coverage"),
       include: [
-        "**/web/src/ui/AddButton/AddButton.tsx",
-        "**/shared/components/Agent/Agent.tsx",
-        "**/shared/components/SharedLanguageSwitchRenderer.tsx",
+        "web/src/ui/**/*.{ts,tsx}",
+        "web/src/hooks/**/*.{ts,tsx}",
+        "shared/components/**/*.{ts,tsx}",
+        "shared/hooks/**/*.{ts,tsx}",
       ],
-      exclude: ["**/*.stories.*", "**/*.d.ts", "**/node_modules/**"],
+      exclude: [
+        "**/*.stories.*",
+        "**/*.d.ts",
+        "**/node_modules/**",
+        "**/__tests__/**",
+        "**/*.{test,spec}.{ts,tsx}",
+      ],
       thresholds: {
         branches: 80,
         functions: 80,
