@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export { default } from "./PaymentDetails";
 export type { PaymentDetailsProps, ApplicationPayment } from "./PaymentDetails";
 export { default as PaymentOverride } from "./PaymentOverride";

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export { CustomDrawer } from "./CustomDrawer";
 export type {
   CustomDrawerProps,

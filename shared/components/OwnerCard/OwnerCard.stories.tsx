@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import type { Meta, StoryObj } from "@storybook/react";
 import OwnerCard from "./OwnerCard";
 import type { Owner } from "./OwnerCard";

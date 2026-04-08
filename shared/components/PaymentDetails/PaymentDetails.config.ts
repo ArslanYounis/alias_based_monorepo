@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import type { IconType, ComponentConfig } from "@shared/types/dls.types";
 import PaymentDetails, { type PaymentDetailsProps } from "./PaymentDetails";
 

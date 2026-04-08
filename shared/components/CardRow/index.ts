@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export { default } from "./CardRow";
 export type {
   ICardRowProps,

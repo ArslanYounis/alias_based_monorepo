@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export { default as OwnerSearch } from "./OwnerSearch";
 export type { OwnerSearchProps } from "./OwnerSearch";
 export { createOwnerSearchConfig } from "./OwnerSearch.config";

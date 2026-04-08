@@ -1,2 +1,3 @@
+/* istanbul ignore file */
 export { CurrencyInput } from "./CurrencyInput";
 export type { CurrencyInputProps } from "./CurrencyInput";

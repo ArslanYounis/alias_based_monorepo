@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import type { Meta, StoryObj } from "@storybook/react";
 import PlotCard from "./PlotCard";
 import type { Plot } from "./PlotCard";

@@ -168,6 +168,7 @@ const Cards: React.FC<StatusCardProps> = ({
       } ${
         direction === "vertical" ? "flex-col py-xs" : "flex py-xl"
       } border-b-2 ${borderColor}`}
+      onClick={onCardClick}
       style={{ boxShadow: "0px 2px 4px 0px #00000033" }}
     >
       {imageURL ? (

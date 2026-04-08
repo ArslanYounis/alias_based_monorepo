@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { createCheckboxInputConfig } from "@shared/configs";
 import { ListCheck } from "lucide-react-native";
 import { CheckboxInput } from "./CheckboxInput";

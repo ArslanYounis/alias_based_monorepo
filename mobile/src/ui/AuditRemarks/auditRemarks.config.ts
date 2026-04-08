@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { CreditCard } from "lucide-react-native";
 import type { ComponentConfig } from "@shared/types/dls.types";
 import AuditRemarks from "./AuditRemarks";

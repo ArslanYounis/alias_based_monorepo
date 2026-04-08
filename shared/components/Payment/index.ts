@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export { default } from "./Payment";
 export type { PaymentProps, CombinedForm, TenancyContractInfo, StepInfo } from "./Payment";
 export { default as Contract } from "./Contract";

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { createTextAreaConfig } from "@shared/configs";
 import { TextCursorInput } from "lucide-react-native";
 import { TextArea } from "./TextArea";

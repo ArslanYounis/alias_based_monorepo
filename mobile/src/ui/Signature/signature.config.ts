@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { CreditCardIcon } from "lucide-react-native";
 import type { ComponentConfig } from "@shared/types/dls.types";
 import Signature from "./Signature";

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import type { Meta, StoryObj } from "@storybook/react";
 import GenericCard from "./GenericCard";
 import type { ICardRowProps } from "../CardRow";

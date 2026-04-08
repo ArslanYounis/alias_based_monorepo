@@ -65,9 +65,8 @@ module.exports = {
   ],
 
   // Coverage configuration (>80% target).
-  // Scope to only the components with tests in this first step.
-  // Expand as more test suites are added.
-  // CardTitle is mocked in the Agent test so it is excluded here.
+  // Scoped to only the source files that have corresponding test suites.
+  // Expand this list as more test suites are added.
   // ** prefix is required — jest's shouldInstrument check uses micromatch against
   // absolute file paths, so patterns without ** never match absolute paths.
   collectCoverageFrom: [
