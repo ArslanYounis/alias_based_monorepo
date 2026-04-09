@@ -79,7 +79,7 @@ export const Toast: React.FC<ToastProps> = ({
 
   return (
     <View
-      className={`h-12 flex-row items-center justify-between px-4 py-2 gap-4 ${bg}`}
+      className={`min-h-12 flex-row items-center justify-between px-4 py-3 gap-4 ${bg}`}
     >
       <View className="flex-row items-center gap-4 flex-1">
         <Icon color={iconColor} width={24} height={24} />

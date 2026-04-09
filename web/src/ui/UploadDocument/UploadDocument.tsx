@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import SharedLanguageSwitchRenderer from "@shared/components/SharedLanguageSwitchRenderer";
 import Document from "@/assets/svg/document";
 
-import type { DocumentUploaderProps, UploadedFile } from "@shared/types";
+import type { DocumentUploaderProps } from "@shared/types";
 export type { DocumentUploaderProps };
 
 export const UploadDocument: React.FC<DocumentUploaderProps> = ({

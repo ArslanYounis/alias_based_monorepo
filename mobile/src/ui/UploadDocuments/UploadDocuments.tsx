@@ -13,6 +13,7 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   language = "en",
   theme = "dark",
   type = "default",
+  handleUploadInternally = false,
   onFileChange,
   onUploadSuccess,
   onUploadFail,
@@ -22,14 +23,13 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
   const handleDownload = (downloadUrl?: string, documentName?: string) => {
     if (!downloadUrl) return;
-    const fileName =
-      documentName ?? downloadUrl.split("/").pop() ?? "download";
+    const fileName = documentName ?? downloadUrl.split("/").pop() ?? "download";
     download(downloadUrl, fileName);
   };
 
   const handleUpload = async (
     file: { name: string; uri: string; mimeType?: string } | null,
-    doc: DocumentConfig
+    doc: DocumentConfig,
   ) => {
     if (!file) return;
 
@@ -45,7 +45,8 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         const b2 = i + 2 < bytes.length ? bytes[i + 2] : 0;
         base64 += TABLE[b0 >> 2];
         base64 += TABLE[((b0 & 0x3) << 4) | (b1 >> 4)];
-        base64 += i + 1 < bytes.length ? TABLE[((b1 & 0xf) << 2) | (b2 >> 6)] : "=";
+        base64 +=
+          i + 1 < bytes.length ? TABLE[((b1 & 0xf) << 2) | (b2 >> 6)] : "=";
         base64 += i + 2 < bytes.length ? TABLE[b2 & 0x3f] : "=";
       }
 
@@ -91,10 +92,14 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           onFileChange={(file) => {
             if (!doc?.isUploaded) {
               onFileChange?.({ file, uploadUrl: doc?.uploadUrl as string });
-              handleUpload(file, doc);
+              if (handleUploadInternally) {
+                handleUpload(file, doc);
+              }
             }
           }}
-          onDownloadClick={() => handleDownload(doc.downloadUrl, doc.documentName)}
+          onDownloadClick={() =>
+            handleDownload(doc.downloadUrl, doc.documentName)
+          }
         />
       ))}
     </View>

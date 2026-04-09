@@ -1,11 +1,8 @@
 /* istanbul ignore file */
 import React, { useRef, useState } from "react";
-import {
-  View,
-  PanResponder,
-  GestureResponderEvent,
-  LayoutChangeEvent,
-} from "react-native";
+import { View, LayoutChangeEvent } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { runOnJS } from "react-native-reanimated";
 import Svg, { Path } from "react-native-svg";
 import TitleBar from "~/src/ui/TitleBar";
 import { Buttons } from "~/src/ui/Buttons";
@@ -45,42 +42,37 @@ const Signature: React.FC<SignatureProps> = ({
     }
   };
 
-  const panResponder = useRef(
-    PanResponder.create({
-      /* istanbul ignore next */
-      onStartShouldSetPanResponder: () => true,
-      /* istanbul ignore next */
-      onMoveShouldSetPanResponder: () => true,
-      // Capture the gesture from parent handlers (e.g. BottomSheet) so the
-      // sheet does not resize while the user is drawing their signature.
-      /* istanbul ignore next */
-      onStartShouldSetPanResponderCapture: () => true,
-      /* istanbul ignore next */
-      onMoveShouldSetPanResponderCapture: () => true,
-      /* istanbul ignore next */
-      onPanResponderGrant: (e: GestureResponderEvent) => {
-        const { locationX, locationY } = e.nativeEvent;
-        const startD = `M${locationX.toFixed(2)},${locationY.toFixed(2)}`;
-        currentPathRef.current = startD;
-        setPaths((prev) => [...prev, { d: startD }]);
-      },
-      /* istanbul ignore next */
-      onPanResponderMove: (e: GestureResponderEvent) => {
-        const { locationX, locationY } = e.nativeEvent;
-        currentPathRef.current += ` L${locationX.toFixed(
-          2
-        )},${locationY.toFixed(2)}`;
-        const snapshot = currentPathRef.current;
-        setPaths((prev) => {
-          if (prev.length === 0) return prev;
-          const updated = [...prev];
-          updated[updated.length - 1] = { d: snapshot };
-          return updated;
-        });
-        setIsSigned(true);
-      },
+  const startPath = (x: number, y: number) => {
+    const startD = `M${x.toFixed(2)},${y.toFixed(2)}`;
+    currentPathRef.current = startD;
+    setPaths((prev) => [...prev, { d: startD }]);
+  };
+
+  const updatePath = (x: number, y: number) => {
+    currentPathRef.current += ` L${x.toFixed(2)},${y.toFixed(2)}`;
+    const snapshot = currentPathRef.current;
+    setPaths((prev) => {
+      if (prev.length === 0) return prev;
+      const updated = [...prev];
+      updated[updated.length - 1] = { d: snapshot };
+      return updated;
+    });
+    setIsSigned(true);
+  };
+
+  // Use RNGH's GestureDetector so this gesture lives in the same gesture system
+  // as Gorhom BottomSheet (RNGH v2). The innermost gesture wins, preventing the
+  // sheet from intercepting pan movements and resizing while the user is signing.
+  const drawGesture = Gesture.Pan()
+    .minDistance(0)
+    .onBegin((e) => {
+      "worklet";
+      runOnJS(startPath)(e.x, e.y);
     })
-  ).current;
+    .onChange((e) => {
+      "worklet";
+      runOnJS(updatePath)(e.x, e.y);
+    });
 
   const handleApprove = () => {
     if (paths.length === 0) return;
@@ -111,30 +103,31 @@ const Signature: React.FC<SignatureProps> = ({
         showButton={false}
         language={language}
       />
-      <View
-        className="bg-form-fields-input-form-bg rounded-m my-4 flex items-center justify-center signature-container"
-        style={{ overflow: "hidden" }}
-        onLayout={handleCanvasLayout}
-        {...panResponder.panHandlers}
-      >
-        <Svg
-          width={canvasSize.width}
-          height={canvasSize.height}
-          style={{ backgroundColor: "transparent" }}
+      <GestureDetector gesture={drawGesture}>
+        <View
+          className="bg-form-fields-input-form-bg rounded-m my-4 flex items-center justify-center signature-container"
+          style={{ overflow: "hidden" }}
+          onLayout={handleCanvasLayout}
         >
-          {paths.map((p, idx) => (
-            <Path
-              key={idx}
-              d={p.d}
-              stroke={penColor}
-              strokeWidth={2}
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          ))}
-        </Svg>
-      </View>
+          <Svg
+            width={canvasSize.width}
+            height={canvasSize.height}
+            style={{ backgroundColor: "transparent" }}
+          >
+            {paths.map((p, idx) => (
+              <Path
+                key={idx}
+                d={p.d}
+                stroke={penColor}
+                strokeWidth={2}
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            ))}
+          </Svg>
+        </View>
+      </GestureDetector>
       <View className="flex justify-end gap-4 flex-col mt-6">
         <View className="flex flex-row justify-end">
           <Buttons

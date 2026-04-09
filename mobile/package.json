@@ -1,11 +1,11 @@
 {
   "name": "@adrec/mobile-ui-base",
-  "version": "1.0.43",
+  "version": "1.0.46",
   "description": "Reusable UI components for Expo and React Native (Avatar, Buttons, Container, Text, etc.)",
   "publishConfig": {
     "registry": "https://y8ko0gcw88o8g0o4w4ocs4sk.mastermind-mindset.com/"
   },
-  "main": "index.ts",
+  "main": "dist/lib-index.js",
   "module": "dist/lib-index.js",
   "types": "dist/lib-index.d.ts",
   "react-native": "dist/lib-index.js",
