@@ -22,8 +22,10 @@ export const Container: React.FC<ContainerProps> = ({
 
   if (onClick) {
     return (
-      <Pressable className={tw} style={style as object} onPress={onClick}>
-        {children}
+      <Pressable onPress={onClick}>
+        <View className={tw} style={style as object}>
+          {children}
+        </View>
       </Pressable>
     );
   }
