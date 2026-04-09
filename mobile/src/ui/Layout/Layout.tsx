@@ -66,6 +66,8 @@ export const Layout: React.FC<LayoutProps> = ({
         nestedScrollEnabled
         keyboardShouldPersistTaps="handled"
         enableOnAndroid
+        enableAutomaticScroll={false}
+        enableResetScrollToCoords={false}
         extraScrollHeight={20}
       >
         {children}

@@ -11,7 +11,7 @@ interface PlotSearchParams {
   roadId?: string;
   plotNumber?: string;
   plotFileNumber?: string;
-  matchTypeId?: number;
+  matchTypeId?: string | number;
   pageSize?: number;
   searchPlotFlags?: string;
   searchOwnerFlags?: string;

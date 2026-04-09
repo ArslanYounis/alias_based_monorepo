@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UploadDocument } from "../UploadDocument/UploadDocument";
 import { useGetDownloadFile } from "@/hooks/useGetDownloadFile";
+import { useUploadFile } from "@shared/hooks/useUploadFile";
 
 import type { DocumentConfig, UploadDocumentsProps } from "@shared/types";
 export type { DocumentConfig, UploadDocumentsProps };
@@ -10,12 +11,57 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   language = "en",
   theme = "dark",
   type = "default",
+  handleUploadInternally = false,
   onFileChange,
+  onUploadSuccess,
+  onUploadFail,
 }) => {
   const [downloadUrl, setDownloadUrl] = useState<string | undefined>(undefined);
 
   const { data: downloadBlob, isSuccess: isDownloadSuccess } =
     useGetDownloadFile(downloadUrl);
+
+  const { mutateAsync: uploadFile } = useUploadFile();
+
+  const handleUpload = async (
+    file: { name: string; uri: string; mimeType?: string } | null,
+    doc: DocumentConfig,
+  ) => {
+    if (!file) return;
+
+    try {
+      const fetchResponse = await fetch(file.uri);
+      const blob = await fetchResponse.blob();
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result as string;
+          resolve(result.split(",")[1] ?? result);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+
+      const fileExtension = file.name.split(".").pop() ?? "";
+      const fileType = file.mimeType || blob.type || "";
+
+      const payload = {
+        name: `doc_name_${doc.wfiDocumentId ?? ""}`,
+        file: {
+          file_name: file.name,
+          file_type: fileType,
+          file_content: base64,
+          file_identifier: "",
+          file_extension: fileExtension,
+        },
+      };
+
+      const result = await uploadFile({ payload, uploadUrl: doc.uploadUrl });
+      onUploadSuccess?.(result);
+    } catch (error) {
+      onUploadFail?.(error);
+    }
+  };
 
   useEffect(() => {
     if (!isDownloadSuccess || !downloadBlob || !downloadUrl) return;
@@ -65,8 +111,11 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           language={language}
           isUploaded={doc?.isUploaded}
           onFileChange={(file) => {
-            if (onFileChange && !doc?.isUploaded) {
-              onFileChange({ file, uploadUrl: doc?.uploadUrl as string });
+            if (!doc?.isUploaded) {
+              onFileChange?.({ file, uploadUrl: doc?.uploadUrl as string });
+              if (handleUploadInternally) {
+                handleUpload(file, doc);
+              }
             }
           }}
           onDownloadClick={() => {

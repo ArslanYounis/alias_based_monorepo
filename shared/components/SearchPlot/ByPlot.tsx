@@ -124,6 +124,7 @@ const ByPlot = ({
 
       const initialPayload = {
         ...filtered,
+        matchTypeId: value?.matchType ?? undefined,
         pageNumber: 0,
         pageSize: requestedPageSize,
       };

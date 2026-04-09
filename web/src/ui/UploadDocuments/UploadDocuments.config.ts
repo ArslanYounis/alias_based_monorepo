@@ -21,6 +21,11 @@ const UploadDocumentsConfigs: ComponentConfig<UploadDocumentsProps> = {
       options: ["default", "base"],
       defaultValue: "default",
     },
+    handleUploadInternally: {
+      type: ["boolean"],
+      label: "Handle Upload Internally",
+      defaultValue: false,
+    },
     documents: {
       type: ["code"],
       label: "Documents",
@@ -41,6 +46,18 @@ const UploadDocumentsConfigs: ComponentConfig<UploadDocumentsProps> = {
       type: ["code"],
       label: "On File Upload",
       defaultCode: "console.log('file changed', eventData)",
+      isEvent: true,
+    },
+    onUploadSuccess: {
+      type: ["code"],
+      label: "On File Upload Success",
+      defaultCode: "console.log('file uploaded', eventData)",
+      isEvent: true,
+    },
+    onUploadFail: {
+      type: ["code"],
+      label: "On File Upload fail",
+      defaultCode: "console.log('file upload failed', eventData)",
       isEvent: true,
     },
     propsOverride: {
