@@ -1,5 +1,6 @@
 import React from "react";
-import { Text, TextProps } from "react-native";
+import { TextProps } from "react-native";
+import { Text } from "~/src/ui/Text";
 
 interface SharedLanguageSwitchRendererProps extends TextProps {
   language: "en" | "ar";
@@ -10,13 +11,13 @@ interface SharedLanguageSwitchRendererProps extends TextProps {
 
 const SharedLanguageSwitchRenderer: React.FC<
   SharedLanguageSwitchRendererProps
-> = ({ language, value, value_ar, className, ...textProps }) => {
+> = ({ language, value, value_ar, className, style, ...textProps }) => {
   const displayValue = language === "en" ? value : value_ar || value;
 
   if (!displayValue) return null;
 
   return (
-    <Text className={className} {...textProps}>
+    <Text className={className} style={[{ textAlign: "left" }, style]} {...textProps}>
       {displayValue}
     </Text>
   );

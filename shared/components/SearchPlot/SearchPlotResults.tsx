@@ -113,7 +113,7 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
         onClick={() => handleRadioSelect(result)}
       >
         <Container className="flex flex-row justify-between mb-s">
-          <Text className={`text-bold-l line-clamp-2 min-w-0 flex-1 mr-s ${textColor}`}>
+          <Text className={`text-bold-l line-clamp-2 min-w-0 flex-1 me-s ${textColor}`}>
             <SharedLanguageSwitchRenderer
               language={language}
               value={result?.communityName}

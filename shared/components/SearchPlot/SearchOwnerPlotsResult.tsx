@@ -101,7 +101,7 @@ const SearchOwnerPlotsResult: React.FC<SearchOwnerPlotsResultProps> = ({
               onClick={() => onSelectPlot?.(plot)}
             >
               <Container className="flex justify-between mb-s">
-                <Text className="text-bold-l text-text-default line-clamp-2 min-w-0 flex-1 mr-xxs">
+                <Text className="text-bold-l text-text-default line-clamp-2 min-w-0 flex-1 me-xxs">
                   <SharedLanguageSwitchRenderer
                     language={language}
                     value={plot.communityName}

@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import { View, Image, TextInput, TouchableOpacity } from "react-native";
+import { Text } from "~/src/ui/Text";
 import type {
   ApprovalModalProps,
   AuditRemarksProps,

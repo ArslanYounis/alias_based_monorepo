@@ -1,6 +1,7 @@
 import React from "react";
 import type { PaginationProps } from "@shared/types";
-import { View, Text, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
+import { Text } from "~/src/ui/Text";
 import { ChevronLeftIcon, ChevronRightIcon } from "../icons";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
@@ -162,7 +163,7 @@ const Pagination: React.FC<PaginationProps> = ({
       </View>
 
       {showBottomText && (
-        <View className="mt-2 mr-2" style={{ alignItems: "flex-end" }}>
+        <View className="mt-2 me-2" style={{ alignItems: "flex-end" }}>
           {totalCount === undefined ? (
             <SharedLanguageSwitchRenderer
               language={language}

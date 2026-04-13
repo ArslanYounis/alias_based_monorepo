@@ -1,6 +1,7 @@
 import type { ButtonsProps } from "@shared/types";
 import React, { type ReactElement, cloneElement, useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
+import { Text } from "~/src/ui/Text";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 import { Tooltip } from "../Tooltip";
 import { useRenderIcon } from "~/src/hooks/useRenderIcon";
@@ -94,7 +95,7 @@ export const Buttons = ({
           renderMobileIcon
         ) : (
           <>
-            {leftIcon && <View className="mr-xs">{renderIcon(leftIcon)}</View>}
+            {leftIcon && <View className="me-xs">{renderIcon(leftIcon)}</View>}
 
             <Text className={`${leftIcon || rightIcon ? "mx-xxs" : ""}`}>
               <SharedLanguageSwitchRenderer
@@ -106,14 +107,14 @@ export const Buttons = ({
             </Text>
 
             {rightIcon && (
-              <View className="ml-xs">{renderIcon(rightIcon)}</View>
+              <View className="ms-xs">{renderIcon(rightIcon)}</View>
             )}
           </>
         )}
       </TouchableOpacity>
 
       {tooltip && isTooltipVisible && (
-        <View className="absolute left-full ml-2 top-1/2 -translate-y-1/2 z-20">
+        <View className="absolute start-full ms-2 top-1/2 -translate-y-1/2 z-20">
           <Tooltip
             text={tooltip.text}
             text_ar={tooltip.text_ar}

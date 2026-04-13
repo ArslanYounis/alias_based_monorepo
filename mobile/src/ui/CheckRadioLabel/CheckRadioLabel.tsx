@@ -1,6 +1,7 @@
 import type { CheckRadioLabelProps } from "@shared/types";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import { Text } from "~/src/ui/Text";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
 export type { CheckRadioLabelProps };

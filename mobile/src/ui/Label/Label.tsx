@@ -1,6 +1,7 @@
 import type { LabelProps } from "@shared/types";
 import React from "react";
-import { View, Pressable, Text } from "react-native";
+import { View, Pressable } from "react-native";
+import { Text } from "~/src/ui/Text";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 import InfoIcon from "~/assets/svg/icons/Info";
 import {
@@ -30,13 +31,11 @@ export const Label: React.FC<LabelProps> = ({
   return (
     <View className="flex-row items-center gap-xxs">
       <View className={`text-bold-xs ${textColorClass}`}>
-        <Text>
-          <SharedLanguageSwitchRenderer
-            language={language}
-            value={label}
-            value_ar={label_ar}
-          />
-        </Text>
+        <SharedLanguageSwitchRenderer
+          language={language}
+          value={label}
+          value_ar={label_ar}
+        />
       </View>
 
       {required && (

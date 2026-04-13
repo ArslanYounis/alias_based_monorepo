@@ -93,11 +93,9 @@ const FilterBar = ({
     <View>
       <View
         className="flex-row items-center justify-between"
-        style={{ flexDirection: language === "ar" ? "row-reverse" : "row" }}
       >
         <View
           className="flex-row items-center gap-s"
-          style={{ flexDirection: language === "ar" ? "row-reverse" : "row" }}
         >
           {/* Search Input */}
           <SearchField
@@ -149,7 +147,7 @@ const FilterBar = ({
 
         {/* Column Button — replaces mobile sort behaviour */}
         <ColumnButton
-          label={currentSelectedColumns[0] || "Add Col Name"}
+          label={currentSelectedColumns[0] || (language === "ar" ? "إضافة اسم عمود" : "Add Col Name")}
           title={
             language === "en"
               ? mobileColumnTitle

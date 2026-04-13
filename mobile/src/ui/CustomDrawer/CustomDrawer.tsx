@@ -133,10 +133,12 @@ export const CustomDrawer = forwardRef<CustomDrawerRef, CustomDrawerProps>(
         <BottomSheetScrollView
           style={{
             flex: 1,
-            paddingHorizontal: 24,
-            paddingBottom: 24,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
+          }}
+          contentContainerStyle={{
+            paddingHorizontal: 24,
+            paddingBottom: 24,
           }}
         >
           {header && <View style={{ marginBottom: 16 }}>{header}</View>}

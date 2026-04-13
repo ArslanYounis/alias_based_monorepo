@@ -106,7 +106,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
         >
           {platform === "web" ? (
             <Container className="flex flex-row gap-xs w-full">
-              <Container className="min-w-50 shrink-0 mr-xs">
+              <Container className="min-w-50 shrink-0 me-xs">
                 <ApplicationCard
                   cardsData={{
                     title:
@@ -160,7 +160,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
             </Container>
           ) : (
             <ScrollContainer horizontal className="flex flex-row gap-xs w-full">
-              <Container className="min-w-50 shrink-0 mr-xs">
+              <Container className="min-w-50 shrink-0 me-xs">
                 <ApplicationCard
                   cardsData={{
                     title:

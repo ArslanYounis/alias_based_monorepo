@@ -11,7 +11,6 @@ import React, {
 } from "react";
 import {
   View,
-  Text,
   TextInput,
   TouchableOpacity,
   type NativeSyntheticEvent,
@@ -30,6 +29,7 @@ import { DateSelect } from "../DateSelect";
 import { CheckRadioLabel } from "../CheckRadioLabel";
 import SelectArrow from "~/assets/svg/icons/SelectArrow";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
+import { Text } from "@platform/Text";
 
 export type { FormFieldProps, Option } from "@shared/types";
 
@@ -60,6 +60,8 @@ export const Fields: React.FC<FormFieldProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [internalValue, setInternalValue] = useState(value);
+
+  const isRTL = language === "ar";
 
   useEffect(() => {
     if (!isOpen) {
@@ -154,9 +156,9 @@ export const Fields: React.FC<FormFieldProps> = ({
     isPrint_Archive
       ? "py-xs px-xs !h-[36px]"
       : type === "textarea"
-      ? "p-m gap-m !h-[100px]"
-      : "p-m gap-m !h-[50px]"
-  } font-normal text-s text-text-default rounded-[5px] focus:outline-none placeholder:text-form-fields-input-form-placeholder`;
+        ? "p-m gap-m !h-[100px]"
+        : "p-m gap-m !h-[50px]"
+  } font-normal text-s text-text-default rounded-[5px] focus:outline-none placeholder:text-form-fields-input-form-placeholder ${isRTL ? "text-right" : ""}`;
 
   const getInputClasses = () => {
     if (disabled) {
@@ -218,13 +220,12 @@ export const Fields: React.FC<FormFieldProps> = ({
   const renderError = () =>
     hasError && errorMessage ? (
       <View className="mt-1 w-full">
-        <Text className="text-form-fields-error text-xs font-medium">
-          <SharedLanguageSwitchRenderer
-            language={language}
-            value={errorMessage}
-            value_ar={errorMessage_ar}
-          />
-        </Text>
+        <SharedLanguageSwitchRenderer
+          language={language}
+          value={errorMessage}
+          value_ar={errorMessage_ar}
+          className="text-form-fields-error text-xs font-medium"
+        />
       </View>
     ) : null;
 
@@ -334,17 +335,24 @@ export const Fields: React.FC<FormFieldProps> = ({
             accessibilityState={{ expanded: isOpen, disabled }}
             testID={testId}
           >
-            <Text
-              className={`flex-1 ${
-                (selectType === "single" && selectedLabel) ||
-                (selectType === "multi" && selectedItems.length > 0)
-                  ? "text-text-default"
-                  : "text-form-fields-input-form-placeholder"
-              }`}
-              numberOfLines={1}
-            >
-              {displayText}
-            </Text>
+            {icon && (
+              <View className="me-xs">
+                {renderIcon(icon)}
+              </View>
+            )}
+            <View style={{ flex: 1 }}>
+              <Text
+                className={`${
+                  (selectType === "single" && selectedLabel) ||
+                  (selectType === "multi" && selectedItems.length > 0)
+                    ? "text-text-default"
+                    : "text-form-fields-input-form-placeholder"
+                }`}
+                numberOfLines={1}
+              >
+                {displayText}
+              </Text>
+            </View>
             <View className={getIconColor()}>
               <SelectArrow />
             </View>
@@ -371,8 +379,11 @@ export const Fields: React.FC<FormFieldProps> = ({
             showsVerticalScrollIndicator={false}
           >
             {(title || title_ar) && (
-              <Text className="mb-m text-bold-l text-text-default">
-                {language === "en" ? title : title_ar ?? title}
+              <Text
+                className="mb-m text-bold-l text-text-default"
+                style={{ textAlign: isRTL ? "right" : "auto" }}
+              >
+                {language === "en" ? title : (title_ar ?? title)}
               </Text>
             )}
             <BottomSheetTextInput
@@ -381,6 +392,7 @@ export const Fields: React.FC<FormFieldProps> = ({
               placeholder={language === "en" ? "Search..." : "بحث..."}
               className="mb-m w-full rounded-[5px] border border-form-fields-input-form-border bg-form-fields-input-form-bg p-m text-text-default"
               placeholderTextColor="#9ca3af"
+              style={isRTL ? { textAlign: "right" } : undefined}
             />
             {filteredOptions.length > 0 ? (
               filteredOptions.map((option) => {
@@ -445,7 +457,7 @@ export const Fields: React.FC<FormFieldProps> = ({
       <View>
         <View className="relative flex-row items-center">
           {icon && (
-            <View className="absolute z-50 left-4 top-1/2 -translate-y-1/2">
+            <View className={`absolute z-50 left-4 top-1/2 -translate-y-1/2`}>
               {renderIcon(icon)}
             </View>
           )}
@@ -480,7 +492,7 @@ export const Fields: React.FC<FormFieldProps> = ({
       <View>
         <View className="relative flex-row items-center">
           {icon ? (
-            <View className="absolute z-50 left-4 top-1/2 -translate-y-1/2">
+            <View className={`absolute z-50 left-4 top-1/2 -translate-y-1/2`}>
               {renderIcon(icon)}
             </View>
           ) : (
@@ -513,7 +525,7 @@ export const Fields: React.FC<FormFieldProps> = ({
       <View>
         <View className="relative flex-row items-center">
           {icon && (
-            <View className="absolute z-50 left-4 top-1/2 -translate-y-1/2">
+            <View className={`absolute z-50 left-4 top-1/2 -translate-y-1/2`}>
               {renderIcon(icon)}
             </View>
           )}
@@ -525,7 +537,9 @@ export const Fields: React.FC<FormFieldProps> = ({
             keyboardType="numeric"
             value={value ? value : internalValue}
             onChange={(e) => {
-              const filtered = e.nativeEvent.text.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+              const filtered = e.nativeEvent.text
+                .replace(/[^0-9.]/g, "")
+                .replace(/(\..*)\./g, "$1");
               setInternalValue(filtered);
               onChange(filtered);
             }}
@@ -543,7 +557,7 @@ export const Fields: React.FC<FormFieldProps> = ({
     <View>
       <View className="relative flex flex-row items-center">
         {icon && (
-          <View className="absolute z-50 left-4 top-1/2 -translate-y-1/2">
+          <View className={`absolute z-50 left-4 top-1/2 -translate-y-1/2`}>
             {renderIcon(icon)}
           </View>
         )}
@@ -554,7 +568,7 @@ export const Fields: React.FC<FormFieldProps> = ({
           value={value ? value : internalValue}
           keyboardType={"default"}
           placeholder={
-            language === "en" ? placeholder : placeholder_ar ?? placeholder
+            language === "en" ? placeholder : (placeholder_ar ?? placeholder)
           }
         />
       </View>

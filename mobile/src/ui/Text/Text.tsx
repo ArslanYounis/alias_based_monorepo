@@ -4,6 +4,6 @@ import { Text as RNText, TextProps as RNTextProps } from "react-native";
 
 export type { TextProps };
 
-export const Text: React.FC<RNTextProps> = ({ children, ...props }) => {
-  return <RNText {...props}>{children}</RNText>;
+export const Text: React.FC<RNTextProps> = ({ children, style, ...props }) => {
+  return <RNText style={[{ textAlign: "left" }, style]} {...props}>{children}</RNText>;
 };

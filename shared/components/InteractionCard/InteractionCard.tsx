@@ -108,7 +108,7 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
                 </Container>
 
                 <Container
-                  className={`flex-1 ${language === "en" ? "ml-xl" : "mr-xl"}`}
+                  className={`flex-1 ms-xl`}
                 >
                   <Text className={`text-m text-text-default`}>
                     <SharedLanguageSwitchRenderer
@@ -134,7 +134,7 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
                   </Text>
                 </Container>
                 <Container
-                  className={`flex-1 ${language === "en" ? "ml-xl" : "mr-xl"}`}
+                  className={`flex-1 ms-xl`}
                 >
                   <Text className={`text-m text-text-default`}>
                     <SharedLanguageSwitchRenderer
@@ -160,7 +160,7 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
                   </Text>
                 </Container>
                 <Container
-                  className={`flex-1 ${language === "en" ? "ml-xl" : "mr-xl"}`}
+                  className={`flex-1 ms-xl`}
                 >
                   <Text className={`text-m text-text-default line-clamp-1`}>
                     <SharedLanguageSwitchRenderer

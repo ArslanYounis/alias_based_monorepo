@@ -1,6 +1,7 @@
 import type { BreadcrumbProps } from "@shared/types";
 import React from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
+import { Text } from "~/src/ui/Text";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
 export type { BreadcrumbProps };

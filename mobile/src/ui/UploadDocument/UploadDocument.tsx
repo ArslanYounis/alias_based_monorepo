@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
+import { Text } from "~/src/ui/Text";
 import { Plus, FileText } from "lucide-react-native";
 import * as DocumentPicker from "expo-document-picker";
-import SharedLanguageSwitchRenderer from "@shared/components/SharedLanguageSwitchRenderer";
+import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 
 import type { DocumentUploaderProps } from "@shared/types";
 export type { DocumentUploaderProps };
@@ -89,7 +90,6 @@ export const UploadDocument: React.FC<DocumentUploaderProps> = ({
     } catch {}
   }, [checkFileAllowed, checkFileSize, onFileChange, fileSizeErrorMessage]);
 
-  const isRtl = language === "ar";
 
   const borderColorClass =
     type === "default"
@@ -108,14 +108,14 @@ export const UploadDocument: React.FC<DocumentUploaderProps> = ({
   const textColorClass = "text-text-default";
 
   return (
-    <View className={`flex flex-col ${isRtl ? "flex-row-reverse" : ""}`}>
+    <View className="flex flex-col">
       <View className="flex-row items-center gap-2">
         <View
           className={`flex-1 h-[50px] flex-row items-center px-4 rounded-xxs ${borderColorClass} ${backgroundColorClass}`}
         >
           {!hasFile && (
             <TouchableOpacity
-              className={`mr-2 ${textColorClass}`}
+              className={`me-2 ${textColorClass}`}
               onPress={openFilePicker}
             >
               <Plus size={18} />
@@ -130,39 +130,15 @@ export const UploadDocument: React.FC<DocumentUploaderProps> = ({
             activeOpacity={hasFile ? 1 : 0.7}
           >
             <Text className={`${textColorClass} text-m font-normal`}>
-              {hasFile ? (
-                <>
-                  <SharedLanguageSwitchRenderer
-                    language={language}
-                    value="Uploaded "
-                    value_ar="تم رفع "
-                  />
-                  <SharedLanguageSwitchRenderer
-                    language={language}
-                    value={documentName}
-                    value_ar={documentName_ar}
-                  />
-                </>
-              ) : (
-                <>
-                  <SharedLanguageSwitchRenderer
-                    language={language}
-                    value="Add "
-                    value_ar="إضافة "
-                  />
-                  <SharedLanguageSwitchRenderer
-                    language={language}
-                    value={documentName}
-                    value_ar={documentName_ar}
-                  />
-                </>
-              )}
+              {language === "ar"
+                ? `${hasFile ? "تم رفع " : "إضافة "}${documentName_ar ?? documentName ?? ""}`
+                : `${hasFile ? "Uploaded " : "Add "}${documentName ?? ""}`}
             </Text>
           </TouchableOpacity>
 
           {hasFile && (
             <TouchableOpacity
-              className={`ml-2 ${textColorClass}`}
+              className={`ms-2 ${textColorClass}`}
               onPress={() => onDownloadClick?.()}
             >
               <FileText size={24} />
@@ -172,33 +148,33 @@ export const UploadDocument: React.FC<DocumentUploaderProps> = ({
       </View>
 
       {error && errorType && (
-        <Text className="text-form-fields-error text-sm mt-1">
-          {errorType === "fileType" ? (
-            <SharedLanguageSwitchRenderer
-              language={language}
-              value={fileTypeErrorMessage}
-              value_ar={fileTypeErrorMessage_ar}
-            />
-          ) : errorType === "fileSize" ? (
-            <SharedLanguageSwitchRenderer
-              language={language}
-              value={fileSizeErrorMessage}
-              value_ar={fileSizeErrorMessage_ar}
-            />
-          ) : (
-            error
-          )}
-        </Text>
+        <SharedLanguageSwitchRenderer
+          language={language}
+          value={
+            errorType === "fileType"
+              ? fileTypeErrorMessage
+              : errorType === "fileSize"
+                ? fileSizeErrorMessage
+                : (error ?? "")
+          }
+          value_ar={
+            errorType === "fileType"
+              ? fileTypeErrorMessage_ar
+              : errorType === "fileSize"
+                ? fileSizeErrorMessage_ar
+                : (error ?? "")
+          }
+          className="text-form-fields-error text-sm mt-1"
+        />
       )}
 
       {!error && allowedTypes && allowedTypes.length > 0 && !hasFile && (
-        <Text className={`${textColorClass} text-sm mt-1`}>
-          <SharedLanguageSwitchRenderer
-            language={language}
-            value={`Accepted formats: ${(allowedTypes ?? []).join(", ")}`}
-            value_ar={`التنسيقات المقبولة: ${(allowedTypes ?? []).join(", ")}`}
-          />
-        </Text>
+        <SharedLanguageSwitchRenderer
+          language={language}
+          value={`Accepted formats: ${(allowedTypes ?? []).join(", ")}`}
+          value_ar={`التنسيقات المقبولة: ${(allowedTypes ?? []).join(", ")}`}
+          className={`${textColorClass} text-sm mt-1`}
+        />
       )}
     </View>
   );

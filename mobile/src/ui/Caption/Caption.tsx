@@ -59,7 +59,7 @@ export const Caption: React.FC<CaptionProps> = ({
       )}
 
       {!disabled && hasError && (errorMessage || errorMessage_ar) && (
-        <View style={{ alignSelf: isRtl ? "flex-end" : "flex-start" }}>
+        <View style={{ alignSelf: "flex-start" }}>
           <Text>
             <SharedLanguageSwitchRenderer
               language={language}

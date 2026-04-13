@@ -223,7 +223,7 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
                 </Text>
               </Container>
               <Container className="flex-1">
-                <Text className="text-m ml-m text-text-default">{card.author}</Text>
+                <Text className="text-m ms-m text-text-default">{card.author}</Text>
               </Container>
             </Container>
 
@@ -240,7 +240,7 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
                 </Text>
               </Container>
               <Container className="flex-1">
-                <Text className="text-m ml-m text-text-default">{card.date}</Text>
+                <Text className="text-m ms-m text-text-default">{card.date}</Text>
               </Container>
             </Container>
           </Container>

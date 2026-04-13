@@ -34,12 +34,7 @@ const Prompt: React.FC<PromptProps> = ({
         language={language}
         className="text-m text-text-default"
       />
-      <View
-        style={{
-          flexDirection: "row",
-          gap: 16,
-        }}
-      >
+      <View style={{ flexDirection: "row", gap: 16 }}>
         <Buttons
           title={noText}
           title_ar={noText_ar}

@@ -47,7 +47,7 @@ export const Bot: React.FC<BotProps> = ({
 
       <SvgUri
         uri="https://adrec-images.mastermind-mindset.com/dmtIocn.svg"
-        className="w-16 h-16 rounded-full z-40 mr-5"
+        className="w-16 h-16 rounded-full z-40 me-5"
       />
     </TouchableOpacity>
   );

@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, useWindowDimensions } from "react-native";
+import { View, useWindowDimensions } from "react-native";
+import { Text } from "~/src/ui/Text";
 import { Buttons } from "~/src/ui/Buttons";
 import SharedLanguageSwitchRenderer from "~/components/shared/SharedLanguageSwitchRenderer";
 import type { TitleBarProps, ButtonType } from "@shared/types";

@@ -1,6 +1,7 @@
 import type { ToastProps, ToastStatus } from "@shared/types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
+import { Text } from "~/src/ui/Text";
 import ToastSuccessIcon from "~/assets/svg/icons/toast/Success";
 import ToastErrorIcon from "~/assets/svg/icons/toast/Error";
 import ToastInformationIcon from "~/assets/svg/icons/toast/Information";
@@ -81,7 +82,7 @@ export const Toast: React.FC<ToastProps> = ({
     <View
       className={`min-h-12 flex-row items-center justify-between px-4 py-3 gap-4 ${bg}`}
     >
-      <View className="flex-row items-center gap-4 flex-1">
+      <View className="flex flex-row items-center gap-4 flex-1">
         <Icon color={iconColor} width={24} height={24} />
         <Text className="text-text-default text-s flex-1">{message}</Text>
       </View>

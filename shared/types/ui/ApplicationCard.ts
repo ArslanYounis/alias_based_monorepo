@@ -1,6 +1,7 @@
 export interface ApplicationCardProps {
   onClick?: () => void;
   totalDots?: number;
+  language?: "en" | "ar";
   cardsData: {
     id: string;
     title?: string;

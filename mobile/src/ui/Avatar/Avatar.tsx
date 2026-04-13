@@ -1,6 +1,7 @@
 import type { AvatarProps, StatusType } from "@shared/types";
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
+import { Text } from "~/src/ui/Text";
 import { ProfileIconStatus } from "../ProfileIconStatus";
 
 export type { AvatarProps, StatusType };
