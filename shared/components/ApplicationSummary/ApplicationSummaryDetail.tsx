@@ -109,14 +109,16 @@ const ApplicationSummaryDetail: React.FC<ApplicationSummaryDetailProps> = ({
 
   return (
     <Container className="flex flex-col w-full">
-      <Container className="flex flex-row justify-between items-center">
+      <Container className="flex flex-row justify-between items-center w-full">
         {title && (
-          <CardTitle
-            title={title}
-            title_ar={title_ar}
-            variant="small"
-            language={language}
-          />
+          <Container className="flex-1 min-w-0">
+            <CardTitle
+              title={title}
+              title_ar={title_ar}
+              variant="small"
+              language={language}
+            />
+          </Container>
         )}
 
         {showButton && (

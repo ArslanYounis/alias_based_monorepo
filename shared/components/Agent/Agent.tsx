@@ -29,7 +29,7 @@ const Agent: React.FC<AgentProps> = ({
   platform = "web",
 }) => {
   return (
-    <Container className="flex flex-col gap-xs">
+    <Container className="flex flex-col">
       <CardTitle
         title={title}
         title_ar={title_ar}
