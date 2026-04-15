@@ -16,7 +16,7 @@ const ModalTitle: React.FC<ModalTitleProps> = ({
   language = "en",
   platform = "web",
 }) => (
-  <Container className="flex flex-1" dir={language === "ar" ? "rtl" : "ltr"}>
+  <Container className="flex w-full" dir={language === "ar" ? "rtl" : "ltr"}>
     <Text
       className={`${
         platform === "web" ? "text-heading-h1" : "text-heading-h3"

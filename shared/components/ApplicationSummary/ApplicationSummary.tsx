@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
-import { Buttons } from "@platform/Buttons";
 import { ChevronDownIcon, ChevronUpIcon } from "@platform/icons";
 import CardTitle from "../CardTitle";
 import Agent from "../Agent";
@@ -253,31 +252,30 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
               {isExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
             </button>
           ) : (
-            <Buttons
-              size="s"
-              type="secondary"
-              language={language}
-              title=""
-              onClick={handleExpandToggle}
-              leftIcon={
-                isExpanded ? (
-                  <ChevronUpIcon color="#008DCB" />
-                ) : (
-                  <ChevronDownIcon color="#008DCB" />
-                )
-              }
-            />
+            <Container onClick={handleExpandToggle}>
+              {isExpanded ? (
+                <ChevronUpIcon color="#008DCB" />
+              ) : (
+                <ChevronDownIcon color="#008DCB" />
+              )}
+            </Container>
           )}
         </Container>
       </Container>
 
       {/* Body */}
       {isExpanded && (
-        <Container className={`grid grid-cols-${gridCols} gap-l mt-l`}>
+        <Container
+          className={
+            platform === "mobile"
+              ? "flex flex-col shrink-0 gap-l mt-l"
+              : `grid grid-cols-${gridCols} gap-l mt-l`
+          }
+        >
           {sectionsArray?.map((blocks, columnIndex) => (
-            <Container key={columnIndex} className="flex flex-col gap-xl">
+            <Container key={columnIndex} className={`flex flex-col ${platform === "mobile" ? "gap-l" : "gap-xl"}`}>
               {blocks?.map((block, blockIndex) =>
-                renderSection(block, blockIndex)
+                renderSection(block, blockIndex),
               )}
             </Container>
           ))}

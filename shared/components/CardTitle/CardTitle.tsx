@@ -159,20 +159,13 @@ const CardTitle: React.FC<ICardTitleProps> = ({
                 {isExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
               </button>
             ) : (
-              <Buttons
-                size="s"
-                type="secondary"
-                language={language}
-                title=""
-                onClick={onToggleExpand}
-                leftIcon={
-                  isExpanded ? (
-                    <ChevronUpIcon color="#008DCB" />
-                  ) : (
-                    <ChevronDownIcon color="#008DCB" />
-                  )
-                }
-              />
+              <Container onClick={onToggleExpand}>
+                {isExpanded ? (
+                  <ChevronUpIcon color="#008DCB" />
+                ) : (
+                  <ChevronDownIcon color="#008DCB" />
+                )}
+              </Container>
             ))}
           {!isExpandable && showTitleButtons && titleButtons?.length > 0 && (
             <Container className="flex flex-row flex-wrap items-center justify-between gap-xs">

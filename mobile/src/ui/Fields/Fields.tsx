@@ -254,7 +254,7 @@ export const Fields: React.FC<FormFieldProps> = ({
           data-testid={testId}
           editable={!disabled}
           placeholder={
-            language === "en" ? placeholder : placeholder_ar ?? placeholder
+            language === "en" ? placeholder : (placeholder_ar ?? placeholder)
           }
           onChange={(e) => {
             const text = e.nativeEvent.text;
@@ -262,6 +262,7 @@ export const Fields: React.FC<FormFieldProps> = ({
             setInternalValue(text);
           }}
           className={`${baseInputClass} ${getInputClasses()} resize-none`}
+          style={{ textAlignVertical: "top" }}
         />
         {renderError()}
       </View>
@@ -532,6 +533,7 @@ export const Fields: React.FC<FormFieldProps> = ({
           <TextInput
             id={id}
             {...inputProps}
+            editable={!disabled}
             maxLength={15}
             data-testid={testId}
             keyboardType="numeric"

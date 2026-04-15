@@ -1,6 +1,5 @@
 import React from "react";
-import { View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { View, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { Toast } from "../Toast";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
@@ -59,19 +58,19 @@ export const Layout: React.FC<LayoutProps> = ({
       ) : null}
 
       {/* Scrollable Content Area */}
-      <KeyboardAwareScrollView
+      <KeyboardAvoidingView
         style={{ flex: 1 }}
-        contentContainerStyle={{ flexGrow: 1 }}
-        showsVerticalScrollIndicator={false}
-        nestedScrollEnabled
-        keyboardShouldPersistTaps="handled"
-        enableOnAndroid
-        enableAutomaticScroll={false}
-        enableResetScrollToCoords={false}
-        extraScrollHeight={20}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        {children}
-      </KeyboardAwareScrollView>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 16 }}
+          showsVerticalScrollIndicator={false}
+          nestedScrollEnabled
+          keyboardShouldPersistTaps="handled"
+        >
+          {children}
+        </ScrollView>
+      </KeyboardAvoidingView>
 
       {/* Fixed Footer */}
       {showFooter && (

@@ -265,8 +265,8 @@ const Payment: React.FC<PaymentProps> = ({
   };
 
   return (
-    <Container className="flex flex-col flex-1 rounded-md">
-      <Container className="flex flex-col flex-1">
+    <Container className="flex flex-col rounded-md">
+      <Container className="flex flex-col">
         {/* Payment / No Payment choice */}
         <Container className="mb-xl flex flex-row gap-m">
           <RadioCard

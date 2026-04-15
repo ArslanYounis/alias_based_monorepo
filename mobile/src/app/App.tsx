@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, I18nManager } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Text } from "~/src/ui/Text";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
@@ -43,14 +43,20 @@ import { Tooltip } from "~/src/ui/Tooltip";
 import { Bot } from "~/src/ui/Bot";
 import { Logo } from "~/src/ui/Logo";
 import { RadioCard } from "~/src/ui/RadioCard";
+import OwnerCard from "@shared/components/OwnerCard/OwnerCard";
+import PlotCard from "@shared/components/PlotCard/PlotCard";
+import ApplicationSummary from "@shared/components/ApplicationSummary/ApplicationSummary";
+import type { Owner } from "@shared/components/OwnerCard/OwnerCard";
+import type { Plot } from "@shared/components/PlotCard/PlotCard";
+import type { UiBlock, UploadDocumentsProps } from "@shared/components/ApplicationSummary/ApplicationSummary.types";
 import type { ToastProps } from "@shared/types";
 
 // Force RTL layout for Arabic
-I18nManager.forceRTL(true); 
-I18nManager.allowRTL(true);
+// I18nManager.forceRTL(true); 
+// I18nManager.allowRTL(true);
 
 const queryClient = new QueryClient();
-const LANG = "ar";
+const LANG = "en";
 
 const DROPDOWN_OPTIONS = [
   { label: "Option A", label_ar: "الخيار أ", value: "a" },
@@ -68,6 +74,473 @@ const RADIO_OPTIONS = [
   { label: "Yes", label_ar: "نعم", value: "yes" },
   { label: "No", label_ar: "لا", value: "no" },
   { label: "Maybe", label_ar: "ربما", value: "maybe" },
+];
+
+const SAMPLE_OWNERS: Owner[] = [
+  {
+    ownerId: "owner-1",
+    ownerArgs: "args-1",
+    name: "Talal Ahmed Salem",
+    name_ar: "طلال أحمد سالم",
+    fields: [
+      {
+        label: "UAE National ID",
+        label_ar: "الهوية الوطنية الإماراتية",
+        value: "78273890399292",
+        value_ar: "78273890399292",
+      },
+      {
+        label: "MOI Unified Number",
+        label_ar: "رقم وزارة الداخلية الموحد",
+        value: "330928",
+        value_ar: "330928",
+      },
+      {
+        label: "Archive Number",
+        label_ar: "رقم الأرشيف",
+        value: "7921",
+        value_ar: "7921",
+      },
+      {
+        label: "Nationality",
+        label_ar: "الجنسية",
+        value: "United Arab Emirates",
+        value_ar: "الإمارات العربية المتحدة",
+      },
+      {
+        label: "Special Nationality",
+        label_ar: "الجنسية الخاصة",
+        value: "No",
+        value_ar: "لا",
+      },
+      {
+        label: "Share",
+        label_ar: "الحصة",
+        value: "100% Allotment 50% Share",
+        value_ar: "100% تخصيص 50% حصة",
+      },
+      {
+        label: "Right Hold Type",
+        label_ar: "نوع حق الحيازة",
+        value: "Ownership Musataha",
+        value_ar: "ملكية مستطاعة",
+      },
+    ],
+  },
+  {
+    ownerId: "owner-2",
+    ownerArgs: "args-2",
+    name: "Ahmed Abdulla Ahmed Mohamed",
+    name_ar: "أحمد عبد الله أحمد محمد",
+    fields: [
+      {
+        label: "UAE National ID",
+        label_ar: "الهوية الوطنية الإماراتية",
+        value: "78451234567890",
+        value_ar: "78451234567890",
+      },
+      {
+        label: "MOI Unified Number",
+        label_ar: "رقم وزارة الداخلية الموحد",
+        value: "445566",
+        value_ar: "445566",
+      },
+      {
+        label: "Archive Number",
+        label_ar: "رقم الأرشيف",
+        value: "8932",
+        value_ar: "8932",
+      },
+      {
+        label: "Nationality",
+        label_ar: "الجنسية",
+        value: "United Arab Emirates",
+        value_ar: "الإمارات العربية المتحدة",
+      },
+      {
+        label: "Share",
+        label_ar: "الحصة",
+        value: "75% Allotment 75% Share",
+        value_ar: "75% تخصيص 75% حصة",
+      },
+    ],
+  },
+  {
+    ownerId: "owner-3",
+    ownerArgs: "args-3",
+    name: "Fatima Ali Hassan",
+    name_ar: "فاطمة علي حسن",
+    fields: [
+      {
+        label: "UAE National ID",
+        label_ar: "الهوية الوطنية الإماراتية",
+        value: "78901234567890",
+        value_ar: "78901234567890",
+      },
+      {
+        label: "MOI Unified Number",
+        label_ar: "رقم وزارة الداخلية الموحد",
+        value: "556677",
+        value_ar: "556677",
+      },
+      {
+        label: "Nationality",
+        label_ar: "الجنسية",
+        value: "United Arab Emirates",
+        value_ar: "الإمارات العربية المتحدة",
+      },
+      {
+        label: "Share",
+        label_ar: "الحصة",
+        value: "50% Allotment 50% Share",
+        value_ar: "50% تخصيص 50% حصة",
+      },
+    ],
+  },
+];
+
+const SAMPLE_PLOTS: Plot[] = [
+  {
+    plotId: "plot-1",
+    plotArgs: "args-1",
+    plotNumber: "C1",
+    plotNumber_ar: "ج1",
+    fields: [
+      {
+        label: "Plot Address",
+        label_ar: "عنوان القطعة",
+        value: "0-222-000-RCH9999",
+        value_ar: "0-222-000-RCH9999",
+      },
+      {
+        label: "Zone/District",
+        label_ar: "المنطقة/الحي",
+        value: "Al Layyan",
+        value_ar: "اللیان",
+      },
+      {
+        label: "Sector",
+        label_ar: "القطاع",
+        value: "Seih Al Sedeirah 64",
+        value_ar: "سيح السديرة 64",
+      },
+      {
+        label: "Municipality",
+        label_ar: "البلدية",
+        value: "Abu Dhabi City",
+        value_ar: "مدينة أبوظبي",
+      },
+      {
+        label: "Allocation Type",
+        label_ar: "نوع التخصيص",
+        value: "Commercial",
+        value_ar: "تجاري",
+      },
+      {
+        label: "Area",
+        label_ar: "المساحة",
+        value: "314,939.11 Square Meter",
+        value_ar: "314,939.11 متر مربع",
+      },
+    ],
+  },
+  {
+    plotId: "plot-2",
+    plotArgs: "args-2",
+    plotNumber: "C2",
+    plotNumber_ar: "ج2",
+    fields: [
+      {
+        label: "Plot Address",
+        label_ar: "عنوان القطعة",
+        value: "0-333-000-RCH8888",
+        value_ar: "0-333-000-RCH8888",
+      },
+      {
+        label: "Zone/District",
+        label_ar: "المنطقة/الحي",
+        value: "Al Khalidiyah",
+        value_ar: "الخالدية",
+      },
+      {
+        label: "Sector",
+        label_ar: "القطاع",
+        value: "Sector 12",
+        value_ar: "القطاع 12",
+      },
+      {
+        label: "Municipality",
+        label_ar: "البلدية",
+        value: "Abu Dhabi City",
+        value_ar: "مدينة أبوظبي",
+      },
+    ],
+  },
+];
+
+// Wrapper so UploadDocuments satisfies the DocumentsComponent signature
+const MobileDocumentsComponent = (props: UploadDocumentsProps & { language?: string }) => (
+  <UploadDocuments
+    {...props}
+    handleUploadInternally={false}
+    onFileChange={() => {}}
+  />
+);
+
+const APP_SUMMARY_DATA: UiBlock[][] = [
+  [
+    {
+      type: "agent",
+      data: {
+        agent: {
+          name: "English Name",
+          name_ar: "Arabic Name",
+          email: "email@test.com",
+          phone: "0500000000",
+        },
+      },
+    },
+    {
+      type: "applicationDetails",
+      data: {
+        applicationNumber: "APP-123",
+        applicationNumber_ar: "١٢٣-APP",
+      },
+    },
+    {
+      type: "plot",
+      data: {
+        title: "Plot",
+        plots: [
+          {
+            plotId: "1",
+            plotArgs: "1",
+            plotNumber: "Plot-01",
+            fields: [
+              { label: "Zone", value: "Zone A" },
+              { label: "District", value: "District 1" },
+              { label: "Community", value: "Community X" },
+            ],
+          },
+        ],
+        showChangePlotButton: true,
+        showViewButton: true,
+        showOwnersButton: true,
+      },
+    },
+    {
+      type: "owners",
+      data: {
+        title: "Owners",
+        owners: [
+          {
+            ownerId: "1",
+            ownerArgs: "1",
+            name: "Owner Name",
+            fields: [
+              { label: "Share", value: "50%" },
+              { label: "Hold Type", value: "Ownership" },
+            ],
+          },
+          {
+            ownerId: "2",
+            ownerArgs: "2",
+            name: "Owner Name 2",
+            fields: [
+              { label: "Share", value: "50%" },
+              { label: "Hold Type", value: "Ownership" },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      type: "genericCards",
+      data: {
+        title: "Late Payment Details",
+        title_ar: "تفاصيل التأخير في الدفع",
+        cardsData: [
+          {
+            rowsData: [
+              { label: "Tenancy Contract Type", value: "Standing" },
+              { label: "Start Date", value: "29/6/2025" },
+              { label: "Rent Amount", value: "912" },
+            ],
+            showTitleButtons: true,
+            titleButtons: [
+              { title: "Edit", title_ar: "تعديل", onClick: () => {} },
+              { title: "View", title_ar: "عرض", onClick: () => {} },
+            ],
+          },
+        ],
+        isExpandable: false,
+        showButtons: false,
+      },
+    },
+    {
+      type: "genericTableCard",
+      data: {
+        title: "Owner Information",
+        title_ar: "معلومات المالك",
+        description: "Description",
+        description_ar: "Arabic Description",
+        cardTitleLabel: "Card Title Label",
+        cardTitleValue: "Card Title Value",
+        variant: "small",
+        columnsData: [
+          { key: "field", label: "Field", label_ar: "الحقل" },
+          { key: "col1", label: "Value 1", label_ar: "القيمة 1" },
+          { key: "col2", label: "Value 2", label_ar: "القيمة 2" },
+          { key: "col3", label: "Value 3", label_ar: "القيمة 3" },
+        ],
+        rowsData: [
+          {
+            label: "Identity Details",
+            label_ar: "تفاصيل الهوية",
+            extraItems: [
+              { label: "UAE National ID", label_ar: "الهوية الوطنية الإماراتية", value: "78273890399292", value_ar: "78273890399292" },
+              { label: "MOI Unified Number", label_ar: "رقم وزارة الداخلية الموحد", value: "330928", value_ar: "330928" },
+            ],
+          },
+          {
+            label: "Nationality Details",
+            label_ar: "تفاصيل الجنسية",
+            extraItems: [
+              { label: "Nationality", label_ar: "الجنسية", value: "United Arab Emirates", value_ar: "الإمارات العربية المتحدة" },
+              { label: "Share", label_ar: "الحصة", value: "100% Allotment 50% Share", value_ar: "100% تخصيص 50% حصة" },
+            ],
+          },
+        ],
+        showFooterButtons: true,
+        footerButton: [
+          { title: "Edit", title_ar: "تعديل", onClick: () => {} },
+          { title: "View", title_ar: "عرض", onClick: () => {} },
+        ],
+        handlePaginationInternally: false,
+        showPagination: true,
+        currentPage: 1,
+        totalPages: 10,
+        pageSize: 5,
+        onPageChange: () => {},
+      },
+    },
+  ],
+  [
+    {
+      type: "genericCards",
+      data: {
+        title: "Tenant Info",
+        title_ar: "معلومات المستأجر",
+        cardsData: [
+          {
+            rowsData: [
+              { label: "Name", value: "John Doe" },
+              { label: "Status", value: "Active" },
+              { label: "Contract", value: "Annual" },
+              { label: "Unit", value: "A-101" },
+            ],
+            showMoreButton: true,
+            defaultShowMore: false,
+            buttons: [
+              { title: "Edit", title_ar: "تعديل", onClick: () => {} },
+              { title: "View", title_ar: "عرض", onClick: () => {} },
+            ],
+            showFooterButtons: true,
+            footerButton: [
+              { title: "Edit", title_ar: "تعديل", type: "primary", onClick: () => {} },
+              { title: "View", title_ar: "عرض", type: "secondary", onClick: () => {} },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      type: "genericCard",
+      data: {
+        title: "Tenant Info with Generic Card",
+        title_ar: "معلومات المستأجر",
+        cardTitleLabel: "Tenant Info with Generic Card",
+        cardTitleLabel_ar: "معلومات المستأجر",
+        variant: "small",
+        rowsData: [
+          { label: "Name", value: "John Doe" },
+          { label: "Status", value: "Active" },
+          { label: "Contract", value: "Annual" },
+          { label: "Unit", value: "A-101" },
+        ],
+        showMoreButton: true,
+        defaultShowMore: false,
+        showButtons: true,
+        buttons: [
+          { title: "Edit", title_ar: "تعديل", onClick: () => {} },
+          { title: "View", title_ar: "عرض", onClick: () => {} },
+        ],
+      },
+    },
+    {
+      type: "interactionHistory",
+      data: {
+        totalCompletedSteps: 0,
+        totalSteps: 6,
+        wfiStepList: [
+          {
+            title: "Registration",
+            title_ar: "التسجيل",
+            stepConst: "ElmsAllotmentOfRanchPlots.Registration",
+            stepStatusE: "Completed",
+            stepStatusA: "مكتمل",
+            comments: "Application submitted successfully",
+            isCurrent: false,
+            completedByCustomerNameE: "John Doe",
+            completedByCustomerNameA: "جون دو",
+            completeDate: "2025-01-15",
+          },
+          {
+            title: "Assignment",
+            title_ar: "التخصيص",
+            stepConst: "ElmsAllotmentOfRanchPlots.Assignment",
+            stepStatusE: "In Progress",
+            stepStatusA: "قيد التنفيذ",
+            comments: "Under review by the registration team",
+            isCurrent: true,
+            completedByCustomerNameE: "Jane Smith",
+            completedByCustomerNameA: "جين سميث",
+            completeDate: "2025-01-18",
+          },
+          {
+            title: "Approval",
+            title_ar: "الموافقة",
+            stepConst: "ElmsAllotmentOfRanchPlots.Approval",
+            stepStatusE: "Pending",
+            stepStatusA: "قيد الانتظار",
+            isCurrent: false,
+          },
+        ],
+      },
+    },
+    {
+      type: "documents",
+      title: "Documents",
+      title_ar: "وثائق",
+      data: {
+        documents: [
+          {
+            documentName: "Identity Document",
+            documentName_ar: "وثيقة الهوية",
+            isUploaded: true,
+            downloadUrl: "https://example.com/document1.pdf",
+          },
+          {
+            documentName: "Property Deed",
+            documentName_ar: "سند الملكية",
+            isUploaded: true,
+            downloadUrl: "https://example.com/document2.pdf",
+          },
+        ],
+        type: "base",
+      },
+    },
+  ],
 ];
 
 function SectionHeader({ title }: { title: string }) {
@@ -1022,6 +1495,309 @@ export default function App() {
                   },
                 ]}
                 onFileChange={() => {}}
+              />
+
+              {/* ── OwnerCard ─────────────────────────────────────── */}
+              <SectionHeader title="OwnerCard — Default (EN, View+Plots+Edit)" />
+              <OwnerCard
+                owners={SAMPLE_OWNERS}
+                title="Owners"
+                title_ar="الملاك"
+                showViewButton
+                showPlotsButton
+                showEditButton
+                showDeleteButton={false}
+                language="en"
+                itemsPerRow="1"
+                isExpandable
+                defaultShowMore={false}
+                platform="mobile"
+                onPressAction={() => {}}
+              />
+
+              <SectionHeader title="OwnerCard — With Delete Button" />
+              <OwnerCard
+                owners={SAMPLE_OWNERS}
+                title="Owners"
+                title_ar="الملاك"
+                showViewButton
+                showPlotsButton
+                showEditButton
+                showDeleteButton
+                language="en"
+                itemsPerRow="1"
+                isExpandable
+                defaultShowMore={false}
+                platform="mobile"
+                onPressAction={() => {}}
+              />
+
+              <SectionHeader title="OwnerCard — Two Columns" />
+              <OwnerCard
+                owners={SAMPLE_OWNERS}
+                title="Owners"
+                title_ar="الملاك"
+                showViewButton
+                showPlotsButton
+                showEditButton
+                showDeleteButton={false}
+                language="en"
+                itemsPerRow="2"
+                isExpandable
+                defaultShowMore={false}
+                platform="mobile"
+                onPressAction={() => {}}
+              />
+
+              <SectionHeader title="OwnerCard — Arabic (RTL)" />
+              <OwnerCard
+                owners={SAMPLE_OWNERS}
+                title="Owners"
+                title_ar="الملاك"
+                showViewButton
+                showPlotsButton
+                showEditButton
+                showDeleteButton={false}
+                language="ar"
+                itemsPerRow="1"
+                isExpandable
+                defaultShowMore={false}
+                platform="mobile"
+                onPressAction={() => {}}
+              />
+
+              <SectionHeader title="OwnerCard — Arabic Two Columns" />
+              <OwnerCard
+                owners={SAMPLE_OWNERS}
+                title="Owners"
+                title_ar="الملاك"
+                showViewButton
+                showPlotsButton
+                showEditButton
+                showDeleteButton={false}
+                language="ar"
+                itemsPerRow="2"
+                isExpandable
+                defaultShowMore={false}
+                platform="mobile"
+                onPressAction={() => {}}
+              />
+
+              <SectionHeader title="OwnerCard — Single Owner" />
+              <OwnerCard
+                owners={[SAMPLE_OWNERS[0]]}
+                title="Owner Details"
+                title_ar="تفاصيل المالك"
+                showViewButton
+                showPlotsButton
+                showEditButton
+                showDeleteButton={false}
+                language="en"
+                itemsPerRow="1"
+                isExpandable
+                defaultShowMore={false}
+                platform="mobile"
+                onPressAction={() => {}}
+              />
+
+              <SectionHeader title="OwnerCard — Default Show More" />
+              <OwnerCard
+                owners={SAMPLE_OWNERS}
+                title="Owners"
+                title_ar="الملاك"
+                showViewButton
+                showPlotsButton
+                showEditButton
+                showDeleteButton={false}
+                language="en"
+                itemsPerRow="1"
+                isExpandable
+                defaultShowMore
+                platform="mobile"
+                onPressAction={() => {}}
+              />
+
+              <SectionHeader title="OwnerCard — Not Expandable" />
+              <OwnerCard
+                owners={SAMPLE_OWNERS}
+                title="Owners"
+                title_ar="الملاك"
+                showViewButton
+                showPlotsButton
+                showEditButton
+                showDeleteButton={false}
+                language="en"
+                itemsPerRow="1"
+                isExpandable={false}
+                defaultShowMore={false}
+                platform="mobile"
+                onPressAction={() => {}}
+              />
+
+              <SectionHeader title="OwnerCard — Minimal Buttons (View Only)" />
+              <OwnerCard
+                owners={SAMPLE_OWNERS}
+                title="Owners"
+                title_ar="الملاك"
+                showViewButton
+                showPlotsButton={false}
+                showEditButton={false}
+                showDeleteButton={false}
+                language="en"
+                itemsPerRow="1"
+                isExpandable
+                defaultShowMore={false}
+                platform="mobile"
+                onPressAction={() => {}}
+              />
+
+              {/* ── PlotCard ──────────────────────────────────────── */}
+              <SectionHeader title="PlotCard — Default (EN, View Only)" />
+              <PlotCard
+                plots={SAMPLE_PLOTS}
+                title="Plots"
+                title_ar="القطع"
+                showViewButton
+                showChangePlotButton={false}
+                showOwnersButton={false}
+                language="en"
+                defaultShowMore={false}
+                defaultExpanded
+                platform="mobile"
+                onPressView={() => {}}
+              />
+
+              <SectionHeader title="PlotCard — With Change Plot Button" />
+              <PlotCard
+                plots={SAMPLE_PLOTS}
+                title="Plots"
+                title_ar="القطع"
+                showViewButton
+                showChangePlotButton
+                showOwnersButton={false}
+                language="en"
+                defaultShowMore={false}
+                defaultExpanded
+                platform="mobile"
+                onPressView={() => {}}
+                onPressPlotChange={() => {}}
+              />
+
+              <SectionHeader title="PlotCard — With Owners Button" />
+              <PlotCard
+                plots={SAMPLE_PLOTS}
+                title="Plots"
+                title_ar="القطع"
+                showViewButton
+                showChangePlotButton={false}
+                showOwnersButton
+                language="en"
+                defaultShowMore={false}
+                defaultExpanded
+                platform="mobile"
+                onPressView={() => {}}
+                onPressOwners={() => {}}
+              />
+
+              <SectionHeader title="PlotCard — Arabic (RTL)" />
+              <PlotCard
+                plots={SAMPLE_PLOTS}
+                title="Plots"
+                title_ar="القطع"
+                showViewButton
+                showChangePlotButton={false}
+                showOwnersButton={false}
+                language="ar"
+                defaultShowMore={false}
+                defaultExpanded
+                platform="mobile"
+                onPressView={() => {}}
+              />
+
+              <SectionHeader title="PlotCard — Single Plot" />
+              <PlotCard
+                plots={[SAMPLE_PLOTS[0]]}
+                title="Plot Details"
+                title_ar="تفاصيل القطعة"
+                showViewButton
+                showChangePlotButton={false}
+                showOwnersButton={false}
+                language="en"
+                defaultShowMore={false}
+                defaultExpanded
+                platform="mobile"
+                onPressView={() => {}}
+              />
+
+              <SectionHeader title="PlotCard — Default Show More" />
+              <PlotCard
+                plots={SAMPLE_PLOTS}
+                title="Plots"
+                title_ar="القطع"
+                showViewButton
+                showChangePlotButton={false}
+                showOwnersButton={false}
+                language="en"
+                defaultShowMore
+                defaultExpanded
+                platform="mobile"
+                onPressView={() => {}}
+              />
+
+              <SectionHeader title="PlotCard — Collapsed (defaultExpanded=false)" />
+              <PlotCard
+                plots={SAMPLE_PLOTS}
+                title="Plots"
+                title_ar="القطع"
+                showViewButton
+                showChangePlotButton={false}
+                showOwnersButton={false}
+                language="en"
+                defaultShowMore={false}
+                defaultExpanded={false}
+                platform="mobile"
+                onPressView={() => {}}
+              />
+
+              {/* ── ApplicationSummary ───────────────────────────── */}
+              <SectionHeader title="ApplicationSummary — Default (EN, 2 Columns)" />
+              <ApplicationSummary
+                title="Application Summary"
+                title_ar="ملخص الطلب"
+                language="en"
+                platform="mobile"
+                data={APP_SUMMARY_DATA}
+                DocumentsComponent={MobileDocumentsComponent}
+              />
+
+              <SectionHeader title="ApplicationSummary — Arabic / RTL (2 Columns)" />
+              <ApplicationSummary
+                title="Application Summary"
+                title_ar="ملخص الطلب"
+                language="ar"
+                platform="mobile"
+                data={APP_SUMMARY_DATA}
+                DocumentsComponent={MobileDocumentsComponent}
+              />
+
+              <SectionHeader title="ApplicationSummary — Single Column (EN)" />
+              <ApplicationSummary
+                title="Application Summary"
+                title_ar="ملخص الطلب"
+                language="en"
+                platform="mobile"
+                data={[APP_SUMMARY_DATA[0]]}
+                DocumentsComponent={MobileDocumentsComponent}
+              />
+
+              <SectionHeader title="ApplicationSummary — Second Column Only (GenericCards / Interaction / Documents)" />
+              <ApplicationSummary
+                title="Application Summary"
+                title_ar="ملخص الطلب"
+                language="en"
+                platform="mobile"
+                data={[APP_SUMMARY_DATA[1]]}
+                DocumentsComponent={MobileDocumentsComponent}
               />
 
               {/* ── Bot ───────────────────────────────────────────── */}

@@ -76,14 +76,16 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
       ? "grid-cols-2"
       : "grid-cols-1";
 
+  const isMobile = platform === "mobile";
+
   return (
     <Container
       className="w-full flex flex-col shrink-0"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <Container
-        className={`grid gap-xl ${gridCols}`}
-        style={itemsPerRow !== "1" ? { gridAutoFlow: "dense" } : undefined}
+        className={isMobile ? "flex flex-col gap-xl" : `grid gap-xl ${gridCols}`}
+        style={!isMobile && itemsPerRow !== "1" ? { gridAutoFlow: "dense" } : undefined}
       >
         {cardsData?.map((card, idx) => {
           const isExpanded = expandedIndices.includes(idx);

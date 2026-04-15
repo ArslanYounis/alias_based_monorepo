@@ -35,9 +35,16 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
       className="bg-base-white border border-border-light w-full min-w-[173px] h-[90.53px] rounded-xs py-xs px-s flex flex-col flex-grow justify-center gap-xs border-b-2 border-b-status-pending-solid"
       onClick={onClick}
     >
-      <Text className="text-bold-xs text-base-black">{cardsData.id}</Text>
-      <Text className="text-xs text-base-black">{cardsData.remaining}</Text>
-
+      <Container className="flex flex-row justify-between items-center">
+        <Text className="text-bold-xs text-base-black">{cardsData.title}</Text>
+        <Text className="text-xs text-base-black">{cardsData.id}</Text>
+      </Container>
+      <Container className="flex flex-row justify-between items-center">
+        <Text className="text-xs text-base-black max-w-[150px]">
+          {cardsData.location}
+        </Text>
+        <Text className="text-xs text-base-black">{cardsData.date}</Text>
+      </Container>
       <Container className="flex flex-row gap-xxs">
         {allStatusBalls.map((status, index) => (
           <StatusBalls

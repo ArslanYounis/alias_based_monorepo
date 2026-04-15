@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { some } from "lodash";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
@@ -67,6 +67,7 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
 }) => {
   const [selectedIds, setSelectedIds] =
     React.useState<SearchResult[]>(selected);
+  const [plotToShow, setPlotToShow] = useState<string>("");
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
   const [isOwnerPlotsDrawerOpen, setOwnerPlotsDrawerOpen] =
@@ -99,7 +100,7 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
   const renderResultCard = (result: SearchResult, index: number) => {
     const isSelected = some(
       selectedIds,
-      (val) => val.plotId === result?.plotId
+      (val) => val.plotId === result?.plotId,
     );
 
     return (
@@ -113,7 +114,9 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
         onClick={() => handleRadioSelect(result)}
       >
         <Container className="flex flex-row justify-between mb-s">
-          <Text className={`text-bold-l line-clamp-2 min-w-0 flex-1 me-s ${textColor}`}>
+          <Text
+            className={`text-bold-l line-clamp-2 min-w-0 flex-1 me-s ${textColor}`}
+          >
             <SharedLanguageSwitchRenderer
               language={language}
               value={result?.communityName}
@@ -127,7 +130,7 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
               size="s"
               type="secondary"
               language={language}
-              onClick={() => setOwnerPlotsDrawerOpen(true)}
+              // onClick={() => setOwnerPlotsDrawerOpen(true)}
             />
             <Buttons
               title="Details"
@@ -135,7 +138,10 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
               size="s"
               type="secondary"
               language={language}
-              onClick={() => setDrawerOpen(true)}
+              onClick={() => {
+                setPlotToShow(result?.plotId);
+                setDrawerOpen(true);
+              }}
             />
             <Radio
               id={result?.plotId}
@@ -313,13 +319,15 @@ const SearchPlotResults: React.FC<SearchResultsModalProps> = ({
         size="layer2"
         language={language}
         open={isDrawerOpen}
-        onOpenChange={setDrawerOpen}
+        onOpenChange={(val) => {
+          setDrawerOpen(val);
+          if (!val) {
+            setPlotToShow("");
+          }
+        }}
       >
         {selectedIds && (
-          <ViewPlotDetail
-            language={language}
-            plotIds={[selectedIds?.[0]?.plotId]}
-          />
+          <ViewPlotDetail language={language} plotIds={[plotToShow]} />
         )}
       </CustomDrawer>
 

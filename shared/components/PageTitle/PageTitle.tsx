@@ -22,7 +22,7 @@ const PageTitle: FC<PageTitleProps> = ({
 }) => {
   return (
     <Container
-      className="flex flex-1 items-center justify-between"
+      className="flex w-full items-center justify-between"
       dir={language === "en" ? "ltr" : "rtl"}
     >
       <Text className="text-heading-h2 font-bold text-text-default">

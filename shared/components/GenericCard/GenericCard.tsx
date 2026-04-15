@@ -134,19 +134,19 @@ const GenericCard: React.FC<IGenericCardProps> = ({
       {expanded ? (
         <Container className="rounded-xs bg-cards-base-l1 text-text-default px-l py-m border border-cards-stroke">
           {(cardTitleLabel || cardTitleLabel_ar || showButtons) && (
-            <Container className="flex flex-row justify-between items-center mb-s">
-              <Text
-                className={`text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal min-w-0 ${
-                  platform === "mobile" ? "w-[50%]" : ""
-                }`}
-              >
-                <SharedLanguageSwitchRenderer
-                  language={language}
-                  value={cardTitleLabel}
-                  value_ar={cardTitleLabel_ar}
-                />
-              </Text>
-              <Container className="flex flex-row gap-s flex-wrap">
+            <Container className="flex flex-row justify-between items-start mb-s gap-s">
+              <Container className="flex-1 min-w-0">
+                <Text
+                  className="text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal line-clamp-2"
+                >
+                  <SharedLanguageSwitchRenderer
+                    language={language}
+                    value={cardTitleLabel}
+                    value_ar={cardTitleLabel_ar}
+                  />
+                </Text>
+              </Container>
+              <Container className="flex flex-row gap-s flex-wrap shrink-0">
                 {showButtons &&
                   buttons?.map((button) => (
                     <Buttons
