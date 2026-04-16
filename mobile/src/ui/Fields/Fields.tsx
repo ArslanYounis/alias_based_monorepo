@@ -504,11 +504,13 @@ export const Fields: React.FC<FormFieldProps> = ({
           <TextInput
             id={id}
             {...inputProps}
+            editable={!disabled}
             maxLength={15}
             data-testid={testId}
             keyboardType="numeric"
             value={value ? value : internalValue}
             onChange={(e) => {
+              if (disabled) return;
               const filtered = numericOnly(e.nativeEvent.text);
               setInternalValue(filtered);
               onChange(filtered);
