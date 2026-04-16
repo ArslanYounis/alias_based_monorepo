@@ -191,7 +191,7 @@ const ByOwner = ({
 
   return (
     <Container className="flex flex-col w-full">
-      <Container className="flex flex-1 flex-col gap-l">
+      <Container className="flex w-full flex-col gap-l">
         {/* Row 1: National Number & Owner Name */}
         <Container className="grid !grid-cols-1 sm:!grid-cols-2 gap-l w-full">
           <form.Field

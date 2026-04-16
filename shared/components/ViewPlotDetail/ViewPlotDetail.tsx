@@ -418,7 +418,7 @@ const ViewPlotDetail: React.FC<ViewPlotDetailProps> = ({
   const isDetailPending = plotDetailsResult.isPending;
 
   return (
-    <Container className="flex flex-col flex-1">
+    <Container className="flex flex-col w-full">
       {isDetailPending && (
         <Container className="h-full flex flex-row items-center justify-center text-text-default text-m font-bold">
           <Text>

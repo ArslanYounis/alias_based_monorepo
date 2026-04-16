@@ -29,12 +29,12 @@ export const Buttons = ({
   const renderMobileIcon = useRenderIcon(mobileIcon);
   const sizeClasses = showIconOnMobile
     ? {
-        s: "w-[40px] h-[24px] px-[8px] py-[4px]",
+        s: "w-[40px] h-[24px] px-[8px] py-[2px]",
         m: "w-[48px] h-[28px] px-[10px] py-[4px]",
         l: "w-[60px] h-[40px] px-[14px] py-[8px]",
       }
     : {
-        s: `text-xs min-w-[87px] ${
+        s: `text-xxs min-w-[87px] ${
           fullWidth ? "w-full" : ""
         } !h-[24px] px-m py-xxs`,
         m: `text-m min-w-[106px] ${

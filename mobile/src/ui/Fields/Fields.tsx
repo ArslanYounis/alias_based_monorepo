@@ -157,7 +157,9 @@ export const Fields: React.FC<FormFieldProps> = ({
       ? "py-xs px-xs !h-[36px]"
       : type === "textarea"
         ? "p-m gap-m !h-[100px]"
-        : "p-m gap-m !h-[50px]"
+        : type === "select"
+          ? "p-m py-s gap-m !h-[50px]"
+          : "p-m gap-m !h-[50px]"
   } font-normal text-s text-text-default rounded-[5px] focus:outline-none placeholder:text-form-fields-input-form-placeholder ${isRTL ? "text-right" : ""}`;
 
   const getInputClasses = () => {
