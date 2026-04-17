@@ -58,7 +58,18 @@ export const DateSelect: React.FC<DateSelectProps> = ({
     }
   }, [value]);
 
-  const handleChange = (_: DateTimePickerEvent, selected?: Date) => {
+  const handleChange = (event: DateTimePickerEvent, selected?: Date) => {
+    if (Platform.OS === "android") {
+      setShowPicker(false);
+      if (event.type === "set" && selected) {
+        setDate(selected);
+        setTempDate(selected);
+        onDateChange?.(selected);
+      } else {
+        setTempDate(date);
+      }
+      return;
+    }
     if (selected) {
       setTempDate(selected);
     }
@@ -165,37 +176,46 @@ export const DateSelect: React.FC<DateSelectProps> = ({
         </Text>
         <CalendarIcon color={hasError ? "#ee3e43" : "#414149"} />
       </Pressable>
-      <Modal
-        visible={showPicker}
-        transparent
-        animationType="fade"
-        onRequestClose={handleCancel}
-      >
-        <TouchableOpacity
-          activeOpacity={1}
-          className="flex-1 justify-end bg-black/50"
-          onPress={handleCancel}
+      {showPicker && Platform.OS === "android" && (
+        <DateTimePicker
+          value={tempDate ?? new Date()}
+          mode="date"
+          display="default"
+          onChange={handleChange}
+          disabled={disabled}
+        />
+      )}
+      {Platform.OS === "ios" && (
+        <Modal
+          visible={showPicker}
+          transparent
+          animationType="fade"
+          onRequestClose={handleCancel}
         >
           <TouchableOpacity
             activeOpacity={1}
-            onPress={() => {}}
-            className="max-h-[70%] rounded-t-xl bg-white p-l dark:bg-neutral-900"
+            className="flex-1 justify-end bg-black/50"
+            onPress={handleCancel}
           >
-            <Text className="mb-m text-bold-l text-text-default">
-              {tempDate
-                ? displayTempDate
-                : language === "ar"
-                ? placeholder_ar || placeholder
-                : placeholder}
-            </Text>
-            <DateTimePicker
-              value={tempDate ?? new Date()}
-              mode="date"
-              display={Platform.OS === "ios" ? "spinner" : "default"}
-              onChange={handleChange}
-              disabled={disabled}
-            />
-            {Platform.OS === "ios" && (
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={() => {}}
+              className="max-h-[70%] rounded-t-xl bg-white p-l dark:bg-neutral-900"
+            >
+              <Text className="mb-m text-bold-l text-text-default">
+                {tempDate
+                  ? displayTempDate
+                  : language === "ar"
+                  ? placeholder_ar || placeholder
+                  : placeholder}
+              </Text>
+              <DateTimePicker
+                value={tempDate ?? new Date()}
+                mode="date"
+                display="spinner"
+                onChange={handleChange}
+                disabled={disabled}
+              />
               <TouchableOpacity
                 onPress={handleDone}
                 className="mt-m rounded-[5px] bg-form-fields-input-form-border py-m"
@@ -205,10 +225,10 @@ export const DateSelect: React.FC<DateSelectProps> = ({
                   {language === "ar" ? "تم" : "Done"}
                 </Text>
               </TouchableOpacity>
-            )}
+            </TouchableOpacity>
           </TouchableOpacity>
-        </TouchableOpacity>
-      </Modal>
+        </Modal>
+      )}
 
       {(captionLeft ||
         captionRight ||
