@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Text } from "~/src/ui/Text";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -43,16 +43,21 @@ import { Tooltip } from "~/src/ui/Tooltip";
 import { Bot } from "~/src/ui/Bot";
 import { Logo } from "~/src/ui/Logo";
 import { RadioCard } from "~/src/ui/RadioCard";
+import DariOwnerSearch from "@shared/components/DariOwnerSearch/dariOwnerSearch";
 import OwnerCard from "@shared/components/OwnerCard/OwnerCard";
 import PlotCard from "@shared/components/PlotCard/PlotCard";
 import ApplicationSummary from "@shared/components/ApplicationSummary/ApplicationSummary";
 import type { Owner } from "@shared/components/OwnerCard/OwnerCard";
 import type { Plot } from "@shared/components/PlotCard/PlotCard";
-import type { UiBlock, UploadDocumentsProps } from "@shared/components/ApplicationSummary/ApplicationSummary.types";
+import type {
+  UiBlock,
+  UploadDocumentsProps,
+} from "@shared/components/ApplicationSummary/ApplicationSummary.types";
 import type { ToastProps } from "@shared/types";
+import axios from "axios";
 
 // Force RTL layout for Arabic
-// I18nManager.forceRTL(true); 
+// I18nManager.forceRTL(true);
 // I18nManager.allowRTL(true);
 
 const queryClient = new QueryClient();
@@ -279,7 +284,9 @@ const SAMPLE_PLOTS: Plot[] = [
 ];
 
 // Wrapper so UploadDocuments satisfies the DocumentsComponent signature
-const MobileDocumentsComponent = (props: UploadDocumentsProps & { language?: string }) => (
+const MobileDocumentsComponent = (
+  props: UploadDocumentsProps & { language?: string }
+) => (
   <UploadDocuments
     {...props}
     handleUploadInternally={false}
@@ -398,16 +405,36 @@ const APP_SUMMARY_DATA: UiBlock[][] = [
             label: "Identity Details",
             label_ar: "تفاصيل الهوية",
             extraItems: [
-              { label: "UAE National ID", label_ar: "الهوية الوطنية الإماراتية", value: "78273890399292", value_ar: "78273890399292" },
-              { label: "MOI Unified Number", label_ar: "رقم وزارة الداخلية الموحد", value: "330928", value_ar: "330928" },
+              {
+                label: "UAE National ID",
+                label_ar: "الهوية الوطنية الإماراتية",
+                value: "78273890399292",
+                value_ar: "78273890399292",
+              },
+              {
+                label: "MOI Unified Number",
+                label_ar: "رقم وزارة الداخلية الموحد",
+                value: "330928",
+                value_ar: "330928",
+              },
             ],
           },
           {
             label: "Nationality Details",
             label_ar: "تفاصيل الجنسية",
             extraItems: [
-              { label: "Nationality", label_ar: "الجنسية", value: "United Arab Emirates", value_ar: "الإمارات العربية المتحدة" },
-              { label: "Share", label_ar: "الحصة", value: "100% Allotment 50% Share", value_ar: "100% تخصيص 50% حصة" },
+              {
+                label: "Nationality",
+                label_ar: "الجنسية",
+                value: "United Arab Emirates",
+                value_ar: "الإمارات العربية المتحدة",
+              },
+              {
+                label: "Share",
+                label_ar: "الحصة",
+                value: "100% Allotment 50% Share",
+                value_ar: "100% تخصيص 50% حصة",
+              },
             ],
           },
         ],
@@ -447,8 +474,18 @@ const APP_SUMMARY_DATA: UiBlock[][] = [
             ],
             showFooterButtons: true,
             footerButton: [
-              { title: "Edit", title_ar: "تعديل", type: "primary", onClick: () => {} },
-              { title: "View", title_ar: "عرض", type: "secondary", onClick: () => {} },
+              {
+                title: "Edit",
+                title_ar: "تعديل",
+                type: "primary",
+                onClick: () => {},
+              },
+              {
+                title: "View",
+                title_ar: "عرض",
+                type: "secondary",
+                onClick: () => {},
+              },
             ],
           },
         ],
@@ -574,6 +611,16 @@ export default function App() {
   const [page, setPage] = useState(3);
   const [botStatus, setBotStatus] = useState<"open" | "close">("close");
 
+  axios.defaults.baseURL =
+    "https://onehub-runtime-backend-dncuhce5dygpbydu.canadacentral-01.azurewebsites.net/";
+  axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    (async function () {
+      await axios.post(`/dmt/login`, { email: "admin", password: "321" });
+    })();
+  }, []);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryClientProvider client={queryClient}>
@@ -588,6 +635,7 @@ export default function App() {
             toast={toast}
           >
             <View style={styles.container}>
+              <DariOwnerSearch platform="mobile" />
               {/* ── Typography ─────────────────────────────────── */}
               <SectionHeader title="Typography" />
               <Typography

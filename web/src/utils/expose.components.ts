@@ -68,6 +68,10 @@ import {
   LayoutGridIcon,
   ReceiptText,
 } from "lucide-react";
+import DariOwnerSearch from "@shared/components/DariOwnerSearch/dariOwnerSearch";
+import { createDariOwnerSearchConfig } from "@shared/components/DariOwnerSearch/dariOwnerSearch.config";
+import Agent from "@shared/components/Agent";
+import { createAgentConfig } from "@shared/components/Agent/Agent.config";
 
 // Create shared configs with platform-specific icons and components
 const CardTitleConfig = createCardTitleConfig(CardTitle, HeadingIcon);
@@ -89,6 +93,8 @@ const GenericTableCardConfigs = createGenericTableCardConfig(GenericTableCard, C
 const GenericCardsConfigs = createGenericCardsConfig(GenericCards, LayoutGridIcon);
 const PaymentDetailsConfigs = createPaymentDetailsConfig(ReceiptText);
 const PageTitleConfigs = createPageTitleConfig(PageTitle, CreditCardIcon);
+const AgentConfigs = createAgentConfig(Agent, FolderSymlinkIcon);
+const DariOwnerSearchConfigs = createDariOwnerSearchConfig(DariOwnerSearch, FolderSymlinkIcon);
 
 /**
  * Array of all component configurations to be exposed to service-builder.
@@ -126,6 +132,8 @@ const exposeComponents = [
   GenericCardsConfigs,
   PageTitleConfigs,
   AuditRemarksConfigs,
+  AgentConfigs,
+  DariOwnerSearchConfigs
 ];
 
 export default exposeComponents;

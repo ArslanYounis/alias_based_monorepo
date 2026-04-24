@@ -1,40 +1,28 @@
-import React, { useEffect } from "react";
 import { some } from "lodash";
-import { Container } from "@platform/Container";
+import React, { useEffect } from "react";
+
 import { Text } from "@platform/Text";
-import { Buttons } from "@platform/Buttons";
 import { Radio } from "@platform/Radio";
+import { Buttons } from "@platform/Buttons";
+import { Container } from "@platform/Container";
 import { Pagination } from "@platform/Pagination";
 import { CustomDrawer } from "@platform/CustomDrawer";
-import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
-import { useRanchRecipient } from "../../hooks/useRanchRecipient";
+
 import ViewOwnerDetail from "../ViewOwnerDetail/ViewOwnerDetail";
+import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 
-export interface IOwnerSearchResult {
-  id?: string;
-  cityName?: string;
-  ownerId: string;
+import useGetDariOwnerDetail from "../../hooks/useGetDariOwnerDetail";
+import { DariOwnerSearchResultProps } from "../../hooks/useGetSearchByDariOwner";
+
+interface SearchResultsModalProps {
   ownerName?: string;
-  ownerName_ar?: string;
-  nationalNumber?: string;
-  moiUnifiedNumber?: string;
-  nationalityName?: string;
-  nationalityName_ar?: string;
-  backgroundColor?: string;
-  language?: boolean;
-  ownerName_E?: string;
-  ownerName_A?: string;
-}
-
-interface OwnerSearchResultProps {
-  ownerName: string;
   isLoading: boolean;
-  results: IOwnerSearchResult[];
-  pageSize: number;
-  totalCount: number;
+  results: DariOwnerSearchResultProps[];
+  pageSize?: number;
+  totalCount?: number;
   onCloseDrawer?: () => void;
-  selected?: IOwnerSearchResult[];
-  onSubmit?: (val: IOwnerSearchResult[]) => void;
+  selected?: DariOwnerSearchResultProps[];
+  onSubmit?: (val: DariOwnerSearchResultProps[]) => void;
   language: "en" | "ar";
   onPageChange?: (page: number) => void;
   platform?: "web" | "mobile";
@@ -50,30 +38,33 @@ const getLanguageSwitchText = ({
   value_ar?: string;
 }): string => (language === "ar" ? value_ar || value || "" : value || "");
 
-const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
-  ownerName,
+const DariOwnerSearchResult: React.FC<SearchResultsModalProps> = ({
   results,
   isLoading,
   onCloseDrawer,
   selected = [],
   onSubmit = () => {},
-  language,
-  pageSize,
   totalCount,
   onPageChange,
+  language,
+  pageSize,
   platform = "web",
 }) => {
   const [selectedIds, setSelectedIds] =
-    React.useState<IOwnerSearchResult[]>(selected);
+    React.useState<DariOwnerSearchResultProps[]>(selected);
   const [selectedOwnerDetail, setSelectedOwnerDetail] =
-    React.useState<IOwnerSearchResult | null>(null);
-  const [isDetailDrawerOpen, setIsDetailDrawerOpen] = React.useState(false);
+    React.useState<DariOwnerSearchResultProps | null>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const { data: ownerDetailData, isPending: isOwnerDetailLoading } =
+    useGetDariOwnerDetail(selectedOwnerDetail?.ownerId);
+
   const [currentPage, setCurrentPage] = React.useState<number>(1);
+  const safePageSize = pageSize ?? 10;
+  const safeTotalCount = totalCount ?? results.length;
 
-  const totalPages = Math.ceil(totalCount / pageSize);
-  const { mutate: ranchRecipientMutation } = useRanchRecipient();
+  const totalPages = Math.ceil(safeTotalCount / safePageSize);
 
-  const handleRadioSelect = (value: IOwnerSearchResult) => {
+  const handleRadioSelect = (value: DariOwnerSearchResultProps) => {
     setSelectedIds([value]);
   };
 
@@ -86,31 +77,26 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
     setSelectedIds(selected);
   }, [selected]);
 
+  // Get current page results
   const getCurrentPageResults = () => {
     if (!pageSize) return results;
-    if (results.length <= pageSize) return results;
+
+    // If results likely represent a server page (only up to pageSize items) -> return directly
+    if (results.length <= pageSize) {
+      return results;
+    }
+
+    // Otherwise do client-side pagination
     const startIndex = (currentPage - 1) * pageSize;
+    // const startIndex = (1 - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     return results.slice(startIndex, endIndex);
   };
 
-  const handleSelectOwner = () => {
-    if (selectedIds?.length > 0) {
-      const firstOwnerId = selectedIds[0]?.ownerId;
-      if (firstOwnerId) {
-        ranchRecipientMutation(Number(firstOwnerId), {
-          onSuccess: (data) => {
-            if (data?.success && onSubmit) {
-              onSubmit(selectedIds);
-            }
-            onCloseDrawer?.();
-          },
-        });
-      }
-    }
-  };
-
-  const renderResultCard = (result: IOwnerSearchResult, index: number) => {
+  const renderResultCard = (
+    result: DariOwnerSearchResultProps,
+    index: number
+  ) => {
     const isSelected = some(
       selectedIds,
       (val) => val.ownerId === result?.ownerId
@@ -119,19 +105,22 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
     return (
       <Container
         key={index}
-        className={`mb-m rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer border border-cards-stroke ${
-          isSelected
-            ? "bg-cards-searchResult-selected"
-            : "bg-cards-searchResult"
-        }`}
+        className={`mb-4 rounded-xs px-l py-m w-full min-h-[136px] flex flex-col justify-between cursor-pointer 
+          border border-cards-stroke ${
+            isSelected
+              ? "bg-cards-searchResult-selected"
+              : "bg-cards-searchResult"
+          }`}
         onClick={() => handleRadioSelect(result)}
       >
         <Container className="flex flex-row justify-between mb-s">
-          <Text className="text-bold-l text-text-default line-clamp-2 min-w-0 flex-1 me-xxs">
+          <Text
+            className={`text-bold-l text-text-default line-clamp-2 min-w-0 flex-1 me-xxs`}
+          >
             <SharedLanguageSwitchRenderer
               language={language}
-              value={result.ownerName_E}
-              value_ar={result.ownerName_A || result.ownerName_E}
+              value={result?.ownerNameEn}
+              value_ar={result?.ownerNameAr || result?.ownerNameEn}
             />
           </Text>
           <Container className="flex flex-row items-center gap-m shrink-0">
@@ -142,12 +131,13 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
               type="secondary"
               language={language}
               onClick={() => {
-                setSelectedOwnerDetail(result);
-                setIsDetailDrawerOpen(true);
+                setSelectedOwnerDetail(result); // Set current result
+                setIsDrawerOpen(true); // Open drawer
               }}
             />
+
             <Radio
-              id={result.ownerId}
+              id={String(result?.ownerId ?? "")}
               checked={isSelected}
               onChange={() => handleRadioSelect(result)}
             />
@@ -155,28 +145,28 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
         </Container>
         {[
           {
-            label: "UAE Nation Number",
-            label_ar: "الرقم الوطني الإماراتي",
-            value: result.nationalNumber,
-            value_ar: result.nationalNumber,
+            label: "Family Name",
+            label_ar: "اسم العائلة",
+            value: result?.familyNameEn,
+            value_ar: result?.familyNameAr,
           },
           {
-            label: "City",
-            label_ar: "المدينة",
-            value: result.cityName,
-            value_ar: result.cityName,
+            label: "Owner Source",
+            label_ar: "مصدر المالك",
+            value: result?.ownerSource,
+            value_ar: result?.ownerSource,
           },
-        ].map(({ label, label_ar, value, value_ar }, idx, array) => (
+        ].map(({ label, label_ar, value, value_ar }, index, array) => (
           <Container
             key={label}
             className={`flex flex-row ${
-              idx !== array.length - 1
+              index !== array.length - 1
                 ? "border-b pb-xs border-text-dimmed mb-xs"
                 : ""
             }`}
           >
             <Container className="w-1/2">
-              <Text className="text-bold-m text-text-default">
+              <Text className={`text-bold-m text-text-default`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
                   value={label}
@@ -185,7 +175,7 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
               </Text>
             </Container>
             <Container className="w-1/2">
-              <Text className="text-m break-words text-text-default">
+              <Text className={`text-m wrap-break-word text-text-default`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
                   value={value || ""}
@@ -197,6 +187,13 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
         ))}
       </Container>
     );
+  };
+
+  const handleSelectOwner = () => {
+    if (selectedIds?.length > 0) {
+      onSubmit?.(selectedIds);
+      onCloseDrawer?.();
+    }
   };
 
   return (
@@ -215,18 +212,16 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
         </Text>
         {isLoading ? (
           <Container className="text-text-default flex flex-row items-center justify-center">
-            <Text className="text-m text-text-dimmed">
-              <SharedLanguageSwitchRenderer
-                value="Loading..."
-                value_ar="جارٍ التحميل..."
-                language={language}
-              />
-            </Text>
+            <SharedLanguageSwitchRenderer
+              value="Loading..."
+              value_ar="جارٍ التحميل..."
+              language={language}
+            />
           </Container>
         ) : (
           <>
             <Container className="flex flex-col gap-s pb-xl">
-              <Text className="text-m text-text-default">
+              <Text className={`text-m text-text-default`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
                   value="We returned"
@@ -247,16 +242,18 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
                 />
               </Text>
               <Container className="flex flex-row items-center gap-xs flex-wrap">
-                <Text className="text-bold-m text-text-default">
+                {/* <span className={`text-bold-m text-text-default`}>
                   <SharedLanguageSwitchRenderer
                     language={language}
                     value={ownerName}
                     value_ar={ownerName}
                   />
-                </Text>
-                <Text className="text-text-dimmed">|</Text>
+                </span>
+                <span className="text-text-dimmed">|</span> */}
                 <Container onClick={onCloseDrawer}>
-                  <Text className="text-bold-m cursor-pointer hover:underline text-text-link-hover">
+                  <Text
+                    className={`text-bold-m cursor-pointer hover:underline text-text-link-hover`}
+                  >
                     <SharedLanguageSwitchRenderer
                       language={language}
                       value="Edit"
@@ -268,7 +265,7 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
             </Container>
             {getCurrentPageResults().map(renderResultCard)}
             {results.length > 0 && (
-              <Container className="flex flex-row justify-between items-start">
+              <Container className="flex justify-between items-start">
                 <Buttons
                   title="Select Owner"
                   title_ar="اختر المالك"
@@ -284,8 +281,8 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
                     onPageChange={handlePageChange}
                     showPageNumbers={true}
                     position="right"
-                    pageSize={pageSize}
-                    totalCount={totalCount}
+                    pageSize={safePageSize}
+                    totalCount={safeTotalCount}
                     language={language}
                   />
                 </Container>
@@ -295,73 +292,71 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
         )}
       </Container>
 
-      {/* Owner detail drawer */}
       <CustomDrawer
         size="layer2"
         language={language}
-        open={isDetailDrawerOpen}
-        onOpenChange={setIsDetailDrawerOpen}
+        open={isDrawerOpen}
+        onOpenChange={setIsDrawerOpen}
       >
-        <ViewOwnerDetail
-          owner={{
-            details: [
-              {
-                label: "UAE National ID",
-                label_ar: "الهوية الوطنية الإماراتية",
-                value: selectedOwnerDetail?.nationalNumber || "N/A",
-                value_ar: selectedOwnerDetail?.nationalNumber || "N/A",
-              },
-              {
-                label: "MOI Unified Number",
-                label_ar: "الرقم الموحد لوزارة الداخلية",
-                value: selectedOwnerDetail?.moiUnifiedNumber || "N/A",
-                value_ar: selectedOwnerDetail?.moiUnifiedNumber || "N/A",
-              },
-              {
-                label: "Archive Number",
-                label_ar: "رقم الأرشيف",
-                value: "--",
-                value_ar: "--",
-              },
-              {
-                label: "Nationality",
-                label_ar: "الجنسية",
-                value: selectedOwnerDetail?.nationalityName || "Unknown",
-                value_ar: selectedOwnerDetail?.nationalityName_ar || "Unknown",
-              },
-              {
-                label: "Special Nationality",
-                label_ar: "الجنسية الخاصة",
-                value: "--",
-                value_ar: "--",
-              },
-              {
-                label: "Share",
-                label_ar: "مشاركة",
-                value: "--",
-                value_ar: "--",
-              },
-              {
-                label: "Right Hold Type",
-                label_ar: "نوع حق الملكية",
-                value: "--",
-                value_ar: "--",
-              },
-            ],
-            name: getLanguageSwitchText({
-              language,
-              value: selectedOwnerDetail?.ownerName_E || "Unknown Owner",
-              value_ar:
-                selectedOwnerDetail?.ownerName_A ||
-                selectedOwnerDetail?.ownerName_E ||
-                "مالك غير معروف",
-            }),
-          }}
-          language={language}
-        />
+        {isOwnerDetailLoading ? (
+          <Container className="text-text-default flex flex-row items-center justify-center">
+            <SharedLanguageSwitchRenderer
+              value="Loading..."
+              value_ar="جارٍ التحميل..."
+              language={language}
+            />
+          </Container>
+        ) : (
+          <ViewOwnerDetail
+            ownerText=""
+            ownerText_ar=""
+            owner={{
+              name: getLanguageSwitchText({
+                language,
+                value: ownerDetailData?.ownernameEn || "Unknown Owner",
+                value_ar:
+                  ownerDetailData?.ownernameAr ||
+                  ownerDetailData?.ownernameEn ||
+                  "مالك غير معروف",
+              }),
+              details: [
+                {
+                  label: "Nationality",
+                  label_ar: "الجنسية",
+                  value: ownerDetailData?.nationalityEn || "-",
+                  value_ar: ownerDetailData?.nationalityAr || "-",
+                },
+                {
+                  label: "Family Book Number",
+                  label_ar: "رقم خلاصة القيد",
+                  value: ownerDetailData?.familyBookNumber || "-",
+                  value_ar: ownerDetailData?.familyBookNumber || "-",
+                },
+                {
+                  label: "Service Status",
+                  label_ar: "حالة الخدمة",
+                  value: ownerDetailData?.onlineServiceStatus || "-",
+                  value_ar: ownerDetailData?.onlineServiceStatus || "-",
+                },
+                {
+                  label: "Passport Number",
+                  label_ar: "رقم جواز السفر",
+                  value: ownerDetailData?.passportNumber || "-",
+                  value_ar: ownerDetailData?.passportNumber || "-",
+                },
+                {
+                  label: "Tribe",
+                  label_ar: "القبيلة",
+                  value: ownerDetailData?.tribenameEn || "-",
+                  value_ar: ownerDetailData?.tribenameAr || "-",
+                },
+              ],
+            }}
+            language={language}
+          />
+        )}
       </CustomDrawer>
     </Container>
   );
 };
-
-export default OwnerSearchResult;
+export default DariOwnerSearchResult;

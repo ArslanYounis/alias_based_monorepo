@@ -57,6 +57,7 @@ import ApplicationSummary, {
   type ApplicationSummaryProps,
   type UiBlock,
 } from "@shared/components/ApplicationSummary";
+import DariOwnerSearch from "@shared/components/DariOwnerSearch/dariOwnerSearch";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -5345,6 +5346,10 @@ function App() {
               randomAllocation: false,
             }}
           />
+        </section>
+        <section className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold">G-5.15 — Dari Search Owner</h2>
+          <DariOwnerSearch />
         </section>
       </Layout>
     </QueryClientProvider>
