@@ -189,8 +189,8 @@ const CardTitle: React.FC<ICardTitleProps> = ({
         </Container>
       </Container>
       {(description || description_ar) && (
-        <Container className="flex flex-row items-start justify-between w-full mt-xs">
-          <Text className="text-text-default text-m">
+        <Container className="flex flex-row items-start justify-between w-full mt-xs gap-xs">
+          <Text className="text-text-default text-m flex-1 min-w-0">
             <SharedLanguageSwitchRenderer
               language={language}
               value={description}
@@ -198,7 +198,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
             />
           </Text>
           {(subText || subText_ar) && (
-            <Text className={`${variantStyles.subText} text-text-default`}>
+            <Text className={`${variantStyles.subText} text-text-default shrink-0`}>
               <SharedLanguageSwitchRenderer
                 language={language}
                 value={subText || ""}

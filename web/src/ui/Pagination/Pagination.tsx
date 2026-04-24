@@ -93,7 +93,7 @@ const Pagination: React.FC<PaginationProps> = ({
       ? pageSize
       : Math.min(
           pageSize,
-          Math.max(0, totalCount - (currentPage - 1) * pageSize)
+          Math.max(0, totalCount - (currentPage - 1) * pageSize),
         );
 
   return (
@@ -139,7 +139,7 @@ const Pagination: React.FC<PaginationProps> = ({
               >
                 {language === "ar" ? toArabicDigits(page) : page}
               </button>
-            )
+            ),
           )}
 
         <button
@@ -158,7 +158,7 @@ const Pagination: React.FC<PaginationProps> = ({
         </button>
       </nav>
       {showBottomText && (
-        <div className={`mt-xs mr-xs text-s text-end text-text-default`}>
+        <div className={`mt-xs me-xs text-s text-end text-text-default`}>
           {totalCount === undefined ? (
             <SharedLanguageSwitchRenderer
               language={language}
@@ -170,7 +170,7 @@ const Pagination: React.FC<PaginationProps> = ({
               language={language}
               value={`Showing ${visibleItems} out of ${totalCount} items`}
               value_ar={`عرض ${toArabicDigits(
-                visibleItems
+                visibleItems,
               )} من ${toArabicDigits(totalCount)} عناصر`}
             />
           )}
