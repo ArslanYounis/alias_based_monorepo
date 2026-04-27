@@ -5364,10 +5364,10 @@ function App() {
           </h2>
           <SearchTenancyContract />
         </section> */}
-        <section className="flex flex-col gap-6">
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.18 — Search Allotment</h2>
           <SearchAllotment />
-        </section>
+        </section> */}
       </Layout>
     </QueryClientProvider>
   );

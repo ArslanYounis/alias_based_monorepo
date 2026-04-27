@@ -19,6 +19,7 @@ export interface AdditionalColumn {
   version?: string;
   direction?: string;
   currentStep?: number;
+  totalDots?: number;
   imageURL?: string;
   onCardClick?: () => void | null;
   totalSteps?: number;
@@ -42,6 +43,7 @@ export interface ApplicationData {
   daysRemaining_ar?: string;
   id: string;
   currentStep: number;
+  totalDots?: number;
   onCardClick?: () => void | null;
   additionalColumns: AdditionalColumn[];
 }
@@ -124,9 +126,10 @@ export const Table: React.FC<ApplicationTableProps> = ({
                     },
                     remaining:
                       language === "ar"
-                        ? (row.daysRemaining_ar ?? "")
+                        ? row.daysRemaining_ar ?? ""
                         : row.daysRemaining,
                   }}
+                  totalDots={row?.totalDots}
                   onClick={row.onCardClick ?? undefined}
                 />
               </Container>
@@ -178,7 +181,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
                     },
                     remaining:
                       language === "ar"
-                        ? (row.daysRemaining_ar ?? "")
+                        ? row.daysRemaining_ar ?? ""
                         : row.daysRemaining,
                   }}
                   onClick={row.onCardClick ?? undefined}

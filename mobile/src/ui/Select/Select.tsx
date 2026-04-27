@@ -30,6 +30,7 @@ export const Select: React.FC<SelectProps> = ({
   captionRight_ar = "",
   language = "en",
   options = [],
+  isPrint_Archive = false,
 }) => {
   return (
     <View className="flex flex-col gap-[10px]">
@@ -58,6 +59,7 @@ export const Select: React.FC<SelectProps> = ({
         title={title}
         title_ar={title_ar}
         options={options}
+        isPrint_Archive={isPrint_Archive}
       />
       {(captionLeft ||
         captionRight ||

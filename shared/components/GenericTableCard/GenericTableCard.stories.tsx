@@ -43,6 +43,8 @@ interface IGenericTableCardProps extends ICardTitleProps {
   totalPages: number;
   pageSize: number;
   onPageChange: (page: number) => void;
+  lastColItem?: GenericTableLastColItem;
+  showRowButtons?: boolean;
 }
 \`\`\`
         `,

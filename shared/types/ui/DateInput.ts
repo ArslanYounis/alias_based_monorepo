@@ -30,4 +30,5 @@ export interface DateInputProps {
   tooltipText_ar?: string;
   onChange?: (value: string) => void;
   testId?: string;
+  isPrint_Archive?: boolean;
 }

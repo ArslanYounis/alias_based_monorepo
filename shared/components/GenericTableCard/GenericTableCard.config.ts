@@ -50,6 +50,21 @@ const controls: ComponentConfig<IGenericTableCardProps>["controls"] = {
     defaultValue: true,
     defaultCode: "return true",
   },
+  lastColItem: {
+    type: ["select", "code"],
+    label: "Last Column Item",
+    options: [
+      "button",
+      "radio",
+      "checkbox",
+      "selectSingle",
+      "selectMulti",
+      "input",
+      "date",
+    ],
+    defaultValue: "button",
+    defaultCode: "return 'button'",
+  },
   rowVariant: {
     type: ["select", "code"],
     label: "Row Variant",
@@ -128,7 +143,124 @@ const controls: ComponentConfig<IGenericTableCardProps>["controls"] = {
   rowsData: {
     type: ["code"],
     label: "Rows Data",
-    defaultCode: "return []",
+    defaultValue: [
+      {
+        label: "Identity Details",
+        label_ar: "تفاصيل الهوية",
+        button: {
+          title: "View",
+          title_ar: "عرض",
+          type: "secondary",
+          onClick: () => console.log("View clicked"),
+        },
+        extraItems: [
+          {
+            label: "UAE National ID",
+            label_ar: "الهوية الوطنية الإماراتية",
+            value: "78273890399292",
+            value_ar: "78273890399292",
+          },
+          {
+            label: "MOI Unified Number",
+            label_ar: "رقم وزارة الداخلية الموحد",
+            value: "330928",
+            value_ar: "330928",
+          },
+          {
+            label: "Archive Number",
+            label_ar: "رقم الأرشيف",
+            value: "7921",
+            value_ar: "7921",
+          },
+        ],
+      },
+    ],
+    defaultCode: `return [
+  {
+    label: "Identity Details",
+    label_ar: "تفاصيل الهوية",
+    button: {
+      title: "View",
+      title_ar: "عرض",
+      type: "secondary",
+      onClick: () => console.log("View clicked"),
+    },
+      radio: {
+              id: "with-radio-row-1",
+              checked: selectedRadioRow,
+              label: "",
+              label_ar: "",
+              onChange: (id, checked) => {
+                if (checked) {
+                  setSelectedRadioRow(id);
+                  console.log("Radio changed:", id);
+                }
+              },
+            },
+            checkbox: {
+              id: "with-checkbox-row-1",
+              checked: selectedCheckboxRow,
+              label: "",
+              label_ar: "",
+              onChange: (id, checked) => {
+                if (checked) {
+                  setSelectedCheckboxRow(id);
+                  console.log("Checkbox changed:", id);
+                }
+              },
+            },
+            selectSingle: {
+              label: "Pick",
+              label_ar: "اختر",
+              options: SELECT_OPTIONS,
+              checked: selectedSingleSelect,
+              onChange: (v) => {
+                setSelectedSingleSelect(v);
+                console.log("Select Single changed:", v);
+              },
+              placeholder: "Select…",
+              placeholder_ar: "اختر…",
+            },
+            selectMulti: {
+              label: "Pick",
+              label_ar: "اختر",
+              options: SELECT_OPTIONS,
+              checked: selectedMultiSelect,
+              onChange: (v) => {
+                setSelectedMultiSelect(v);
+                console.log("Select Multi changed:", v);
+              },
+              placeholder: "Select…",
+              placeholder_ar: "اختر…",
+            },
+            textInput: {
+              label: "Input",
+              label_ar: "المدخل",
+              value: selectedTextInput,
+              onChange: (v) => {
+                setSelectedTextInput(v);
+                console.log("Text Input changed:", v);
+              },
+              placeholder: "Enter…",
+              placeholder_ar: "أدخل…",
+            },
+            dateField: {
+              label: "Date",
+              label_ar: "التاريخ",
+              value: selectedDate,
+              onChange: (v) => {
+                setSelectedDate(v);
+                console.log("Date changed:", v);
+              },
+              placeholder: "Select Date",
+              placeholder_ar: "اختر التاريخ",
+    extraItems: [
+      { label: "UAE National ID", label_ar: "الهوية الوطنية الإماراتية", value: "78273890399292", value_ar: "78273890399292" },
+      { label: "MOI Unified Number", label_ar: "رقم وزارة الداخلية الموحد", value: "330928", value_ar: "330928" },
+      { label: "Archive Number", label_ar: "رقم الأرشيف", value: "7921", value_ar: "7921" },
+    ]
+  }
+];`,
   },
   showFooterButtons: {
     type: ["boolean", "code"],

@@ -54,7 +54,7 @@ const SearchOwnerPlotsResult: React.FC<SearchOwnerPlotsResultProps> = ({
     );
   }
 
-  if (!plots.length) {
+  if (!plots?.length) {
     return (
       <Container className="text-text-default text-center">
         <Text className="text-m text-text-dimmed">
@@ -88,7 +88,10 @@ const SearchOwnerPlotsResult: React.FC<SearchOwnerPlotsResultProps> = ({
           />
         </Text>
         {plots?.map((plot) => {
-          const isSelected = some(selectedPlots, (p) => p.plotId === plot.plotId);
+          const isSelected = some(
+            selectedPlots,
+            (p) => p.plotId === plot.plotId
+          );
 
           return (
             <Container
@@ -145,7 +148,7 @@ const SearchOwnerPlotsResult: React.FC<SearchOwnerPlotsResultProps> = ({
                 <Container
                   key={label}
                   className={`flex ${
-                    index !== array.length - 1
+                    index !== array?.length - 1
                       ? "border-b pb-xs border-text-dimmed mb-xs"
                       : ""
                   }`}

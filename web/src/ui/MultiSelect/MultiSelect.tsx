@@ -30,6 +30,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   showAddButton = false,
   title,
   title_ar,
+  isPrint_Archive = false,
 }) => {
   const valueStr = Array.isArray(value) ? value.join(",") : value ?? "";
   // Convert OptionType[] to Fields Option[]
@@ -82,6 +83,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         showAddButton={showAddButton}
         title={title}
         title_ar={title_ar}
+        isPrint_Archive={isPrint_Archive}
       />
       {(captionLeft ||
         captionRight ||

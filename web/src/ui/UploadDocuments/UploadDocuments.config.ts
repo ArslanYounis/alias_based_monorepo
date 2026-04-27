@@ -21,6 +21,12 @@ const UploadDocumentsConfigs: ComponentConfig<UploadDocumentsProps> = {
       options: ["default", "base"],
       defaultValue: "default",
     },
+    apiType: {
+      type: ["select"],
+      label: "API Type",
+      options: ["default", "dari"],
+      defaultValue: "default",
+    },
     handleUploadInternally: {
       type: ["boolean"],
       label: "Handle Upload Internally",

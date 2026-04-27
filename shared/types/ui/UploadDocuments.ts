@@ -14,6 +14,10 @@ export interface DocumentConfig {
   downloadUrl?: string;
   isUploaded?: boolean;
   wfiDocumentId?: string | number;
+  applicationID?: string;
+  applicationType?: string;
+  documentType?: string;
+  subType?: string;
 }
 
 export interface UploadDocumentsProps {
@@ -21,10 +25,12 @@ export interface UploadDocumentsProps {
   theme?: "light" | "dark";
   language?: "en" | "ar";
   type?: "default" | "base";
+  apiType?: "default" | "dari";
   handleUploadInternally?: boolean;
   onFileChange?: (props: {
     file: UploadedFile | null;
     uploadUrl: string;
+    document: DocumentConfig;
   }) => void;
   onUploadSuccess?: (response: unknown) => void;
   onUploadFail?: (error: unknown) => void;

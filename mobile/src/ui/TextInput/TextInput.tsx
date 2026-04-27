@@ -31,6 +31,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   fieldType = "text",
   options = [],
   selectType = "single",
+  isPrint_Archive = false,
 }) => {
   return (
     <View className="flex flex-col gap-[10px]">
@@ -59,6 +60,7 @@ export const TextInput: React.FC<TextInputProps> = ({
         language={language}
         options={options}
         selectType={selectType}
+        isPrint_Archive={isPrint_Archive}
       />
       {(captionLeft ||
         captionRight ||

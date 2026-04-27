@@ -24,9 +24,7 @@ export const Label: React.FC<LabelProps> = ({
   disabled = false,
   language = "en",
 }) => {
-  const textColorClass = disabled
-    ? "text-text-dimmed"
-    : "text-form-fields-label-text";
+  const textColorClass = "text-form-fields-label-text";
 
   return (
     <View className="flex-row items-center gap-xxs">

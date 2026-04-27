@@ -26,4 +26,5 @@ export interface MultiSelectProps {
   showAddButton?: boolean;
   title?: string;
   title_ar?: string;
+  isPrint_Archive?: boolean;
 }

@@ -384,7 +384,7 @@ export const Fields: React.FC<FormFieldProps> = ({
               filteredOptions?.map((option) => (
                 <div
                   key={option.value}
-                  className={`gap-m p-s cursor-pointer text-text-default ${
+                  className={`gap-m p-s cursor-pointer text-form-fields-label-text ${
                     selectType === "single"
                       ? value === option.value
                         ? "bg-filter-search-selected-bg"
@@ -415,6 +415,15 @@ export const Fields: React.FC<FormFieldProps> = ({
                     disabled={false}
                     language={language}
                   />
+                  {(option.description || option.description_ar) && (
+                    <p className="text-s">
+                      <SharedLanguageSwitchRenderer
+                        value={option.description}
+                        value_ar={option.description_ar}
+                        language={language}
+                      />
+                    </p>
+                  )}
                 </div>
               ))
             ) : (
@@ -479,6 +488,7 @@ export const Fields: React.FC<FormFieldProps> = ({
         language={language}
         value={value}
         testId={testId}
+        isPrint_Archive={isPrint_Archive}
         onDateChange={(date) => {
           if (date) {
             const y = date.getFullYear();

@@ -25,6 +25,13 @@ const controls: ComponentConfig<SearchPlotProps>["controls"] = {
     defaultCode: 'return "Choose a plot by type"',
     defaultCodeAr: 'return "اختر قطعة أرض حسب النوع"',
   },
+  showTabs: {
+    type: ["boolean", "code"],
+    label: "Show Tabs",
+    hasArabic: false,
+    defaultValue: true,
+    defaultCode: "return true",
+  },
   ownerTypeOptions: {
     type: ["code"],
     label: "Owner Type Labels",

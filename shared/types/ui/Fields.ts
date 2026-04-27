@@ -4,18 +4,20 @@ export interface Option {
   label?: string;
   label_ar?: string;
   value: string;
+  description?: string;
+  description_ar?: string;
 }
 
 export interface FormFieldProps {
   type:
-    | "text"
-    | "date"
-    | "select"
-    | "textarea"
-    | "uaeid"
-    | "currency"
-    | "phone"
-    | "number";
+  | "text"
+  | "date"
+  | "select"
+  | "textarea"
+  | "uaeid"
+  | "currency"
+  | "phone"
+  | "number";
   placeholder?: string;
   placeholder_ar?: string;
   value: string;

@@ -1,11 +1,29 @@
 import React from "react";
-import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
-import { Buttons } from "@platform/Buttons";
 import { Fields } from "@platform/Fields";
+import { Container } from "@platform/Container";
 import { ChevronDownIcon, ChevronUpIcon } from "@platform/icons";
+
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
+
 import type { ButtonType } from "../CardTitle";
+import { RadioFieldProps } from "@shared/types";
+
+import { Select } from "@platform/Select";
+import { Buttons } from "@platform/Buttons";
+import { TextInput } from "@platform/TextInput";
+import { RadioField } from "@platform/RadioField";
+import { DateSelect } from "@platform/DateSelect";
+import { MultiSelect } from "@platform/MultiSelect";
+import { CheckboxField } from "@platform/CheckboxField";
+
+import type {
+  TextInputProps,
+  DateSelectProps,
+  CheckboxFieldProps,
+  MultiSelectProps,
+  SelectProps,
+} from "@shared/types";
 
 export type Language = "en" | "ar";
 
@@ -62,6 +80,17 @@ export interface ICardRowProps {
   onToggleMore?: () => void;
   isMoreShown?: boolean;
   button?: ButtonType;
+  radio?: RadioFieldProps;
+  /** Last-column checkbox (DLS CheckboxField) */
+  checkbox?: CheckboxFieldProps;
+  /** Last-column single select (DLS SingleSelectDropdown) */
+  selectSingle?: SelectProps;
+  /** Last-column multi select (DLS MultiSelectDropdown) */
+  selectMulti?: MultiSelectProps;
+  /** Last-column text / number / phone / currency / UAE ID / textarea / select via TextInput */
+  textInput?: TextInputProps;
+  /** Last-column date (DLS DateField) */
+  dateField?: DateSelectProps;
 }
 
 const Label = ({
@@ -136,6 +165,12 @@ const CardRow: React.FC<ICardRowProps> = ({
   onToggleMore = () => {},
   isMoreShown = true,
   button,
+  radio,
+  checkbox,
+  selectSingle,
+  selectMulti,
+  textInput,
+  dateField,
 }) => {
   // Maps each button-column variant to how many value columns it has (excluding label + optional button)
   const buttonLayout: Partial<
@@ -144,13 +179,33 @@ const CardRow: React.FC<ICardRowProps> = ({
         RowVariant,
         "3colButton" | "4colButton" | "5colButton" | "6colButton"
       >,
-      { valueCount: number }
+      {
+        colsClass: string;
+        noButtonColsClass: string;
+        valueCount: number;
+      }
     >
   > = {
-    "3colButton": { valueCount: 2 },
-    "4colButton": { valueCount: 3 },
-    "5colButton": { valueCount: 4 },
-    "6colButton": { valueCount: 5 },
+    "3colButton": {
+      colsClass: "grid-cols-4",
+      noButtonColsClass: "grid-cols-3",
+      valueCount: 2,
+    },
+    "4colButton": {
+      colsClass: "grid-cols-5",
+      noButtonColsClass: "grid-cols-4",
+      valueCount: 3,
+    },
+    "5colButton": {
+      colsClass: "grid-cols-6",
+      noButtonColsClass: "grid-cols-5",
+      valueCount: 4,
+    },
+    "6colButton": {
+      colsClass: "grid-cols-7",
+      noButtonColsClass: "grid-cols-6",
+      valueCount: 5,
+    },
   };
 
   const currentButtonLayout =
@@ -287,6 +342,78 @@ const CardRow: React.FC<ICardRowProps> = ({
               />
             </Container>
           )}
+          {!button && radio && (
+            <Container className="min-w-0">
+              <RadioField
+                id={radio.id}
+                checked={radio.checked}
+                label={radio.label}
+                label_ar={radio.label_ar}
+                disabled={radio.disabled}
+                language={language}
+                onChange={
+                  radio.onChange
+                    ? (id, checked) => radio.onChange?.(id, checked)
+                    : () => {}
+                }
+              />
+            </Container>
+          )}
+          {!button && !radio && checkbox && (
+            <Container className="min-w-0">
+              <CheckboxField
+                {...checkbox}
+                language={checkbox.language ?? language}
+              />
+            </Container>
+          )}
+          {!button && !radio && !checkbox && selectSingle && (
+            <Container className="min-w-0 w-full max-w-full">
+              <Select
+                {...selectSingle}
+                isPrint_Archive={true}
+                language={selectSingle.language ?? language}
+              />
+            </Container>
+          )}
+          {!button && !radio && !checkbox && !selectSingle && selectMulti && (
+            <Container className="min-w-0 w-full max-w-full">
+              <MultiSelect
+                {...selectMulti}
+                isPrint_Archive={true}
+                language={selectMulti.language ?? language}
+              />
+            </Container>
+          )}
+          {!button &&
+            !radio &&
+            !checkbox &&
+            !selectSingle &&
+            !selectMulti &&
+            textInput && (
+              <Container className="min-w-0 w-full max-w-full">
+                <TextInput
+                  {...textInput}
+                  isPrint_Archive={true}
+                  language={textInput.language ?? language}
+                />
+              </Container>
+            )}
+          {!button &&
+            !radio &&
+            !checkbox &&
+            !selectSingle &&
+            !selectMulti &&
+            !textInput &&
+            dateField && (
+              <Container className="min-w-0 w-full max-w-full">
+                <DateSelect
+                  {...dateField}
+                  isPrint_Archive={true}
+                  language={dateField.language ?? language}
+                />
+              </Container>
+            )}
         </Container>
       )}
 

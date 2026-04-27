@@ -29,6 +29,7 @@ export const Select: React.FC<SelectProps> = ({
   options = [],
   title,
   title_ar,
+  isPrint_Archive = false,
 }) => {
   return (
     <div
@@ -62,6 +63,7 @@ export const Select: React.FC<SelectProps> = ({
         options={options}
         title={title}
         title_ar={title_ar}
+        isPrint_Archive={isPrint_Archive}
       />
       {(captionLeft ||
         captionRight ||
