@@ -28,9 +28,7 @@ export const Label: React.FC<LabelProps> = ({
   return (
     <label
       htmlFor={htmlFor}
-      className={`flex items-center text-bold-xs gap-xxs ${
-        disabled ? "text-text-dimmed" : "text-form-fields-label-text"
-      }`}
+      className={`flex items-center text-bold-xs gap-xxs text-form-fields-label-text`}
       style={{ direction: language === "en" ? "ltr" : "rtl" }}
     >
       <SharedLanguageSwitchRenderer
