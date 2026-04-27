@@ -35,6 +35,7 @@ import { createAgentConfig } from "@shared/components/Agent/Agent.config";
 import { createDariOwnerSearchConfig } from "@shared/components/DariOwnerSearch/dariOwnerSearch.config";
 import { createDariPlotSearchConfig } from "@shared/components/DariPlotSearch/dariPlotSearch.config";
 import { createSearchTenancyContractConfig } from "@shared/components/SearchTenancyContract/searchTenancyContract.config";
+import { createSearchAllotmentConfig } from "@shared/components/SearchAllotment/searchAllotment.config";
 
 // Shared components
 import CardTitle from "@shared/components/CardTitle/CardTitle";
@@ -59,6 +60,7 @@ import Agent from "@shared/components/Agent";
 import DariPlotSearch from "@shared/components/DariPlotSearch/dariPlotSearch";
 import DariOwnerSearch from "@shared/components/DariOwnerSearch/dariOwnerSearch";
 import SearchTenancyContract from "@shared/components/SearchTenancyContract/searchTenancyContract";
+import SearchAllotment from "@shared/components/SearchAllotment/searchAllotment";
 
 // Platform-specific icons
 import {
@@ -101,6 +103,7 @@ const AgentConfigs = createAgentConfig(Agent, FolderSymlinkIcon);
 const DariOwnerSearchConfigs = createDariOwnerSearchConfig(DariOwnerSearch, FolderSymlinkIcon);
 const DariPlotSearchConfigs = createDariPlotSearchConfig(DariPlotSearch, FolderSymlinkIcon);
 const SearchTenancyContractConfigs = createSearchTenancyContractConfig(SearchTenancyContract, FolderSymlinkIcon);
+const SearchAllotmentConfigs = createSearchAllotmentConfig(SearchAllotment, FolderSymlinkIcon);
 
 /**
  * Component configs used for renderer only (service + form).
@@ -141,7 +144,8 @@ const exposeComponents = [
   AgentConfigs,
   DariOwnerSearchConfigs,
   DariPlotSearchConfigs,
-  SearchTenancyContractConfigs
+  SearchTenancyContractConfigs,
+  SearchAllotmentConfigs
 ];
 
 export default exposeComponents as any[];
