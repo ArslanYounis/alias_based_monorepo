@@ -16,6 +16,12 @@ const UploadDocumentsConfig: ComponentConfig<UploadDocumentsProps> = {
       options: ["light", "dark"],
       defaultValue: "dark",
     },
+    apiType: {
+      type: ["select"],
+      label: "API Type",
+      options: ["default", "dari"],
+      defaultValue: "default",
+    },
     type: {
       type: ["select"],
       label: "Type",

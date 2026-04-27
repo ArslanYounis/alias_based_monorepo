@@ -4,28 +4,45 @@ import { useGetDownloadFile } from "@/hooks/useGetDownloadFile";
 import { useUploadFile } from "@shared/hooks/useUploadFile";
 
 import type { DocumentConfig, UploadDocumentsProps } from "@shared/types";
+
+import { useGetDariDownloadFile } from "@shared/hooks/useGetDariDownloadFile";
+
 export type { DocumentConfig, UploadDocumentsProps };
+
+export type DariDownloadParams = {
+  applicationID: string;
+  applicationType: string;
+  documentType: string;
+  subType: string;
+};
 
 export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   documents,
   language = "en",
   theme = "dark",
   type = "default",
+  apiType = "default",
   handleUploadInternally = false,
   onFileChange,
   onUploadSuccess,
   onUploadFail,
 }) => {
   const [downloadUrl, setDownloadUrl] = useState<string | undefined>(undefined);
+  const [dariParams, setDariParams] = useState<DariDownloadParams | undefined>(
+    undefined
+  );
 
   const { data: downloadBlob, isSuccess: isDownloadSuccess } =
     useGetDownloadFile(downloadUrl);
 
   const { mutateAsync: uploadFile } = useUploadFile();
 
+  const { data: dariFile, isSuccess: isDariSuccess } =
+    useGetDariDownloadFile(dariParams);
+
   const handleUpload = async (
     file: { name: string; uri: string; mimeType?: string } | null,
-    doc: DocumentConfig,
+    doc: DocumentConfig
   ) => {
     if (!file) return;
 
@@ -64,20 +81,27 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   };
 
   useEffect(() => {
-    if (!isDownloadSuccess || !downloadBlob || !downloadUrl) return;
+    let blob: Blob | undefined;
+    let fileName = "document";
+
+    // DEFAULT FLOW
+    if (downloadUrl && isDownloadSuccess && downloadBlob) {
+      blob = downloadBlob;
+    }
+
+    // DARI FLOW
+    if (dariParams && isDariSuccess && dariFile) {
+      blob = dariFile.blob;
+      fileName = dariFile.fileName || fileName;
+    }
+
+    if (!blob) return;
 
     try {
-      const blob = downloadBlob as Blob;
-
-      const mime = blob.type || "";
-      const ext = mime.split("/")[1]?.split(";")[0] ?? "bin";
-
-      const filename = `document.${ext}`;
-
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = filename;
+      a.download = fileName;
 
       document.body.appendChild(a);
       a.click();
@@ -87,10 +111,17 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     } catch (e) {
       console.error("Failed to download file", e);
     } finally {
-      // reset so same file can be downloaded again
       setDownloadUrl(undefined);
+      setDariParams(undefined);
     }
-  }, [isDownloadSuccess, downloadBlob, downloadUrl]);
+  }, [
+    isDownloadSuccess,
+    downloadBlob,
+    downloadUrl,
+    isDariSuccess,
+    dariFile,
+    dariParams,
+  ]);
 
   return (
     <div className="flex flex-col flex-1 space-y-4">
@@ -111,15 +142,26 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           language={language}
           isUploaded={doc?.isUploaded}
           onFileChange={(file) => {
-            if (!doc?.isUploaded) {
-              onFileChange?.({ file, uploadUrl: doc?.uploadUrl as string });
+            if (onFileChange && !doc?.isUploaded) {
+              onFileChange({
+                file,
+                uploadUrl: doc?.uploadUrl as string,
+                document: doc,
+              });
               if (handleUploadInternally) {
                 handleUpload(file, doc);
               }
             }
           }}
           onDownloadClick={() => {
-            if (doc.downloadUrl) {
+            if (apiType === "dari" && doc?.applicationID) {
+              setDariParams({
+                applicationID: doc?.applicationID ?? "",
+                applicationType: doc?.applicationType ?? "",
+                documentType: doc?.documentType ?? "",
+                subType: doc?.subType ?? "",
+              });
+            } else if (apiType === "default" && doc?.downloadUrl) {
               setDownloadUrl(doc.downloadUrl);
             }
           }}

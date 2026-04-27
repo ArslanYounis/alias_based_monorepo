@@ -29,7 +29,7 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
   const handleUpload = async (
     file: { name: string; uri: string; mimeType?: string } | null,
-    doc: DocumentConfig,
+    doc: DocumentConfig
   ) => {
     if (!file) return;
 
@@ -91,7 +91,11 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           isUploaded={doc?.isUploaded}
           onFileChange={(file) => {
             if (!doc?.isUploaded) {
-              onFileChange?.({ file, uploadUrl: doc?.uploadUrl as string });
+              onFileChange?.({
+                file,
+                uploadUrl: doc?.uploadUrl as string,
+                document: doc,
+              });
               if (handleUploadInternally) {
                 handleUpload(file, doc);
               }
