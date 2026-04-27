@@ -31,6 +31,9 @@ import { createGenericTableCardConfig } from "@shared/components/GenericTableCar
 import { createGenericCardsConfig } from "@shared/components/GenericCards/GenericCards.config";
 import { createPaymentDetailsConfig } from "@shared/components/PaymentDetails";
 import { createPageTitleConfig } from "@shared/components/PageTitle/PageTitle.config";
+import { createAgentConfig } from "@shared/components/Agent/Agent.config";
+import { createDariOwnerSearchConfig } from "@shared/components/DariOwnerSearch/dariOwnerSearch.config";
+import { createDariPlotSearchConfig } from "@shared/components/DariPlotSearch/dariPlotSearch.config";
 
 // Shared components
 import CardTitle from "@shared/components/CardTitle/CardTitle";
@@ -51,6 +54,10 @@ import GenericCard from "@shared/components/GenericCard/GenericCard";
 import GenericTableCard from "@shared/components/GenericTableCard/GenericTableCard";
 import GenericCards from "@shared/components/GenericCards/GenericCards";
 import PageTitle from "@shared/components/PageTitle/PageTitle";
+import Agent from "@shared/components/Agent";
+import DariOwnerSearch from "@shared/components/DariOwnerSearch/dariOwnerSearch";
+import DariPlotSearch from "@shared/components/DariPlotSearch/dariPlotSearch";
+
 
 // Platform-specific icons
 import {
@@ -68,10 +75,6 @@ import {
   LayoutGridIcon,
   ReceiptText,
 } from "lucide-react";
-import DariOwnerSearch from "@shared/components/DariOwnerSearch/dariOwnerSearch";
-import { createDariOwnerSearchConfig } from "@shared/components/DariOwnerSearch/dariOwnerSearch.config";
-import Agent from "@shared/components/Agent";
-import { createAgentConfig } from "@shared/components/Agent/Agent.config";
 
 // Create shared configs with platform-specific icons and components
 const CardTitleConfig = createCardTitleConfig(CardTitle, HeadingIcon);
@@ -95,6 +98,7 @@ const PaymentDetailsConfigs = createPaymentDetailsConfig(ReceiptText);
 const PageTitleConfigs = createPageTitleConfig(PageTitle, CreditCardIcon);
 const AgentConfigs = createAgentConfig(Agent, FolderSymlinkIcon);
 const DariOwnerSearchConfigs = createDariOwnerSearchConfig(DariOwnerSearch, FolderSymlinkIcon);
+const DariPlotSearchConfigs = createDariPlotSearchConfig(DariPlotSearch, FolderSymlinkIcon);
 
 /**
  * Array of all component configurations to be exposed to service-builder.
@@ -133,7 +137,8 @@ const exposeComponents = [
   PageTitleConfigs,
   AuditRemarksConfigs,
   AgentConfigs,
-  DariOwnerSearchConfigs
+  DariOwnerSearchConfigs,
+  DariPlotSearchConfigs
 ];
 
 export default exposeComponents;
