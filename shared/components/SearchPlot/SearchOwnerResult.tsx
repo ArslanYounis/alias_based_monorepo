@@ -118,7 +118,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
 
   const getCurrentPageResults = () => {
     if (!pageSize) return results;
-    if (results.length <= pageSize) return results;
+    if (results?.length <= pageSize) return results;
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     return results.slice(startIndex, endIndex);
@@ -144,7 +144,9 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
         }`}
       >
         <Container className="flex flex-row justify-between mb-s">
-          <Text className={`text-bold-l text-text-default line-clamp-2 min-w-0 flex-1 me-xxs`}>
+          <Text
+            className={`text-bold-l text-text-default line-clamp-2 min-w-0 flex-1 me-xxs`}
+          >
             <SharedLanguageSwitchRenderer
               language={language}
               value={result.ownerName_E}
@@ -190,7 +192,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
           <Container
             key={label}
             className={`flex flex-row ${
-              idx !== array.length - 1
+              idx !== array?.length - 1
                 ? "border-b pb-xs border-text-dimmed mb-xs"
                 : ""
             }`}
@@ -247,7 +249,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
                   value_ar="أعدنا"
                 />{" "}
                 <Text className="font-bold">
-                  {results.length}{" "}
+                  {results?.length}{" "}
                   <SharedLanguageSwitchRenderer
                     language={language}
                     value="results"
@@ -283,7 +285,7 @@ const SearchOwnerResult: React.FC<SearchResultsModalProps> = ({
               </Container>
             </Container>
             {getCurrentPageResults().map(renderResultCard)}
-            {results.length > 0 && (
+            {results?.length > 0 && (
               <Container className="flex justify-end items-start">
                 <Pagination
                   currentPage={currentPage}

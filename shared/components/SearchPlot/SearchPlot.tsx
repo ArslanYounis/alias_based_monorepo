@@ -34,6 +34,7 @@ export interface SearchPlotProps {
   theme?: "light" | "dark";
   language?: "en" | "ar";
   args?: string;
+  showTabs?: boolean;
   enabledTabs?: {
     plot?: boolean;
     company?: boolean;
@@ -63,6 +64,7 @@ const SearchPlot = ({
   selected = [],
   onSubmit = () => {},
   language = "en",
+  showTabs = true,
   enabledTabs = {
     plot: true,
     company: true,
@@ -116,64 +118,7 @@ const SearchPlot = ({
 
       {/* Owner Type Selection */}
       {platform === "web" ? (
-        <Container className="flex flex-row gap-l mb-xl">
-          <RadioCard
-            icon={
-              <PlotIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
-            }
-            label={ownerTypeOptions.plot}
-            label_ar={ownerTypeOptions.plot_ar}
-            iconLocation="top"
-            clicked={ownerType === "plot"}
-            id="plot"
-            onClick={handleOwnerTypeChange}
-            language={language}
-          />
-          {allowedTabs?.company && (
-            <RadioCard
-              icon={
-                <CompanyIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
-              }
-              label={ownerTypeOptions.company}
-              label_ar={ownerTypeOptions.company_ar}
-              iconLocation="top"
-              clicked={ownerType === "company"}
-              id="company"
-              onClick={handleOwnerTypeChange}
-              language={language}
-            />
-          )}
-          {allowedTabs?.owner && (
-            <RadioCard
-              icon={
-                <OwnerIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
-              }
-              label={ownerTypeOptions.owner}
-              label_ar={ownerTypeOptions.owner_ar}
-              iconLocation="top"
-              clicked={ownerType === "owner"}
-              id="owner"
-              onClick={handleOwnerTypeChange}
-              language={language}
-            />
-          )}
-          {allowedTabs?.randomAllocation && (
-            <RadioCard
-              icon={
-                <OwnerIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
-              }
-              label={ownerTypeOptions.randomAllocation}
-              label_ar={ownerTypeOptions.randomAllocation_ar}
-              iconLocation="top"
-              clicked={ownerType === "randomAllocation"}
-              id="randomAllocation"
-              language={language}
-              disabled={true}
-            />
-          )}
-        </Container>
-      ) : (
-        <ScrollContainer horizontal className="flex flex-row gap-xs w-full">
+        showTabs !== false && (
           <Container className="flex flex-row gap-l mb-xl">
             <RadioCard
               icon={
@@ -230,6 +175,67 @@ const SearchPlot = ({
               />
             )}
           </Container>
+        )
+      ) : (
+        <ScrollContainer horizontal className="flex flex-row gap-xs w-full">
+          {showTabs !== false && (
+            <Container className="flex flex-row gap-l mb-xl">
+              <RadioCard
+                icon={
+                  <PlotIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
+                }
+                label={ownerTypeOptions.plot}
+                label_ar={ownerTypeOptions.plot_ar}
+                iconLocation="top"
+                clicked={ownerType === "plot"}
+                id="plot"
+                onClick={handleOwnerTypeChange}
+                language={language}
+              />
+              {allowedTabs?.company && (
+                <RadioCard
+                  icon={
+                    <CompanyIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
+                  }
+                  label={ownerTypeOptions.company}
+                  label_ar={ownerTypeOptions.company_ar}
+                  iconLocation="top"
+                  clicked={ownerType === "company"}
+                  id="company"
+                  onClick={handleOwnerTypeChange}
+                  language={language}
+                />
+              )}
+              {allowedTabs?.owner && (
+                <RadioCard
+                  icon={
+                    <OwnerIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
+                  }
+                  label={ownerTypeOptions.owner}
+                  label_ar={ownerTypeOptions.owner_ar}
+                  iconLocation="top"
+                  clicked={ownerType === "owner"}
+                  id="owner"
+                  onClick={handleOwnerTypeChange}
+                  language={language}
+                />
+              )}
+              {allowedTabs?.randomAllocation && (
+                <RadioCard
+                  icon={
+                    <OwnerIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
+                  }
+                  label={ownerTypeOptions.randomAllocation}
+                  label_ar={ownerTypeOptions.randomAllocation_ar}
+                  iconLocation="top"
+                  clicked={ownerType === "randomAllocation"}
+                  id="randomAllocation"
+                  language={language}
+                  disabled={true}
+                />
+              )}
+            </Container>
+          )}
         </ScrollContainer>
       )}
 
