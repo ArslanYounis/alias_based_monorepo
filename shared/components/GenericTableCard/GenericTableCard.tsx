@@ -48,6 +48,7 @@ export interface IGenericTableCardProps extends ICardTitleProps {
 }
 
 const INTERNAL_PAGE_SIZE = 3;
+const colClass = "flex-1 min-w-[120px]";
 
 const GenericTableCard: React.FC<IGenericTableCardProps> = ({
   showTitleSection = true,
@@ -200,7 +201,9 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
           {platform === "web" ? (
             <>
               {currentButtonLayout && columnsData && columnsData.length > 0 && (
-                <Container className="gap-xxs py-s flex flex-row items-center text-text-default border-b border-border-dimmed">
+                <Container
+                  className={`gap-xxs py-s grid ${headerColsClass} items-center text-text-default border-b border-border-dimmed`}
+                >
                   {columnsData
                     .slice(0, (currentButtonLayout?.valueCount ?? 0) + 1)
                     .map(
@@ -288,27 +291,38 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
               {currentButtonLayout && columnsData && columnsData.length > 0 && (
                 <ScrollContainer
                   horizontal
-                  className="flex flex-row gap-xs w-full"
+                  className="w-full border-b border-border-dimmed"
                 >
-                  <Container className="gap-s py-s flex flex-row items-center text-text-default border-b border-border-dimmed">
+                  <Container className="flex flex-row min-w-full">
                     {columnsData
                       .slice(0, (currentButtonLayout?.valueCount ?? 0) + 1)
-                      .map((column, idx) => (
-                        <Container
-                          key={column.key ?? idx}
-                          className="flex-1 min-w-0 text-bold-m"
-                        >
-                          <Text>
-                            <SharedLanguageSwitchRenderer
-                              language={language}
-                              value={column.label}
-                              value_ar={column.label_ar}
-                            />
-                          </Text>
-                        </Container>
-                      ))}
+                      .map(
+                        (
+                          column: {
+                            key?: string;
+                            label: string;
+                            label_ar?: string;
+                          },
+                          idx: number
+                        ) => (
+                          <Container
+                            key={column.key ?? idx}
+                            className="flex-1 px-xs py-s"
+                          >
+                            <Text className="text-bold-m whitespace-normal break-words">
+                              <SharedLanguageSwitchRenderer
+                                language={language}
+                                value={column.label}
+                                value_ar={column.label_ar}
+                              />
+                            </Text>
+                          </Container>
+                        )
+                      )}
                     {/* Placeholder to align with the button column in each row */}
-                    {showRowButtons && <Container className="flex-1 min-w-0" />}
+                    {showRowButtons && (
+                      <Container className="flex-1 px-xs py-s" />
+                    )}
                   </Container>
                 </ScrollContainer>
               )}
@@ -321,14 +335,45 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
                   onClick: row.button?.onClick,
                 };
                 return (
-                  <ScrollContainer
-                    horizontal
-                    className="flex flex-row gap-xs w-full"
-                  >
+                  <ScrollContainer horizontal className="w-full flex-1 px-xs">
                     <CardRow
                       key={idx}
                       {...row}
-                      button={showRowButtons ? button : undefined}
+                      button={
+                        showRowButtons && lastColItem === "button"
+                          ? button
+                          : undefined
+                      }
+                      radio={
+                        showRowButtons && lastColItem === "radio"
+                          ? row.radio
+                          : undefined
+                      }
+                      checkbox={
+                        showRowButtons && lastColItem === "checkbox"
+                          ? row.checkbox
+                          : undefined
+                      }
+                      selectSingle={
+                        showRowButtons && lastColItem === "selectSingle"
+                          ? row.selectSingle
+                          : undefined
+                      }
+                      selectMulti={
+                        showRowButtons && lastColItem === "selectMulti"
+                          ? row.selectMulti
+                          : undefined
+                      }
+                      textInput={
+                        showRowButtons && lastColItem === "input"
+                          ? row.textInput
+                          : undefined
+                      }
+                      dateField={
+                        showRowButtons && lastColItem === "date"
+                          ? row.dateField
+                          : undefined
+                      }
                       language={language}
                       rowVariant={rowVariant}
                     />
