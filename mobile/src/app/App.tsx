@@ -58,6 +58,7 @@ import axios from "axios";
 import DariPlotSearch from "@shared/components/DariPlotSearch/dariPlotSearch";
 import SearchTenancyContract from "@shared/components/SearchTenancyContract/searchTenancyContract";
 import SearchAllotment from "@shared/components/SearchAllotment/searchAllotment";
+import GenericTableCard from "@shared/components/GenericTableCard";
 
 // Force RTL layout for Arabic
 // I18nManager.forceRTL(true);
@@ -638,10 +639,10 @@ export default function App() {
             toast={toast}
           >
             <View style={styles.container}>
-              <SearchAllotment platform="mobile" />
+              {/* <SearchAllotment platform="mobile" />
               <SearchTenancyContract platform="mobile" />
               <DariPlotSearch platform="mobile" />
-              <DariOwnerSearch platform="mobile" />
+              <DariOwnerSearch platform="mobile" /> */}
               {/* ── Typography ─────────────────────────────────── */}
               <SectionHeader title="Typography" />
               <Typography
