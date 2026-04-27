@@ -31,6 +31,8 @@ import { createGenericTableCardConfig } from "@shared/components/GenericTableCar
 import { createGenericCardsConfig } from "@shared/components/GenericCards/GenericCards.config";
 import { createPaymentDetailsConfig } from "@shared/components/PaymentDetails";
 import { createPageTitleConfig } from "@shared/components/PageTitle/PageTitle.config";
+import { createAgentConfig } from "@shared/components/Agent/Agent.config";
+import { createDariOwnerSearchConfig } from "@shared/components/DariOwnerSearch/dariOwnerSearch.config";
 
 // Shared components
 import CardTitle from "@shared/components/CardTitle/CardTitle";
@@ -68,6 +70,8 @@ import {
   LayoutGridIcon,
   ReceiptText,
 } from "lucide-react-native";
+import Agent from "@shared/components/Agent";
+import DariOwnerSearch from "@shared/components/DariOwnerSearch/dariOwnerSearch";
 
 // Create shared configs with platform-specific icons and components
 const CardTitleConfig = createCardTitleConfig(CardTitle, HeadingIcon);
@@ -89,6 +93,8 @@ const GenericTableCardConfigs = createGenericTableCardConfig(GenericTableCard, C
 const GenericCardsConfigs = createGenericCardsConfig(GenericCards, LayoutGridIcon);
 const PaymentDetailsConfigs = createPaymentDetailsConfig(ReceiptText);
 const PageTitleConfigs = createPageTitleConfig(PageTitle, CreditCardIcon);
+const AgentConfigs = createAgentConfig(Agent, FolderSymlinkIcon);
+const DariOwnerSearchConfigs = createDariOwnerSearchConfig(DariOwnerSearch, FolderSymlinkIcon);
 
 /**
  * Component configs used for renderer only (service + form).
@@ -126,6 +132,8 @@ const exposeComponents = [
   AuditRemarksConfig,
   TitlesConfig,
   SignatureConfig,
+  AgentConfigs,
+  DariOwnerSearchConfigs
 ];
 
 export default exposeComponents as any[];

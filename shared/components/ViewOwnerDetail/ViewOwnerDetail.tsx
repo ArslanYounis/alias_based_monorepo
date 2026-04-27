@@ -104,7 +104,11 @@ const ViewOwnerDetail: React.FC<ViewOwnerDetailProps> = ({
           <Text
             className={`text-bold-ml pb-s mb-s text-text-default line-clamp-1`}
           >
-            {owner?.name}
+            <SharedLanguageSwitchRenderer
+              language={language}
+              value={owner?.name}
+              value_ar={owner?.name}
+            />
           </Text>
 
           {owner?.details?.map(({ label, label_ar, value, value_ar }, idx) => (
