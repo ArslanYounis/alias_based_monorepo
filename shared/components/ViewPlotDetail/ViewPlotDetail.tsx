@@ -347,14 +347,14 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
                 value_ar={ownerText_ar}
               />
             </Text>
-            <Buttons
+            {/* <Buttons
               size="m"
               title={"View"}
               title_ar={"منظر"}
               onClick={() => {}}
               type="secondary"
               language={language}
-            />
+            /> */}
           </Container>
 
           <Container

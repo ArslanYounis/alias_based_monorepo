@@ -89,13 +89,13 @@ const ViewOwnerDetail: React.FC<ViewOwnerDetailProps> = ({
               value_ar={ownerText_ar}
             />
           </Text>
-          <Buttons
+          {/* <Buttons
             title="View"
             title_ar="عرض"
             type="secondary"
             size="m"
             language={language}
-          />
+          /> */}
         </Container>
 
         <Container
