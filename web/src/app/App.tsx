@@ -59,6 +59,7 @@ import ApplicationSummary, {
 } from "@shared/components/ApplicationSummary";
 import DariOwnerSearch from "@shared/components/DariOwnerSearch/dariOwnerSearch";
 import DariPlotSearch from "@shared/components/DariPlotSearch/dariPlotSearch";
+import SearchTenancyContract from "@shared/components/SearchTenancyContract/searchTenancyContract";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -5352,9 +5353,15 @@ function App() {
           <h2 className="text-xl font-bold">G-5.15 — Dari Search Owner</h2>
           <DariOwnerSearch />
         </section> */}
-        <section className="flex flex-col gap-6">
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.16 — Dari Search Plot</h2>
           <DariPlotSearch />
+        </section> */}
+        <section className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold">
+            G-5.17 — Search Tenancy Contract
+          </h2>
+          <SearchTenancyContract />
         </section>
       </Layout>
     </QueryClientProvider>

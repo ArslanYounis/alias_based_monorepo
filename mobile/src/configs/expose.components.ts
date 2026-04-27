@@ -34,6 +34,7 @@ import { createPageTitleConfig } from "@shared/components/PageTitle/PageTitle.co
 import { createAgentConfig } from "@shared/components/Agent/Agent.config";
 import { createDariOwnerSearchConfig } from "@shared/components/DariOwnerSearch/dariOwnerSearch.config";
 import { createDariPlotSearchConfig } from "@shared/components/DariPlotSearch/dariPlotSearch.config";
+import { createSearchTenancyContractConfig } from "@shared/components/SearchTenancyContract/searchTenancyContract.config";
 
 // Shared components
 import CardTitle from "@shared/components/CardTitle/CardTitle";
@@ -57,6 +58,7 @@ import PageTitle from "@shared/components/PageTitle/PageTitle";
 import Agent from "@shared/components/Agent";
 import DariPlotSearch from "@shared/components/DariPlotSearch/dariPlotSearch";
 import DariOwnerSearch from "@shared/components/DariOwnerSearch/dariOwnerSearch";
+import SearchTenancyContract from "@shared/components/SearchTenancyContract/searchTenancyContract";
 
 // Platform-specific icons
 import {
@@ -98,6 +100,7 @@ const PageTitleConfigs = createPageTitleConfig(PageTitle, CreditCardIcon);
 const AgentConfigs = createAgentConfig(Agent, FolderSymlinkIcon);
 const DariOwnerSearchConfigs = createDariOwnerSearchConfig(DariOwnerSearch, FolderSymlinkIcon);
 const DariPlotSearchConfigs = createDariPlotSearchConfig(DariPlotSearch, FolderSymlinkIcon);
+const SearchTenancyContractConfigs = createSearchTenancyContractConfig(SearchTenancyContract, FolderSymlinkIcon);
 
 /**
  * Component configs used for renderer only (service + form).
@@ -137,7 +140,8 @@ const exposeComponents = [
   SignatureConfig,
   AgentConfigs,
   DariOwnerSearchConfigs,
-  DariPlotSearchConfigs
+  DariPlotSearchConfigs,
+  SearchTenancyContractConfigs
 ];
 
 export default exposeComponents as any[];
