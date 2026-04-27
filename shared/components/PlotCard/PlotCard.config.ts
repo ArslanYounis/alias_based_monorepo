@@ -16,6 +16,15 @@ const controls: ComponentConfig<IPlotCardProps>["controls"] = {
     defaultCode: 'return "Plot"',
     defaultCodeAr: 'return "Plot"',
   },
+  cardTitleLabel: {
+    type: ["text", "code"],
+    label: "Title",
+    hasArabic: true,
+    defaultValue: "Lable",
+    defaultValueAr: "Lable",
+    defaultCode: 'return "Lable"',
+    defaultCodeAr: 'return "Lable"',
+  },
   showViewButton: {
     type: ["boolean", "code"],
     label: "Show View Button",
