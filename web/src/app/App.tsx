@@ -58,6 +58,8 @@ import ApplicationSummary, {
   type UiBlock,
 } from "@shared/components/ApplicationSummary";
 import DariOwnerSearch from "@shared/components/DariOwnerSearch/dariOwnerSearch";
+import DariPlotSearch from "@shared/components/DariPlotSearch/dariPlotSearch";
+import SearchTenancyContract from "@shared/components/SearchTenancyContract/searchTenancyContract";
 
 const ST = "text-bold-l text-text-default mb-2";
 const SS = "text-bold-s text-text-dimmed mb-1 mt-3";
@@ -3580,10 +3582,10 @@ function App() {
             </div>
           </section> */}
 
-          <div className="border-t border-gray-300 my-4" />
+          {/* <div className="border-t border-gray-300 my-4" />
           <h1 className="text-bold-l text-text-default">
             Group 4 — Recommended placement
-          </h1>
+          </h1> */}
         </div>
         {/* ══════════════════════════ G-4.1 Title Bar ══════════════════════════ */}
         {/* <section className="flex flex-col gap-2">
@@ -4000,7 +4002,7 @@ function App() {
         </section> */}
 
         {/* ══════════════════════════ G-4.10 Payment Detail ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.10 — Pyament Detail</h2>
           <PaymentDetails
             applicationId="APP-001"
@@ -4038,13 +4040,13 @@ function App() {
             isLoading={false}
             onOverrideComplete={() => console.log("Override Done")}
           />
-        </section>
+        </section> */}
 
         {/* ══════════════════════════ G-4.11 Application Summary ══════════════════════════ */}
-        <section className="flex flex-col gap-2">
+        {/* <section className="flex flex-col gap-2">
           <h2 className={ST}>G-4.11 — Application Summary</h2>
           <ApplicationSummary data={normalizedData} />
-        </section>
+        </section> */}
 
         {/* <div className="border-t border-gray-300 my-4" />
         <h1 className="text-bold-l text-text-default">
@@ -5332,13 +5334,13 @@ function App() {
         </section> */}
 
         {/* ══════════════════════════ G-5.14 SearchPlot ══════════════════════════ */}
-        <section className="flex flex-col gap-6">
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.14 — SearchPlot</h2>
           <SearchPlot
             title="Search Plot"
             subtitle="Choose how you want to search for plot ownership"
             initialOwnerType="plot"
-            // onSubmit={handleSubmit}
+
             enabledTabs={{
               plot: true,
               company: true,
@@ -5346,10 +5348,20 @@ function App() {
               randomAllocation: false,
             }}
           />
-        </section>
-        <section className="flex flex-col gap-6">
+        </section> */}
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold">G-5.15 — Dari Search Owner</h2>
           <DariOwnerSearch />
+        </section> */}
+        {/* <section className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold">G-5.16 — Dari Search Plot</h2>
+          <DariPlotSearch />
+        </section> */}
+        <section className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold">
+            G-5.17 — Search Tenancy Contract
+          </h2>
+          <SearchTenancyContract />
         </section>
       </Layout>
     </QueryClientProvider>
