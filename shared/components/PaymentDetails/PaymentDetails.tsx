@@ -120,10 +120,10 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
             closeOverrideDrawer();
             onOverrideComplete?.();
           },
-        },
+        }
       );
     },
-    [overridePayment, args, selectedPayment, onOverrideComplete],
+    [overridePayment, args, selectedPayment, onOverrideComplete]
   );
 
   if (isLoading) {
@@ -159,6 +159,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                 ""
               }
               status={!payment?.receiptNumber ? "Pending" : "Paid"}
+              status_ar={!payment?.receiptNumber ? "قيد الانتظار" : "مدفوع"}
               variant={variant}
               language={language}
               isExpanded
@@ -224,7 +225,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                         }
                       },
                       onSettled: () => setPrintingId(null),
-                    },
+                    }
                   );
                 }}
               />
@@ -248,7 +249,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                           onSuccess: () => {
                             onVerifyComplete?.();
                           },
-                        },
+                        }
                       );
                     }}
                   />
