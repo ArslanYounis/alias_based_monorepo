@@ -156,11 +156,13 @@ export const Fields: React.FC<FormFieldProps> = ({
     isPrint_Archive
       ? "py-xs px-xs !h-[36px]"
       : type === "textarea"
-        ? "p-m gap-m !h-[100px]"
-        : type === "select"
-          ? "p-m py-s gap-m !h-[50px]"
-          : "p-m gap-m !h-[50px]"
-  } font-normal text-s text-text-default rounded-[5px] focus:outline-none placeholder:text-form-fields-input-form-placeholder ${isRTL ? "text-right" : ""}`;
+      ? "p-m gap-m !h-[100px]"
+      : type === "select"
+      ? "p-m py-s gap-m !h-[50px]"
+      : "p-m gap-m !h-[50px]"
+  } font-normal text-s text-text-default rounded-[5px] focus:outline-none placeholder:text-form-fields-input-form-placeholder ${
+    isRTL ? "text-right" : ""
+  }`;
 
   const getInputClasses = () => {
     if (disabled) {
@@ -256,7 +258,7 @@ export const Fields: React.FC<FormFieldProps> = ({
           data-testid={testId}
           editable={!disabled}
           placeholder={
-            language === "en" ? placeholder : (placeholder_ar ?? placeholder)
+            language === "en" ? placeholder : placeholder_ar ?? placeholder
           }
           onChange={(e) => {
             const text = e.nativeEvent.text;
@@ -338,11 +340,7 @@ export const Fields: React.FC<FormFieldProps> = ({
             accessibilityState={{ expanded: isOpen, disabled }}
             testID={testId}
           >
-            {icon && (
-              <View className="me-xs">
-                {renderIcon(icon)}
-              </View>
-            )}
+            {icon && <View className="me-xs">{renderIcon(icon)}</View>}
             <View style={{ flex: 1 }}>
               <Text
                 className={`${
@@ -386,14 +384,14 @@ export const Fields: React.FC<FormFieldProps> = ({
                 className="mb-m text-bold-l text-text-default"
                 style={{ textAlign: isRTL ? "right" : "auto" }}
               >
-                {language === "en" ? title : (title_ar ?? title)}
+                {language === "en" ? title : title_ar ?? title}
               </Text>
             )}
             <BottomSheetTextInput
               value={searchValue}
               onChangeText={setSearchValue}
               placeholder={language === "en" ? "Search..." : "بحث..."}
-              className="mb-m w-full rounded-[5px] border border-form-fields-input-form-border bg-form-fields-input-form-bg p-m text-text-default"
+              className="mb-m w-full rounded-[5px] border border-form-fields-input-form-border bg-form-fields-input-form-bg p-m text-form-fields-label-text"
               placeholderTextColor="#9ca3af"
               style={isRTL ? { textAlign: "right" } : undefined}
             />
@@ -428,6 +426,17 @@ export const Fields: React.FC<FormFieldProps> = ({
                       language={language}
                       onClick={() => handleSelect(option.value)}
                     />
+                    {(option.description || option.description_ar) && (
+                      <View>
+                        <Text className="text-s">
+                          <SharedLanguageSwitchRenderer
+                            value={option.description}
+                            value_ar={option.description_ar}
+                            language={language}
+                          />
+                        </Text>
+                      </View>
+                    )}
                   </TouchableOpacity>
                 );
               })
@@ -488,9 +497,11 @@ export const Fields: React.FC<FormFieldProps> = ({
 
   if (type === "currency" || type === "phone") {
     const prefix = type === "currency" ? currencySymbol : phoneCode;
-    const numericOnly = type === "phone"
-      ? (text: string) => text.replace(/[^0-9]/g, "")
-      : (text: string) => text.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+    const numericOnly =
+      type === "phone"
+        ? (text: string) => text.replace(/[^0-9]/g, "")
+        : (text: string) =>
+            text.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
     return (
       <View>
         <View className="relative flex-row items-center">
@@ -574,7 +585,7 @@ export const Fields: React.FC<FormFieldProps> = ({
           value={value ? value : internalValue}
           keyboardType={"default"}
           placeholder={
-            language === "en" ? placeholder : (placeholder_ar ?? placeholder)
+            language === "en" ? placeholder : placeholder_ar ?? placeholder
           }
         />
       </View>
