@@ -22,6 +22,20 @@ const controls: ComponentConfig<OwnerSearchProps>["controls"] = {
     options: ["light", "dark"],
     defaultValue: "dark",
   },
+  showTabs: {
+    type: ["boolean", "code"],
+    label: "Show Tabs",
+    hasArabic: false,
+    defaultValue: true,
+    defaultCode: "return true",
+  },
+  initialOwnerType: {
+    type: ["select", "code"],
+    label: "Initial Owner Type",
+    options: ["company", "owner"],
+    defaultValue: "company",
+    defaultCode: 'return "company"',
+  },
   ownerTypeOptions: {
     type: ["code"],
     label: "Owner Type Options",
