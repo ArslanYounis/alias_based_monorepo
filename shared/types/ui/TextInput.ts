@@ -16,20 +16,21 @@ export interface TextInputProps {
   errorMessage_ar?: string;
   icon?: ReactNode;
   disabled?: boolean;
+  isPrint_Archive?: boolean;
   captionLeft?: string;
   captionLeft_ar?: string;
   captionRight?: string;
   captionRight_ar?: string;
   language?: "en" | "ar";
   fieldType?:
-    | "text"
-    | "date"
-    | "select"
-    | "textarea"
-    | "uaeid"
-    | "currency"
-    | "phone"
-    | "number";
+  | "text"
+  | "date"
+  | "select"
+  | "textarea"
+  | "uaeid"
+  | "currency"
+  | "phone"
+  | "number";
   options?: { label?: string; label_ar?: string; value: string }[];
   selectType?: "single" | "multi";
 }

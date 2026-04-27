@@ -27,4 +27,5 @@ export interface SelectProps {
   options?: SelectOption[];
   title?: string;
   title_ar?: string;
+  isPrint_Archive?: boolean;
 }

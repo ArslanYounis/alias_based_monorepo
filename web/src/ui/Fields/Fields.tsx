@@ -479,6 +479,7 @@ export const Fields: React.FC<FormFieldProps> = ({
         language={language}
         value={value}
         testId={testId}
+        isPrint_Archive={isPrint_Archive}
         onDateChange={(date) => {
           if (date) {
             const y = date.getFullYear();
