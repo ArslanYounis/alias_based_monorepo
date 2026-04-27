@@ -55,6 +55,7 @@ import type {
 } from "@shared/components/ApplicationSummary/ApplicationSummary.types";
 import type { ToastProps } from "@shared/types";
 import axios from "axios";
+import DariPlotSearch from "@shared/components/DariPlotSearch/dariPlotSearch";
 
 // Force RTL layout for Arabic
 // I18nManager.forceRTL(true);
@@ -635,6 +636,7 @@ export default function App() {
             toast={toast}
           >
             <View style={styles.container}>
+              <DariPlotSearch platform="mobile" />
               <DariOwnerSearch platform="mobile" />
               {/* ── Typography ─────────────────────────────────── */}
               <SectionHeader title="Typography" />
