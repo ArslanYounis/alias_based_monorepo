@@ -2,6 +2,8 @@ export interface SelectOption {
   label?: string;
   label_ar?: string;
   value: string;
+  description?: string;
+  description_ar?: string;
 }
 
 export interface SelectProps {

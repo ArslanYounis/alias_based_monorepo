@@ -7,7 +7,6 @@ import { Radio } from "@platform/Radio";
 import { Pagination } from "@platform/Pagination";
 import { CustomDrawer } from "@platform/CustomDrawer";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
-import { useRanchRecipient } from "../../hooks/useRanchRecipient";
 import ViewOwnerDetail from "../ViewOwnerDetail/ViewOwnerDetail";
 
 export interface IOwnerSearchResult {
@@ -71,7 +70,6 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
   const [currentPage, setCurrentPage] = React.useState<number>(1);
 
   const totalPages = Math.ceil(totalCount / pageSize);
-  const { mutate: ranchRecipientMutation } = useRanchRecipient();
 
   const handleRadioSelect = (value: IOwnerSearchResult) => {
     setSelectedIds([value]);
@@ -96,17 +94,8 @@ const OwnerSearchResult: React.FC<OwnerSearchResultProps> = ({
 
   const handleSelectOwner = () => {
     if (selectedIds?.length > 0) {
-      const firstOwnerId = selectedIds[0]?.ownerId;
-      if (firstOwnerId) {
-        ranchRecipientMutation(Number(firstOwnerId), {
-          onSuccess: (data) => {
-            if (data?.success && onSubmit) {
-              onSubmit(selectedIds);
-            }
-            onCloseDrawer?.();
-          },
-        });
-      }
+      onSubmit(selectedIds);
+      onCloseDrawer?.();
     }
   };
 

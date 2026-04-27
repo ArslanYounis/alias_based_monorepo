@@ -37,6 +37,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     label: opt.label,
     label_ar: opt.label_ar,
     value: opt.value,
+    description: opt.description,
+    description_ar: opt.description_ar,
   }));
 
   return (

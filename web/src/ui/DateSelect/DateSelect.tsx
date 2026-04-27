@@ -41,6 +41,7 @@ export const DateSelect: React.FC<DateSelectProps> = ({
   language = "en",
   value,
   testId,
+  isPrint_Archive = false,
 }) => {
   const controlledDate = value ? new Date(value) : undefined;
   const [date, setDate] = React.useState<Date | undefined>(controlledDate);
@@ -110,7 +111,7 @@ export const DateSelect: React.FC<DateSelectProps> = ({
             disabled={disabled}
             variant="outline"
             className={cn(
-              "w-full flex justify-between px-m font-normal text-m items-center cursor-pointer h-[50px] placeholder:text-form-fields-input-form-placeholder",
+              `w-full flex justify-between px-m font-normal text-m items-center cursor-pointer ${isPrint_Archive ? "h-[36px]" : "h-[50px]"} placeholder:text-form-fields-input-form-placeholder`,
               disabled
                 ? "bg-form-fields-input-form-bg text-text-default border border-form-fields-input-form-border"
                 : hasError

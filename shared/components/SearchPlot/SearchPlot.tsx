@@ -33,6 +33,7 @@ export interface SearchPlotProps {
   initialOwnerType?: "plot" | "company" | "owner" | "randomAllocation";
   theme?: "light" | "dark";
   language?: "en" | "ar";
+  showTabs?: boolean;
   args?: string;
   enabledTabs?: {
     plot?: boolean;
@@ -63,6 +64,7 @@ const SearchPlot = ({
   selected = [],
   onSubmit = () => {},
   language = "en",
+  showTabs = true,
   enabledTabs = {
     plot: true,
     company: true,
@@ -115,7 +117,7 @@ const SearchPlot = ({
       )}
 
       {/* Owner Type Selection */}
-      {platform === "web" ? (
+      {showTabs !== false && (platform === "web" ? (
         <Container className="flex flex-row gap-l mb-xl">
           <RadioCard
             icon={
@@ -231,7 +233,7 @@ const SearchPlot = ({
             )}
           </Container>
         </ScrollContainer>
-      )}
+      ))}
 
       {/* Render the selected form */}
       {ownerType === "plot" && allowedTabs?.plot && (

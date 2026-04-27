@@ -14,6 +14,16 @@ export interface ICardColProps {
   label_ar?: string;
 }
 
+/** Controls what appears in the last column when `showRowButtons` is true. Row data should supply the matching prop (`button`, `radio`, `checkbox`, `selectSingle`, `selectMulti`, `textInput`, or `dateField`). */
+export type GenericTableLastColItem =
+  | "button"
+  | "radio"
+  | "checkbox"
+  | "selectSingle"
+  | "selectMulti"
+  | "input"
+  | "date";
+
 export interface IGenericTableCardProps extends ICardTitleProps {
   showTitleSection?: boolean;
   rowVariant?: "3colButton" | "4colButton" | "5colButton" | "6colButton";
@@ -33,6 +43,7 @@ export interface IGenericTableCardProps extends ICardTitleProps {
   totalPages: number;
   pageSize: number;
   onPageChange: (page: number) => void;
+  lastColItem?: GenericTableLastColItem;
   platform?: "web" | "mobile";
 }
 
@@ -68,6 +79,7 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
   totalPages,
   pageSize,
   onPageChange,
+  lastColItem = "button",
   platform = "web",
 }) => {
   const [isMoreShown, setIsMoreShown] = useState(defaultShowMore);
@@ -191,7 +203,13 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
                   <CardRow
                     key={idx}
                     {...row}
-                    button={showRowButtons ? button : undefined}
+                    button={showRowButtons && lastColItem === "button" ? button : undefined}
+                    radio={showRowButtons && lastColItem === "radio" ? row.radio : undefined}
+                    checkbox={showRowButtons && lastColItem === "checkbox" ? row.checkbox : undefined}
+                    selectSingle={showRowButtons && lastColItem === "selectSingle" ? row.selectSingle : undefined}
+                    selectMulti={showRowButtons && lastColItem === "selectMulti" ? row.selectMulti : undefined}
+                    textInput={showRowButtons && lastColItem === "input" ? row.textInput : undefined}
+                    dateField={showRowButtons && lastColItem === "date" ? row.dateField : undefined}
                     language={language}
                     rowVariant={rowVariant}
                   />
@@ -244,7 +262,13 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
                     <CardRow
                       key={idx}
                       {...row}
-                      button={showRowButtons ? button : undefined}
+                      button={showRowButtons && lastColItem === "button" ? button : undefined}
+                      radio={showRowButtons && lastColItem === "radio" ? row.radio : undefined}
+                      checkbox={showRowButtons && lastColItem === "checkbox" ? row.checkbox : undefined}
+                      selectSingle={showRowButtons && lastColItem === "selectSingle" ? row.selectSingle : undefined}
+                      selectMulti={showRowButtons && lastColItem === "selectMulti" ? row.selectMulti : undefined}
+                      textInput={showRowButtons && lastColItem === "input" ? row.textInput : undefined}
+                      dateField={showRowButtons && lastColItem === "date" ? row.dateField : undefined}
                       language={language}
                       rowVariant={rowVariant}
                     />

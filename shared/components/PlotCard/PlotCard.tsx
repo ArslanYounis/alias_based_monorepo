@@ -20,6 +20,8 @@ export interface IPlotCardProps {
   plots: Plot[];
   title: string;
   title_ar?: string;
+  cardTitleLabel?: string;
+  cardTitleLabel_ar?: string;
   showViewButton?: boolean;
   showChangePlotButton?: boolean;
   showOwnersButton?: boolean;
@@ -36,6 +38,8 @@ const PlotCard: React.FC<IPlotCardProps> = ({
   plots,
   title,
   title_ar = "",
+  cardTitleLabel = "Plot Number",
+  cardTitleLabel_ar = "رقم القطعة",
   showViewButton = true,
   onPressView = () => {},
   showChangePlotButton = false,
@@ -117,9 +121,9 @@ const PlotCard: React.FC<IPlotCardProps> = ({
                 showTitleSection
                 title={title}
                 title_ar={title_ar ?? title}
-                cardTitleLabel={isExpanded ? title : plot.plotNumber}
+                cardTitleLabel={isExpanded ? title : cardTitleLabel}
                 cardTitleLabel_ar={
-                  isExpanded ? (title_ar ?? title) : plot.plotNumber
+                  isExpanded ? (title_ar ?? title) : cardTitleLabel_ar
                 }
                 cardTitleValue={plot.plotNumber}
                 cardTitleValue_ar={plot.plotNumber_ar ?? plot.plotNumber}

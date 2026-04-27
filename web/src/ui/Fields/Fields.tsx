@@ -409,12 +409,23 @@ export const Fields: React.FC<FormFieldProps> = ({
                       onChange={(id) => handleSelectChange(id)}
                     />
                   )}
-                  <CheckRadioLabel
-                    label={option.label}
-                    label_ar={option.label_ar}
-                    disabled={false}
-                    language={language}
-                  />
+                  <div>
+                    <CheckRadioLabel
+                      label={option.label}
+                      label_ar={option.label_ar}
+                      disabled={false}
+                      language={language}
+                    />
+                    {(option.description || option.description_ar) && (
+                      <p className="text-s">
+                        <SharedLanguageSwitchRenderer
+                          value={option.description}
+                          value_ar={option.description_ar}
+                          language={language}
+                        />
+                      </p>
+                    )}
+                  </div>
                 </div>
               ))
             ) : (

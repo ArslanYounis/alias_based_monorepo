@@ -159,6 +159,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                 ""
               }
               status={!payment?.receiptNumber ? "Pending" : "Paid"}
+              status_ar={!payment?.receiptNumber ? "قيد الانتظار" : "مدفوع"}
               variant={variant}
               language={language}
               isExpanded

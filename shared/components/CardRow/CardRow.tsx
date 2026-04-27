@@ -3,9 +3,21 @@ import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { Buttons } from "@platform/Buttons";
 import { Fields } from "@platform/Fields";
+import { RadioField } from "@platform/RadioField";
+import { CheckboxField } from "@platform/CheckboxField";
+import { Select } from "@platform/Select";
+import { MultiSelect } from "@platform/MultiSelect";
+import { TextInput } from "@platform/TextInput";
+import { DateSelect } from "@platform/DateSelect";
 import { ChevronDownIcon, ChevronUpIcon } from "@platform/icons";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 import type { ButtonType } from "../CardTitle";
+import type { RadioFieldProps } from "@shared/types";
+import type { CheckboxFieldProps } from "@shared/types";
+import type { SelectProps } from "@shared/types";
+import type { MultiSelectProps } from "@shared/types";
+import type { TextInputProps } from "@shared/types";
+import type { DateSelectProps } from "@shared/types";
 
 export type Language = "en" | "ar";
 
@@ -62,6 +74,12 @@ export interface ICardRowProps {
   onToggleMore?: () => void;
   isMoreShown?: boolean;
   button?: ButtonType;
+  radio?: RadioFieldProps;
+  checkbox?: CheckboxFieldProps;
+  selectSingle?: SelectProps;
+  selectMulti?: MultiSelectProps;
+  textInput?: TextInputProps;
+  dateField?: DateSelectProps;
 }
 
 const Label = ({
@@ -136,7 +154,14 @@ const CardRow: React.FC<ICardRowProps> = ({
   onToggleMore = () => {},
   isMoreShown = true,
   button,
+  radio,
+  checkbox,
+  selectSingle,
+  selectMulti,
+  textInput,
+  dateField,
 }) => {
+  const hasLastColumnControl = !!(button || radio || checkbox || selectSingle || selectMulti || textInput || dateField);
   // Maps each button-column variant to how many value columns it has (excluding label + optional button)
   const buttonLayout: Partial<
     Record<
@@ -274,17 +299,37 @@ const CardRow: React.FC<ICardRowProps> = ({
             )
           )}
 
-          {/* Optional button — takes 1 equal share only when present */}
-          {button && (
+          {/* Last column: one of button, radio, checkbox, select, multiselect, textInput, dateField */}
+          {hasLastColumnControl && (
             <Container className="flex-1 min-w-0">
-              <Buttons
-                title={button.title}
-                title_ar={button.title_ar}
-                type={button.type || "secondary"}
-                size="s"
-                language={language}
-                onClick={button.onClick}
-              />
+              {button && (
+                <Buttons
+                  title={button.title}
+                  title_ar={button.title_ar}
+                  type={button.type || "secondary"}
+                  size="s"
+                  language={language}
+                  onClick={button.onClick}
+                />
+              )}
+              {!button && radio && (
+                <RadioField {...radio} language={radio.language ?? language} />
+              )}
+              {!button && !radio && checkbox && (
+                <CheckboxField {...checkbox} language={checkbox.language ?? language} />
+              )}
+              {!button && !radio && !checkbox && selectSingle && (
+                <Select {...selectSingle} language={selectSingle.language ?? language} />
+              )}
+              {!button && !radio && !checkbox && !selectSingle && selectMulti && (
+                <MultiSelect {...selectMulti} language={selectMulti.language ?? language} />
+              )}
+              {!button && !radio && !checkbox && !selectSingle && !selectMulti && textInput && (
+                <TextInput {...textInput} language={textInput.language ?? language} />
+              )}
+              {!button && !radio && !checkbox && !selectSingle && !selectMulti && !textInput && dateField && (
+                <DateSelect {...dateField} language={dateField.language ?? language} />
+              )}
             </Container>
           )}
         </Container>

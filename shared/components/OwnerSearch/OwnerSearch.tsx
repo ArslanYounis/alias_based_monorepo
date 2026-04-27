@@ -26,6 +26,7 @@ export interface OwnerSearchProps {
   initialOwnerType?: "company" | "owner";
   theme?: "light" | "dark";
   language?: "en" | "ar";
+  showTabs?: boolean;
   args?: string;
   platform?: "web" | "mobile";
 }
@@ -46,6 +47,7 @@ const OwnerSearch = ({
   selected = [],
   onSubmit = () => {},
   language = "en",
+  showTabs = true,
   args = "",
   platform = "web",
 }: OwnerSearchProps) => {
@@ -84,32 +86,34 @@ const OwnerSearch = ({
       )}
 
       {/* RadioCard Tab Selection */}
-      <Container className="mb-xl flex flex-row justify-center items-center gap-xl">
-        <RadioCard
-          icon={
-            <CompanyIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
-          }
-          label={ownerTypeOptions.company}
-          label_ar={ownerTypeOptions.company_ar}
-          iconLocation="top"
-          clicked={ownerType === "company"}
-          id="company"
-          onClick={handleOwnerTypeChange}
-          language={language}
-        />
-        <RadioCard
-          icon={
-            <OwnerIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
-          }
-          label={ownerTypeOptions.owner}
-          label_ar={ownerTypeOptions.owner_ar}
-          iconLocation="top"
-          clicked={ownerType === "owner"}
-          id="owner"
-          onClick={handleOwnerTypeChange}
-          language={language}
-        />
-      </Container>
+      {showTabs && (
+        <Container className="mb-xl flex flex-row justify-center items-center gap-xl">
+          <RadioCard
+            icon={
+              <CompanyIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
+            }
+            label={ownerTypeOptions.company}
+            label_ar={ownerTypeOptions.company_ar}
+            iconLocation="top"
+            clicked={ownerType === "company"}
+            id="company"
+            onClick={handleOwnerTypeChange}
+            language={language}
+          />
+          <RadioCard
+            icon={
+              <OwnerIcon className="!w-[30px] !h-[30px] sm:!w-[50px] sm:!h-[50px]" />
+            }
+            label={ownerTypeOptions.owner}
+            label_ar={ownerTypeOptions.owner_ar}
+            iconLocation="top"
+            clicked={ownerType === "owner"}
+            id="owner"
+            onClick={handleOwnerTypeChange}
+            language={language}
+          />
+        </Container>
+      )}
 
       {/* Conditional Forms */}
       {ownerType === "company" && (

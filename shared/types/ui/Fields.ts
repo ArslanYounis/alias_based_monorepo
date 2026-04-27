@@ -4,6 +4,8 @@ export interface Option {
   label?: string;
   label_ar?: string;
   value: string;
+  description?: string;
+  description_ar?: string;
 }
 
 export interface FormFieldProps {

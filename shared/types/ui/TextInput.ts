@@ -32,4 +32,5 @@ export interface TextInputProps {
     | "number";
   options?: { label?: string; label_ar?: string; value: string }[];
   selectType?: "single" | "multi";
+  isPrint_Archive?: boolean;
 }

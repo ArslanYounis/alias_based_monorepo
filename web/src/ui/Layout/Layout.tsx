@@ -48,6 +48,8 @@ interface LayoutProps {
   showSidebar?: boolean;
   showFooter?: boolean;
   toast?: ToastProps;
+  userName?: string;
+  userNameAr?: string;
 }
 
 export const Layout: React.FC<LayoutProps> = ({
@@ -61,6 +63,8 @@ export const Layout: React.FC<LayoutProps> = ({
   showFooter = true,
   breadcrumbItems = [],
   toast = { message: "", status: "success" },
+  userName,
+  userNameAr,
 }) => {
   return (
     <Container className="w-screen flex-1 h-[100vh] overflow-hidden">
@@ -77,6 +81,8 @@ export const Layout: React.FC<LayoutProps> = ({
               onToggleLanguage={onToggleLanguage}
               breadcrumbItems={breadcrumbItems}
               isEditing={isEditing}
+              userName={userName}
+              userName_ar={userNameAr}
             />
           )}
 

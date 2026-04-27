@@ -11,6 +11,7 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   language = "en",
   theme = "dark",
   type = "default",
+  apiType = "default",
   handleUploadInternally = false,
   onFileChange,
   onUploadSuccess,
@@ -112,14 +113,14 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           isUploaded={doc?.isUploaded}
           onFileChange={(file) => {
             if (!doc?.isUploaded) {
-              onFileChange?.({ file, uploadUrl: doc?.uploadUrl as string });
+              onFileChange?.({ file, uploadUrl: doc?.uploadUrl as string, document: doc });
               if (handleUploadInternally) {
                 handleUpload(file, doc);
               }
             }
           }}
           onDownloadClick={() => {
-            if (doc.downloadUrl) {
+            if (apiType === "default" && doc.downloadUrl) {
               setDownloadUrl(doc.downloadUrl);
             }
           }}
