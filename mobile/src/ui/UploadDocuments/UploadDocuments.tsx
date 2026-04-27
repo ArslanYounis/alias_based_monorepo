@@ -8,11 +8,19 @@ import { useUploadFile } from "@shared/hooks/useUploadFile";
 import type { DocumentConfig, UploadDocumentsProps } from "@shared/types";
 export type { DocumentConfig, UploadDocumentsProps };
 
+export type DariDownloadParams = {
+  applicationID: string;
+  applicationType: string;
+  documentType: string;
+  subType: string;
+};
+
 export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   documents,
   language = "en",
   theme = "dark",
   type = "default",
+  apiType = "default",
   handleUploadInternally = false,
   onFileChange,
   onUploadSuccess,
@@ -101,9 +109,11 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               }
             }
           }}
-          onDownloadClick={() =>
-            handleDownload(doc.downloadUrl, doc.documentName)
-          }
+          onDownloadClick={() => {
+            if (apiType === "default" && doc?.downloadUrl) {
+              handleDownload(doc.downloadUrl, doc.documentName);
+            }
+          }}
         />
       ))}
     </View>

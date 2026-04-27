@@ -211,22 +211,6 @@ const CardRow: React.FC<ICardRowProps> = ({
   const currentButtonLayout =
     rowVariant && buttonLayout[rowVariant as keyof typeof buttonLayout];
 
-  const hasLastColumnControl = !!(
-    button ||
-    radio ||
-    checkbox ||
-    selectSingle ||
-    selectMulti ||
-    textInput ||
-    dateField
-  );
-
-  const rowColsClass = currentButtonLayout
-    ? hasLastColumnControl
-      ? currentButtonLayout.colsClass
-      : currentButtonLayout.noButtonColsClass
-    : "";
-
   const mainItem: FieldItem = {
     label,
     label_ar,
