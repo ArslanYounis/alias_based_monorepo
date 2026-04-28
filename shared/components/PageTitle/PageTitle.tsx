@@ -22,7 +22,7 @@ const PageTitle: FC<PageTitleProps> = ({
 }) => {
   return (
     <Container
-      className="flex w-full items-center justify-between"
+      className="flex flex-row w-full items-center justify-between"
       dir={language === "en" ? "ltr" : "rtl"}
     >
       <Text className="text-heading-h2 font-bold text-text-default">
@@ -32,7 +32,7 @@ const PageTitle: FC<PageTitleProps> = ({
           value_ar={label_ar || label}
         />
       </Text>
-      <Container className="flex gap-s my-s">
+      <Container className="flex flex-row gap-s my-s">
         {showButtons &&
           buttons?.map((button) => (
             <Buttons
