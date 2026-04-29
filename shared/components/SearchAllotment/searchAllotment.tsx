@@ -59,7 +59,7 @@ const SearchAllotment = ({
   };
 
   return (
-    <Container className="flex flex-1 flex-col">
+    <Container className="flex w-full flex-col">
       {!!title && (
         <Text
           className={`text-heading-h2 font-bold text-text-default mb-[14px]`}

@@ -11,6 +11,7 @@ export interface PageTitleProps {
   language?: "en" | "ar";
   showButtons?: boolean;
   buttons?: ButtonType[];
+  platform?: "web" | "mobile";
 }
 
 const PageTitle: FC<PageTitleProps> = ({
@@ -19,13 +20,16 @@ const PageTitle: FC<PageTitleProps> = ({
   language = "en",
   showButtons = false,
   buttons = [],
+  platform = "web",
 }) => {
   return (
     <Container
       className="flex flex-row w-full items-center justify-between"
       dir={language === "en" ? "ltr" : "rtl"}
     >
-      <Text className="text-heading-h2 font-bold text-text-default">
+      <Text
+        className={`${platform === "web" ? "text-heading-h2" : "text-heading-h3"} font-bold text-text-default`}
+      >
         <SharedLanguageSwitchRenderer
           language={language}
           value={label}

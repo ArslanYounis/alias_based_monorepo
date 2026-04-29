@@ -7,7 +7,5 @@ export type {
   UiBlockType,
   ApplicationType,
   Language,
-  UploadDocumentsProps,
-  DocumentConfig,
 } from "./ApplicationSummary.types";
 export type { ApplicationSummaryDetailProps } from "./ApplicationSummaryDetail";

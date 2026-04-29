@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { File } from "expo-file-system";
+import axios from "axios";
 import { UploadDocument } from "../UploadDocument/UploadDocument";
 import { useDownload } from "../sharedHooks/useDownload";
 import { useUploadFile } from "@shared/hooks/useUploadFile";
@@ -26,7 +27,7 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   onUploadSuccess,
   onUploadFail,
 }) => {
-  const { download } = useDownload();
+  const { download, downloadDari } = useDownload();
   const { mutateAsync: uploadFile } = useUploadFile();
 
   const handleDownload = (downloadUrl?: string, documentName?: string) => {
@@ -60,20 +61,37 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
       const fileExtension = file.name.split(".").pop() ?? "";
       const fileType = file.mimeType ?? "";
+      const fileName = file.name;
 
-      const payload = {
-        name: `doc_name_${doc.wfiDocumentId ?? ""}`,
-        file: {
-          file_name: file.name,
-          file_type: fileType,
-          file_content: base64,
-          file_identifier: "",
-          file_extension: fileExtension,
-        },
-      };
-
-      const result = await uploadFile({ payload, uploadUrl: doc.uploadUrl });
-      onUploadSuccess?.(result);
+      if (apiType === "dari") {
+        const result = await axios.post("/dari/file/upload", {
+          applicationType: doc?.applicationType,
+          applicationId: String(doc?.applicationID ?? ""),
+          documentType: doc?.documentType || doc?.uploadUrl || "",
+          subType: "doc_" + Date.now(),
+          file: {
+            file_name: fileName,
+            file_type: fileType,
+            file_content: base64,
+            file_identifier: fileName,
+            file_extension: fileExtension,
+          },
+        });
+        onUploadSuccess?.(result);
+      } else {
+        const payload = {
+          name: `doc_name_${doc.wfiDocumentId ?? ""}`,
+          file: {
+            file_name: fileName,
+            file_type: fileType,
+            file_content: base64,
+            file_identifier: "",
+            file_extension: fileExtension,
+          },
+        };
+        const result = await uploadFile({ payload, uploadUrl: doc.uploadUrl });
+        onUploadSuccess?.(result);
+      }
     } catch (error) {
       onUploadFail?.(error);
     }
@@ -110,7 +128,17 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
             }
           }}
           onDownloadClick={() => {
-            if (apiType === "default" && doc?.downloadUrl) {
+            if (apiType === "dari" && doc?.applicationID) {
+              downloadDari(
+                {
+                  applicationID: doc.applicationID,
+                  applicationType: doc.applicationType ?? "",
+                  documentType: doc.documentType ?? "",
+                  subType: doc.subType ?? "",
+                },
+                doc.documentName,
+              );
+            } else if (apiType === "default" && doc?.downloadUrl) {
               handleDownload(doc.downloadUrl, doc.documentName);
             }
           }}
