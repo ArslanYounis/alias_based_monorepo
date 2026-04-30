@@ -66,8 +66,18 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
           </Container>
 
           <Container className="flex-1 flex flex-col justify-between">
-            <Container className={`flex ${platform === "mobile" ? "flex-col items-start gap-xs" : "flex-row justify-between items-start"}`}>
-              <Text className={`text-bold-m text-text-default ${platform === "web" ? "mb-xs" : ""}`}>
+            <Container
+              className={`flex ${
+                platform === "mobile"
+                  ? "flex-col items-start gap-xs"
+                  : "flex-row justify-between items-start"
+              }`}
+            >
+              <Text
+                className={`text-bold-m text-text-default ${
+                  platform === "web" ? "mb-xs" : ""
+                }`}
+              >
                 <SharedLanguageSwitchRenderer
                   language={language}
                   value={step?.title}
@@ -107,9 +117,7 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
                   </Text>
                 </Container>
 
-                <Container
-                  className={`flex-1 ms-xl`}
-                >
+                <Container className={`flex-1 ms-xl`}>
                   <Text className={`text-m text-text-default`}>
                     <SharedLanguageSwitchRenderer
                       language={language}
@@ -124,7 +132,9 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
               <Container
                 className={`flex flex-row ${
                   platform === "web" ? "w-[80%]" : "w-full"
-                } py-xs ${step?.comments ? "border-b border-border-dimmed" : ""}`}
+                } py-xs ${
+                  step?.comments ? "border-b border-border-dimmed" : ""
+                }`}
               >
                 <Container
                   className={`${platform === "web" ? "w-[40px]" : ""}`}
@@ -133,9 +143,7 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
                     {language === "en" ? "Date" : "التاريخ"}
                   </Text>
                 </Container>
-                <Container
-                  className={`flex-1 ms-xl`}
-                >
+                <Container className={`flex-1 ms-xl`}>
                   <Text className={`text-m text-text-default`}>
                     <SharedLanguageSwitchRenderer
                       language={language}
@@ -159,9 +167,7 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
                     {language === "en" ? "Remark" : "ملاحظة"}
                   </Text>
                 </Container>
-                <Container
-                  className={`flex-1 ms-xl`}
-                >
+                <Container className={`flex-1 ms-xl`}>
                   <Text className={`text-m text-text-default line-clamp-1`}>
                     <SharedLanguageSwitchRenderer
                       language={language}
@@ -188,8 +194,8 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
         platform={platform}
       />
 
-      {wfiStepList.length > 0 ? (
-        wfiStepList.map(renderInteractionCard)
+      {wfiStepList?.length > 0 ? (
+        wfiStepList?.map(renderInteractionCard)
       ) : (
         <Text className="text-text-dimmed text-m">
           <SharedLanguageSwitchRenderer
