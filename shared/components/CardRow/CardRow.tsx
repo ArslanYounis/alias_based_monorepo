@@ -91,6 +91,7 @@ export interface ICardRowProps {
   textInput?: TextInputProps;
   /** Last-column date (DLS DateField) */
   dateField?: DateSelectProps;
+  platform?: "web" | "mobile";
 }
 
 const Label = ({
@@ -171,6 +172,7 @@ const CardRow: React.FC<ICardRowProps> = ({
   selectMulti,
   textInput,
   dateField,
+  platform = "web",
 }) => {
   // Maps each button-column variant to how many value columns it has (excluding label + optional button)
   const buttonLayout: Partial<
@@ -310,7 +312,7 @@ const CardRow: React.FC<ICardRowProps> = ({
 
       {/* 3colButton / 4colButton / 5colButton / 6colButton */}
       {currentButtonLayout && (
-        <Container className="gap-xxs py-s flex flex-row items-center text-text-default border-b border-border-dimmed">
+        <Container className={`gap-xxs py-s flex flex-row ${platform === "mobile" ? "items-start" : "items-center"} text-text-default border-b border-border-dimmed`}>
           {/* Label — takes 1 equal share */}
           <Container className="flex-1 min-w-0 text-bold-m">
             <Label l={label ?? ""} l_ar={label_ar} language={language} />
@@ -343,7 +345,7 @@ const CardRow: React.FC<ICardRowProps> = ({
             </Container>
           )}
           {!button && radio && (
-            <Container className="min-w-0">
+            <Container className="flex-1 min-w-0">
               <RadioField
                 id={radio.id}
                 checked={radio.checked}
@@ -360,7 +362,7 @@ const CardRow: React.FC<ICardRowProps> = ({
             </Container>
           )}
           {!button && !radio && checkbox && (
-            <Container className="min-w-0">
+            <Container className="flex-1 min-w-0">
               <CheckboxField
                 {...checkbox}
                 language={checkbox.language ?? language}
@@ -368,7 +370,7 @@ const CardRow: React.FC<ICardRowProps> = ({
             </Container>
           )}
           {!button && !radio && !checkbox && selectSingle && (
-            <Container className="min-w-0 w-full max-w-full">
+            <Container className="flex-1 min-w-0">
               <Select
                 {...selectSingle}
                 isPrint_Archive={true}
@@ -377,7 +379,7 @@ const CardRow: React.FC<ICardRowProps> = ({
             </Container>
           )}
           {!button && !radio && !checkbox && !selectSingle && selectMulti && (
-            <Container className="min-w-0 w-full max-w-full">
+            <Container className="flex-1 min-w-0">
               <MultiSelect
                 {...selectMulti}
                 isPrint_Archive={true}
@@ -391,7 +393,7 @@ const CardRow: React.FC<ICardRowProps> = ({
             !selectSingle &&
             !selectMulti &&
             textInput && (
-              <Container className="min-w-0 w-full max-w-full">
+              <Container className="flex-1 min-w-0">
                 <TextInput
                   {...textInput}
                   isPrint_Archive={true}
@@ -406,7 +408,7 @@ const CardRow: React.FC<ICardRowProps> = ({
             !selectMulti &&
             !textInput &&
             dateField && (
-              <Container className="min-w-0 w-full max-w-full">
+              <Container className="flex-1 min-w-0">
                 <DateSelect
                   {...dateField}
                   isPrint_Archive={true}
