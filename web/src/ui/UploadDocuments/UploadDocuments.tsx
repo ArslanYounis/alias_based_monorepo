@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import axios from "axios";
 import { UploadDocument } from "../UploadDocument/UploadDocument";
-import { useGetDownloadFile } from "@/hooks/useGetDownloadFile";
 import { useUploadFile } from "@shared/hooks/useUploadFile";
+import { useDownload } from "@/hooks/useDownload";
+import { useDariDownload } from "@/hooks/useDariDownload";
 
 import type { DocumentConfig, UploadDocumentsProps } from "@shared/types";
 
-import { useGetDariDownloadFile } from "@shared/hooks/useGetDariDownloadFile";
-
 export type { DocumentConfig, UploadDocumentsProps };
-
-export type DariDownloadParams = {
-  applicationID: string;
-  applicationType: string;
-  documentType: string;
-  subType: string;
-};
 
 export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   documents,
@@ -27,22 +20,13 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   onUploadSuccess,
   onUploadFail,
 }) => {
-  const [downloadUrl, setDownloadUrl] = useState<string | undefined>(undefined);
-  const [dariParams, setDariParams] = useState<DariDownloadParams | undefined>(
-    undefined
-  );
-
-  const { data: downloadBlob, isSuccess: isDownloadSuccess } =
-    useGetDownloadFile(downloadUrl);
-
   const { mutateAsync: uploadFile } = useUploadFile();
-
-  const { data: dariFile, isSuccess: isDariSuccess } =
-    useGetDariDownloadFile(dariParams);
+  const { download } = useDownload();
+  const { download: downloadDari } = useDariDownload();
 
   const handleUpload = async (
     file: { name: string; uri: string; mimeType?: string } | null,
-    doc: DocumentConfig
+    doc: DocumentConfig,
   ) => {
     if (!file) return;
 
@@ -61,67 +45,41 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
       const fileExtension = file.name.split(".").pop() ?? "";
       const fileType = file.mimeType || blob.type || "";
+      const fileName = file.name;
 
-      const payload = {
-        name: `doc_name_${doc.wfiDocumentId ?? ""}`,
-        file: {
-          file_name: file.name,
-          file_type: fileType,
-          file_content: base64,
-          file_identifier: "",
-          file_extension: fileExtension,
-        },
-      };
-
-      const result = await uploadFile({ payload, uploadUrl: doc.uploadUrl });
-      onUploadSuccess?.(result);
+      if (apiType === "dari") {
+        const result = await axios.post("/dari/file/upload", {
+          applicationType: doc?.applicationType,
+          applicationId: String(doc?.applicationID ?? ""),
+          documentType: doc?.documentType || doc?.uploadUrl || "",
+          subType: "doc_" + Date.now(),
+          file: {
+            file_name: fileName,
+            file_type: fileType,
+            file_content: base64,
+            file_identifier: fileName,
+            file_extension: fileExtension,
+          },
+        });
+        onUploadSuccess?.(result);
+      } else {
+        const payload = {
+          name: `doc_name_${doc.wfiDocumentId ?? ""}`,
+          file: {
+            file_name: fileName,
+            file_type: fileType,
+            file_content: base64,
+            file_identifier: "",
+            file_extension: fileExtension,
+          },
+        };
+        const result = await uploadFile({ payload, uploadUrl: doc.uploadUrl });
+        onUploadSuccess?.(result);
+      }
     } catch (error) {
       onUploadFail?.(error);
     }
   };
-
-  useEffect(() => {
-    let blob: Blob | undefined;
-    let fileName = "document";
-
-    // DEFAULT FLOW
-    if (downloadUrl && isDownloadSuccess && downloadBlob) {
-      blob = downloadBlob;
-    }
-
-    // DARI FLOW
-    if (dariParams && isDariSuccess && dariFile) {
-      blob = dariFile.blob;
-      fileName = dariFile.fileName || fileName;
-    }
-
-    if (!blob) return;
-
-    try {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = fileName;
-
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-
-      window.URL.revokeObjectURL(url);
-    } catch (e) {
-      console.error("Failed to download file", e);
-    } finally {
-      setDownloadUrl(undefined);
-      setDariParams(undefined);
-    }
-  }, [
-    isDownloadSuccess,
-    downloadBlob,
-    downloadUrl,
-    isDariSuccess,
-    dariFile,
-    dariParams,
-  ]);
 
   return (
     <div className="flex flex-col flex-1 space-y-4">
@@ -155,14 +113,14 @@ export const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           }}
           onDownloadClick={() => {
             if (apiType === "dari" && doc?.applicationID) {
-              setDariParams({
-                applicationID: doc?.applicationID ?? "",
-                applicationType: doc?.applicationType ?? "",
-                documentType: doc?.documentType ?? "",
-                subType: doc?.subType ?? "",
+              downloadDari({
+                applicationID: doc.applicationID,
+                applicationType: doc.applicationType ?? "",
+                documentType: doc.documentType ?? "",
+                subType: doc.subType ?? "",
               });
             } else if (apiType === "default" && doc?.downloadUrl) {
-              setDownloadUrl(doc.downloadUrl);
+              download(doc.downloadUrl, doc.documentName);
             }
           }}
         />

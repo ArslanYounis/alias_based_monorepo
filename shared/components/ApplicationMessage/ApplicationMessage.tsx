@@ -256,8 +256,8 @@ const ApplicationMessage: React.FC<ApplicationMessageProps> = ({
       className={`h-auto w-full px-m py-s gap-m rounded-s ${border} ${bg} flex justify-start items-start`}
     >
       <Container className="flex flex-row items-start gap-l">
-        {platform === "web" && icon}
-        <Container className="space-y-2">
+        {icon}
+        <Container className="space-y-2 flex-1">
           <Text className="text-bold-l text-structure-menu-select-text pb-0.5">
             <SharedLanguageSwitchRenderer
               language={language}

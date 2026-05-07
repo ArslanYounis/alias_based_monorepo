@@ -155,6 +155,13 @@ const downloadToCache = async (
   }
 };
 
+type DariDownloadParams = {
+  applicationID: string;
+  applicationType: string;
+  documentType: string;
+  subType: string;
+};
+
 export const useDownload = () => {
   const download = async (url: string, filename = "paymentSlip.pdf") => {
     try {
@@ -178,5 +185,62 @@ export const useDownload = () => {
     }
   };
 
-  return { download };
+  const downloadDari = async (
+    params: DariDownloadParams,
+    fallbackName = "document",
+  ) => {
+    try {
+      const res = await axios.get("dari/file/doc-download", {
+        params,
+        responseType: "arraybuffer",
+      });
+
+      const contentType = res.headers?.["content-type"] || "";
+      const isJson =
+        contentType.includes("application/json") ||
+        contentType.includes("text/json");
+
+      let fileUri: string;
+      let fileName: string;
+
+      if (isJson) {
+        const bytes2 = new Uint8Array(res.data as ArrayBuffer);
+        let text = "";
+        for (let i = 0; i < bytes2.length; i++)
+          text += String.fromCharCode(bytes2[i]);
+        const json = JSON.parse(text);
+        const bytes = json?.result?.bytes;
+        fileName = json?.result?.fileName || fallbackName;
+
+        if (!bytes) throw new Error("Missing file bytes");
+
+        const u8 = base64ToBytes(ensureBase64(bytes));
+        const file = new File(Paths.cache, fileName);
+        file.write(u8);
+        fileUri = file.uri;
+      } else {
+        fileName = fallbackName;
+        const file = new File(Paths.cache, fileName);
+        file.write(new Uint8Array(res.data as ArrayBuffer));
+        fileUri = file.uri;
+      }
+
+      const isSharingAvailable = await Sharing.isAvailableAsync();
+      if (!isSharingAvailable) {
+        console.warn("Sharing is not available on this device");
+        return;
+      }
+
+      const { mimeType, UTI } = getMimeInfo(fileName);
+      await Sharing.shareAsync(fileUri, {
+        mimeType,
+        UTI,
+        dialogTitle: "Save or open file",
+      });
+    } catch (err) {
+      console.error("Dari download failed:", err);
+    }
+  };
+
+  return { download, downloadDari };
 };

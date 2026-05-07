@@ -50,7 +50,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
           </View>
         )}
         {showTitle && title && (
-          <View>
+          <View className="flex-1">
             <SharedLanguageSwitchRenderer
               language={language}
               value={title}

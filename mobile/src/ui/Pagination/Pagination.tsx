@@ -13,7 +13,7 @@ const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
   showPageNumbers = true,
   maxVisiblePages = 4,
-  position = "center",
+  position = "right",
   language = "en",
   pageSize,
   totalCount,
@@ -69,12 +69,11 @@ const Pagination: React.FC<PaginationProps> = ({
     return pages;
   };
 
-  const justifyContent =
-    position === "left"
-      ? "flex-start"
-      : position === "right"
-      ? "flex-end"
-      : "center";
+  const alignmentClass = {
+    left: "justify-start",
+    center: "justify-center",
+    right: "justify-end",
+  }[position];
 
   const handlePrev = () => {
     if (currentPage > 1) onPageChange(currentPage - 1);
@@ -95,18 +94,13 @@ const Pagination: React.FC<PaginationProps> = ({
       ? pageSize
       : Math.min(
           pageSize,
-          Math.max(0, totalCount - (currentPage - 1) * pageSize)
+          Math.max(0, totalCount - (currentPage - 1) * pageSize),
         );
 
   return (
     <View>
       <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent,
-          gap: 8,
-        }}
+        className={`flex flex-row items-center space-x-xs text-m font-sans ${alignmentClass} text-text-default`}
       >
         <Pressable
           onPress={handlePrev}
@@ -139,13 +133,15 @@ const Pagination: React.FC<PaginationProps> = ({
               >
                 <Text
                   className={`text-m ${
-                    currentPage === page ? "text-text-default" : "text-text-dimmed"
+                    currentPage === page
+                      ? "text-text-default"
+                      : "text-text-dimmed"
                   }`}
                 >
                   {language === "ar" ? toArabicDigits(page) : page}
                 </Text>
               </Pressable>
-            )
+            ),
           )}
 
         <Pressable
@@ -163,7 +159,7 @@ const Pagination: React.FC<PaginationProps> = ({
       </View>
 
       {showBottomText && (
-        <View className="mt-2 me-2" style={{ alignItems: "flex-end" }}>
+        <View className="mt-2 me-2 text-s text-end text-text-default">
           {totalCount === undefined ? (
             <SharedLanguageSwitchRenderer
               language={language}
@@ -176,7 +172,7 @@ const Pagination: React.FC<PaginationProps> = ({
               language={language}
               value={`Showing ${visibleItems} out of ${totalCount} items`}
               value_ar={`عرض ${toArabicDigits(
-                visibleItems
+                visibleItems,
               )} من ${toArabicDigits(totalCount)} عناصر`}
               className="text-s text-text-default"
             />

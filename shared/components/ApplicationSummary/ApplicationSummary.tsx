@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Container } from "@platform/Container";
 import { Text } from "@platform/Text";
 import { ChevronDownIcon, ChevronUpIcon } from "@platform/icons";
+import { UploadDocuments } from "@platform/UploadDocuments";
 import CardTitle from "../CardTitle";
 import Agent from "../Agent";
 import PlotCard from "../PlotCard";
@@ -25,9 +26,9 @@ import type {
   UiBlock,
   ApplicationType,
   ApplicationSummaryProps,
-  UploadDocumentsProps,
 } from "./ApplicationSummary.types";
 import { SwitchButton } from "@platform/SwitchButton";
+import { UploadDocumentsProps } from "@shared/types";
 
 /* Component */
 const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
@@ -35,7 +36,6 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
   title_ar = "ملخص الطلب",
   language = "en",
   data = [],
-  DocumentsComponent,
   platform = "web",
 }) => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -141,9 +141,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
                 platform={platform}
               />
             )}
-            {DocumentsComponent && (
-              <DocumentsComponent {...props} language={language} />
-            )}
+            <UploadDocuments {...props} language={language} />
           </Container>
         );
       }

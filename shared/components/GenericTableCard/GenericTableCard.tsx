@@ -229,7 +229,6 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
                         </Container>
                       )
                     )}
-                  {/* Placeholder to align with the button column in each row */}
                   {showRowButtons && <Container className="flex-1 min-w-0" />}
                 </Container>
               )}
@@ -286,101 +285,110 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
               })}
             </>
           ) : (
-            <>
-              {/* Column header row — flex replaces grid; each cell gets flex-1 to match equal columns */}
-              {currentButtonLayout && columnsData && columnsData.length > 0 && (
-                <ScrollContainer
-                  horizontal
-                  className="w-full border-b border-border-dimmed"
-                >
-                  <Container className="flex flex-row min-w-full">
-                    {columnsData
-                      .slice(0, (currentButtonLayout?.valueCount ?? 0) + 1)
-                      .map(
-                        (
-                          column: {
-                            key?: string;
-                            label: string;
-                            label_ar?: string;
-                          },
-                          idx: number
-                        ) => (
-                          <Container
-                            key={column.key ?? idx}
-                            className="flex-1 px-xs py-s"
-                          >
-                            <Text className="text-bold-m whitespace-normal break-words">
-                              <SharedLanguageSwitchRenderer
-                                language={language}
-                                value={column.label}
-                                value_ar={column.label_ar}
-                              />
-                            </Text>
-                          </Container>
-                        )
+            (() => {
+              const COL_WIDTH = 120;
+              const colCount = currentButtonLayout
+                ? currentButtonLayout.valueCount + 1 + (showRowButtons ? 1 : 0)
+                : 0;
+              const tableWidth = colCount * COL_WIDTH;
+              return (
+                <ScrollContainer horizontal className="w-full">
+                  <Container
+                    className="flex flex-col"
+                    style={tableWidth > 0 ? { width: tableWidth } : undefined}
+                  >
+                    {/* Column header row — lives in the same scroll container so headers and rows scroll together */}
+                    {currentButtonLayout &&
+                      columnsData &&
+                      columnsData.length > 0 && (
+                        <Container className="flex flex-row border-b border-border-dimmed">
+                          {columnsData
+                            .slice(0, (currentButtonLayout?.valueCount ?? 0) + 1)
+                            .map(
+                              (
+                                column: {
+                                  key?: string;
+                                  label: string;
+                                  label_ar?: string;
+                                },
+                                idx: number
+                              ) => (
+                                <Container
+                                  key={column.key ?? idx}
+                                  className="flex-1 px-xs py-s"
+                                >
+                                  <Text className="text-bold-m whitespace-normal wrap-break-word">
+                                    <SharedLanguageSwitchRenderer
+                                      language={language}
+                                      value={column.label}
+                                      value_ar={column.label_ar}
+                                    />
+                                  </Text>
+                                </Container>
+                              )
+                            )}
+                          {showRowButtons && (
+                            <Container className="flex-1 px-xs py-s" />
+                          )}
+                        </Container>
                       )}
-                    {/* Placeholder to align with the button column in each row */}
-                    {showRowButtons && (
-                      <Container className="flex-1 px-xs py-s" />
-                    )}
+
+                    {rowsToShow.map((row, idx) => {
+                      const button: ButtonType = {
+                        title: row.button?.title ?? "View",
+                        title_ar: row.button?.title_ar ?? row.label_ar,
+                        type: row.button?.type ?? "secondary",
+                        onClick: row.button?.onClick,
+                      };
+                      return (
+                        <CardRow
+                          key={idx}
+                          {...row}
+                          button={
+                            showRowButtons && lastColItem === "button"
+                              ? button
+                              : undefined
+                          }
+                          radio={
+                            showRowButtons && lastColItem === "radio"
+                              ? row.radio
+                              : undefined
+                          }
+                          checkbox={
+                            showRowButtons && lastColItem === "checkbox"
+                              ? row.checkbox
+                              : undefined
+                          }
+                          selectSingle={
+                            showRowButtons && lastColItem === "selectSingle"
+                              ? row.selectSingle
+                              : undefined
+                          }
+                          selectMulti={
+                            showRowButtons && lastColItem === "selectMulti"
+                              ? row.selectMulti
+                              : undefined
+                          }
+                          textInput={
+                            showRowButtons && lastColItem === "input"
+                              ? row.textInput
+                              : undefined
+                          }
+                          dateField={
+                            showRowButtons && lastColItem === "date"
+                              ? row.dateField
+                              : undefined
+                          }
+                          language={language}
+                          rowVariant={rowVariant}
+                          platform={platform}
+                        />
+                      );
+                    })}
                   </Container>
                 </ScrollContainer>
-              )}
-
-              {rowsToShow.map((row, idx) => {
-                const button: ButtonType = {
-                  title: row.button?.title ?? "View",
-                  title_ar: row.button?.title_ar ?? row.label_ar,
-                  type: row.button?.type ?? "secondary",
-                  onClick: row.button?.onClick,
-                };
-                return (
-                  <ScrollContainer horizontal className="w-full flex-1 px-xs">
-                    <CardRow
-                      key={idx}
-                      {...row}
-                      button={
-                        showRowButtons && lastColItem === "button"
-                          ? button
-                          : undefined
-                      }
-                      radio={
-                        showRowButtons && lastColItem === "radio"
-                          ? row.radio
-                          : undefined
-                      }
-                      checkbox={
-                        showRowButtons && lastColItem === "checkbox"
-                          ? row.checkbox
-                          : undefined
-                      }
-                      selectSingle={
-                        showRowButtons && lastColItem === "selectSingle"
-                          ? row.selectSingle
-                          : undefined
-                      }
-                      selectMulti={
-                        showRowButtons && lastColItem === "selectMulti"
-                          ? row.selectMulti
-                          : undefined
-                      }
-                      textInput={
-                        showRowButtons && lastColItem === "input"
-                          ? row.textInput
-                          : undefined
-                      }
-                      dateField={
-                        showRowButtons && lastColItem === "date"
-                          ? row.dateField
-                          : undefined
-                      }
-                      language={language}
-                      rowVariant={rowVariant}
-                    />
-                  </ScrollContainer>
-                );
-              })}
-            </>
+              );
+            })()
           )}
 
           {showPagination && (

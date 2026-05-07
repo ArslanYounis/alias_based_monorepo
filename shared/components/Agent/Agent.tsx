@@ -73,7 +73,7 @@ const Agent: React.FC<AgentProps> = ({
             }
             avatarSize={32}
           />
-          <Container className="flex flex-col gap-xs">
+          <Container className="flex flex-col gap-xs flex-1">
             <Text className="text-m text-text-default font-normal">
               <SharedLanguageSwitchRenderer
                 language={language}
@@ -81,7 +81,7 @@ const Agent: React.FC<AgentProps> = ({
                 value_ar={agent.name_ar}
               />
             </Text>
-            <Container className="flex flex-row gap-xs">
+            <Container className="flex flex-row flex-wrap gap-xs">
               <Text className="text-s text-text-link font-normal">
                 {agent.email}
               </Text>

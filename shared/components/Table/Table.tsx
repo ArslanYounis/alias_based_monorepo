@@ -126,7 +126,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
                     },
                     remaining:
                       language === "ar"
-                        ? row.daysRemaining_ar ?? ""
+                        ? (row.daysRemaining_ar ?? "")
                         : row.daysRemaining,
                   }}
                   totalDots={row?.totalDots}
@@ -181,9 +181,10 @@ export const Table: React.FC<ApplicationTableProps> = ({
                     },
                     remaining:
                       language === "ar"
-                        ? row.daysRemaining_ar ?? ""
+                        ? (row.daysRemaining_ar ?? "")
                         : row.daysRemaining,
                   }}
+                  totalDots={row?.totalDots}
                   onClick={row.onCardClick ?? undefined}
                 />
               </Container>
