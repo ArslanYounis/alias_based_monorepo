@@ -133,7 +133,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
                   onClick={row.onCardClick ?? undefined}
                 />
               </Container>
-              {row.additionalColumns?.slice(0, 5).map((col, colIndex) => (
+              {row.additionalColumns?.map((col, colIndex) => (
                 <Container
                   key={colIndex}
                   className="min-w-50 shrink-0 flex-1 mr-xs"
@@ -187,7 +187,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
                   onClick={row.onCardClick ?? undefined}
                 />
               </Container>
-              {row.additionalColumns?.slice(0, 5).map((col, colIndex) => (
+              {row.additionalColumns?.map((col, colIndex) => (
                 <Container
                   key={colIndex}
                   className="min-w-50 shrink-0 flex-1 mr-xs"
