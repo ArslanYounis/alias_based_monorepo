@@ -198,7 +198,9 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
   /* Render */
   return (
     <Container
-      className="bg-grey-form-back border border-cards-stroke py-m px-l w-full"
+      className={`bg-grey-form-back border border-cards-stroke py-m ${
+        platform === "web" ? "px-l" : "px-m"
+      } w-full`}
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Header */}
@@ -212,7 +214,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
         </Text>
 
         {/* Compact & Standard Toggle + Expand button */}
-        <Container className="flex items-center gap-xs">
+        <Container className="flex flex-row items-center gap-xs">
           {isExpanded && (
             <>
               {/* Toggle track — click handled by wrapping Container following existing project pattern */}
@@ -273,10 +275,12 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
           {sectionsArray?.map((blocks, columnIndex) => (
             <Container
               key={columnIndex}
-              className={`flex flex-col ${platform === "mobile" ? "gap-l" : "gap-xl"}`}
+              className={`flex flex-col ${
+                platform === "mobile" ? "gap-l" : "gap-xl"
+              }`}
             >
               {blocks?.map((block, blockIndex) =>
-                renderSection(block, blockIndex),
+                renderSection(block, blockIndex)
               )}
             </Container>
           ))}
