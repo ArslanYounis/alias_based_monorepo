@@ -97,7 +97,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
           }`}
         >
           <Text
-            className={`${variantStyles.title} font-bold text-text-default wrap-break-word whitespace-normal min-w-0`}
+            className={`${variantStyles.title} flex flex-1 font-bold text-text-default wrap-break-word whitespace-normal min-w-0`}
           >
             <SharedLanguageSwitchRenderer
               language={language}
@@ -198,7 +198,9 @@ const CardTitle: React.FC<ICardTitleProps> = ({
             />
           </Text>
           {(subText || subText_ar) && (
-            <Text className={`${variantStyles.subText} text-text-default shrink-0`}>
+            <Text
+              className={`${variantStyles.subText} text-text-default shrink-0`}
+            >
               <SharedLanguageSwitchRenderer
                 language={language}
                 value={subText || ""}

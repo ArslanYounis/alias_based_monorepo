@@ -19,8 +19,8 @@ export const CheckRadioLabel: React.FC<CheckRadioLabelProps> = ({
     : "text-form-fields-label-text";
 
   return (
-    <TouchableOpacity disabled={disabled} onPress={onClick}>
-      <View className="flex">
+    <TouchableOpacity disabled={disabled} onPress={onClick} style={{ flex: 1 }}>
+      <View className="flex flex-1">
         <Text className={`text-bold-m ${colorClass}`}>
           <SharedLanguageSwitchRenderer
             language={language}

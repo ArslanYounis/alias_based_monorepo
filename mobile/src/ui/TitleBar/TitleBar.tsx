@@ -43,8 +43,12 @@ const TitleBar: React.FC<TitleBarProps> = ({
     >
       <View className="flex flex-row items-center gap-s md:gap-xl min-w-0 self-start">
         {showAcronym && computedAcronym && (
-          <View className="rounded-s h-10 w-10 flex justify-center items-center bg-structure-primary-7">
-            <Text className="text-heading-h4 font-bold text-structure-primary-4">
+          <View className="rounded-xxs h-11 w-11 flex justify-center items-center bg-structure-primary-7">
+            <Text
+              className="text-heading-h4 font-bold text-structure-primary-4"
+              numberOfLines={1}
+              adjustsFontSizeToFit
+            >
               {computedAcronym}
             </Text>
           </View>

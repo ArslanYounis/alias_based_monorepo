@@ -273,7 +273,7 @@ const ApplicationMessage: React.FC<ApplicationMessageProps> = ({
             />
           </Text>
 
-          <Container className="flex items-center gap-m mt-s flex-wrap">
+          <Container className="flex flex-1 items-center gap-m mt-s flex-wrap">
             {renderInput()}
           </Container>
         </Container>
