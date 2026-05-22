@@ -1,5 +1,6 @@
 import type { LogoProps } from "@shared/types";
 import React from "react";
+import { IMAGE_URL } from "@/lib/utils";
 import OneHubsvg from "@/assets/icons/oneHubsvg";
 
 export type { LogoProps };
@@ -42,7 +43,7 @@ export const Logo: React.FC<LogoProps> = ({
         return (
           <img
             alt="DMT logo"
-            src="https://adrec-images.mastermind-mindset.com/dmtLogo.svg"
+            src={`${IMAGE_URL}dmtLogo.svg`}
             {...imgProps}
           />
         );
@@ -50,7 +51,7 @@ export const Logo: React.FC<LogoProps> = ({
         return (
           <img
             alt="DMT icon"
-            src="https://adrec-images.mastermind-mindset.com/dmtIocn.svg"
+            src={`${IMAGE_URL}dmtIocn.svg`}
             {...imgProps}
           />
         );

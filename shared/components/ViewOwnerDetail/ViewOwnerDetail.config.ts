@@ -34,24 +34,39 @@ const controls: ComponentConfig<ViewOwnerDetailProps>["controls"] = {
     defaultCode: 'return "Owner"',
     defaultCodeAr: 'return "المالك"',
   },
-  theme: {
-    type: ["select"],
-    label: "Theme",
-    options: ["light", "dark"],
-    defaultValue: "dark",
-  },
   owner: {
     type: ["code"],
     label: "Owner Detail",
     defaultValue: {
       details: [
-        { label: "UAE National ID", value: "N/A" },
-        { label: "MOI Unified Number", value: "N/A" },
-        { label: "Archive Number", value: "" },
-        { label: "Nationality", value: "Unknown" },
-        { label: "Special Nationality", value: "No" },
-        { label: "Share", value: "100% Allotment 50% Share" },
-        { label: "Right Hold Type", value: "Ownership Musataha" },
+        {
+          label: "UAE National ID",
+          value: "N/A",
+        },
+        {
+          label: "MOI Unified Number",
+          value: "N/A",
+        },
+        {
+          label: "Archive Number",
+          value: "",
+        },
+        {
+          label: "Nationality",
+          value: "Unknown",
+        },
+        {
+          label: "Special Nationality",
+          value: "No",
+        },
+        {
+          label: "Share",
+          value: "100% Allotment 50% Share",
+        },
+        {
+          label: "Right Hold Type",
+          value: "Ownership Musataha",
+        },
       ],
       name: "",
     },

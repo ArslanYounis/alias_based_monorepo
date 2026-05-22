@@ -13,10 +13,10 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   showInfoIcon = false,
   tooltipText = "",
   tooltipText_ar = "",
-  placeholder = "",
-  placeholder_ar = "",
-  value,
-  onChange = () => {},
+  placeholder = "Select items...",
+  placeholder_ar = "اختر العناصر...",
+  value = [],
+  onChange,
   hasError = false,
   errorMessage = "",
   errorMessage_ar = "",
@@ -28,11 +28,11 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   language = "en",
   options = [],
   showAddButton = false,
-  title,
-  title_ar,
+  title = "",
+  title_ar = "",
   isPrint_Archive = false,
+  theme = "light",
 }) => {
-  const valueStr = Array.isArray(value) ? value.join(",") : value ?? "";
   // Convert OptionType[] to Fields Option[]
   const fieldOptions = options.map((opt) => ({
     label: opt.label,
@@ -42,7 +42,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
 
   return (
     <div
-      className="flex flex-col gap-xs w-full"
+      className="flex flex-col gap-xs"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <Label
@@ -52,17 +52,16 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         showInfoIcon={showInfoIcon}
         tooltipText={tooltipText}
         tooltipText_ar={tooltipText_ar}
-        disabled={disabled}
         tooltipDirection={language === "en" ? "left-center" : "right-center"}
+        theme={theme}
+        disabled={disabled}
         language={language}
       />
       <Fields
         type="select"
-        selectType="multi"
-        placeholder={
-          language === "en" ? placeholder : placeholder_ar || placeholder
-        }
-        value={valueStr}
+        placeholder={placeholder}
+        placeholder_ar={placeholder_ar}
+        value={value.join(", ")}
         onChange={(val) => {
           // val will be a comma-separated string from Fields, convert to array
           if (typeof val === "string") {
@@ -75,14 +74,16 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             onChange?.(val);
           }
         }}
+        options={fieldOptions}
+        selectType="multi"
         hasError={hasError}
         errorMessage=""
         disabled={disabled}
-        language={language}
-        options={fieldOptions}
-        showAddButton={showAddButton}
+        theme={theme}
         title={title}
         title_ar={title_ar}
+        language={language}
+        showAddButton={showAddButton}
         isPrint_Archive={isPrint_Archive}
       />
       {(captionLeft ||
@@ -99,6 +100,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           hasError={hasError}
           errorMessage={errorMessage}
           errorMessage_ar={errorMessage_ar}
+          theme={theme}
           disabled={disabled}
         />
       )}

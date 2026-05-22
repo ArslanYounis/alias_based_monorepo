@@ -1,7 +1,5 @@
-import type { ReactNode } from "react";
-
 export interface TextAreaProps {
-  label?: string;
+  label: string;
   label_ar?: string;
   required?: boolean;
   showInfoIcon?: boolean;
@@ -9,8 +7,8 @@ export interface TextAreaProps {
   tooltipText_ar?: string;
   placeholder?: string;
   placeholder_ar?: string;
-  value?: string;
-  onChange?: (value: string) => void;
+  value: string;
+  onChange: (value: string) => void;
   hasError?: boolean;
   errorMessage?: string;
   errorMessage_ar?: string;
@@ -19,5 +17,6 @@ export interface TextAreaProps {
   captionLeft_ar?: string;
   captionRight?: string;
   captionRight_ar?: string;
+  theme?: "light" | "dark";
   language?: "en" | "ar";
 }

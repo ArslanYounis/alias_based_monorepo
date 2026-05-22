@@ -1,5 +1,6 @@
 import type { AvatarProps, StatusType } from "@shared/types";
 import React from "react";
+import { IMAGE_URL } from "@/lib/utils";
 import { ProfileIconStatus } from "../ProfileIconStatus";
 
 export type { AvatarProps, StatusType };
@@ -51,10 +52,7 @@ export const Avatar: React.FC<AvatarProps> = ({
             {initials.slice(0, 2).toUpperCase()}
           </span>
         ) : (
-          <img
-            src="https://adrec-images.mastermind-mindset.com/DefaultImg.png"
-            alt="Placeholder Image"
-          />
+          <img src={`${IMAGE_URL}DefaultImg.png`} alt="Placeholder Image" />
         )}
       </div>
       {status && (

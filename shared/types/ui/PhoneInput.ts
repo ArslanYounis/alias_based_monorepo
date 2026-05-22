@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export interface PhoneInputProps {
   label?: string;
   label_ar?: string;
@@ -12,11 +14,24 @@ export interface PhoneInputProps {
   hasError?: boolean;
   errorMessage?: string;
   errorMessage_ar?: string;
+  icon?: ReactNode;
   disabled?: boolean;
   captionLeft?: string;
   captionLeft_ar?: string;
   captionRight?: string;
   captionRight_ar?: string;
-  language?: "en" | "ar";
   phoneCode?: string;
+  theme?: "light" | "dark";
+  language?: "en" | "ar";
+  fieldType?:
+    | "text"
+    | "date"
+    | "select"
+    | "textarea"
+    | "uaeid"
+    | "currency"
+    | "phone"
+    | "number";
+  options?: { label?: string; label_ar?: string; value: string }[];
+  selectType?: "single" | "multi";
 }

@@ -56,7 +56,7 @@ export const Caption: React.FC<CaptionProps> = ({
 
       {!disabled && hasError && (errorMessage || errorMessage_ar) && (
         <span
-          className={`text-xxs text-form-fields-error  ${
+          className={`text-xs text-form-fields-error  ${
             language === "en" ? "text-start" : "text-end"
           }`}
         >

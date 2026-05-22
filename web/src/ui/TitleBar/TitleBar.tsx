@@ -6,15 +6,15 @@ export type { TitleBarProps, ButtonType };
 
 const sizeClasses = {
   s: {
-    button: "px-m h-6 py-xxs text-xs",
+    button: "px-m h-6 py-[6px] text-xs",
     icon: "h-3 w-3 ",
   },
   m: {
-    button: "px-m h-7 py-xxs text-m",
+    button: "px-m h-7 py-[6.5px] text-base",
     icon: "h-[15px] w-[15px]",
   },
   l: {
-    button: "px-l h-10 py-s text-l",
+    button: "px-l h-10 py-s text-xl",
     icon: "h-[18px] w-[18px]",
   },
 };
@@ -32,6 +32,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
   leftIcon,
   rightIcon,
   onClick,
+  theme = "light",
   language = "en",
 }) => {
   const [responsiveButtonSize, setButtonSize] = useState<"s" | "m" | "l">("s");
@@ -67,14 +68,14 @@ const TitleBar: React.FC<TitleBarProps> = ({
     >
       <div className="flex items-center gap-s md:gap-xl min-w-0 self-start">
         {showAcronym && computedAcronym && (
-          <div className="rounded-xxs! sm:rounded-s! md:rounded-s! h-[30px]! sm:h-[40px]! w-[30px]! sm:w-[40px]! md:h-[64px]! md:w-[64px]! flex justify-center items-center bg-structure-primary-7">
-            <p className="text-xxs! sm:text-heading-h4! md:text-heading-h3! font-bold text-structure-primary-4">
+          <div className="!rounded-[7px] sm:!rounded-[10px] md:!rounded-[12px] !h-[30px] sm:!h-[40px] !w-[30px] sm:!w-[40px] md:!h-[64px] md:!w-[64px] flex justify-center items-center bg-structure-primary-7">
+            <p className={"!text-10 sm:!text-16 md:!text-24 font-bold text-structure-primary-4"}>
               {computedAcronym}
             </p>
           </div>
         )}
         {showTitle && title && (
-          <h1 className="text-heading-h2 sm:text-heading-h1 font-bold text-text-default capitalize">
+          <h1 className="text-2xl sm:text-5xl font-bold text-text-default capitalize">
             <SharedLanguageSwitchRenderer
               language={language}
               value={title}
@@ -86,6 +87,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
       {showButton && (
         <div className="flex items-center gap-xs self-end md:self-center">
           <Buttons
+            theme={theme}
             title={buttonLabel}
             title_ar={buttonLabel_ar}
             language={language}

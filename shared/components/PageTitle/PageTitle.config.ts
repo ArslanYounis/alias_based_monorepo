@@ -9,15 +9,10 @@ import type { ComponentType } from "react";
 const controls: ComponentConfig<PageTitleProps>["controls"] = {
   label: {
     type: ["text", "code"],
-    label: "Title (Expanded - EN)",
+    label: "Title (Expanded)",
+    hasArabic: true,
     defaultValue: "Page Title",
     defaultCode: "return 'Page Title'",
-  },
-  label_ar: {
-    type: ["text", "code"],
-    label: "Title (Expanded - AR)",
-    defaultValue: "عنوان الصفحة",
-    defaultCode: "return 'عنوان الصفحة'",
   },
   showButtons: {
     type: ["boolean", "code"],
@@ -34,6 +29,7 @@ return [
     title: "Add Agent",
     title_ar: "إضافة وكيل",
     type: "secondary",
+    // Example: leftIcon: <Plus size={16} />
     onClick: () => console.log("Add Agent clicked"),
   },
 ];

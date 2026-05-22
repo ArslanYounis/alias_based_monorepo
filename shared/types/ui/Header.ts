@@ -23,5 +23,4 @@ export interface HeaderProps {
   isEditing?: boolean;
   menuItems?: HeaderMenuItem[];
   breadcrumbItems?: BreadcrumbItem[];
-  onAvatarPress?: () => void;
 }

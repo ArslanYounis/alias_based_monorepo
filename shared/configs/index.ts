@@ -17,6 +17,11 @@ export { createCheckboxInputConfig } from "./checkboxInput.config";
 export { createRadioFieldConfig } from "./radioField.config";
 export { createRadioInputConfig } from "./radioInput.config";
 export { createPhoneInputConfig } from "./phoneInput.config";
+export { createTitleBarConfig } from "./titleBar.config";
+export { createFilterBarConfig } from "./filterBar.config";
+export { createSignatureConfig } from "./signature.config";
+export { createUploadDocumentsConfig } from "./uploadDocuments.config";
+export { createAuditRemarksConfig } from "./auditRemarks.config";
 
 /** Config ids for service builder (used by web; mobile uses renderer only) */
 export const SERVICE_BUILDER_CONFIG_IDS = [

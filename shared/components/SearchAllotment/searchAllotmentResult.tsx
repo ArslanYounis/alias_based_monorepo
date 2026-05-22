@@ -15,6 +15,7 @@ import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
 
 export interface ISearchAllotmentResult {
   id?: string;
+  decreeOrder?: string | number;
   ownerId?: string;
   ownerName?: string;
   fullName?: string;
@@ -124,8 +125,8 @@ const SearchAllotmentResult: React.FC<SearchResultsModalProps> = ({
           <Text className={`text-bold-l text-text-default line-clamp-1 mr-xxs`}>
             <SharedLanguageSwitchRenderer
               language={language}
-              value={result?.allotmentNameId}
-              value_ar={result?.allotmentNameId}
+              value={String(result?.decreeOrder)}
+              value_ar={String(result?.decreeOrder)}
             />
           </Text>
           <Container className="flex flex-row items-center gap-m shrink-0">
@@ -320,9 +321,9 @@ const SearchAllotmentResult: React.FC<SearchResultsModalProps> = ({
             name: getLanguageSwitchText({
               language,
               value:
-                selectedOwnerDetail?.allotmentNameId || "Unknown Allotment",
+                String(selectedOwnerDetail?.decreeOrder) || "Unknown Allotment",
               value_ar:
-                selectedOwnerDetail?.allotmentNameId || "تخصيص غير معروف",
+                String(selectedOwnerDetail?.decreeOrder) || "تخصيص غير معروف",
             }),
             details: [
               {
@@ -408,6 +409,12 @@ const SearchAllotmentResult: React.FC<SearchResultsModalProps> = ({
                   label_ar: "اسم الجهة",
                   value: decreeData?.decree?.decreeSourceNameE || "-",
                   value_ar: decreeData?.decree?.decreeSourceNameA || "-",
+                },
+                {
+                  label: "Source Type",
+                  label_ar: "نوع الجهة",
+                  value: decreeData?.decree?.decreeSourceTypeNameE || "-",
+                  value_ar: decreeData?.decree?.decreeSourceTypeNameA || "-",
                 },
                 {
                   label: "Decree Remarks",

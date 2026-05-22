@@ -7,14 +7,15 @@ import { CheckboxField } from "../CheckboxField";
 export type { CheckboxInputProps };
 
 export const CheckboxInput: React.FC<CheckboxInputProps> = ({
-  label = "",
-  label_ar = "",
-  required = false,
-  showInfoIcon = false,
-  tooltipText = "",
-  tooltipText_ar = "",
+  label,
+  label_ar,
+  required,
+  showInfoIcon,
+  tooltipText,
+  tooltipText_ar,
+  options = [],
   value = [],
-  onChange = () => {},
+  onChange,
   disabled = false,
   hasError = false,
   errorMessage = "",
@@ -23,14 +24,17 @@ export const CheckboxInput: React.FC<CheckboxInputProps> = ({
   captionLeft_ar = "",
   captionRight = "",
   captionRight_ar = "",
-  options = [],
+  theme = "light",
   language = "en",
 }) => {
   const handleCheckboxChange = (optionValue: string, isChecked: boolean) => {
-    const next = isChecked
-      ? [...value, optionValue]
-      : value.filter((v) => v !== optionValue);
-    onChange(next);
+    let updatedSelected: string[];
+    if (isChecked) {
+      updatedSelected = [...value, optionValue];
+    } else {
+      updatedSelected = value.filter((selected) => selected !== optionValue);
+    }
+    onChange(updatedSelected);
   };
 
   return (
@@ -42,14 +46,14 @@ export const CheckboxInput: React.FC<CheckboxInputProps> = ({
         showInfoIcon={showInfoIcon}
         tooltipText={tooltipText}
         tooltipText_ar={tooltipText_ar}
-        disabled={disabled}
         tooltipDirection={language === "en" ? "left-center" : "right-center"}
+        theme={theme}
         language={language}
       />
 
       <div className="flex flex-col gap-2">
         <div className="flex gap-m flex-wrap justify-between">
-          {options.map((option) => (
+          {options?.map((option) => (
             <div key={option.value} className="flex items-center gap-1">
               <CheckboxField
                 id={option.value}
@@ -58,10 +62,11 @@ export const CheckboxInput: React.FC<CheckboxInputProps> = ({
                 language={language}
                 checked={value.includes(option.value)}
                 disabled={disabled}
-                hasError={hasError && value.length === 0}
-                onChange={(_id, checked) =>
+                onChange={(_, checked) =>
                   handleCheckboxChange(option.value, checked)
                 }
+                theme={theme}
+                hasError={hasError && value.length === 0}
               />
             </div>
           ))}
@@ -81,7 +86,7 @@ export const CheckboxInput: React.FC<CheckboxInputProps> = ({
             hasError={hasError}
             errorMessage={errorMessage}
             errorMessage_ar={errorMessage_ar}
-            disabled={disabled}
+            theme={theme}
           />
         )}
       </div>

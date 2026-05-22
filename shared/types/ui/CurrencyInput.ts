@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export interface CurrencyInputProps {
   label?: string;
   label_ar?: string;
@@ -17,6 +19,7 @@ export interface CurrencyInputProps {
   captionLeft_ar?: string;
   captionRight?: string;
   captionRight_ar?: string;
+  currencySymbol?: ReactNode | string;
+  theme?: "dark" | "light";
   language?: "en" | "ar";
-  currencySymbol?: string;
 }

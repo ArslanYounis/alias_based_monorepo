@@ -10,6 +10,7 @@ import RadioFieldConfigs from "@/ui/RadioField/radioField.config";
 import RadioInputConfigs from "@/ui/RadioInput/radioInput.config";
 import DateSelectConfigs from "@/ui/DateSelect/dateSelect.config";
 import PhoneInputConfigs from "@/ui/PhoneInput/phoneInput.config";
+import typographyConfig from "@/ui/Typography/typography.config";
 
 /**
  * Array of all form component configurations to be exposed to service-builder
@@ -28,6 +29,7 @@ const exposeFormComponents = [
   CheckboxInputConfigs,
   RadioFieldConfigs,
   RadioInputConfigs,
+  typographyConfig,
 ];
 
 export default exposeFormComponents;

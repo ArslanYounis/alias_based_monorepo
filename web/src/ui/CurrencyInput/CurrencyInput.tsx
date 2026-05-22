@@ -10,7 +10,7 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
   label = "",
   label_ar = "",
   required = false,
-  showInfoIcon = false,
+  showInfoIcon = true,
   tooltipText = "",
   tooltipText_ar = "",
   placeholder = "",
@@ -25,11 +25,12 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
   captionLeft_ar = "",
   captionRight = "",
   captionRight_ar = "",
-  language = "en",
   currencySymbol = "AED",
+  theme = "light",
+  language = "en",
 }) => {
   return (
-    <div className="flex flex-col gap-s">
+    <div className="flex flex-col gap-2.5">
       <Label
         label={label}
         label_ar={label_ar}
@@ -39,11 +40,11 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
         tooltipText_ar={tooltipText_ar}
         disabled={disabled}
         tooltipDirection={language === "en" ? "left-center" : "right-center"}
+        theme={theme}
         language={language}
       />
       <Fields
         type="currency"
-        currencySymbol={currencySymbol}
         placeholder={
           language === "en" ? placeholder : placeholder_ar || placeholder
         }
@@ -52,6 +53,8 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
         hasError={hasError}
         errorMessage=""
         disabled={disabled}
+        theme={theme}
+        currencySymbol={currencySymbol}
         language={language}
       />
       {(captionLeft ||
@@ -69,6 +72,7 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
           errorMessage={errorMessage}
           errorMessage_ar={errorMessage_ar}
           disabled={disabled}
+          theme={theme}
         />
       )}
     </div>

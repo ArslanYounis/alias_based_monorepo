@@ -8,4 +8,3 @@ export type {
   ApplicationType,
   Language,
 } from "./ApplicationSummary.types";
-export type { ApplicationSummaryDetailProps } from "./ApplicationSummaryDetail";

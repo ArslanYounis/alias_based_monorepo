@@ -16,12 +16,6 @@ const controls: ComponentConfig<OwnerSearchProps>["controls"] = {
     defaultCode: 'return ""',
     defaultCodeAr: 'return ""',
   },
-  theme: {
-    type: ["select"],
-    label: "Theme",
-    options: ["light", "dark"],
-    defaultValue: "dark",
-  },
   showTabs: {
     type: ["boolean", "code"],
     label: "Show Tabs",

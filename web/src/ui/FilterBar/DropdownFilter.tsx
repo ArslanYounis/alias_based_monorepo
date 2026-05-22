@@ -25,6 +25,7 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
     { label: "All Applications", value: "all" },
   ],
   language = "en",
+  theme = "light",
 }) => {
   const [activeTab, setActiveTab] = useState<"filter" | "sort">("filter");
   const [selectedApp, setSelectedApp] = useState(
@@ -85,7 +86,8 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
                     label={option.label}
                     label_ar={option.label_ar}
                     checked={selectedApp}
-                    onChange={(value) => setSelectedApp(value)}
+                    onChange={(id) => setSelectedApp(id)}
+                    theme={theme}
                     language={language}
                   />
                 </div>
@@ -101,12 +103,10 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
                     label={option.label}
                     label_ar={option.label_ar}
                     checked={!!checkedFilters[option.value]}
-                    onChange={(id, checked) =>
-                      setCheckedFilters((f) => ({
-                        ...f,
-                        [id]: !!checked,
-                      }))
+                    onChange={(id, isChecked) =>
+                      setCheckedFilters((f) => ({ ...f, [id]: isChecked }))
                     }
+                    theme={theme}
                     language={language}
                   />
                 </div>
@@ -124,7 +124,8 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
                   label={option.label}
                   label_ar={option.label_ar}
                   checked={selectedSort}
-                  onChange={(value) => setSelectedSort(value)}
+                  onChange={(id) => setSelectedSort(id)}
+                  theme={theme}
                   language={language}
                 />
               </div>

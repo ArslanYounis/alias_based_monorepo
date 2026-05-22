@@ -135,10 +135,10 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
           value_ar: plotDetail.municipality?.municipalityNameA || "",
         },
         {
-          label: "Allocation Type",
-          label_ar: "نوع التخصيص",
-          value: "",
-          value_ar: "",
+          label: "Plot Status",
+          label_ar: "حالة القطعة",
+          value: plotDetail?.plotStatus || "",
+          value_ar: plotDetail?.plotStatus || "",
         },
         {
           label: "Land Use",
@@ -147,28 +147,34 @@ const SinglePlotDetail: React.FC<SinglePlotDetailProps> = ({
           value_ar: plotDetail.landUse?.landuseNameA || "",
         },
         {
-          label: "Investment Area Name",
-          label_ar: "اسم منطقة الاستثمار",
-          value: "",
-          value_ar: "",
+          label: "Road",
+          label_ar: "اسم الطريق",
+          value: plotDetail?.vwRoad?.roadNameE || "",
+          value_ar: plotDetail?.vwRoad?.roadNameE || "",
         },
         {
-          label: "Expat Ownership Percentage",
-          label_ar: "نسبة تملك الأجانب",
-          value: "",
-          value_ar: "",
+          label: "Block",
+          label_ar: "الكتلة",
+          value: plotDetail?.hasBlock ? "Yes" : "No",
+          value_ar: plotDetail?.hasBlock ? "نعم" : "لا",
         },
         {
           label: "Plot File Number",
           label_ar: "رقم ملف القطعة",
-          value: plotDetail?.plotFileNumber || "",
-          value_ar: plotDetail?.plotFileNumber || "",
+          value: plotDetail?.plotNumber || "",
+          value_ar: plotDetail?.plotNumber || "",
         },
         {
           label: "Area",
           label_ar: "\tالمساحة",
-          value: plotDetail?.plotAreaFeet || "",
-          value_ar: plotDetail?.plotAreaFeet || "",
+          value:
+            plotDetail?.plotAreaFeet +
+              " - " +
+              plotDetail?.plotAreaSquareMeter || "",
+          value_ar:
+            plotDetail?.plotAreaFeet +
+              " - " +
+              plotDetail?.plotAreaSquareMeter || "",
         },
         {
           label: "Construction Status",

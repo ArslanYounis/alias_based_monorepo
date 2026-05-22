@@ -7,7 +7,10 @@ import type { PaginationProps } from "@shared/types";
 import type { ComponentType } from "react";
 
 const controls: {
-  [K in keyof Omit<PaginationProps, "language">]?: ControlDefinition<PaginationProps>;
+  [K in keyof Omit<
+    PaginationProps,
+    "language"
+  >]?: ControlDefinition<PaginationProps>;
 } & {
   propsOverride?: ControlDefinition<PaginationProps>;
 } = {

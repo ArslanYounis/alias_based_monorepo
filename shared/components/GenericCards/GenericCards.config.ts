@@ -10,14 +10,9 @@ const controls: ComponentConfig<IGenericCardsProps>["controls"] = {
   title: {
     type: ["text", "code"],
     label: "Title",
+    hasArabic: true,
     defaultValue: "Items",
     defaultCode: 'return "Items"',
-  },
-  title_ar: {
-    type: ["text", "code"],
-    label: "Title (AR)",
-    defaultValue: "العناصر",
-    defaultCode: 'return "العناصر"',
   },
   itemsPerRow: {
     type: ["select"],
@@ -65,12 +60,108 @@ const controls: ComponentConfig<IGenericCardsProps>["controls"] = {
   buttons: {
     type: ["code"],
     label: "Buttons",
-    defaultCode: "return []",
+    defaultValue: [
+      {
+        title: "View",
+        title_ar: "عرض",
+        type: "secondary",
+        onClick: () => console.log("View clicked"),
+      },
+      {
+        title: "Edit",
+        title_ar: "تعديل",
+        type: "secondary",
+        onClick: () => console.log("Edit clicked"),
+      },
+    ],
+    defaultCode: `
+return [
+  {
+    title: "View",
+    title_ar: "عرض",
+    type: "secondary",
+    onClick: (card, index) => console.log("View clicked", card, index)
+  },
+  {
+    title: "Edit",
+    title_ar: "تعديل",
+    type: "secondary",
+    onClick: (card, index) => console.log("Edit clicked", card, index)
+  }
+];
+      `,
   },
   cardsData: {
     type: ["code"],
     label: "Cards Data",
-    defaultCode: "return []",
+    defaultValue: [
+      {
+        id: "card-1",
+        cardTitleValue: "Item One",
+        cardTitleValue_ar: "العنصر الأول",
+        cardTitleLabel: "Name",
+        cardTitleLabel_ar: "الاسم",
+        rowsData: [
+          {
+            label: "Field A",
+            label_ar: "الحقل أ",
+            value: "Value A",
+            value_ar: "القيمة أ",
+          },
+          {
+            label: "Field B",
+            label_ar: "الحقل ب",
+            value: "Value B",
+            value_ar: "القيمة ب",
+          },
+        ],
+      },
+      {
+        id: "card-2",
+        cardTitleValue: "Item Two",
+        cardTitleValue_ar: "العنصر الثاني",
+        cardTitleLabel: "Name",
+        cardTitleLabel_ar: "الاسم",
+        rowsData: [
+          {
+            label: "Field A",
+            label_ar: "الحقل أ",
+            value: "Value A2",
+            value_ar: "القيمة أ٢",
+          },
+          {
+            label: "Field B",
+            label_ar: "الحقل ب",
+            value: "Value B2",
+            value_ar: "القيمة ب٢",
+          },
+        ],
+      },
+    ],
+    defaultCode: `return [
+  {
+    id: "card-1",
+    cardTitleValue: "Item One",
+    cardTitleValue_ar: "العنصر الأول",
+    cardTitleLabel: "Name",
+    cardTitleLabel_ar: "الاسم",
+    rowsData: [
+      { label: "Field A", label_ar: "الحقل أ", value: "Value A", value_ar: "القيمة أ" },
+      { label: "Field B", label_ar: "الحقل ب", value: "Value B", value_ar: "القيمة ب" }
+    ]
+  },
+  {
+    id: "card-2",
+    cardTitleValue: "Item Two",
+    cardTitleValue_ar: "العنصر الثاني",
+    cardTitleLabel: "Name",
+    cardTitleLabel_ar: "الاسم",
+    rowsData: [
+      { label: "Field A", label_ar: "الحقل أ", value: "Value A2", value_ar: "القيمة أ٢" },
+      { label: "Field B", label_ar: "الحقل ب", value: "Value B2", value_ar: "القيمة ب٢" }
+    ]
+  }
+];`,
   },
   propsOverride: {
     type: ["propsOverride"],

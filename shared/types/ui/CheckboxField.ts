@@ -1,8 +1,7 @@
 export interface CheckboxFieldProps {
-  id?: string;
+  id: string;
   label?: string;
   label_ar?: string;
-  required?: boolean;
   checked?: boolean;
   onChange?: (id: string, checked: boolean) => void;
   disabled?: boolean;

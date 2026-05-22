@@ -1,5 +1,4 @@
 import React from "react";
-import { Container } from "@platform/Container";
 import type { SwitchButtonProps } from "@shared/types";
 export type { SwitchButtonProps };
 
@@ -15,14 +14,11 @@ export const SwitchButton: React.FC<SwitchButtonProps> = ({
         checked={type === "Standard"}
         onChange={onToggle}
       />
-      <Container className="w-[48px] h-[24px] border border-text-dimmed bg-Base-White peer-focus:outline-none peer-focus:ring-0 rounded-full peer peer-checked:bg-Base-White transition-colors duration-300" />
-      <Container
+      <div className="w-[48px] h-[24px] border border-text-dimmed bg-Base-White peer-focus:outline-none peer-focus:ring-0 rounded-full peer peer-checked:bg-Base-White transition-colors duration-300" />
+      <div
         className={`absolute left-0.5 top-0.5 ${
           type === "Standard" ? "bg-text-link" : "bg-text-dimmed"
-        } w-5 h-5 rounded-full duration-300`}
-        style={{
-          transform: type === "Standard" ? "translateX(24px)" : "translateX(0)",
-        }}
+        } w-5 h-5 rounded-full transition-transform duration-300 peer-checked:translate-x-5`}
       />
     </label>
   );

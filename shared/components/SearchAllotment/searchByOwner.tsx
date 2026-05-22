@@ -29,6 +29,7 @@ interface SearchByOwnerProps {
 }
 
 interface DrawerData {
+  decreeOrder?: string | number;
   fullName?: string;
   familyBookNumber?: string;
   nationalNumber?: string;
@@ -110,6 +111,7 @@ const SearchByOwner = ({
           })) ?? [];
 
         setDrawerData({
+          decreeOrder: filtered?.decreeOrder,
           fullName: filtered?.fullName,
           familyBookNumber: filtered?.familyBookNumber,
           nationalNumber: filtered?.nationalNumber,
@@ -139,6 +141,7 @@ const SearchByOwner = ({
 
     try {
       const payload = {
+        decreeOrder: drawerData?.decreeOrder,
         fullName: drawerData?.fullName,
         familyBookNumber: drawerData?.familyBookNumber,
         nationalNumber: drawerData?.nationalNumber,

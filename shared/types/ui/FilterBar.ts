@@ -6,7 +6,7 @@ export type FilterBarProps = {
 
   // SearchField props
   searchValue?: string;
-  onSearchChange?: (text: string) => void;
+  onSearchChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   searchPlaceholder?: string;
   searchPlaceholder_ar?: string;
   searchColumns?: string[];

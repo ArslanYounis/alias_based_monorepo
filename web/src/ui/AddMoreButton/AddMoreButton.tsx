@@ -15,7 +15,7 @@ const AddMoreButton: React.FC<AddMoreButtonProps> = ({
   return (
     <div className="flex flex-1 items-center gap-s">
       <div
-        className={`w-full h-12 flex items-center px-m font-bold text-m rounded-xxs cursor-pointer bg-form-fields-file-upload-default
+        className={`w-full h-12 flex items-center px-m font-bold text-m rounded-[5px] cursor-pointer bg-form-fields-file-upload-default
             focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2
             focus-within:ring-form-fields-file-upload-uploaded
           `}

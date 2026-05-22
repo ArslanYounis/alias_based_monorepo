@@ -91,11 +91,11 @@ const GenericTableCard: React.FC<IGenericTableCardProps> = ({
   );
   const rowsToShow =
     handlePaginationInternally && showPagination
-      ? rowsData?.slice(
+      ? (rowsData?.slice(
           (internalPage - 1) * INTERNAL_PAGE_SIZE,
-          internalPage * INTERNAL_PAGE_SIZE
-        ) ?? []
-      : rowsData?.slice(0, isMoreShown ? rowsData.length : 3) ?? [];
+          internalPage * INTERNAL_PAGE_SIZE,
+        ) ?? [])
+      : rowsData?.slice(0, isMoreShown ? rowsData.length : 10) ?? [];
 
   // Maps each variant to how many value columns exist (excluding label + optional button col)
   const buttonLayout: Partial<

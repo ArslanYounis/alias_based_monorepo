@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 export interface NumberInputProps {
-  label?: string;
+  label: string;
   label_ar?: string;
   required?: boolean;
   showInfoIcon?: boolean;
@@ -9,8 +9,8 @@ export interface NumberInputProps {
   tooltipText_ar?: string;
   placeholder?: string;
   placeholder_ar?: string;
-  value?: string | number;
-  onChange?: (value: string) => void;
+  value: string;
+  onChange: (value: string) => void;
   hasError?: boolean;
   errorMessage?: string;
   errorMessage_ar?: string;
@@ -19,6 +19,7 @@ export interface NumberInputProps {
   captionLeft_ar?: string;
   captionRight?: string;
   captionRight_ar?: string;
+  icon?: ReactNode | string;
+  theme?: "light" | "dark";
   language?: "en" | "ar";
-  icon?: ReactNode;
 }

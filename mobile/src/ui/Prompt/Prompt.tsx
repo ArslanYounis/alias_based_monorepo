@@ -9,8 +9,8 @@ export type { PromptProps };
 const Prompt: React.FC<PromptProps> = ({
   title,
   title_ar,
-  subtitle,
-  subtitle_ar,
+  subtiltle,
+  subtiltle_ar,
   yesText = "Yes",
   yesText_ar = "نعم",
   noText = "No",
@@ -29,8 +29,8 @@ const Prompt: React.FC<PromptProps> = ({
         className="text-heading-h3 font-bold text-text-default"
       />
       <SharedLanguageSwitchRenderer
-        value={subtitle}
-        value_ar={subtitle_ar}
+        value={subtiltle}
+        value_ar={subtiltle_ar}
         language={language}
         className="text-m text-text-default"
       />

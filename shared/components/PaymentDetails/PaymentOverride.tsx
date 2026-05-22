@@ -39,6 +39,7 @@ interface PaymentOverrideProps {
   description_ar?: string;
   ServiceName: string;
   ServiceName_ar?: string;
+  applicationId: string;
   applicationNo: string;
   applicationNo_ar?: string;
   PaymentFee: string;
@@ -51,8 +52,8 @@ interface PaymentOverrideProps {
 }
 
 const defaultLabels: Labels = {
-  serviceName: "Service Name",
-  serviceName_ar: "اسم الخدمة",
+  serviceName: "Payment Name",
+  serviceName_ar: "اسم خدمة الدفع",
   applicationNumber: "Application Number",
   applicationNumber_ar: "رقم الطلب",
   paymentFee: "Payment Fee",

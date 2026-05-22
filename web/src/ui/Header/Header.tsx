@@ -1,4 +1,5 @@
 import type { HeaderProps, HeaderMenuItem } from "@shared/types";
+import { IMAGE_URL } from "@/lib/utils";
 import { Avatar } from "../Avatar";
 import { Buttons } from "../Buttons";
 import { IconButton } from "../IconButton";
@@ -22,7 +23,7 @@ export const Header = ({
   checkinButtonText_ar = "تسجيل الحضور",
   userName = "Farzana",
   userName_ar = "فرزانه",
-  avatarUrl = "https://adrec-images.mastermind-mindset.com/user.png",
+  avatarUrl = `${IMAGE_URL}user.png`,
   languageText = "Language:",
   languageText_ar = "اللغة:",
   onToggleLanguage,
@@ -45,7 +46,7 @@ export const Header = ({
         }`}
       >
         <div className="flex items-center gap-m">
-          <div className="hidden! md:flex!">
+          <div className="!hidden md:!flex">
             <Breadcrumb language={language} items={breadcrumbItems} />
           </div>
         </div>
@@ -73,7 +74,7 @@ export const Header = ({
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <div className="flex items-center space-x-s cursor-pointer bg-transparent border-0 p-0">
+              <div className="flex items-center space-x-s cursor-pointer">
                 <div className="relative w-[42px] h-[42px]">
                   <Avatar
                     imageUrl={avatarUrl}
@@ -81,7 +82,7 @@ export const Header = ({
                     badgeSize={18}
                   />
                 </div>
-                <p className="text-m text-text-default font-bold max-md:!hidden">
+                <p className="text-[16px] text-text-default font-bold max-md:!hidden">
                   <SharedLanguageSwitchRenderer
                     language={language}
                     value={userName}
@@ -95,13 +96,13 @@ export const Header = ({
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="min-w-[150px] w-auto px-0 py-0 border-0 shadow-lg"
+              className="min-w-[150px] w-auto px-0 py-0 border-0 shadow-lg bg-white"
             >
               {menuItems?.map((item, idx) => (
                 <DropdownMenuItem
                   dir={language === "ar" ? "rtl" : "ltr"}
                   key={idx}
-                  className={`cursor-pointer px-m py-xs hover:bg-structure-primary-0 ${
+                  className={`cursor-pointer px-m py-xs hover:bg-gray-100 ${
                     item.className || ""
                   }`}
                   onClick={item.onClick}

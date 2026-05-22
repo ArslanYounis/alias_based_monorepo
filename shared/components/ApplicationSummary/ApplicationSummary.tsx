@@ -12,7 +12,6 @@ import GenericCards from "../GenericCards";
 import GenericTableCard from "../GenericTableCard";
 import InteractionCard from "../InteractionCard";
 import SharedLanguageSwitchRenderer from "../SharedLanguageSwitchRenderer";
-import ApplicationSummaryDetail from "./ApplicationSummaryDetail";
 
 import type { AgentProps } from "../Agent";
 import type { IPlotCardProps } from "../PlotCard";
@@ -21,14 +20,14 @@ import type { IGenericCardProps } from "../GenericCard";
 import type { IGenericCardsProps } from "../GenericCards";
 import type { IGenericTableCardProps } from "../GenericTableCard";
 import type { IInteractionCardProps } from "../InteractionCard";
-import type { ApplicationSummaryDetailProps } from "./ApplicationSummaryDetail";
 import type {
   UiBlock,
   ApplicationType,
   ApplicationSummaryProps,
 } from "./ApplicationSummary.types";
 import { SwitchButton } from "@platform/SwitchButton";
-import { UploadDocumentsProps } from "@shared/types";
+import { ApplicationDetailProps, UploadDocumentsProps } from "@shared/types";
+import ApplicationDetail from "../ApplicationDetail";
 
 /* Component */
 const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
@@ -73,9 +72,9 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
       }
 
       case "applicationDetails": {
-        const props = block.data as ApplicationSummaryDetailProps;
+        const props = block.data as ApplicationDetailProps;
         return (
-          <ApplicationSummaryDetail
+          <ApplicationDetail
             key={index}
             {...props}
             language={language}
@@ -198,7 +197,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
   /* Render */
   return (
     <Container
-      className={`bg-grey-form-back border border-cards-stroke py-m ${
+      className={`bg-grey-form-back border border-grey-form-border py-m ${
         platform === "web" ? "px-l" : "px-m"
       } w-full`}
       dir={language === "ar" ? "rtl" : "ltr"}
@@ -280,7 +279,7 @@ const ApplicationSummary: React.FC<ApplicationSummaryProps> = ({
               }`}
             >
               {blocks?.map((block, blockIndex) =>
-                renderSection(block, blockIndex)
+                renderSection(block, blockIndex),
               )}
             </Container>
           ))}

@@ -7,44 +7,61 @@ import type { ApplicationDetailProps } from "../../types";
 import type { ComponentType } from "react";
 
 const controls: ComponentConfig<ApplicationDetailProps>["controls"] = {
-  applicationTitle: {
+  title: {
     type: ["text", "code"],
-    label: "Application Title",
+    label: "Title",
     hasArabic: true,
-    defaultValue: "Application Title",
-    defaultValueAr: "عنوان الطلب",
-    defaultCode: 'return "Application Title"',
-    defaultCodeAr: 'return "عنوان الطلب"',
+    defaultValue: "Application Details",
+    defaultValueAr: "Application Details",
+    defaultCode: 'return "Application Details"',
+    defaultCodeAr: 'return "Application Details"',
   },
-  applicationId: {
+  applicationNumber: {
     type: ["text", "code"],
-    label: "Application ID",
-    hasArabic: false,
+    label: "Application Number",
+    hasArabic: true,
+    defaultValue: "100101225",
+    defaultValueAr: "100101225",
+    defaultCode: 'return "100101225"',
+    defaultCodeAr: 'return "100101225"',
+  },
+  applicationDate: {
+    type: ["text", "code"],
+    label: "Application Date",
+    hasArabic: true,
+    defaultValue: "13:00 - 28/03/2025",
+    defaultValueAr: "13:00 - 28/03/2025",
+    defaultCode: 'return "13:00 - 28/03/2025"',
+    defaultCodeAr: 'return "13:00 - 28/03/2025"',
+  },
+  referenceNumber: {
+    type: ["text", "code"],
+    label: "Reference Number",
+    hasArabic: true,
     defaultValue: "",
+    defaultValueAr: "",
     defaultCode: 'return ""',
+    defaultCodeAr: 'return ""',
   },
-  theme: {
-    type: ["select"],
-    label: "Theme",
-    options: ["light", "dark"],
-    defaultValue: "dark",
+  buttonTitle: {
+    type: ["text", "code"],
+    label: "Button Title",
+    hasArabic: true,
+    defaultValue: "Add Agent",
+    defaultValueAr: "Add Agent",
+    defaultCode: 'return "Add Agent"',
+    defaultCodeAr: 'return "Add Agent"',
   },
-  onOwnerClick: {
+  showButton: {
+    type: ["boolean", "code"],
+    label: "Show/Hide Button",
+    defaultValue: true,
+    defaultCode: "return true",
+  },
+  onButtonClick: {
     type: ["code"],
-    label: "On Owner Action Click",
-    defaultCode: "console.log('owner action clicked', eventData)",
-    isEvent: true,
-  },
-  onPlotClick: {
-    type: ["code"],
-    label: "On Plot Action Click",
-    defaultCode: "console.log('plot action clicked', eventData)",
-    isEvent: true,
-  },
-  onDocumentOpen: {
-    type: ["code"],
-    label: "On Document Open (URL)",
-    defaultCode: "window.open(eventData, '_blank')",
+    label: "On Button Click",
+    defaultCode: "console.log('button clicked')",
     isEvent: true,
   },
   propsOverride: {
@@ -59,9 +76,9 @@ export function createApplicationDetailConfig(
   icon: IconType
 ): ComponentConfig<ApplicationDetailProps> {
   return {
-    id: "applicationDetailCard",
+    id: "applicationDetail",
     icon,
-    name: "Application Detail Card",
+    name: "Application Detail",
     Component,
     controls,
   };

@@ -73,8 +73,9 @@ export const Label: React.FC<LabelProps> = ({
                     : tooltipText_ar || tooltipText
                 }
                 direction={
-                  tooltipDirection ??
-                  (language === "en" ? "top-left" : "top-right")
+                  tooltipDirection || language === "en"
+                    ? "top-left"
+                    : "top-right"
                 }
               />
             </PopoverContent>

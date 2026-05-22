@@ -63,7 +63,7 @@ const FilterBar = ({
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onSearchChange) {
-      onSearchChange(e.target.value);
+      onSearchChange(e);
     } else {
       setInternalSearchValue(e.target.value);
     }
@@ -160,7 +160,7 @@ const FilterBar = ({
               <div className="text-filter-button-text rounded-md px-2 py-1">
                 <DefaultIcon className="text-filter-button-text" />
               </div>
-              <span className="text-m !hidden sm:!block text-filter-button-text">
+              <span className="text-base !hidden sm:!block text-filter-button-text">
                 {language === "en"
                   ? resetButtonLabel
                   : resetButtonLabel_ar || resetButtonLabel}

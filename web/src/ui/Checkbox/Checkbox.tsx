@@ -14,7 +14,8 @@ export const Checkbox = ({
     "text-form-fields-checkbox-radio-cb-icon border border-form-fields-checkbox-radio-cbr-border";
   const disabledStyles =
     "bg-form-fields-checkbox-radio-cbr-select-disable text-form-fields-checkbox-radio-cb-icon-selected border border-form-fields-checkbox-radio-cbr-select-disable cursor-not-allowed";
-  const checkedStyles = "bg-form-fields-checkbox-radio-cbr-bg-selected text-base-white border border-form-fields-checkbox-radio-cbr-border-selected";
+  const checkedStyles =
+    "bg-form-fields-checkbox-radio-cbr-bg-selected text-white border border-form-fields-checkbox-radio-cbr-border-selected";
   const errorStyles =
     "border-2 border-form-fields-error text-button-delete-hover-bg";
 

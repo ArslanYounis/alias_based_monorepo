@@ -20,16 +20,20 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
   hasError = false,
   errorMessage = "",
   errorMessage_ar = "",
+  icon = null,
   disabled = false,
   captionLeft = "",
   captionLeft_ar = "",
   captionRight = "",
   captionRight_ar = "",
-  language = "en",
   phoneCode = "+971",
+  language = "en",
+  fieldType = "phone",
+  options = [],
+  selectType = "single",
 }) => {
   return (
-    <div className="flex flex-col gap-s">
+    <div className="flex flex-col gap-2.5">
       <Label
         label={label}
         label_ar={label_ar}
@@ -41,9 +45,9 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
         tooltipDirection={language === "en" ? "left-center" : "right-center"}
         language={language}
       />
+
       <Fields
-        type="phone"
-        phoneCode={phoneCode}
+        type={fieldType}
         placeholder={
           language === "en" ? placeholder : placeholder_ar || placeholder
         }
@@ -51,9 +55,14 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
         onChange={onChange}
         hasError={hasError}
         errorMessage=""
+        icon={icon}
         disabled={disabled}
         language={language}
+        options={options}
+        selectType={selectType}
+        phoneCode={phoneCode}
       />
+
       {(captionLeft ||
         captionRight ||
         captionLeft_ar ||

@@ -66,6 +66,7 @@ const GenericCard: React.FC<IGenericCardProps> = ({
   subText_ar,
   status,
   status_ar,
+  statusType = "pending",
   showBorder = false,
   showButtons = false,
   showTitleButtons = false,
@@ -122,6 +123,7 @@ const GenericCard: React.FC<IGenericCardProps> = ({
           subText_ar={subText_ar}
           status={status}
           status_ar={status_ar}
+          statusType={statusType}
           showBorder={showBorder}
           showButtons={expanded ? false : showButtons}
           buttons={expanded ? [] : buttons}
@@ -136,9 +138,7 @@ const GenericCard: React.FC<IGenericCardProps> = ({
           {(cardTitleLabel || cardTitleLabel_ar || showButtons) && (
             <Container className="flex flex-row justify-between items-start mb-s gap-s">
               <Container className="flex-1 min-w-0">
-                <Text
-                  className="text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal line-clamp-2"
-                >
+                <Text className="text-bold-ml font-bold cursor-pointer wrap-break-word whitespace-normal line-clamp-2">
                   <SharedLanguageSwitchRenderer
                     language={language}
                     value={cardTitleLabel}
@@ -155,7 +155,9 @@ const GenericCard: React.FC<IGenericCardProps> = ({
                       type={button.type || "secondary"}
                       {...button}
                       language={language}
-                      showIconOnMobile={platform === "mobile" && !!button.mobileIcon}
+                      showIconOnMobile={
+                        platform === "mobile" && !!button.mobileIcon
+                      }
                       mobileIcon={button.mobileIcon}
                     />
                   ))}

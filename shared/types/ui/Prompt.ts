@@ -1,8 +1,8 @@
 export interface PromptProps {
   title: string;
   title_ar?: string;
-  subtitle: string;
-  subtitle_ar?: string;
+  subtiltle: string;
+  subtiltle_ar?: string;
   yesText?: string;
   yesText_ar?: string;
   noText?: string;

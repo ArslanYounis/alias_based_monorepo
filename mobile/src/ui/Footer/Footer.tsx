@@ -146,7 +146,7 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <Container className="bg-base-white flex flex-row items-center justify-between h-[56px] py-s px-m">
+    <Container className="bg-Base-White flex flex-row items-center justify-between h-[56px] py-s px-m">
       <Pressable
         className="flex flex-col justify-center items-center"
         onPress={() => handleMenuPress("Home")}

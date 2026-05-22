@@ -38,12 +38,6 @@ const controls: ComponentConfig<ViewPlotDetailProps>["controls"] = {
     defaultValue: true,
     defaultCode: "return true",
   },
-  theme: {
-    type: ["select"],
-    label: "Theme",
-    options: ["light", "dark"],
-    defaultValue: "dark",
-  },
   propsOverride: {
     type: ["propsOverride"],
     label: "Props Override",

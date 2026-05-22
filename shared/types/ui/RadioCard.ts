@@ -4,6 +4,7 @@ export interface RadioCardProps {
   icon?: ReactNode;
   label?: string;
   label_ar?: string;
+  theme?: "light" | "dark";
   language?: "en" | "ar";
   iconLocation?: "top" | "left" | "right" | "bottom";
   disabled?: boolean;

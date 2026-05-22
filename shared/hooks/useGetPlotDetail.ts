@@ -34,6 +34,8 @@ export interface PlotDetailResponse {
   constructionStatusE?: string;
   constructionStatusA?: string;
   urlArgs?: string;
+  hasBlock?: boolean;
+  plotStatus?: string;
   community?: {
     communityNameE?: string;
     communityNameA?: string;
@@ -49,6 +51,10 @@ export interface PlotDetailResponse {
   landUse?: {
     landuseNameE?: string;
     landuseNameA?: string;
+  };
+  vwRoad?: {
+    roadNameE?: string;
+    roadNameA?: string;
   };
   owners?: {
     ownerNameE?: string;
@@ -72,11 +78,11 @@ const useGetPlotDetail = (
   options = {}
 ) => {
   // Normalize input to always be an array for consistent hook calls
-  const plotIdsArray = Array.isArray(plotIds)
-    ? plotIds
-    : plotIds !== undefined && plotIds !== null
-    ? [String(plotIds)]
-    : [];
+ const plotIdsArray = Array.isArray(plotIds)
+   ? plotIds
+   : plotIds !== undefined && plotIds !== null
+     ? [String(plotIds)]
+     : [];
 
   // Always use useQueries to avoid conditional hook calls
   const queries = useQueries({

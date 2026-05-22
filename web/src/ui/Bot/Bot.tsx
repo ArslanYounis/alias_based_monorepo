@@ -1,4 +1,5 @@
 import type { BotProps } from "@shared/types";
+import { IMAGE_URL } from "@/lib/utils";
 import React, { useState, useEffect } from "react";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
 
@@ -38,7 +39,7 @@ export const Bot: React.FC<BotProps> = ({
         <>
           {currentStatus === "open" && message.length > 0 && (
             <div
-              className={`absolute z-30 bottom-[70px] bg-structure-primary-0 text-text-default text-m px-6 py-4 font-normal rounded-l min-w-[420px] rounded-bl-none mb-0.5 ${
+              className={`absolute z-30 bottom-[70px] bg-structure-primary-0 text-text-default text-base px-6 py-4 font-normal rounded-lg min-w-[420px] rounded-bl-none mb-0.5 ${
                 language === "ar" ? "text-start" : ""
               }`}
               style={{
@@ -64,7 +65,7 @@ export const Bot: React.FC<BotProps> = ({
             className={`w-[64px] h-[64px] rounded-full ${
               language === "en" ? "mr-[20px]" : "ml-[20px]"
             } z-40`}
-            src="https://adrec-images.mastermind-mindset.com/footerAvatar.svg"
+            src={`${IMAGE_URL}footerAvatar.svg`}
           />
         </>
       </div>

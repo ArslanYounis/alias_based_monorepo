@@ -26,6 +26,7 @@ export interface FormFieldProps {
   errorMessage?: string;
   errorMessage_ar?: string;
   language?: "en" | "ar";
+  theme?: "light" | "dark";
   icon?: ReactNode;
   options?: Option[];
   disabled?: boolean;

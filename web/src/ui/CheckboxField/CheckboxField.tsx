@@ -6,29 +6,35 @@ import { CheckRadioLabel } from "../CheckRadioLabel";
 export type { CheckboxFieldProps };
 
 export const CheckboxField: React.FC<CheckboxFieldProps> = ({
-  id: idProp,
-  label = "",
-  label_ar = "",
-  checked = false,
-  onChange = () => {},
-  disabled = false,
-  hasError = false,
+  id,
+  label,
   language = "en",
+  label_ar,
+  disabled = false,
+  checked = false,
+  hasError = false,
+  onChange,
 }) => {
-  const id = idProp ?? "checkbox-field";
+  const [isChecked, setIsChecked] = useState(checked);
   const [internalError, setInternalError] = useState(hasError);
+
+  useEffect(() => {
+    setIsChecked(checked);
+  }, [checked]);
 
   useEffect(() => {
     setInternalError(hasError);
   }, [hasError]);
 
-  const handleCheckboxChange = (checkboxId: string, newChecked: boolean) => {
+  const handleCheckboxChange = (id: string, newChecked: boolean) => {
     if (internalError) {
+      setIsChecked(true);
       setInternalError(false);
-      onChange?.(checkboxId, true);
+      onChange?.(id, true);
       return;
     }
-    onChange?.(checkboxId, newChecked);
+    setIsChecked(newChecked);
+    onChange?.(id, newChecked);
   };
 
   return (
@@ -38,17 +44,16 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
     >
       <Checkbox
         id={id}
-        checked={checked}
+        checked={isChecked}
         onChange={handleCheckboxChange}
         disabled={disabled}
         hasError={internalError}
       />
       <CheckRadioLabel
         label={label}
-        label_ar={label_ar}
-        language={language}
         disabled={disabled}
-        onClick={() => handleCheckboxChange(id, !checked)}
+        language={language}
+        label_ar={label_ar}
         htmlFor={id}
       />
     </div>

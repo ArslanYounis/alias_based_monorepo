@@ -20,7 +20,7 @@ const controls: {
     defaultCode: 'return "Are you Sure?"',
     defaultCodeAr: 'return "هل أنت متأكد؟"',
   },
-  subtitle: {
+  subtiltle: {
     type: ["text", "code"],
     label: "Sub Title",
     hasArabic: true,
@@ -46,12 +46,6 @@ const controls: {
     defaultValueAr: "لا",
     defaultCode: 'return "No"',
     defaultCodeAr: 'return "لا"',
-  },
-  theme: {
-    type: ["select"],
-    label: "Theme",
-    options: ["light", "dark"],
-    defaultValue: "dark",
   },
   onYesClick: {
     type: ["code"],

@@ -3,7 +3,10 @@ import type { TextInputProps } from "@shared/types";
 import type { ComponentType } from "react";
 
 const controls: {
-  [K in keyof Omit<TextInputProps, "language">]?: ControlDefinition<TextInputProps>;
+  [K in keyof Omit<
+    TextInputProps,
+    "language"
+  >]?: ControlDefinition<TextInputProps>;
 } & {
   propsOverride?: ControlDefinition<TextInputProps>;
   fieldKey?: ControlDefinition<TextInputProps>;
@@ -12,6 +15,7 @@ const controls: {
     type: ["text"],
     label: "Field Key",
     hasArabic: false,
+    //  isRequred and unique are gonna use only for form components to track input values
     isRequired: true,
     unique: true,
     defaultValue: "",
@@ -33,6 +37,12 @@ const controls: {
     defaultValueAr: "placeholder",
     defaultCode: "return 'placeholder'",
     defaultCodeAr: "return 'placeholder'",
+  },
+  disabled: {
+    type: ["boolean", "code"],
+    label: "Disabled?",
+    defaultValue: false,
+    defaultCode: "return false",
   },
   required: {
     type: ["boolean", "code"],
@@ -78,12 +88,7 @@ const controls: {
     label: "onChange",
     defaultCode: 'console.log("input value changed", eventData)',
     isEvent: true,
-    visibility: (props: TextInputProps) => !props.disabled,
-  },
-  propsOverride: {
-    type: ["propsOverride"],
-    label: "Props Override",
-    defaultCode: "return {}",
+    visibility: (props) => !props.disabled,
   },
 };
 

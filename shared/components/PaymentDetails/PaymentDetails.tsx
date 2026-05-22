@@ -23,6 +23,7 @@ import { useDownload } from "@platform/sharedHooks/useDownload";
 
 export interface ApplicationPayment {
   applicationPaymentId?: string | number;
+  applicationNumber?: string | number;
   municipalityId?: string | number;
   paymentDescriptionE?: string;
   paymentDescriptionA?: string;
@@ -158,8 +159,11 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                 payment?.paymentDescriptionE ??
                 ""
               }
-              status={!payment?.receiptNumber ? "Pending" : "Paid"}
-              status_ar={!payment?.receiptNumber ? "قيد الانتظار" : "مدفوع"}
+              status={!payment?.receiptNumber ? "Pending" : "Paid by override"}
+              status_ar={
+                !payment?.receiptNumber ? "قيد الانتظار" : "مدفوع بواسطة تجاوز"
+              }
+              statusType={!payment?.receiptNumber ? "pending" : "success"}
               variant={variant}
               language={language}
               isExpanded
@@ -225,7 +229,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                         }
                       },
                       onSettled: () => setPrintingId(null),
-                    }
+                    },
                   );
                 }}
               />
@@ -249,7 +253,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                           onSuccess: () => {
                             onVerifyComplete?.();
                           },
-                        }
+                        },
                       );
                     }}
                   />
@@ -299,7 +303,9 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
             description_ar={paymentOverrideDescription_ar}
             ServiceName={String(selectedPayment.paymentDescriptionE)}
             ServiceName_ar={String(selectedPayment.paymentDescriptionA)}
-            applicationNo={String(selectedPayment.applicationPaymentId)}
+            applicationId={String(selectedPayment.applicationPaymentId)}
+            applicationNo={String(selectedPayment.applicationNumber)}
+            applicationNo_ar={String(selectedPayment.applicationNumber)}
             PaymentFee={String(selectedPayment.amountDue)}
             language={language}
             isLoading={isOverridePaymentPending}

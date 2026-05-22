@@ -9,11 +9,12 @@ export const RadioField: React.FC<RadioFieldProps> = ({
   id = "",
   label = "",
   label_ar = "",
+  language = "en",
   checked = "",
-  onChange = () => {},
   disabled = false,
   hasError = false,
-  language = "en",
+  onChange = () => {},
+  theme = "light",
 }) => {
   const [internalError, setInternalError] = useState(hasError);
 
@@ -37,11 +38,13 @@ export const RadioField: React.FC<RadioFieldProps> = ({
         disabled={disabled}
         hasError={internalError}
         onChange={handleRadioChange}
+        theme={theme}
       />
       <CheckRadioLabel
         label={label}
         label_ar={label_ar}
         disabled={disabled}
+        theme={theme}
         language={language}
         onClick={handleRadioChange}
         htmlFor={id}

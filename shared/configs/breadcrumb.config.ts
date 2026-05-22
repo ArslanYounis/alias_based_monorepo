@@ -7,7 +7,10 @@ import type { BreadcrumbProps } from "@shared/types";
 import type { ComponentType } from "react";
 
 const controls: {
-  [K in keyof Omit<BreadcrumbProps, "language">]?: ControlDefinition<BreadcrumbProps>;
+  [K in keyof Omit<
+    BreadcrumbProps,
+    "language"
+  >]?: ControlDefinition<BreadcrumbProps>;
 } & {
   propsOverride?: ControlDefinition<BreadcrumbProps>;
 } = {

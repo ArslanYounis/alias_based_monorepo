@@ -27,8 +27,8 @@ const controls: ComponentConfig<DariPlotSearchProps>["controls"] = {
   selected: {
     type: ["code"],
     label: "Pre-selected Search Results",
-    defaultValue: [],
-    defaultCode: "return []",
+    defaultValue: null,
+    defaultCode: "return null",
   },
   onSubmit: {
     type: ["code"],

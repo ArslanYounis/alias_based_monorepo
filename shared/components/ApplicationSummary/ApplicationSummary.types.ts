@@ -5,8 +5,7 @@ import type { IGenericCardProps } from "../GenericCard";
 import type { IInteractionCardProps } from "../InteractionCard";
 import type { IGenericCardsProps } from "../GenericCards";
 import type { IGenericTableCardProps } from "../GenericTableCard";
-import type { ApplicationSummaryDetailProps } from "./ApplicationSummaryDetail";
-import { UploadDocumentsProps } from "@shared/types";
+import { ApplicationDetailProps, UploadDocumentsProps } from "@shared/types";
 
 export type Language = "en" | "ar";
 export type ApplicationType = "Compact" | "Standard";
@@ -27,15 +26,15 @@ export interface UiBlock {
   title_ar?: string;
   type: UiBlockType;
   data:
-  | AgentProps
-  | ApplicationSummaryDetailProps
-  | IPlotCardProps
-  | IOwnerCardProps
-  | IGenericCardProps
-  | IGenericCardsProps
-  | IGenericTableCardProps
-  | IInteractionCardProps
-  | UploadDocumentsProps;
+    | AgentProps
+    | ApplicationDetailProps
+    | IPlotCardProps
+    | IOwnerCardProps
+    | IGenericCardProps
+    | IGenericCardsProps
+    | IGenericTableCardProps
+    | IInteractionCardProps
+    | UploadDocumentsProps;
 }
 
 export interface ApplicationSummaryProps {

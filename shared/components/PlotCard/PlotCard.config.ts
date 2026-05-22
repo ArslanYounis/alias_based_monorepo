@@ -46,7 +46,29 @@ const controls: ComponentConfig<IPlotCardProps>["controls"] = {
   plots: {
     type: ["code"],
     label: "Plots",
-    defaultValue: [],
+    defaultValue: [
+      {
+        fields: [
+          {
+            label: "Municipality",
+            value: "N/A",
+          },
+          {
+            label: "Zone/District",
+            value: "N/A",
+          },
+          {
+            label: "Sector",
+            value: "",
+          },
+          {
+            label: "Plot Address",
+            value: "",
+          },
+        ],
+        plotNumber: "RCH9999",
+      },
+    ],
     defaultCode: `return [{
   fields: [
     { label: "Municipality", value: "N/A" },

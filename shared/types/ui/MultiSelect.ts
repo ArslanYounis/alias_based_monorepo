@@ -9,8 +9,7 @@ export interface MultiSelectProps {
   tooltipText_ar?: string;
   placeholder?: string;
   placeholder_ar?: string;
-  value?: string | string[];
-  // onChange?: (value: string | string[]) => void;
+  value?: string[];
   onChange?: (selected: string[]) => void;
   hasError?: boolean;
   errorMessage?: string;
@@ -20,6 +19,7 @@ export interface MultiSelectProps {
   captionLeft_ar?: string;
   captionRight?: string;
   captionRight_ar?: string;
+  theme?: "light" | "dark";
   language?: "en" | "ar";
   options?: SelectOption[];
   maxSelection?: number;

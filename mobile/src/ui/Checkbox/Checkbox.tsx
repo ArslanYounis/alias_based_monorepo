@@ -32,7 +32,7 @@ export const Checkbox = ({
   };
 
   const baseStyles =
-    "border-2 border-form-fields-checkbox-radio-cbr-border bg-base-white";
+    "border-2 border-form-fields-checkbox-radio-cbr-border bg-Base-White";
 
   const disabledStyles =
     "bg-form-fields-checkbox-radio-cbr-select-disable border-form-fields-checkbox-radio-cbr-select-disable";

@@ -8,6 +8,7 @@ export const RadioCard: React.FC<RadioCardProps> = ({
   icon,
   label = "",
   label_ar,
+  theme,
   iconLocation = "left",
   language = "en",
   disabled = false,
@@ -57,6 +58,7 @@ export const RadioCard: React.FC<RadioCardProps> = ({
       onClick={handleClick}
       disabled={disabled}
       data-clicked={clicked ? "true" : "false"}
+      data-theme={theme || "light"}
       className={`${getBackgroundColor()} min-h-[83px] flex items-center gap-none rounded-xs px-l py-s flex-1 transition-colors ${
         disabled ? "cursor-not-allowed opacity-40" : "cursor-pointer"
       }`}

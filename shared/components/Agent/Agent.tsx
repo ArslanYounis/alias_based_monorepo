@@ -38,7 +38,7 @@ const Agent: React.FC<AgentProps> = ({
         platform={platform}
       />
       {platform === "web" ? (
-        <Container className="flex flex-row gap-m items-center px-s py-xs bg-cards-base-l1 rounded-xxs">
+        <Container className="flex flex-row gap-m items-center px-s py-xs bg-cards-base-l1 rounded-[5px]">
           <Avatar
             imageUrl={
               agent?.image ||
@@ -65,7 +65,7 @@ const Agent: React.FC<AgentProps> = ({
           </Container>
         </Container>
       ) : (
-        <Container className="flex flex-row gap-m items-center px-s py-xs bg-cards-base-l1 rounded-xxs">
+        <Container className="flex flex-row gap-m items-center px-s py-xs bg-cards-base-l1 rounded-[5px]">
           <Avatar
             imageUrl={
               agent?.image ||

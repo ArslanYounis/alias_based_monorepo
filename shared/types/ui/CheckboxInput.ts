@@ -1,18 +1,19 @@
 export interface CheckboxInputOption {
-  label?: string;
+  label: string;
   label_ar?: string;
   value: string;
 }
 
 export interface CheckboxInputProps {
-  label?: string;
+  label: string;
   label_ar?: string;
   required?: boolean;
   showInfoIcon?: boolean;
   tooltipText?: string;
   tooltipText_ar?: string;
-  value?: string[];
-  onChange?: (value: string[]) => void;
+  options: CheckboxInputOption[];
+  value: string[];
+  onChange: (selected: string[]) => void;
   disabled?: boolean;
   hasError?: boolean;
   errorMessage?: string;
@@ -21,7 +22,6 @@ export interface CheckboxInputProps {
   captionLeft_ar?: string;
   captionRight?: string;
   captionRight_ar?: string;
-  options?: CheckboxInputOption[];
-  language?: "en" | "ar";
   theme?: "light" | "dark";
+  language?: "en" | "ar";
 }

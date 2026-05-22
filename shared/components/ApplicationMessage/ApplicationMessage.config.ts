@@ -10,12 +10,14 @@ const controls: ComponentConfig<ApplicationMessageProps>["controls"] = {
   title: {
     type: ["text", "code"],
     label: "Title",
+    hasArabic: true,
     defaultValue: "Application Submitted Successfully",
     defaultCode: "return 'Application Submitted Successfully'",
   },
   description: {
     type: ["text", "code"],
     label: "Description",
+    hasArabic: true,
     defaultValue:
       "Your application has been submitted and is currently under review.",
     defaultCode:
@@ -61,14 +63,9 @@ const controls: ComponentConfig<ApplicationMessageProps>["controls"] = {
   label: {
     type: ["text", "code"],
     label: "Label (EN)",
+    hasArabic: true,
     defaultValue: "Reference Number",
     defaultCode: "return 'Reference Number'",
-  },
-  label_ar: {
-    type: ["text", "code"],
-    label: "Label (AR)",
-    defaultValue: "رقم المرجع",
-    defaultCode: "return 'رقم المرجع'",
   },
   value: {
     type: ["code"],
@@ -100,12 +97,7 @@ return [
   errorMessage: {
     type: ["text", "code"],
     label: "Error Message (EN)",
-    defaultValue: "",
-    defaultCode: "return ''",
-  },
-  errorMessage_ar: {
-    type: ["text", "code"],
-    label: "Error Message (AR)",
+    hasArabic: true,
     defaultValue: "",
     defaultCode: "return ''",
   },
@@ -124,14 +116,9 @@ return [
   tooltipText: {
     type: ["text", "code"],
     label: "Tooltip Text (EN)",
+    hasArabic: true,
     defaultValue: "Tooltip Text",
     defaultCode: "return 'Tooltip Text'",
-  },
-  tooltipText_ar: {
-    type: ["text", "code"],
-    label: "Tooltip Text (AR)",
-    defaultValue: "نص تلميح الأداة",
-    defaultCode: "return 'نص تلميح الأداة'",
   },
   onClick: {
     type: ["code"],

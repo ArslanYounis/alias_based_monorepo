@@ -6,53 +6,53 @@ import type { DariOwnerSearchProps } from "./dariOwnerSearch";
 import type { ComponentType } from "react";
 
 const controls: ComponentConfig<DariOwnerSearchProps>["controls"] = {
-    title: {
-        type: ["text", "code"],
-        label: "Title",
-        hasArabic: true,
-        defaultValue: "",
-        defaultValueAr: "",
-        defaultCode: 'return ""',
-        defaultCodeAr: 'return ""',
+  title: {
+    type: ["text", "code"],
+    label: "Title",
+    hasArabic: true,
+    defaultValue: "",
+    defaultValueAr: "",
+    defaultCode: 'return ""',
+    defaultCodeAr: 'return ""',
+  },
+  showTabs: {
+    type: ["boolean"],
+    label: "Show Tabs",
+    defaultValue: true,
+  },
+  ownerTypeOptions: {
+    type: ["code"],
+    label: "Owner Type Options",
+    defaultValue: {
+      company: "By Company Owner",
+      company_ar: "بواسطة مالك الشركة",
+      owner: "By Owner",
+      owner_ar: "بواسطة المالك",
     },
-    showTabs: {
-        type: ["boolean"],
-        label: "Show Tabs",
-        defaultValue: true,
-    },
-    ownerTypeOptions: {
-        type: ["code"],
-        label: "Owner Type Options",
-        defaultValue: {
-            company: "By Company Owner",
-            company_ar: "بواسطة مالك الشركة",
-            owner: "By Owner",
-            owner_ar: "بواسطة المالك",
-        },
-        defaultCode: `return {
+    defaultCode: `return {
   company: 'By Company Owner',
   company_ar: 'بواسطة مالك الشركة',
   owner: 'By Owner',
   owner_ar: 'بواسطة المالك',
 }`,
-    },
-    selected: {
-        type: ["code"],
-        label: "Selected Owners",
-        defaultValue: [],
-        defaultCode: "return []",
-    },
-    onSubmit: {
-        type: ["code"],
-        label: "On Submit",
-        defaultCode: "console.log('owner search submit', eventData)",
-        isEvent: true,
-    },
-    propsOverride: {
-        type: ["propsOverride"],
-        label: "Props Override",
-        defaultCode: "return {}",
-    },
+  },
+  selected: {
+    type: ["code"],
+    label: "Selected Owners",
+    defaultValue: [],
+    defaultCode: "return []",
+  },
+  onSubmit: {
+    type: ["code"],
+    label: "On Submit",
+    defaultCode: "console.log('owner search submit', eventData)",
+    isEvent: true,
+  },
+  propsOverride: {
+    type: ["propsOverride"],
+    label: "Props Override",
+    defaultCode: "return {}",
+  },
 };
 
 export function createDariOwnerSearchConfig(

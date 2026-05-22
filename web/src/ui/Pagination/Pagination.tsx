@@ -129,7 +129,7 @@ const Pagination: React.FC<PaginationProps> = ({
               <button
                 key={page}
                 onClick={() => handlePageClick(page)}
-                className={`cursor-pointer w-[42px] h-[40px] flex items-center justify-center rounded-s text-m font-normal
+                className={`cursor-pointer w-[42px] h-[40px] flex items-center justify-center rounded-[10px] text-m font-normal
                   ${
                     currentPage === page
                       ? "bg-structure-primary-1 border border-structure-primary-9 text-text-default"
@@ -158,7 +158,7 @@ const Pagination: React.FC<PaginationProps> = ({
         </button>
       </nav>
       {showBottomText && (
-        <div className={`mt-xs me-xs text-s text-end text-text-default`}>
+        <div className={`mt-xs mr-xs text-s text-end text-text-default`}>
           {totalCount === undefined ? (
             <SharedLanguageSwitchRenderer
               language={language}

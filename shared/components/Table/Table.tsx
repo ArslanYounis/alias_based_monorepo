@@ -75,9 +75,9 @@ export const Table: React.FC<ApplicationTableProps> = ({
   return (
     <Container className="w-full">
       {/* Column headers — visible on web, hidden on mobile (cards scroll horizontally) */}
-      {tableData?.length > 0 && (
+      {tableData?.length > 0 && platform === "web" && (
         <Container
-          className="hidden md:grid gap-m mb-m"
+          className="grid gap-m mb-m"
           style={{
             gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
           }}
@@ -99,126 +99,139 @@ export const Table: React.FC<ApplicationTableProps> = ({
         </Container>
       )}
 
-      {tableData?.map((row, rowIndex) => (
-        <Container
-          key={rowIndex}
-          className={`mb-xl ${
-            rowIndex + 1 < tableData?.length ? "border-b" : ""
-          } border-form-border pb-l`}
-        >
-          {platform === "web" ? (
-            <Container className="flex flex-row gap-xs w-full">
-              <Container className="min-w-50 shrink-0 me-xs">
-                <ApplicationCard
-                  cardsData={{
-                    title:
-                      language === "ar"
-                        ? row.applicationTitle_ar
-                        : row.applicationTitle,
-                    id: row.id,
-                    location:
-                      language === "ar" ? row.location_ar : row.location,
-                    date: row.timeDate,
-                    stage: {
-                      complete: row?.currentStep ?? 0,
-                      approval: 1,
-                      inprogress: 0,
-                    },
-                    remaining:
-                      language === "ar"
-                        ? (row.daysRemaining_ar ?? "")
-                        : row.daysRemaining,
-                  }}
-                  totalDots={row?.totalDots}
-                  onClick={row.onCardClick ?? undefined}
-                />
-              </Container>
-              {row.additionalColumns?.map((col, colIndex) => (
-                <Container
-                  key={colIndex}
-                  className="min-w-50 shrink-0 flex-1 mr-xs"
-                >
-                  <Cards
-                    type={col?.type}
-                    version={col?.version}
-                    direction={col?.direction}
-                    currentStep={col?.currentStep}
-                    action={col?.action}
-                    action_ar={col?.action_ar}
-                    stepName={col?.stepName}
-                    stepName_ar={col?.stepName_ar}
-                    userName={col?.userName}
-                    userName_ar={col?.userName_ar}
-                    role={col?.role}
-                    role_ar={col?.role_ar}
-                    language={language}
-                    imageURL={col?.imageURL ?? ""}
-                    onCardClick={col?.onCardClick ?? undefined}
-                    totalSteps={col?.totalSteps}
-                    completedSteps={col?.completedSteps}
-                    currentStepStatus={col?.currentStepStatus}
+      {tableData?.map((row, rowIndex) => {
+        const rowColumnCount = row.additionalColumns?.length + 1;
+        return (
+          <Container
+            key={rowIndex}
+            className={`mb-xl ${
+              rowIndex + 1 < tableData?.length ? "border-b" : ""
+            } border-Form-Border pb-l`}
+          >
+            {platform === "web" ? (
+              <Container
+                className="grid gap-xs w-full"
+                style={{
+                  gridTemplateColumns: `repeat(${rowColumnCount}, minmax(0, 1fr))`,
+                }}
+              >
+                <Container className="min-w-0">
+                  <ApplicationCard
+                    cardsData={{
+                      title:
+                        language === "ar"
+                          ? row.applicationTitle_ar
+                          : row.applicationTitle,
+                      id: row.id,
+                      location:
+                        language === "ar" ? row.location_ar : row.location,
+                      date: row.timeDate,
+                      stage: {
+                        complete: row?.currentStep ?? 0,
+                        approval: 1,
+                        inprogress: 0,
+                      },
+                      remaining:
+                        language === "ar"
+                          ? (row.daysRemaining_ar ?? "")
+                          : row.daysRemaining,
+                    }}
+                    totalDots={row?.totalDots}
+                    onClick={row.onCardClick ?? undefined}
                   />
                 </Container>
-              ))}
-            </Container>
-          ) : (
-            <ScrollContainer horizontal className="flex flex-row gap-xs w-full">
-              <Container className="min-w-50 shrink-0 me-xs">
-                <ApplicationCard
-                  cardsData={{
-                    title:
-                      language === "ar"
-                        ? row.applicationTitle_ar
-                        : row.applicationTitle,
-                    id: row.id,
-                    location:
-                      language === "ar" ? row.location_ar : row.location,
-                    date: row.timeDate,
-                    stage: {
-                      complete: row?.currentStep ?? 0,
-                      approval: 1,
-                      inprogress: 0,
-                    },
-                    remaining:
-                      language === "ar"
-                        ? (row.daysRemaining_ar ?? "")
-                        : row.daysRemaining,
-                  }}
-                  totalDots={row?.totalDots}
-                  onClick={row.onCardClick ?? undefined}
-                />
+                {row.additionalColumns?.map((col, colIndex) => (
+                  <Container
+                    key={colIndex}
+                    className={`min-w-0 ${
+                      colIndex > 1 ? "!hidden md:!block" : ""
+                    }`}
+                  >
+                    <Cards
+                      type={col?.type}
+                      version={col?.version}
+                      direction={col?.direction}
+                      currentStep={col?.currentStep}
+                      action={col?.action}
+                      action_ar={col?.action_ar}
+                      stepName={col?.stepName}
+                      stepName_ar={col?.stepName_ar}
+                      userName={col?.userName}
+                      userName_ar={col?.userName_ar}
+                      role={col?.role}
+                      role_ar={col?.role_ar}
+                      language={language}
+                      imageURL={col?.imageURL ?? ""}
+                      onCardClick={col?.onCardClick ?? undefined}
+                      totalSteps={col?.totalSteps}
+                      completedSteps={col?.completedSteps}
+                      currentStepStatus={col?.currentStepStatus}
+                    />
+                  </Container>
+                ))}
               </Container>
-              {row.additionalColumns?.map((col, colIndex) => (
-                <Container
-                  key={colIndex}
-                  className="min-w-50 shrink-0 flex-1 mr-xs"
-                >
-                  <Cards
-                    type={col?.type}
-                    version={col?.version}
-                    direction={col?.direction}
-                    currentStep={col?.currentStep}
-                    action={col?.action}
-                    action_ar={col?.action_ar}
-                    stepName={col?.stepName}
-                    stepName_ar={col?.stepName_ar}
-                    userName={col?.userName}
-                    userName_ar={col?.userName_ar}
-                    role={col?.role}
-                    role_ar={col?.role_ar}
-                    language={language}
-                    imageURL={col?.imageURL ?? ""}
-                    onCardClick={col?.onCardClick ?? undefined}
-                    totalSteps={col?.totalSteps}
-                    completedSteps={col?.completedSteps}
-                    currentStepStatus={col?.currentStepStatus}
+            ) : (
+              <ScrollContainer
+                horizontal
+                className="flex flex-row gap-xs w-full"
+              >
+                <Container className="min-w-50 shrink-0 me-xs">
+                  <ApplicationCard
+                    cardsData={{
+                      title:
+                        language === "ar"
+                          ? row.applicationTitle_ar
+                          : row.applicationTitle,
+                      id: row.id,
+                      location:
+                        language === "ar" ? row.location_ar : row.location,
+                      date: row.timeDate,
+                      stage: {
+                        complete: row?.currentStep ?? 0,
+                        approval: 1,
+                        inprogress: 0,
+                      },
+                      remaining:
+                        language === "ar"
+                          ? (row.daysRemaining_ar ?? "")
+                          : row.daysRemaining,
+                    }}
+                    totalDots={row?.totalDots}
+                    onClick={row.onCardClick ?? undefined}
                   />
                 </Container>
-              ))}
-            </ScrollContainer>
-          )}
-        </Container>
-      ))}
+                {row.additionalColumns?.map((col, colIndex) => (
+                  <Container
+                    key={colIndex}
+                    className="min-w-50 shrink-0 flex-1 mr-xs"
+                  >
+                    <Cards
+                      type={col?.type}
+                      version={col?.version}
+                      direction={col?.direction}
+                      currentStep={col?.currentStep}
+                      action={col?.action}
+                      action_ar={col?.action_ar}
+                      stepName={col?.stepName}
+                      stepName_ar={col?.stepName_ar}
+                      userName={col?.userName}
+                      userName_ar={col?.userName_ar}
+                      role={col?.role}
+                      role_ar={col?.role_ar}
+                      language={language}
+                      imageURL={col?.imageURL ?? ""}
+                      onCardClick={col?.onCardClick ?? undefined}
+                      totalSteps={col?.totalSteps}
+                      completedSteps={col?.completedSteps}
+                      currentStepStatus={col?.currentStepStatus}
+                    />
+                  </Container>
+                ))}
+              </ScrollContainer>
+            )}
+          </Container>
+        );
+      })}
     </Container>
   );
 };

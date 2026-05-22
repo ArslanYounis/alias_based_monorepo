@@ -3,7 +3,7 @@ import type { IconType, ComponentConfig } from "@shared/types/dls.types";
 import PaymentDetails, { type PaymentDetailsProps } from "./PaymentDetails";
 
 const createPaymentDetailsConfig = (
-  ReceiptTextIcon: IconType
+  ReceiptTextIcon: IconType,
 ): ComponentConfig<PaymentDetailsProps> => ({
   id: "paymentDetail",
   icon: ReceiptTextIcon,
@@ -58,35 +58,35 @@ const createPaymentDetailsConfig = (
         },
       ],
       defaultCode: `return [
-  {
-    applicationPaymentId: 1,
-    municipalityId: 101,
-    paymentDescriptionE: "Building Permit Fee",
-    paymentDescriptionA: "رسوم تصريح البناء",
-    municipalityNameE: "Dubai Municipality",
-    municipalityNameA: "بلدية دبي",
-    paidByName: "John Doe",
-    receiptNumber: "",
-    receiptDate: "",
-    amountDue: "500 AED",
-    amountInWords: "Five Hundred Dirhams",
-    vatAmount: "25 AED",
-  },
-  {
-    applicationPaymentId: 2,
-    municipalityId: 102,
-    paymentDescriptionE: "Inspection Fee",
-    paymentDescriptionA: "رسوم التفتيش",
-    municipalityNameE: "Abu Dhabi Municipality",
-    municipalityNameA: "بلدية أبوظبي",
-    paidByName: "John Doe",
-    receiptNumber: "REC123",
-    receiptDate: "2025-02-01",
-    amountDue: "300 AED",
-    amountInWords: "Three Hundred Dirhams",
-    vatAmount: "15 AED",
-  },
-]`,
+        {
+          applicationPaymentId: 1,
+          municipalityId: 101,
+          paymentDescriptionE: "Building Permit Fee",
+          paymentDescriptionA: "رسوم تصريح البناء",
+          municipalityNameE: "Dubai Municipality",
+          municipalityNameA: "بلدية دبي",
+          paidByName: "John Doe",
+          receiptNumber: "",
+          receiptDate: "",
+          amountDue: "500 AED",
+          amountInWords: "Five Hundred Dirhams",
+          vatAmount: "25 AED",
+        },
+        {
+          applicationPaymentId: 2,
+          municipalityId: 102,
+          paymentDescriptionE: "Inspection Fee",
+          paymentDescriptionA: "رسوم التفتيش",
+          municipalityNameE: "Abu Dhabi Municipality",
+          municipalityNameA: "بلدية أبوظبي",
+          paidByName: "John Doe",
+          receiptNumber: "REC123",
+          receiptDate: "2025-02-01",
+          amountDue: "300 AED",
+          amountInWords: "Three Hundred Dirhams",
+          vatAmount: "15 AED",
+        },
+      ]`,
     },
     showButtons: {
       type: ["boolean", "code"],
@@ -98,7 +98,8 @@ const createPaymentDetailsConfig = (
       type: ["code"],
       label: "Buttons",
       defaultValue: [],
-      defaultCode: `return [
+      defaultCode: `
+return [
   {
     title: "Continue Later",
     title_ar: "استمرار لاحقًا",
@@ -118,7 +119,8 @@ const createPaymentDetailsConfig = (
     disabled: true,
     onClick: () => console.log("Submit clicked")
   }
-]`,
+];
+      `,
     },
     drawerSize: {
       type: ["select", "code"],

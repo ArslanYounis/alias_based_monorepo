@@ -21,6 +21,7 @@ export interface TextInputProps {
   captionLeft_ar?: string;
   captionRight?: string;
   captionRight_ar?: string;
+  theme?: "light" | "dark";
   language?: "en" | "ar";
   fieldType?:
   | "text"

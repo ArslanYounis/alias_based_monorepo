@@ -77,62 +77,45 @@ const controls: ComponentConfig<IGenericCardProps>["controls"] = {
   title: {
     type: ["text", "code"],
     label: "Title (Expanded - EN)",
+    hasArabic: true,
     defaultValue: "Card Title",
     defaultCode: "return 'Card Title'",
-  },
-  title_ar: {
-    type: ["text", "code"],
-    label: "Title (Expanded - AR)",
-    defaultValue: "عنوان البطاقة",
-    defaultCode: "return 'عنوان البطاقة'",
   },
   cardTitleLabel: {
     type: ["text", "code"],
     label: "Collapsed Label (EN)",
+    hasArabic: true,
     defaultValue: "Reference",
     defaultCode: "return 'Reference'",
-  },
-  cardTitleLabel_ar: {
-    type: ["text", "code"],
-    label: "Collapsed Label (AR)",
-    defaultValue: "المرجع",
-    defaultCode: "return 'المرجع'",
   },
   cardTitleValue: {
     type: ["text", "code"],
     label: "Collapsed Value (EN)",
-    defaultValue: "REF-001",
-    defaultCode: "return 'REF-001'",
-  },
-  cardTitleValue_ar: {
-    type: ["text", "code"],
-    label: "Collapsed Value (AR)",
+    hasArabic: true,
     defaultValue: "REF-001",
     defaultCode: "return 'REF-001'",
   },
   subText: {
     type: ["text", "code"],
     label: "Sub Text (EN)",
-    defaultValue: "",
-    defaultCode: "return ''",
-  },
-  subText_ar: {
-    type: ["text", "code"],
-    label: "Sub Text (AR)",
+    hasArabic: true,
     defaultValue: "",
     defaultCode: "return ''",
   },
   status: {
     type: ["text", "code"],
     label: "Status (EN)",
+    hasArabic: true,
     defaultValue: "",
     defaultCode: "return ''",
   },
-  status_ar: {
-    type: ["text", "code"],
-    label: "Status (AR)",
-    defaultValue: "",
-    defaultCode: "return ''",
+  statusType: {
+    type: ["select", "code"],
+    label: "Status Type",
+    hasArabic: false,
+    options: ["success", "pending", "failed", "info"],
+    defaultValue: "pending",
+    defaultCode: 'return "pending"',
   },
   hasDocuments: {
     type: ["boolean", "code"],
@@ -143,26 +126,16 @@ const controls: ComponentConfig<IGenericCardProps>["controls"] = {
   documentTitle: {
     type: ["text", "code"],
     label: "Document Section Title (EN)",
+    hasArabic: true,
     defaultValue: "Documents",
     defaultCode: "return 'Documents'",
-  },
-  documentTitle_ar: {
-    type: ["text", "code"],
-    label: "Document Section Title (AR)",
-    defaultValue: "المستندات",
-    defaultCode: "return 'المستندات'",
   },
   documentDescription: {
     type: ["text", "code"],
     label: "Document Description Title (EN)",
+    hasArabic: true,
     defaultValue: "Document Description",
     defaultCode: "return 'Document Description'",
-  },
-  documentDescription_ar: {
-    type: ["text", "code"],
-    label: "Document Description Title (AR)",
-    defaultValue: "وصف الوثيقة",
-    defaultCode: "return 'وصف الوثيقة'",
   },
   document_type: {
     type: ["select", "code"],
@@ -180,34 +153,212 @@ const controls: ComponentConfig<IGenericCardProps>["controls"] = {
   buttons: {
     type: ["code"],
     label: "Buttons",
-    defaultCode: "return []",
+    defaultValue: [
+      {
+        title: "Edit",
+        title_ar: "تعديل",
+        type: "secondary",
+        onClick: () => console.log("Edit clicked"),
+      },
+    ],
+    defaultCode: `
+return [
+  {
+    title: "Edit",
+    title_ar: "تعديل",
+    type: "secondary",
+    onClick: () => console.log("Edit clicked")
+  }
+];
+      `,
   },
   titleButtons: {
     type: ["code"],
     label: "Title Buttons",
-    defaultCode: "return []",
+    defaultValue: [
+      {
+        title: "Edit",
+        title_ar: "تعديل",
+        type: "secondary",
+        onClick: () => console.log("Edit clicked"),
+      },
+    ],
+    defaultCode: `
+return [
+  {
+    title: "Edit",
+    title_ar: "تعديل",
+    type: "secondary",
+    onClick: () => console.log("Edit clicked")
+  }
+];
+      `,
   },
   rowsData: {
     type: ["code"],
     label: "Rows Data",
+    defaultValue: [
+      {
+        label: "Owner Name",
+        label_ar: "اسم المالك",
+        value: "John Doe",
+        value_ar: "جون دو",
+      },
+      {
+        label: "MOI Unified Number",
+        label_ar: "رقم وزارة الداخلية الموحد",
+        value: "330928",
+        value_ar: "330928",
+        fieldType: "text",
+        rowVariant: "field",
+        defaultValue: "330928",
+        inputProps: {
+          placeholder: "Enter MOI Number",
+          placeholder_ar: "أدخل رقم وزارة الداخلية",
+        },
+      },
+      {
+        label: "Nationality",
+        label_ar: "الجنسية",
+        value: "UAE",
+        value_ar: "الإمارات العربية المتحدة",
+        fieldType: "select",
+        rowVariant: "field",
+        defaultValue: "UAE",
+        inputProps: {
+          options: [
+            {
+              label: "United Arab Emirates",
+              value: "UAE",
+              label_ar: "الإمارات العربية المتحدة",
+            },
+            {
+              label: "Saudi Arabia",
+              value: "SA",
+              label_ar: "المملكة العربية السعودية",
+            },
+          ],
+        },
+      },
+      {
+        label: "Created Date",
+        label_ar: "تاريخ الإنشاء",
+        value: "01 Jan 2024",
+        value_ar: "01 يناير 2024",
+      },
+    ],
     defaultCode: `return [
   {
     label: "Owner Name",
     label_ar: "اسم المالك",
     value: "John Doe",
     value_ar: "جون دو"
+    // First row: default display (uses card-level rowVariant/fieldType if provided)
+  },
+  {
+    label: "MOI Unified Number",
+    label_ar: "رقم وزارة الداخلية الموحد",
+    value: "330928",
+    value_ar: "330928",
+    // Second row: text field - each row can have its own fieldType and rowVariant
+    fieldType: "text",
+    rowVariant: "field",
+    inputProps: {
+      onChange: (v) => console.log("MOI Number changed:", v),
+      placeholder: "Enter MOI Number",
+      placeholder_ar: "أدخل رقم وزارة الداخلية"
+    }
+  },
+  {
+    label: "Nationality",
+    label_ar: "الجنسية",
+    value: "United Arab Emirates",
+    value_ar: "الإمارات العربية المتحدة",
+    // Third row: select dropdown
+    fieldType: "select",
+    rowVariant: "field",
+    inputProps: {
+      onChange: (v) => console.log("Nationality changed:", v),
+      options: [
+        { label: "United Arab Emirates", value: "UAE", label_ar: "الإمارات العربية المتحدة" },
+        { label: "Saudi Arabia", value: "SA", label_ar: "المملكة العربية السعودية" }
+      ]
+    }
+  },
+  {
+    label: "Created Date",
+    label_ar: "تاريخ الإنشاء",
+    value: "01 Jan 2024",
+    value_ar: "01 يناير 2024"
+    // Fourth row: default display
   }
-]`,
+];`,
   },
   documentButtons: {
     type: ["code"],
     label: "Documents Buttons",
-    defaultCode: "return []",
+    defaultValue: [
+      {
+        title: "View All",
+        title_ar: "عرض الكل",
+        type: "secondary",
+        onClick: () => console.log("View All clicked"),
+      },
+    ],
+    defaultCode: `
+return [
+  {
+    title: "View All",
+    title_ar: "عرض الكل",
+    type: "secondary",
+    onClick: () => console.log("View All clicked")
+  }
+];`,
   },
   documents: {
     type: ["code"],
     label: "Documents Data",
-    defaultCode: "return []",
+    defaultValue: [
+      {
+        id: "1",
+        documentName: "Document 1",
+        documentName_ar: "المستند ١",
+        fileType: "PDF",
+        size: "2.5 MB",
+        isUploaded: true,
+        onDownloadClick: () => console.log("Download Document 1"),
+      },
+      {
+        id: "2",
+        documentName: "Document 2",
+        documentName_ar: "المستند ٢",
+        fileType: "JPG",
+        size: "1.2 MB",
+        isUploaded: true,
+        onDownloadClick: () => console.log("Download Document 2"),
+      },
+    ],
+    defaultCode: `
+return [
+  {
+    id: "1",
+    documentName: "Document 1",
+    documentName_ar: "المستند ١",
+    fileType: "PDF",
+    size: "2.5 MB",
+    isUploaded: true,
+    onDownloadClick: () => console.log("Download Document 1")
+  },
+  {
+    id: "2",
+    documentName: "Document 2",
+    documentName_ar: "المستند ٢",
+    fileType: "JPG",
+    size: "1.2 MB",
+    isUploaded: true,
+    onDownloadClick: () => console.log("Download Document 2")
+    }];
+      `,
   },
   showFooterButtons: {
     type: ["boolean", "code"],
@@ -218,7 +369,23 @@ const controls: ComponentConfig<IGenericCardProps>["controls"] = {
   footerButton: {
     type: ["code"],
     label: "Footer Buttons",
-    defaultCode: "return []",
+    defaultValue: [
+      {
+        title: "View All",
+        title_ar: "عرض الكل",
+        type: "secondary",
+        onClick: () => console.log("View All clicked"),
+      },
+    ],
+    defaultCode: `
+return [
+  {
+    title: "View All",
+    title_ar: "عرض الكل",
+    type: "secondary",
+    onClick: () => console.log("View All clicked")
+  }
+];`,
   },
   propsOverride: {
     type: ["propsOverride"],

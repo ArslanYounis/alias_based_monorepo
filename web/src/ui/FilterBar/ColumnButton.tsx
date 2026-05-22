@@ -68,8 +68,8 @@ const ColumnButton: React.FC<ColumnButtonProps> = ({
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleCheckboxChange = (_id: string, _checked: boolean) => {
-    handleOptionClick(_id);
+  const handleCheckboxChange = (id: string, _checked: boolean) => {
+    handleOptionClick(id);
   };
 
   return (
@@ -96,13 +96,7 @@ const ColumnButton: React.FC<ColumnButtonProps> = ({
                     id={col}
                     label={col}
                     checked={selectedColumns.includes(col)}
-                    onChange={(_id, checked) => {
-                      if (checked) {
-                        handleOptionClick(col);
-                      } else {
-                        handleOptionClick(col);
-                      }
-                    }}
+                    onChange={handleCheckboxChange}
                     theme={isDark ? "dark" : "light"}
                   />
                 ) : (

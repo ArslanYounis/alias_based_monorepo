@@ -22,5 +22,6 @@ export interface TitleBarProps {
   leftIcon?: ReactElement;
   rightIcon?: ReactElement;
   onClick?: () => void;
+  theme?: "light" | "dark";
   language?: "en" | "ar";
 }

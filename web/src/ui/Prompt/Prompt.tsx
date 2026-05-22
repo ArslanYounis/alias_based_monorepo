@@ -8,14 +8,15 @@ export type { PromptProps };
 const Prompt: React.FC<PromptProps> = ({
   title,
   title_ar,
-  subtitle,
-  subtitle_ar,
+  subtiltle,
+  subtiltle_ar,
   yesText = "Yes",
   yesText_ar = "نعم",
   noText = "No",
   noText_ar = "لا",
   onYesClick,
   onNoClick,
+  theme = "dark",
   language = "en",
 }) => {
   const isRTL = language === "ar";
@@ -33,8 +34,8 @@ const Prompt: React.FC<PromptProps> = ({
         </p>
         <p className={`text-m ${textColor}`}>
           <SharedLanguageSwitchRenderer
-            value={subtitle}
-            value_ar={subtitle_ar}
+            value={subtiltle}
+            value_ar={subtiltle_ar}
             language={language}
           />
         </p>
@@ -44,6 +45,7 @@ const Prompt: React.FC<PromptProps> = ({
             title_ar={noText_ar}
             onClick={onNoClick}
             type="delete"
+            theme={theme}
             language={language}
           />
           <Buttons
@@ -51,6 +53,7 @@ const Prompt: React.FC<PromptProps> = ({
             title_ar={yesText_ar}
             onClick={onYesClick}
             type="secondary"
+            theme={theme}
             language={language}
           />
         </div>

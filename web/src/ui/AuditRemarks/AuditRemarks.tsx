@@ -3,6 +3,7 @@ import type {
   ApprovalModalProps,
   AuditRemarksProps,
 } from "@shared/types";
+import { IMAGE_URL } from "@/lib/utils";
 import { Buttons } from "../Buttons";
 import Document from "@/assets/svg/document";
 import SharedLanguageSwitchRenderer from "@/components/shared/SharedLanguageSwitchRenderer";
@@ -24,7 +25,6 @@ export const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
   theme = "dark",
   onOwnerClick,
   onPlotClick,
-  onDocumentPress,
 }) => {
   return (
     <div className="w-full" dir={language === "ar" ? "rtl" : "ltr"}>
@@ -46,9 +46,9 @@ export const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
             value_ar="الوكيل"
           />
         </p>
-        <div className="flex gap-m items-center px-s py-xs bg-cards-base-l1 rounded-xxs">
+        <div className="flex gap-m items-center px-s py-xs bg-cards-base-l1 rounded-[5px]">
           <img
-            src={agent.image || ""}
+            src={agent.image || `${IMAGE_URL}dummyUserImg.png`}
             alt="agent"
             className="w-8 h-8 rounded-full"
           />
@@ -77,7 +77,7 @@ export const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
           />
         </h3>
         <textarea
-          className="w-full rounded-[8px] border border-form-fields-input-form-border bg-form-fields-input-form-bg text-text-default text-m p-m gap-m resize-none focus:outline-none"
+          className="w-full rounded-[8px] border border-form-fields-input-form-border bg-form-fields-input-form-bg text-text-default text-base p-m gap-m resize-none focus:outline-none"
           placeholder=""
           rows={3}
           value={value}
@@ -305,19 +305,15 @@ export const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
             {documents.map((doc, idx) => (
               <div
                 key={idx}
-                className="flex justify-between items-center gap-xs px-[15px] py-[13px] rounded-xxs bg-form-fields-file-upload-default cursor-pointer"
-                onClick={() =>
-                  onDocumentPress
-                    ? onDocumentPress(doc.downloadUrl)
-                    : window.open(doc.downloadUrl, "_blank")
-                }
+                className="flex justify-between items-center gap-xs px-[15px] py-[13px] rounded-[5px] bg-form-fields-file-upload-default cursor-pointer"
+                onClick={() => window.open(doc.downloadUrl, "_blank")}
                 tabIndex={0}
                 role="button"
               >
-                <span className="text-text-default text-s">
+                <span className="text-text-default text-sm">
                   {language === "ar" ? doc.documentNameA : doc.documentNameE}
                 </span>
-                <Document className="text-text-default text-l" />
+                <Document className="text-text-default text-lg" />
               </div>
             ))}
           </>
@@ -334,7 +330,7 @@ export const AuditRemarks: React.FC<ApprovalModalProps & AuditRemarksProps> = ({
           </h3>
           <textarea
             rows={3}
-            className="w-full text-text-default rounded-[8px] bg-form-fields-input-form-bg border border-form-fields-input-form-border text-m p-s resize-none focus:outline-none"
+            className="w-full text-text-default rounded-[8px] bg-form-fields-input-form-bg border border-form-fields-input-form-border text-base p-3 resize-none focus:outline-none"
             placeholder=""
             value=""
             readOnly

@@ -24,6 +24,7 @@ export const RadioInput: React.FC<RadioInputProps> = ({
   captionLeft_ar = "",
   captionRight = "",
   captionRight_ar = "",
+  theme = "light",
   language = "en",
 }) => {
   const handleRadioChange = (id: string, checked: boolean) => {
@@ -41,7 +42,7 @@ export const RadioInput: React.FC<RadioInputProps> = ({
         showInfoIcon={showInfoIcon}
         tooltipText={tooltipText}
         tooltipText_ar={tooltipText_ar}
-        disabled={disabled}
+        theme={theme}
         tooltipDirection={language === "en" ? "left-center" : "right-center"}
         language={language}
       />
@@ -53,12 +54,11 @@ export const RadioInput: React.FC<RadioInputProps> = ({
               key={option.value}
               id={option.value}
               label={option.label}
-              label_ar={option.label_ar}
               checked={checked}
               disabled={disabled}
               hasError={hasError}
               onChange={handleRadioChange}
-              language={language}
+              theme={theme}
             />
           ))}
         </div>
@@ -77,7 +77,7 @@ export const RadioInput: React.FC<RadioInputProps> = ({
             hasError={hasError}
             errorMessage={errorMessage}
             errorMessage_ar={errorMessage_ar}
-            disabled={disabled}
+            theme={theme}
           />
         )}
       </div>

@@ -7,16 +7,16 @@ import { Caption } from "../Caption";
 export type { TextAreaProps };
 
 export const TextArea: React.FC<TextAreaProps> = ({
-  label = "",
-  label_ar = "",
+  label,
+  label_ar,
   required = false,
-  showInfoIcon = false,
-  tooltipText = "",
-  tooltipText_ar = "",
-  placeholder = "",
-  placeholder_ar = "",
-  value = "",
-  onChange = () => {},
+  showInfoIcon = true,
+  tooltipText,
+  tooltipText_ar,
+  placeholder,
+  placeholder_ar,
+  value,
+  onChange,
   hasError = false,
   errorMessage = "",
   errorMessage_ar = "",
@@ -25,10 +25,11 @@ export const TextArea: React.FC<TextAreaProps> = ({
   captionLeft_ar = "",
   captionRight = "",
   captionRight_ar = "",
+  theme = "light",
   language = "en",
 }) => {
   return (
-    <div className="flex flex-col gap-s">
+    <div className="flex flex-col gap-2.5">
       <Label
         label={label}
         label_ar={label_ar}
@@ -39,7 +40,9 @@ export const TextArea: React.FC<TextAreaProps> = ({
         disabled={disabled}
         tooltipDirection={language === "en" ? "left-center" : "right-center"}
         language={language}
+        theme={theme}
       />
+
       <Fields
         type="textarea"
         placeholder={
@@ -50,8 +53,10 @@ export const TextArea: React.FC<TextAreaProps> = ({
         hasError={hasError}
         errorMessage=""
         disabled={disabled}
+        theme={theme}
         language={language}
       />
+
       {(captionLeft ||
         captionRight ||
         captionLeft_ar ||
@@ -67,6 +72,7 @@ export const TextArea: React.FC<TextAreaProps> = ({
           errorMessage={errorMessage}
           errorMessage_ar={errorMessage_ar}
           disabled={disabled}
+          theme={theme}
         />
       )}
     </div>

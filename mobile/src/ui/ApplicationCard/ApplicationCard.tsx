@@ -32,18 +32,18 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
 
   return (
     <Container
-      className="bg-base-white border border-border-light w-full min-w-[173px] h-[90.53px] rounded-xs py-xs px-s flex flex-col flex-grow justify-center gap-xs border-b-2 border-b-status-pending-solid"
+      className="bg-Base-White border border-border-light w-full min-w-[173px] h-[90.53px] rounded-xs py-xs px-s flex flex-col flex-grow justify-center gap-xs border-b-2 border-b-status-pending-solid"
       onClick={onClick}
     >
       <Container className="flex flex-row justify-between items-center">
-        <Text className="text-bold-xs text-base-black">{cardsData.title}</Text>
-        <Text className="text-xs text-base-black">{cardsData.id}</Text>
+        <Text className="text-bold-xs text-Base-Black">{cardsData.title}</Text>
+        <Text className="text-xs text-Base-Black">{cardsData.id}</Text>
       </Container>
       <Container className="flex flex-row justify-between items-center">
-        <Text className="text-xs text-base-black max-w-[150px]">
+        <Text className="text-xs text-Base-Black max-w-[150px]">
           {cardsData.location}
         </Text>
-        <Text className="text-xs text-base-black">{cardsData.date}</Text>
+        <Text className="text-xs text-Base-Black">{cardsData.date}</Text>
       </Container>
       <Container className="flex flex-row gap-xxs">
         {allStatusBalls.map((status, index) => (

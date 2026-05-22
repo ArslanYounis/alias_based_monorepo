@@ -104,7 +104,7 @@ const Cards: React.FC<StatusCardProps> = ({
   if (version === "image-row") {
     return (
       <Container
-        className={`w-full min-w-auto h-[96px] ${
+        className={`w-full cursor-pointer min-w-auto h-[96px] ${
           type === "pending" ? "bg-status-pending-solid" : bgColor
         } shadow-md rounded-xs flex border-b-2 ${borderColor} overflow-hidden`}
       >
@@ -116,9 +116,9 @@ const Cards: React.FC<StatusCardProps> = ({
           /> */}
         </Container>
         <Container
-          className={`w-1/2 flex flex-col justify-center px-xs ${bgColor}`}
+          className={`w-1/2 flex flex-col justify-center px-2 ${bgColor}`}
         >
-          <Text className={`text-s font-bold ${textColor} line-clamp-2`}>
+          <Text className={`text-sm font-bold ${textColor} line-clamp-2`}>
             <SharedLanguageSwitchRenderer
               language={language}
               value={action}
@@ -163,11 +163,11 @@ const Cards: React.FC<StatusCardProps> = ({
 
   return (
     <Container
-      className={`${bgColor} flex items-center w-full min-w-auto h-[96px] rounded-xs py-xs px-s overflow-hidden ${
+      className={`${bgColor} flex cursor-pointer items-center w-full min-w-auto h-[96px] rounded-xs py-xs px-s overflow-hidden ${
         direction === "vertical" ? "" : "space-x-[10px]"
-      } ${
-        direction === "vertical" ? "flex-col py-xs" : "flex py-xl"
-      } border-b-2 ${borderColor}`}
+      }
+      ${direction === "vertical" ? "flex-col py-[8px]" : "flex py-7"}
+      border-b-2 ${borderColor} cursor-pointer`}
       onClick={onCardClick}
       style={{ boxShadow: "0px 2px 4px 0px #00000033" }}
     >
@@ -180,17 +180,17 @@ const Cards: React.FC<StatusCardProps> = ({
         className={
           direction === "horizontal"
             ? "text-start"
-            : "text-center mt-xs flex flex-col"
+            : "text-center mt-2"
         }
       >
-        <Text className={`text-s font-bold ${textColor}`}>
+        <Text className={`text-sm font-bold line-clamp-2! ${textColor}`}>
           <SharedLanguageSwitchRenderer
             language={language}
             value={action}
             value_ar={action_ar}
           />
         </Text>
-        <Text className={`text-xs font-normal ${textColor}`}>
+        <Text className={`text-xs font-normal line-clamp-1! ${textColor}`}>
           <SharedLanguageSwitchRenderer
             language={language}
             value={stepName}

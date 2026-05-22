@@ -33,7 +33,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   isPrint_Archive = false,
 }) => {
   return (
-    <div className="flex flex-col gap-s">
+    <div className="flex flex-col gap-2.5">
       <Label
         label={label}
         label_ar={label_ar}

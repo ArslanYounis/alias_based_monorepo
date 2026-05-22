@@ -7,7 +7,10 @@ import type { AddMoreButtonProps } from "@shared/types";
 import type { ComponentType } from "react";
 
 const controls: {
-  [K in keyof Omit<AddMoreButtonProps, "language">]?: ControlDefinition<AddMoreButtonProps>;
+  [K in keyof Omit<
+    AddMoreButtonProps,
+    "language"
+  >]?: ControlDefinition<AddMoreButtonProps>;
 } & {
   propsOverride?: ControlDefinition<AddMoreButtonProps>;
 } = {

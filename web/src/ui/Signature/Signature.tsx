@@ -11,6 +11,7 @@ const Signature: React.FC<SignatureProps> = ({
   title_ar = "وقع للموافقة",
   buttonText = "Approve",
   buttonText_ar = "موافق",
+  theme = "dark",
   onSubmit = () => {},
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -116,6 +117,7 @@ const Signature: React.FC<SignatureProps> = ({
         title_ar={title_ar || title}
         showAcronym={false}
         showButton={false}
+        theme={theme}
         language={language}
       />
       <div
@@ -139,6 +141,7 @@ const Signature: React.FC<SignatureProps> = ({
       <div className="flex justify-end gap-4 flex-col mt-6">
         <div className="flex justify-end">
           <Buttons
+            theme={theme}
             title={buttonText}
             title_ar={buttonText_ar || buttonText}
             type="primary"

@@ -1,33 +1,8 @@
-// import React from "react";
-// import { Layout as SharedLayout } from "@shared/components/Layout";
-// import { Container } from "@/ui/Container";
-// import { Header } from "@/ui/Header";
-// import { MenuColumn } from "@/ui/MenuColumn";
-// import { Footer } from "@/ui/Footer";
-// import { Toast } from "@/ui/Toast";
-// import type { LayoutProps, ToastProps } from "@shared/types";
-
-// export type { LayoutProps };
-
-// export const Layout: React.FC<LayoutProps> = (props) => {
-//   return (
-//     <SharedLayout
-//       {...props}
-//       Container={Container}
-//       Header={Header}
-//       Sidebar={MenuColumn}
-//       Footer={Footer}
-//       Toast={Toast as React.ComponentType<ToastProps>}
-//     />
-//   );
-// };
-
 import React from "react";
 import { Toast } from "../Toast";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
 import { MenuColumn } from "../MenuColumn";
-import { Container } from "@platform/Container";
 import type { BreadcrumbProps, ToastProps } from "@shared/types";
 
 export interface HeaderMenuItem {
@@ -40,6 +15,7 @@ export interface HeaderMenuItem {
 interface LayoutProps {
   children: React.ReactNode;
   language?: "en" | "ar";
+  theme?: "light" | "dark";
   onToggleLanguage?: () => void;
   isEditing?: boolean;
   menuItems?: HeaderMenuItem[];
@@ -55,6 +31,7 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({
   children,
   language,
+  theme,
   onToggleLanguage,
   isEditing = false,
   menuItems = [],
@@ -67,10 +44,10 @@ export const Layout: React.FC<LayoutProps> = ({
   userNameAr,
 }) => {
   return (
-    <Container className="w-screen flex-1 h-[100vh] overflow-hidden">
+    <div className="w-screen flex-1 h-[100vh] overflow-hidden">
       <div className="flex w-full">
         {showSidebar && (
-          <MenuColumn language={language} isEditing={isEditing} />
+          <MenuColumn language={language} theme={theme} isEditing={isEditing} />
         )}
 
         <div className="relative w-full overflow-auto h-[calc(100vh-80px)]">
@@ -103,6 +80,6 @@ export const Layout: React.FC<LayoutProps> = ({
           <Footer language={language} />
         </div>
       )}
-    </Container>
+    </div>
   );
 };

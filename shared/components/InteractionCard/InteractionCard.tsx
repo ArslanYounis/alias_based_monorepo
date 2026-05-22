@@ -46,8 +46,8 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
         key={index}
         className={`w-full rounded-xs mb-m min-h-[72px] p-m gap-l border mt-s ${
           isCompleted
-            ? "border-green-9 bg-[#2b8a3e10]"
-            : "border-text-dimmed bg-base-white"
+            ? "border-Green-9 bg-[#2b8a3e10]"
+            : "border-text-dimmed bg-Base-White"
         }`}
       >
         <Container
@@ -56,8 +56,8 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
           } gap-m`}
         >
           <Container
-            className={`flex flex-row items-center justify-center shrink-0 rounded-full bg-base-transparent w-[40px] h-[40px] border ${
-              isCompleted ? "border-green-9" : "border-teal-9"
+            className={`flex flex-row items-center justify-center shrink-0 rounded-full bg-Base-Transparent w-[40px] h-[40px] border ${
+              isCompleted ? "border-Green-9" : "border-Teal-9"
             }`}
           >
             <Text className="text-text-default">
@@ -86,9 +86,9 @@ const InteractionCard: React.FC<IInteractionCardProps> = ({
               </Text>
               {isCompleted ? (
                 <Container
-                  className={`px-s py-xxs w-[70px] h-[24px] flex items-center justify-center rounded-xs text-xs bg-green-1 text-green-9`}
+                  className={`px-s py-xxs w-[70px] h-[24px] flex items-center justify-center rounded-xs text-xs bg-Green-1 text-Green-9`}
                 >
-                  <Text className="text-xs text-green-9">
+                  <Text className="text-xs text-Green-9">
                     {language === "en" ? "Completed" : "مكتمل"}
                   </Text>
                 </Container>

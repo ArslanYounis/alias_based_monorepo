@@ -113,9 +113,9 @@ const DariOwnerSearchResult: React.FC<SearchResultsModalProps> = ({
           }`}
         onClick={() => handleRadioSelect(result)}
       >
-        <Container className="flex flex-row justify-between mb-s">
+        <Container className="flex justify-between mb-3">
           <Text
-            className={`text-bold-l text-text-default line-clamp-2 min-w-0 flex-1 me-xxs`}
+            className={`text-bold-l text-text-default line-clamp-1 mr-xxs`}
           >
             <SharedLanguageSwitchRenderer
               language={language}
@@ -123,7 +123,7 @@ const DariOwnerSearchResult: React.FC<SearchResultsModalProps> = ({
               value_ar={result?.ownerNameAr || result?.ownerNameEn}
             />
           </Text>
-          <Container className="flex flex-row items-center gap-m shrink-0">
+          <Container className="flex items-center gap-4">
             <Buttons
               title="Details"
               title_ar="التفاصيل"
@@ -159,13 +159,13 @@ const DariOwnerSearchResult: React.FC<SearchResultsModalProps> = ({
         ].map(({ label, label_ar, value, value_ar }, index, array) => (
           <Container
             key={label}
-            className={`flex flex-row ${
+            className={`flex ${
               index !== array.length - 1
-                ? "border-b pb-xs border-text-dimmed mb-xs"
+                ? "border-b pb-2 border-text-dimmed mb-2"
                 : ""
             }`}
           >
-            <Container className="w-1/2">
+            <Container className="sm:w-1/2 w-full">
               <Text className={`text-bold-m text-text-default`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -174,7 +174,7 @@ const DariOwnerSearchResult: React.FC<SearchResultsModalProps> = ({
                 />
               </Text>
             </Container>
-            <Container className="w-1/2">
+            <Container className="sm:w-1/2 w-full">
               <Text className={`text-m wrap-break-word text-text-default`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -202,7 +202,7 @@ const DariOwnerSearchResult: React.FC<SearchResultsModalProps> = ({
         <Text
           className={`${
             platform === "web" ? "text-heading-h1" : "text-heading-h3"
-          } font-bold pb-xl text-text-default`}
+          } font-bold pb-8 text-text-default`}
         >
           <SharedLanguageSwitchRenderer
             language={language}
@@ -220,7 +220,7 @@ const DariOwnerSearchResult: React.FC<SearchResultsModalProps> = ({
           </Container>
         ) : (
           <>
-            <Container className="flex flex-col gap-s pb-xl">
+            <Container className="flex flex-col gap-3 pb-8">
               <Text className={`text-m text-text-default`}>
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -241,7 +241,7 @@ const DariOwnerSearchResult: React.FC<SearchResultsModalProps> = ({
                   value_ar="لمعايير البحث التالية:"
                 />
               </Text>
-              <Container className="flex flex-row items-center gap-xs flex-wrap">
+              <Container className="flex items-center gap-2">
                 {/* <span className={`text-bold-m text-text-default`}>
                   <SharedLanguageSwitchRenderer
                     language={language}

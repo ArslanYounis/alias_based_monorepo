@@ -75,70 +75,88 @@ const controls: ComponentConfig<IGenericTableCardProps>["controls"] = {
   title: {
     type: ["text", "code"],
     label: "Title (Expanded - EN)",
+    hasArabic: true,
     defaultValue: "Owner Information",
     defaultCode: "return 'Owner Information'",
-  },
-  title_ar: {
-    type: ["text", "code"],
-    label: "Title (Expanded - AR)",
-    defaultValue: "معلومات المالك",
-    defaultCode: "return 'معلومات المالك'",
   },
   description: {
     type: ["text", "code"],
     label: "Description (Expanded - EN)",
+    hasArabic: true,
     defaultValue: "Owner Information",
     defaultCode: "return 'Owner Information'",
-  },
-  description_ar: {
-    type: ["text", "code"],
-    label: "Description (Expanded - AR)",
-    defaultValue: "معلومات المالك",
-    defaultCode: "return 'معلومات المالك'",
   },
   cardTitleLabel: {
     type: ["text", "code"],
     label: "Collapsed Label (EN)",
+    hasArabic: true,
     defaultValue: "Name",
     defaultCode: "return 'Name'",
-  },
-  cardTitleLabel_ar: {
-    type: ["text", "code"],
-    label: "Collapsed Label (AR)",
-    defaultValue: "الاسم",
-    defaultCode: "return 'الاسم'",
   },
   cardTitleValue: {
     type: ["text", "code"],
     label: "Collapsed Value (EN)",
+    hasArabic: true,
     defaultValue: "Talal Ahmed Salem",
     defaultCode: "return 'Talal Ahmed Salem'",
-  },
-  cardTitleValue_ar: {
-    type: ["text", "code"],
-    label: "Collapsed Value (AR)",
-    defaultValue: "طلال أحمد سالم",
-    defaultCode: "return 'طلال أحمد سالم'",
   },
   buttons: {
     type: ["code"],
     label: "Header Buttons",
-    defaultCode: "return []",
+    defaultValue: [
+      {
+        title: "Edit",
+        title_ar: "تعديل",
+        type: "secondary",
+        onClick: () => console.log("Edit clicked"),
+      },
+    ],
+    defaultCode: `
+return [
+  {
+    title: "Edit",
+    title_ar: "تعديل",
+    type: "secondary",
+    onClick: () => console.log("Edit clicked")
+  }
+];`,
   },
   titleButtons: {
     type: ["code"],
     label: "Title Buttons",
-    defaultCode: "return []",
+    defaultValue: [
+      {
+        title: "Edit",
+        title_ar: "تعديل",
+        type: "secondary",
+        onClick: () => console.log("Edit clicked"),
+      },
+    ],
+    defaultCode: `
+return [
+  {
+    title: "Edit",
+    title_ar: "تعديل",
+    type: "secondary",
+    onClick: () => console.log("Edit clicked")
+  }
+];`,
   },
   columnsData: {
     type: ["code"],
     label: "Columns Definition",
+    defaultValue: [
+      { key: "field", label: "Field", label_ar: "الحقل" },
+      { key: "col1", label: "Value 1", label_ar: "القيمة 1" },
+      { key: "col2", label: "Value 2", label_ar: "القيمة 2" },
+      { key: "col3", label: "Value 3", label_ar: "القيمة 3" },
+    ],
     defaultCode: `return [
   { key: "field", label: "Field", label_ar: "الحقل" },
   { key: "col1", label: "Value 1", label_ar: "القيمة 1" },
   { key: "col2", label: "Value 2", label_ar: "القيمة 2" },
   { key: "col3", label: "Value 3", label_ar: "القيمة 3" },
-]`,
+];`,
   },
   rowsData: {
     type: ["code"],
@@ -271,7 +289,23 @@ const controls: ComponentConfig<IGenericTableCardProps>["controls"] = {
   footerButton: {
     type: ["code"],
     label: "Footer Buttons",
-    defaultCode: "return []",
+    defaultValue: [
+      {
+        title: "View All",
+        title_ar: "عرض الكل",
+        type: "secondary",
+        onClick: () => console.log("View All clicked"),
+      },
+    ],
+    defaultCode: `
+return [
+  {
+    title: "View All",
+    title_ar: "عرض الكل",
+    type: "secondary",
+    onClick: () => console.log("View All clicked")
+  }
+];`,
   },
   showPagination: {
     type: ["boolean", "code"],

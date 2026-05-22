@@ -32,6 +32,7 @@ export interface ICardTitleProps {
   subText_ar?: string;
   status?: string;
   status_ar?: string;
+  statusType?: "success" | "pending" | "failed" | "info";
   showButtons?: boolean;
   buttons?: ButtonType[];
   showTitleButtons?: boolean;
@@ -54,6 +55,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
   subText_ar,
   status,
   status_ar,
+  statusType = "pending",
   showButtons = false,
   showTitleButtons = false,
   buttons = [],
@@ -75,15 +77,22 @@ const CardTitle: React.FC<ICardTitleProps> = ({
       !!status_ar ||
       (isExpandable && !isExpanded));
 
+  const statusStyles = {
+    success: "bg-status-success-fade text-status-success-solid",
+    pending: "bg-status-pending-fade text-status-pending-solid",
+    failed: "bg-status-failed-fade text-status-failed-solid",
+    info: "bg-status-action-fade text-status-action-solid",
+  };
+
   return (
     <Container
-      className={`flex flex-col pb-s ${
+      className={`flex flex-col flex-1 pb-s ${
         shouldShowBorder ? "border-b border-b-border-dimmed mb-m" : ""
       }`}
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <Container
-        className={`flex flex-row flex-1 ${
+        className={`flex flex-1 ${
           description || description_ar ? "items-start" : "items-center"
         } justify-between`}
       >
@@ -97,7 +106,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
           }`}
         >
           <Text
-            className={`${variantStyles.title} flex flex-1 font-bold text-text-default wrap-break-word whitespace-normal min-w-0`}
+            className={`${variantStyles.title} font-bold text-text-default wrap-break-word whitespace-normal min-w-0`}
           >
             <SharedLanguageSwitchRenderer
               language={language}
@@ -115,9 +124,11 @@ const CardTitle: React.FC<ICardTitleProps> = ({
             </Text>
           )}
         </Container>
-        <Container className="flex items-center gap-xs mb-xs">
+        <Container className="flex items-center gap-xs">
           {(status || status_ar) && (
-            <Container className="w-[60px] h-[24px] flex items-center justify-center rounded-xxl bg-status-pending-fade text-status-pending-solid py-xxs px-xs gap-sm">
+            <Container
+              className={`min-w-[60px] h-[24px] flex items-center justify-center rounded-xxl bg-status-pending-fade text-status-pending-solid text-xs py-xxs px-xs gap-sm ${statusStyles[statusType]}`}
+            >
               <Text className="text-xs">
                 <SharedLanguageSwitchRenderer
                   language={language}
@@ -128,7 +139,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
             </Container>
           )}
           {showButtons && buttons?.length > 0 && (
-            <Container className="flex flex-row flex-wrap items-center justify-between gap-xs">
+            <Container className="flex items-center justify-between gap-xs">
               {buttons?.map((btn: ButtonType, idx: number) => (
                 <Buttons
                   key={idx}
@@ -168,7 +179,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
               </Container>
             ))}
           {!isExpandable && showTitleButtons && titleButtons?.length > 0 && (
-            <Container className="flex flex-row flex-wrap items-center justify-between gap-xs">
+            <Container className="flex items-center justify-between gap-xs">
               {titleButtons?.map((btn: ButtonType, idx: number) => (
                 <Buttons
                   key={idx}
@@ -189,8 +200,8 @@ const CardTitle: React.FC<ICardTitleProps> = ({
         </Container>
       </Container>
       {(description || description_ar) && (
-        <Container className="flex flex-row items-start justify-between w-full mt-xs gap-xs">
-          <Text className="text-text-default text-m flex-1 min-w-0">
+        <Container className="flex items-center justify-between w-full mt-xs">
+          <Text className="text-text-default text-m">
             <SharedLanguageSwitchRenderer
               language={language}
               value={description}
@@ -198,9 +209,7 @@ const CardTitle: React.FC<ICardTitleProps> = ({
             />
           </Text>
           {(subText || subText_ar) && (
-            <Text
-              className={`${variantStyles.subText} text-text-default shrink-0`}
-            >
+            <Text className={`${variantStyles.subText} text-text-default`}>
               <SharedLanguageSwitchRenderer
                 language={language}
                 value={subText || ""}

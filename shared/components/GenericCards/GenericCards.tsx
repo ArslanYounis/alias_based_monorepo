@@ -3,6 +3,7 @@ import GenericCard, { type IGenericCardProps } from "../GenericCard";
 import type { ICardRowProps } from "../CardRow";
 import type { ButtonType } from "../CardTitle";
 import { Container } from "@platform/Container";
+import CardTitle from "../CardTitle";
 
 export type GenericCardsButtonType = Omit<ButtonType, "onClick"> & {
   onClick?: (card: IGenericCardItem, index: number) => void;
@@ -49,9 +50,9 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
   showTitleSection = true,
   platform = "web",
 }) => {
-  const [expandedIndices, setExpandedIndices] = useState<number[]>(
-    cardsData?.map((_, idx) => idx) ?? []
-  );
+ const [expandedIndices, setExpandedIndices] = useState<number[]>(
+   cardsData?.map((_, idx) => idx) ?? [],
+ );
 
   useEffect(() => {
     if (cardsData?.length) {
@@ -63,18 +64,35 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
     }
   }, [cardsData]);
 
+  const allExpanded =
+    !!cardsData?.length && expandedIndices.length === cardsData.length;
+
+  const toggleMaster = () => {
+    if (!cardsData?.length) return;
+    if (allExpanded) {
+      setExpandedIndices([]);
+    } else {
+      setExpandedIndices(cardsData.map((_, idx) => idx));
+    }
+  };
+
   const toggleExpand = (index: number) => {
-    setExpandedIndices((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
+    setExpandedIndices((prev) => {
+      if (prev.length === 0) {
+        return [index];
+      }
+      return prev.includes(index)
+        ? prev.filter((i) => i !== index)
+        : [...prev, index];
+    });
   };
 
   const gridCols =
     itemsPerRow === "3"
       ? "grid-cols-3"
       : itemsPerRow === "2"
-      ? "grid-cols-2"
-      : "grid-cols-1";
+        ? "grid-cols-2"
+        : "grid-cols-1";
 
   const isMobile = platform === "mobile";
 
@@ -84,9 +102,39 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <Container
-        className={isMobile ? "flex flex-col gap-xl" : `grid gap-xl ${gridCols}`}
-        style={!isMobile && itemsPerRow !== "1" ? { gridAutoFlow: "dense" } : undefined}
+        className={
+          isMobile ? "flex flex-col gap-xl" : `grid gap-xl ${gridCols}`
+        }
+        style={
+          !isMobile && itemsPerRow !== "1"
+            ? { gridAutoFlow: "dense" }
+            : undefined
+        }
       >
+        {isExpandable && cardsData && cardsData.length > 0 ? (
+          <Container
+            className={
+              isMobile
+                ? "w-full min-w-0 mb-[-15px]"
+                : itemsPerRow === "3"
+                  ? "col-span-3 w-full min-w-0 mb-[-15px]"
+                  : itemsPerRow === "2"
+                    ? "col-span-2 w-full min-w-0 mb-[-15px]"
+                    : "w-full min-w-0 mb-[-15px]"
+            }
+          >
+            <CardTitle
+              title={title}
+              title_ar={title_ar}
+              variant="small"
+              isExpandable
+              isExpanded={allExpanded}
+              onToggleExpand={toggleMaster}
+              language={language}
+              showBorder={false}
+            />
+          </Container>
+        ) : null}
         {cardsData?.map((card, idx) => {
           const isExpanded = expandedIndices.includes(idx);
           const buttonsForCard: IGenericCardProps["buttons"] = (
@@ -101,10 +149,7 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
             title_ar,
             variant,
             language,
-            showTitleSection,
             isExpandable,
-            isExpanded,
-            onToggleExpand: () => toggleExpand(idx),
             showBorder,
             showButtons,
             buttons: buttonsForCard,
@@ -112,6 +157,18 @@ const GenericCards: React.FC<IGenericCardsProps> = ({
             showMoreButton: (card.rowsData?.length ?? 0) > 3,
             ...card,
             rowsData: card.rowsData,
+            ...(isExpandable
+              ? {
+                  showTitleSection: false,
+                  handleToggleInternally: false,
+                  isExpanded,
+                  onToggleExpand: () => toggleExpand(idx),
+                }
+              : {
+                  showTitleSection,
+                  isExpanded: true,
+                  onToggleExpand: () => {},
+                }),
             platform,
           };
           return <GenericCard key={card.id ?? idx} {...cardProps} />;

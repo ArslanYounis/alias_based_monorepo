@@ -1,8 +1,6 @@
 import React from "react";
-import { Text } from "@platform/Text";
 import { Avatar } from "@platform/Avatar";
 import { PaymentCard } from "@platform/PaymentCard";
-import { Container } from "@platform/Container";
 import { ProfileIconStatus } from "@platform/ProfileIconStatus";
 import SharedLanguageSwitchRenderer from "@shared/components/SharedLanguageSwitchRenderer";
 
@@ -80,37 +78,36 @@ export const Cards: React.FC<StatusCardProps> = ({
 
   if (version === "image-row") {
     return (
-      <Container
-        className={`w-full min-w-auto h-[96px] ${
+      <div
+        className={`w-full cursor-pointer min-w-auto h-[96px] ${
           type === "pending" ? "bg-status-pending-solid" : bgColor
         } shadow-md rounded-xs flex border-b-2 ${borderColor} overflow-hidden`}
+        onClick={onCardClick}
       >
-        <Container className="w-1/2 h-[96px]">
+        <div className="w-1/2 h-[96px]">
           <img
             src={imageURL}
             alt="Location"
             className="w-full h-full object-cover rounded-l-xs"
           />
-        </Container>
-        <Container
-          className={`w-1/2 flex flex-col justify-center px-xs ${bgColor}`}
-        >
-          <Text className={`text-s font-bold ${textColor} line-clamp-2`}>
+        </div>
+        <div className={`w-1/2 flex flex-col justify-center px-xs ${bgColor}`}>
+          <div className={`text-sm font-bold ${textColor} line-clamp-2`}>
             <SharedLanguageSwitchRenderer
               language={language}
               value={action}
               value_ar={action_ar}
             />
-          </Text>
-          <Text className={`text-xs font-normal ${textColor} line-clamp-1`}>
+          </div>
+          <div className={`text-xs font-normal ${textColor} line-clamp-1`}>
             <SharedLanguageSwitchRenderer
               language={language}
               value={stepName}
               value_ar={stepName_ar}
             />
-          </Text>
-        </Container>
-      </Container>
+          </div>
+        </div>
+      </div>
     );
   }
 
@@ -139,12 +136,13 @@ export const Cards: React.FC<StatusCardProps> = ({
   }
 
   return (
-    <Container
-      className={`${bgColor} flex items-center w-full min-w-auto h-[96px] rounded-xs py-xs px-s overflow-hidden ${
+    <div
+      className={`${bgColor} flex cursor-pointer items-center w-full min-w-auto h-[96px] rounded-xs py-xs px-s overflow-hidden ${
         direction === "vertical" ? "" : "space-x-[10px]"
-      } ${
-        direction === "vertical" ? "flex-col py-[8px]" : "flex py-7"
-      } border-b-2 ${borderColor}`}
+      }
+      ${direction === "vertical" ? "flex-col py-[8px]" : "flex py-7"}
+      border-b-2 ${borderColor} cursor-pointer`}
+      onClick={onCardClick}
       style={{ boxShadow: "0px 2px 4px 0px #00000033" }}
     >
       {imageURL ? (
@@ -152,28 +150,26 @@ export const Cards: React.FC<StatusCardProps> = ({
       ) : (
         <ProfileIconStatus status={status} width={32} height={32} />
       )}
-      <Container
-        className={
-          direction === "horizontal"
-            ? "text-start"
-            : "text-center mt-2 flex flex-col"
-        }
+      <div
+        className={`${
+          direction === "horizontal" ? "text-start" : "text-center mt-2"
+        }`}
       >
-        <Text className={`text-s font-bold ${textColor}`}>
+        <div className={`text-sm font-bold line-clamp-2! ${textColor}`}>
           <SharedLanguageSwitchRenderer
             language={language}
             value={action}
             value_ar={action_ar}
           />
-        </Text>
-        <Text className={`text-xs font-normal ${textColor}`}>
+        </div>
+        <div className={`text-xs font-normal line-clamp-1! ${textColor}`}>
           <SharedLanguageSwitchRenderer
             language={language}
             value={stepName}
             value_ar={stepName_ar}
           />
-        </Text>
-      </Container>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };

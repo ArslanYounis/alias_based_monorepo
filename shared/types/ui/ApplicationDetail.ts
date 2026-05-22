@@ -54,19 +54,19 @@ export interface ApplicationDetailsApiResponse {
 
 // Props for the shared ApplicationDetail component
 export interface ApplicationDetailProps {
-  applicationId: string;
-  applicationTitle: string;
-  applicationTitle_ar: string;
-  language: "en" | "ar";
-  theme?: "light" | "dark";
-  onOwnerClick?: (data: {
-    ownerData: ApplicationOwner;
-    action: "view" | "edit" | "plot";
-  }) => void;
-  onPlotClick?: (data: {
-    PlotData: ApplicationPlot;
-    action: "view";
-  }) => void;
-  /** Platform-injected: replaces window.open for document download links */
-  onDocumentOpen?: (url: string) => void;
+  title?: string;
+  title_ar?: string;
+  applicationNumber?: string;
+  applicationNumber_ar?: string;
+  applicationDate?: string;
+  applicationDate_ar?: string;
+  referenceNumber?: string;
+  referenceNumber_ar?: string;
+  buttonTitle?: string;
+  buttonTitle_ar?: string;
+  buttonType?: "primary" | "secondary" | "tertiary" | "text-link" | "delete";
+  showButton?: boolean;
+  onButtonClick?: () => void;
+  onReferenceNumberChange?: (value: string) => void;
+  language?: "en" | "ar";
 }

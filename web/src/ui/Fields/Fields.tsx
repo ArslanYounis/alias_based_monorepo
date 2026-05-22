@@ -9,7 +9,7 @@ import React, {
   isValidElement,
 } from "react";
 import { Checkbox } from "../Checkbox";
-import { DateSelect } from "../DateSelect";
+import { DateInput } from "../DateInput";
 import { AddButton } from "../AddButton";
 import { CheckRadioLabel } from "../CheckRadioLabel";
 import SelectArrow from "@/assets/svg/selectArrow";
@@ -409,21 +409,23 @@ export const Fields: React.FC<FormFieldProps> = ({
                       onChange={(id) => handleSelectChange(id)}
                     />
                   )}
-                  <CheckRadioLabel
-                    label={option.label}
-                    label_ar={option.label_ar}
-                    disabled={false}
-                    language={language}
-                  />
-                  {(option.description || option.description_ar) && (
-                    <p className="text-s">
-                      <SharedLanguageSwitchRenderer
-                        value={option.description}
-                        value_ar={option.description_ar}
-                        language={language}
-                      />
-                    </p>
-                  )}
+                  <div>
+                    <CheckRadioLabel
+                      label={option.label}
+                      label_ar={option.label_ar}
+                      disabled={false}
+                      language={language}
+                    />
+                    {(option.description || option.description_ar) && (
+                      <p className="text-s">
+                        <SharedLanguageSwitchRenderer
+                          value={option.description}
+                          value_ar={option.description_ar}
+                          language={language}
+                        />
+                      </p>
+                    )}
+                  </div>
                 </div>
               ))
             ) : (
@@ -479,7 +481,7 @@ export const Fields: React.FC<FormFieldProps> = ({
   // DATE
   if (type === "date") {
     return (
-      <DateSelect
+      <DateInput
         placeholder={placeholder}
         placeholder_ar={placeholder_ar}
         hasError={hasError}
@@ -533,9 +535,7 @@ export const Fields: React.FC<FormFieldProps> = ({
             id={id}
             aria-label={ariaLabel}
             value={value ? value : internalValue}
-            className={`${baseInputClass} ${getInputClasses()} ${
-              language === "en" ? "pl-xxxl" : "pr-xxxl"
-            }`}
+            className={`${baseInputClass} ${getInputClasses()} px-xxxl`}
             data-testid={testId}
           />
         </div>
