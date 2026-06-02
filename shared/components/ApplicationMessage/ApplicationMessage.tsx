@@ -257,7 +257,7 @@ const ApplicationMessage: React.FC<ApplicationMessageProps> = ({
     >
       <Container className="flex flex-row items-start gap-l">
         {icon}
-        <Container className="space-y-2 flex-1">
+        <Container className="space-y-2 flex flex-1 flex-col">
           <Text className="text-bold-l text-structure-menu-select-text pb-0.5">
             <SharedLanguageSwitchRenderer
               language={language}

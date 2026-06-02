@@ -239,6 +239,17 @@
   /* Drop shadow */
   --shadow-modal-light: 0px 24px 48px 12px rgba(0, 0, 0, 0.15);
   --shadow-modal-dark: 0px 24px 32px 12px rgba(0, 0, 0, 0.25);
+  /* Orange scale */
+  --color-Orange-9: #462400;
+  --color-Orange-8: #743d00;
+  --color-Orange-7: #a25500;
+  --color-Orange-6: #d16d00;
+  --color-Orange-5: #ff8500;
+  --color-Orange-4: #ff9b2e;
+  --color-Orange-3: #ffb25d;
+  --color-Orange-2: #ffc88b;
+  --color-Orange-1: #ffdeb9;
+  --color-Orange-0: #fff4e8;
   /* Yellow scale */
   --color-Yellow-9: #d0a621;
   --color-Yellow-8: #dcb023;
@@ -519,9 +530,9 @@
   --Status-Failed-fade: var(--color-Red-1);
   --Status-Failed-solid: var(--color-Red-9);
 
-  --Status-Action-light: var(--color-Yellow-0);
-  --Status-Action-fade: var(--color-Yellow-1);
-  --Status-Action-solid: var(--color-Yellow-9);
+  --Status-Action-light: var(--color-Orange-1);
+  --Status-Action-fade: var(--color-Orange-2);
+  --Status-Action-solid: var(--color-Orange-6);
 
   /* ==== Border ==== */
   --Border-Default: var(--color-Light-8);
@@ -711,9 +722,9 @@
   --Status-Failed-fade: var(--color-Red-1);
   --Status-Failed-solid: var(--color-Red-9);
 
-  --Status-Action-light: var(--color-Yellow-0);
-  --Status-Action-fade: var(--color-Yellow-1);
-  --Status-Action-solid: var(--color-Yellow-9);
+  --Status-Action-light: var(--color-Orange-1);
+  --Status-Action-fade: var(--color-Orange-2);
+  --Status-Action-solid: var(--color-Orange-6);
 
   /* ==== Border ==== */
   --Border-Default: var(--color-dark-9);

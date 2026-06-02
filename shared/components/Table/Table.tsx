@@ -70,7 +70,7 @@ export const Table: React.FC<ApplicationTableProps> = ({
 }) => {
   const tableData = data ?? [];
   const tableColumns = columns;
-  const columnCount = Math.min(Math.max(tableColumns?.length, 1), 6);
+  const columnCount = tableColumns.length;
 
   return (
     <Container className="w-full">

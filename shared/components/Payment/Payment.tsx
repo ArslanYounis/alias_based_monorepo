@@ -265,8 +265,8 @@ const Payment: React.FC<PaymentProps> = ({
   };
 
   return (
-    <Container className="flex flex-col rounded-md">
-      <Container className="flex flex-col">
+    <Container className="flex flex-col w-full rounded-md">
+      <Container className="flex flex-col w-full">
         {/* Payment / No Payment choice */}
         <Container className="mb-xl flex flex-row gap-m">
           <RadioCard
@@ -299,32 +299,32 @@ const Payment: React.FC<PaymentProps> = ({
                 step === 0
                   ? "Contract"
                   : step === 1
-                  ? "Measurement"
-                  : step === 2
-                  ? "Insurance"
-                  : step === 3
-                  ? "Rent"
-                  : ""
+                    ? "Measurement"
+                    : step === 2
+                      ? "Insurance"
+                      : step === 3
+                        ? "Rent"
+                        : ""
               }
               title_ar={
                 step === 0
                   ? "العقد"
                   : step === 1
-                  ? "القياسات"
-                  : step === 2
-                  ? "التأمين"
-                  : step === 3
-                  ? "الإيجار"
-                  : ""
+                    ? "القياسات"
+                    : step === 2
+                      ? "التأمين"
+                      : step === 3
+                        ? "الإيجار"
+                        : ""
               }
               subText={`Step ${step + 1} of ${totalSteps}`}
               subText_ar={`الخطوة ${toArabicDigits(
-                step + 1
+                step + 1,
               )} من ${toArabicDigits(totalSteps)}`}
               variant={platform === "web" ? "large" : "medium"}
               language={language}
             />
-            <Text className={`text-m text-text-default py-s`}>
+            <Text className={`text-m text-text-default py-xl`}>
               <SharedLanguageSwitchRenderer
                 value="Please enter the valid details to continue."
                 value_ar="الرجاء إدخال التفاصيل الصحيحة للمتابعة."
@@ -367,7 +367,7 @@ const Payment: React.FC<PaymentProps> = ({
                     } catch (err) {
                       console.warn(
                         "Failed to set form values via setValue:",
-                        err
+                        err,
                       );
                     }
                   }}
