@@ -49,6 +49,7 @@ interface PaymentOverrideProps {
   labels?: Labels;
   isLoading?: boolean;
   onSubmit?: (values: PaymentOverrideValues) => void;
+  platform?: "web" | "mobile";
 }
 
 const defaultLabels: Labels = {
@@ -127,6 +128,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
   labels = defaultLabels,
   onSubmit,
   isLoading,
+  platform = "web",
 }) => {
   const isRTL = language === "ar";
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -157,7 +159,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
             }
             return acc;
           },
-          {}
+          {},
         );
         setErrors(errs);
       }
@@ -166,7 +168,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
 
   const validateField = (
     fieldName: keyof PaymentOverrideValues,
-    value: unknown
+    value: unknown,
   ) => {
     const current = {
       ...form.state.values,
@@ -186,7 +188,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
         (iss) =>
           iss.path &&
           iss.path.length > 0 &&
-          String(iss.path[0]) === String(fieldName)
+          String(iss.path[0]) === String(fieldName),
       );
       if (issueForField) {
         setErrors((prev) => ({
@@ -216,21 +218,24 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
 
   return (
     <Container className={isRTL ? "rtl" : "ltr"}>
-      <Text className="text-heading-h1 font-bold mb-s text-text-default">
-        <SharedLanguageSwitchRenderer
-          value={title}
-          value_ar={title_ar}
-          language={language}
-        />
-      </Text>
-
-      <Text className="text-m text-text-default py-m">
-        <SharedLanguageSwitchRenderer
-          value={description}
-          value_ar={description_ar}
-          language={language}
-        />
-      </Text>
+      <Container className="w-full">
+        <Text className="text-heading-h1 font-bold mb-s text-text-default">
+          <SharedLanguageSwitchRenderer
+            value={title}
+            value_ar={title_ar}
+            language={language}
+          />
+        </Text>
+      </Container>
+      <Container className="w-full">
+        <Text className="text-m text-text-default py-m">
+          <SharedLanguageSwitchRenderer
+            value={description}
+            value_ar={description_ar}
+            language={language}
+          />
+        </Text>
+      </Container>
 
       <Container className="flex flex-row items-center mb-xl">
         <Container className="w-1/2 flex flex-col gap-s">
@@ -286,13 +291,31 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
         <Container className="w-full space-y-xxs">
           {/* Reference Number */}
           <Container className="flex flex-col sm:flex-row sm:items-center gap-s pb-s">
+            {platform === "web" && (
+              <Container className="sm:w-[35%] flex-shrink-0">
+                <Text className="text-bold-m text-text-default">
+                  <SharedLanguageSwitchRenderer
+                    value={labels.referenceNumber}
+                    value_ar={labels.referenceNumber_ar}
+                    language={language}
+                  />
+                </Text>
+              </Container>
+            )}
+
             <Container className="flex-1">
               <form.Field
                 name={"referenceNumber"}
                 children={(field) => (
                   <TextInput
-                    label={labels.referenceNumber}
-                    label_ar={labels.referenceNumber_ar}
+                    label={
+                      platform === "mobile" ? labels.referenceNumber : undefined
+                    }
+                    label_ar={
+                      platform === "mobile"
+                        ? labels.referenceNumber_ar
+                        : undefined
+                    }
                     value={field.state.value}
                     onChange={(val: string) => {
                       field.handleChange(val);
@@ -312,14 +335,29 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
 
           {/* Receipt Date */}
           <Container className="flex flex-col sm:flex-row sm:items-center gap-s pb-s">
+            {platform === "web" && (
+              <Container className="sm:w-[35%] flex-shrink-0">
+                <Text className="text-bold-m text-text-default">
+                  <SharedLanguageSwitchRenderer
+                    value={labels.receiptDate}
+                    value_ar={labels.receiptDate_ar}
+                    language={language}
+                  />
+                </Text>
+              </Container>
+            )}
             <Container className="flex-1">
               <form.Field
                 name={"receiptDate"}
                 children={(field) => (
                   <TextInput
                     fieldType="date"
-                    label={labels.receiptDate}
-                    label_ar={labels.receiptDate_ar}
+                    label={
+                      platform === "mobile" ? labels.receiptDate : undefined
+                    }
+                    label_ar={
+                      platform === "mobile" ? labels.receiptDate_ar : undefined
+                    }
                     value={field.state.value}
                     onChange={(val: string) => {
                       field.handleChange(val);
@@ -339,14 +377,27 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
 
           {/* Amount */}
           <Container className="flex flex-col sm:flex-row sm:items-center gap-s pb-s">
+            {platform === "web" && (
+              <Container className="sm:w-[35%] flex-shrink-0">
+                <Text className="text-bold-m text-text-default">
+                  <SharedLanguageSwitchRenderer
+                    value={labels.amount}
+                    value_ar={labels.amount_ar}
+                    language={language}
+                  />
+                </Text>
+              </Container>
+            )}
             <Container className="flex-1">
               <form.Field
                 name={"amount"}
                 children={(field) => (
                   <TextInput
                     fieldType="currency"
-                    label={labels.amount}
-                    label_ar={labels.amount_ar}
+                    label={platform === "mobile" ? labels.amount : undefined}
+                    label_ar={
+                      platform === "mobile" ? labels.amount_ar : undefined
+                    }
                     value={field.state.value}
                     onChange={(val: string) => {
                       field.handleChange(val);
@@ -365,7 +416,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
           </Container>
 
           {/* Ignore Duplicate */}
-          <Container className="flex flex-row gap-s items-center py-m">
+          <Container className="flex flex-row gap-s items-center cursor-pointer py-m">
             <form.Field
               name={"ignoreDuplicate"}
               children={(field) => (
@@ -384,7 +435,7 @@ const PaymentOverride: React.FC<PaymentOverrideProps> = ({
             />
           </Container>
 
-          <Container className="flex flex-row justify-start pt-s">
+          <Container className="flex flex-row justify-end pt-s">
             <Buttons
               type="primary"
               size="l"

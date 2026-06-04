@@ -59,6 +59,7 @@ export interface PaymentDetailsProps {
   paymentOverrideTitle_ar?: string;
   paymentOverrideDescription?: string;
   paymentOverrideDescription_ar?: string;
+  platform?: "web" | "mobile";
 }
 
 const PaymentDetails: React.FC<PaymentDetailsProps> = ({
@@ -79,6 +80,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
   paymentOverrideTitle_ar = "تجاوز الدفع",
   paymentOverrideDescription = "Search for the customer who wants to have the ranch land allocated to them.",
   paymentOverrideDescription_ar = "ابحث عن العميل الذي يرغب في تخصيص أرض المزرعة له.",
+  platform = "web",
 }) => {
   const args = applicationId;
 
@@ -121,10 +123,10 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
             closeOverrideDrawer();
             onOverrideComplete?.();
           },
-        }
+        },
       );
     },
-    [overridePayment, args, selectedPayment, onOverrideComplete]
+    [overridePayment, args, selectedPayment, onOverrideComplete],
   );
 
   if (isLoading) {
@@ -310,6 +312,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
             language={language}
             isLoading={isOverridePaymentPending}
             onSubmit={handleOverrideSubmit}
+            platform={platform}
           />
         )}
       </CustomDrawer>
