@@ -67,6 +67,8 @@ jest.mock("@react-native-community/datetimepicker", () => {
       React.createElement(View, {
         testID: "date-time-picker",
         accessibilityState: { disabled: !!disabled },
+        // Forward onChange so tests can drive handleChange via fireEvent.
+        onChange,
       }),
   };
 });
@@ -272,6 +274,63 @@ describe("DateSelect", () => {
     const doneButton = screen.getByText("Done");
     fireEvent.press(doneButton);
     expect(onDateChange).toHaveBeenCalledTimes(1);
+
+    (Platform as any).OS = originalOS;
+  });
+
+  it("updates tempDate on iOS when a date is selected in the spinner", () => {
+    const originalOS = Platform.OS;
+    (Platform as any).OS = "ios";
+
+    const onDateChange = jest.fn();
+    render(<DateSelect placeholder="Pick date" onDateChange={onDateChange} />);
+    // Open modal
+    fireEvent.press(screen.getByText("Pick date"));
+    const picker = screen.getByTestId("date-time-picker");
+    // iOS path: handleChange sets tempDate (no callback yet)
+    act(() => {
+      fireEvent(picker, "change", { type: "set" }, new Date("2024-08-20"));
+    });
+    expect(onDateChange).not.toHaveBeenCalled();
+    // Confirming via Done commits the temp date
+    fireEvent.press(screen.getByText("Done"));
+    expect(onDateChange).toHaveBeenCalledTimes(1);
+
+    (Platform as any).OS = originalOS;
+  });
+
+  it("commits date and calls onDateChange on Android 'set' event", () => {
+    const originalOS = Platform.OS;
+    (Platform as any).OS = "android";
+
+    const onDateChange = jest.fn();
+    render(<DateSelect placeholder="Pick date" onDateChange={onDateChange} />);
+    // Open the inline android picker
+    fireEvent.press(screen.getByText("Pick date"));
+    const picker = screen.getByTestId("date-time-picker");
+    act(() => {
+      fireEvent(picker, "change", { type: "set" }, new Date("2024-09-10"));
+    });
+    expect(onDateChange).toHaveBeenCalledTimes(1);
+    // Picker is dismissed after selection
+    expect(screen.queryByTestId("date-time-picker")).toBeNull();
+
+    (Platform as any).OS = originalOS;
+  });
+
+  it("does not call onDateChange on Android when dismissed", () => {
+    const originalOS = Platform.OS;
+    (Platform as any).OS = "android";
+
+    const onDateChange = jest.fn();
+    render(<DateSelect placeholder="Pick date" onDateChange={onDateChange} />);
+    fireEvent.press(screen.getByText("Pick date"));
+    const picker = screen.getByTestId("date-time-picker");
+    act(() => {
+      fireEvent(picker, "change", { type: "dismissed" }, undefined);
+    });
+    expect(onDateChange).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("date-time-picker")).toBeNull();
 
     (Platform as any).OS = originalOS;
   });

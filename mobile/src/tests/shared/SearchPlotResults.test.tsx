@@ -46,8 +46,15 @@ jest.mock("@platform/Text", () => {
 });
 jest.mock("@platform/Radio", () => {
   const React = require("react");
-  const { View } = require("react-native");
-  return { Radio: ({ id, checked }: any) => React.createElement(View, { testID: `radio-${id}`, accessibilityState: { checked } }) };
+  const { TouchableOpacity } = require("react-native");
+  return {
+    Radio: ({ id, checked, onChange }: any) =>
+      React.createElement(TouchableOpacity, {
+        testID: `radio-${id}`,
+        accessibilityState: { checked },
+        onPress: onChange,
+      }),
+  };
 });
 jest.mock("@platform/Buttons", () => {
   const React = require("react");
@@ -110,6 +117,11 @@ const mockResults: SearchResult[] = [
   },
 ];
 
+// Stable reference for the `selected`-keyed useEffect (see SearchOwnerResult test
+// note): a fresh [] each render would re-run the effect and loop under act() once
+// an interactive state update (card/radio press) is in flight.
+const stableSelected: SearchResult[] = [];
+
 const defaultProps = {
   args: "",
   municipality: "Abu Dhabi",
@@ -120,6 +132,7 @@ const defaultProps = {
   pageSize: 10,
   totalCount: 2,
   language: "en" as const,
+  selected: stableSelected,
 };
 
 describe("SearchPlotResults", () => {
@@ -217,5 +230,74 @@ describe("SearchPlotResults", () => {
   it("renders empty results without crashing", () => {
     render(<SearchPlotResults {...defaultProps} results={[]} totalCount={0} />);
     expect(screen.getByText("0 results")).toBeTruthy();
+  });
+
+  // ── Radio / card selection (handleRadioSelect) ──────────────────────────────
+
+  it("selects a result when its card is pressed", () => {
+    render(<SearchPlotResults {...defaultProps} />);
+    // The result card Container has onClick -> rendered as Pressable.
+    fireEvent.press(screen.getByText("Community A"));
+    // After selecting, the matching radio reflects checked state.
+    expect(screen.getByTestId("radio-p1").props.accessibilityState.checked).toBe(
+      true
+    );
+  });
+
+  it("selects a result when its Radio is pressed", () => {
+    render(<SearchPlotResults {...defaultProps} />);
+    fireEvent.press(screen.getByTestId("radio-p2"));
+    expect(screen.getByTestId("radio-p2").props.accessibilityState.checked).toBe(
+      true
+    );
+  });
+
+  // ── Details drawer (plot detail) ────────────────────────────────────────────
+
+  it("opens the plot detail drawer when Details is pressed", () => {
+    render(<SearchPlotResults {...defaultProps} />);
+    expect(screen.queryByTestId("view-plot-detail")).toBeNull();
+    fireEvent.press(screen.getAllByTestId("btn-Details")[0]);
+    expect(screen.getByTestId("view-plot-detail")).toBeTruthy();
+  });
+
+  // ── Pagination ──────────────────────────────────────────────────────────────
+
+  it("slices results to the current page when results exceed pageSize", () => {
+    const many: SearchResult[] = Array.from({ length: 15 }, (_, i) => ({
+      plotId: `p-${i}`,
+      plotNumber: `${i}`,
+      landUseName: "Residential",
+      code: "R",
+      communityName: `Community ${i}`,
+      districtName: `District ${i}`,
+    }));
+    render(
+      <SearchPlotResults
+        {...defaultProps}
+        results={many}
+        pageSize={10}
+        totalCount={15}
+      />
+    );
+    expect(screen.getByText("Community 0")).toBeTruthy();
+    expect(screen.getByText("Community 9")).toBeTruthy();
+    expect(screen.queryByText("Community 10")).toBeNull();
+  });
+
+  it("returns all results when pageSize is 0 (falsy)", () => {
+    render(<SearchPlotResults {...defaultProps} pageSize={0} totalCount={2} />);
+    expect(screen.getByText("Community A")).toBeTruthy();
+    expect(screen.getByText("Community B")).toBeTruthy();
+  });
+
+  it("does not call onSelectResult when Select Plot is pressed with no selection", () => {
+    const onSelectResult = jest.fn();
+    // No `selected` prop and no card pressed -> selectedIds is [] -> guard skips.
+    render(
+      <SearchPlotResults {...defaultProps} onSelectResult={onSelectResult} />
+    );
+    fireEvent.press(screen.getByTestId("btn-Select Plot"));
+    expect(onSelectResult).not.toHaveBeenCalled();
   });
 });

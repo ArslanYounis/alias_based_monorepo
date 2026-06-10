@@ -409,16 +409,19 @@ describe("GenericTableCard (shared/components/GenericTableCard/GenericTableCard.
     expect(screen.getByTestId("card-row-Label 3")).toBeTruthy();
   });
 
-  it("shows only first 3 rows when defaultShowMore=false and rows > 3", () => {
+  // Current behavior: collapsed cards render the first 10 rows; rows beyond
+  // that are hidden until "show more" (defaultShowMore) is enabled.
+  it("shows only first 10 rows when defaultShowMore=false and rows > 10", () => {
     render(
       <GenericTableCard
         {...baseProps}
-        rowsData={makeRows(5)}
+        rowsData={makeRows(12)}
         defaultShowMore={false}
       />
     );
     expect(screen.getByTestId("card-row-Label 1")).toBeTruthy();
-    expect(screen.queryByTestId("card-row-Label 4")).toBeNull();
+    expect(screen.getByTestId("card-row-Label 10")).toBeTruthy();
+    expect(screen.queryByTestId("card-row-Label 11")).toBeNull();
   });
 
   it("shows all rows when defaultShowMore=true", () => {

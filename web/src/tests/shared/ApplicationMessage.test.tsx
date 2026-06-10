@@ -319,7 +319,10 @@ describe("ApplicationMessage (shared component – web platform)", () => {
         language="en"
       />
     );
-    fireEvent.click(screen.getByText("Option A"));
+    // The web Checkbox primitive renders a <div role="checkbox"> (not a native
+    // input), and its label is a plain <label> that does not forward clicks to
+    // the div. Click the checkbox control itself to toggle it.
+    fireEvent.click(screen.getAllByRole("checkbox")[0]);
     expect(onInputChange).toHaveBeenCalled();
   });
 

@@ -37,6 +37,43 @@ jest.mock("@shared/components/SharedLanguageSwitchRenderer", () => {
   };
 });
 
+// ── Mock CardTitle (cuts the Buttons → useRenderIcon → lib-index chain) ────
+jest.mock("@shared/components/CardTitle", () => {
+  const React = require("react");
+  const { View, Text, TouchableOpacity } = require("react-native");
+  return {
+    __esModule: true,
+    default: ({
+      title,
+      title_ar,
+      language,
+      isExpandable,
+      isExpanded,
+      onToggleExpand,
+    }: any) =>
+      React.createElement(
+        View,
+        { testID: "card-title" },
+        React.createElement(
+          Text,
+          null,
+          language === "ar" && title_ar ? title_ar : title
+        ),
+        isExpandable
+          ? React.createElement(
+              TouchableOpacity,
+              { testID: "master-toggle", onPress: onToggleExpand },
+              React.createElement(
+                Text,
+                null,
+                isExpanded ? "CollapseAll" : "ExpandAll"
+              )
+            )
+          : null
+      ),
+  };
+});
+
 // ── Mock GenericCard ──────────────────────────────────────────────────────
 jest.mock("@shared/components/GenericCard", () => {
   const React = require("react");
@@ -129,7 +166,8 @@ describe("GenericCards (shared/components/GenericCards/GenericCards.tsx)", () =>
 
   it("renders title text in each card", () => {
     render(<GenericCards cardsData={[card1]} title="Plot Info" />);
-    expect(screen.getByText("Plot Info")).toBeTruthy();
+    // Title appears in the master CardTitle header and in each card
+    expect(screen.getAllByText("Plot Info").length).toBeGreaterThan(0);
   });
 
   it("renders Arabic title when language='ar'", () => {
@@ -141,8 +179,8 @@ describe("GenericCards (shared/components/GenericCards/GenericCards.tsx)", () =>
         language="ar"
       />
     );
-    // title_ar is passed to GenericCard which our mock renders
-    expect(screen.getByText("معلومات القطعة")).toBeTruthy();
+    // title_ar is passed to both the master CardTitle and each GenericCard
+    expect(screen.getAllByText("معلومات القطعة").length).toBeGreaterThan(0);
   });
 
   // ── itemsPerRow configurations ────────────────────────────────────────────

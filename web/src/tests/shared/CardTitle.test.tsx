@@ -144,9 +144,9 @@ describe("CardTitle (shared component – web platform)", () => {
     expect(el).toHaveAttribute("dir", "rtl");
   });
 
-  it("renders expandable button on mobile platform", () => {
+  it("renders expandable toggle on mobile platform", () => {
     const onToggle = vi.fn();
-    render(
+    const { container } = render(
       <CardTitle
         title="T"
         title_ar="ت"
@@ -156,11 +156,11 @@ describe("CardTitle (shared component – web platform)", () => {
         platform="mobile"
       />
     );
-    // On mobile, it renders a Buttons component instead of a native button
-    // Click it
-    const buttons = screen.getAllByRole("button");
-    const expandButton = buttons[buttons.length - 1];
-    fireEvent.click(expandButton);
+    // On mobile the chevron is rendered inside a clickable Container (div), not a
+    // native <button>. The chevron icon is an svg; click its wrapping div.
+    const svg = container.querySelector("svg");
+    expect(svg).toBeInTheDocument();
+    fireEvent.click(svg!.parentElement!);
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
 

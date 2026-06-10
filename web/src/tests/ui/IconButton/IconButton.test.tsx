@@ -27,14 +27,14 @@ describe("IconButton (web)", () => {
 
   // ── Classes ───────────────────────────────────────────────────────────────
 
-  it("applies text-text-default class", () => {
+  it("applies text-black class", () => {
     render(<IconButton icon={<svg />} />);
-    expect(screen.getByRole("button")).toHaveClass("text-text-default");
+    expect(screen.getByRole("button")).toHaveClass("text-black");
   });
 
-  it("applies text-l class for icon sizing", () => {
+  it("applies text-xl class for icon sizing", () => {
     render(<IconButton icon={<svg />} />);
-    expect(screen.getByRole("button")).toHaveClass("text-l");
+    expect(screen.getByRole("button")).toHaveClass("text-xl");
   });
 
   // ── Interaction ───────────────────────────────────────────────────────────

@@ -51,6 +51,12 @@ module.exports = {
 
     // Mock static assets
     "^.+\\.(png|jpg|jpeg|gif)$": "<rootDir>/mobile/__mocks__/fileMock.js",
+
+    // reanimated v4's worklets native module isn't initialized under jest and
+    // throws on import, crashing any suite that transitively imports it. Map to
+    // a lightweight manual mock covering the small surface the app uses.
+    "^react-native-reanimated$":
+      "<rootDir>/mobile/__mocks__/react-native-reanimated.js",
   },
 
   // File extensions Jest resolves (mirrors Metro config)
@@ -74,6 +80,18 @@ module.exports = {
     "**/mobile/src/hooks/**/*.{ts,tsx}",
     "**/shared/components/**/*.{ts,tsx}",
     "**/shared/hooks/**/*.{ts,tsx}",
+    // The shared/** globs above also match the WEB workspace's test files
+    // (e.g. web/src/tests/shared/hooks/*.test.tsx), which mobile jest never
+    // runs — they would otherwise be counted as 0%-covered source and tank the
+    // numbers. Exclude the web workspace and all test/story/type files.
+    "!**/web/**",
+    "!**/*.{test,spec}.{ts,tsx}",
+    "!**/__tests__/**",
+    "!**/*.stories.*",
+    "!**/*.d.ts",
+    // Barrel re-export and type-only files have no testable logic.
+    "!**/index.ts",
+    "!**/*.types.ts",
   ],
 
   coverageThreshold: {

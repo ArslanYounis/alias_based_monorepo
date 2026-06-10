@@ -12,16 +12,20 @@ vi.mock("@platform/Label", () => ({
 }));
 
 vi.mock("@platform/Fields", () => ({
+  // Select forwards both `placeholder` and `placeholder_ar` and relies on
+  // Fields to resolve which one to show by language. Mirror that resolution
+  // here so placeholder assertions reflect real behavior.
   Fields: ({
-    placeholder, value, hasError, disabled, type,
+    placeholder, placeholder_ar, value, hasError, disabled, type, language,
   }: {
-    placeholder?: string; value?: string; onChange?: (v: string) => void;
-    hasError?: boolean; disabled?: boolean; type?: string;
+    placeholder?: string; placeholder_ar?: string; value?: string;
+    onChange?: (v: string) => void; hasError?: boolean; disabled?: boolean;
+    type?: string; language?: string;
   }) => (
     <input
       data-testid="fields"
       data-type={type}
-      placeholder={placeholder}
+      placeholder={language === "ar" ? placeholder_ar || placeholder : placeholder}
       defaultValue={value}
       disabled={disabled}
       aria-invalid={hasError ? "true" : undefined}

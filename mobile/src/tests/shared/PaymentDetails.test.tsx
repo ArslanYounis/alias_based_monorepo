@@ -282,9 +282,10 @@ describe("PaymentDetails", () => {
     expect(screen.getByTestId("status-Pending")).toBeTruthy();
   });
 
-  it("renders status=Paid when receiptNumber is present", () => {
+  it("renders status='Paid by override' when receiptNumber is present", () => {
+    // Status badge text/testID changed from "Paid" to "Paid by override".
     render(<PaymentDetails {...baseProps} payments={[paidPayment]} />);
-    expect(screen.getByTestId("status-Paid")).toBeTruthy();
+    expect(screen.getByTestId("status-Paid by override")).toBeTruthy();
   });
 
   // ── Print Pay Slip button ─────────────────────────────────────────────────

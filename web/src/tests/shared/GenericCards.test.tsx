@@ -164,4 +164,101 @@ describe("GenericCards (shared component – web platform)", () => {
     );
     expect(screen.getByText("Alice")).toBeInTheDocument();
   });
+
+  it("renders mobile layout with a flex column container", () => {
+    const { container } = render(
+      <GenericCards cardsData={sampleCards} platform="mobile" language="en" />
+    );
+    expect(container.querySelector(".flex.flex-col.gap-xl")).toBeInTheDocument();
+    expect(screen.getByText("Alice")).toBeInTheDocument();
+  });
+
+  it("renders non-expandable cards (isExpandable false)", () => {
+    render(
+      <GenericCards
+        cardsData={sampleCards}
+        isExpandable={false}
+        showTitleSection={true}
+        language="en"
+      />
+    );
+    expect(screen.getByText("Alice")).toBeInTheDocument();
+    expect(screen.getByText("Bob")).toBeInTheDocument();
+  });
+
+  it("collapses then re-expands all cards via the master toggle", () => {
+    render(<GenericCards cardsData={sampleCards} language="en" />);
+    // master toggle present; collapse all
+    fireEvent.click(screen.getByRole("button", { name: /collapse/i }));
+    // now an Expand control is available; expand all again
+    fireEvent.click(screen.getByRole("button", { name: /expand/i }));
+    expect(screen.getByText("Alice")).toBeInTheDocument();
+  });
+
+  it("renders cards without an id using the index as key", () => {
+    const noIdCards = [
+      { rowsData: [{ label: "L", value: "NoIdValue" }] },
+    ];
+    render(<GenericCards cardsData={noIdCards} language="en" />);
+    expect(screen.getByText("NoIdValue")).toBeInTheDocument();
+  });
+
+  it("re-expands an individual collapsed card via its collapsed header", () => {
+    render(<GenericCards cardsData={sampleCards} language="en" />);
+    // Collapse all via the master toggle
+    fireEvent.click(screen.getByRole("button", { name: /collapse/i }));
+    // Each card now shows its collapsed header (cardTitleLabel). Click one to
+    // re-expand it -> exercises the per-card onToggleExpand -> toggleExpand(idx)
+    fireEvent.click(screen.getByText("Card 1"));
+    // After re-expanding card 1, its row value is visible again
+    expect(screen.getByText("Alice")).toBeInTheDocument();
+  });
+
+  it("collapses a single expanded card from the others", () => {
+    render(<GenericCards cardsData={sampleCards} language="en" />);
+    // collapse all, re-expand card 1, then collapse it again (toggleExpand remove path)
+    fireEvent.click(screen.getByRole("button", { name: /collapse/i }));
+    fireEvent.click(screen.getByText("Card 1")); // expand idx 0
+    fireEvent.click(screen.getByText("Card 2")); // expand idx 1 (includes path)
+    expect(screen.getByText("Bob")).toBeInTheDocument();
+  });
+
+  it("renders with showButtons true but no buttons prop", () => {
+    render(
+      <GenericCards
+        cardsData={sampleCards}
+        showButtons={true}
+        language="en"
+      />
+    );
+    // buttons defaults to [] internally -> no crash, cards still render
+    expect(screen.getByText("Alice")).toBeInTheDocument();
+  });
+
+  it("keeps expansion state when re-rendered with the same cards", () => {
+    const { rerender } = render(
+      <GenericCards cardsData={sampleCards} language="en" />
+    );
+    // Re-render with the same data -> effect computes no new indices (return prev)
+    rerender(<GenericCards cardsData={sampleCards} language="en" />);
+    expect(screen.getByText("Alice")).toBeInTheDocument();
+    expect(screen.getByText("Bob")).toBeInTheDocument();
+  });
+
+  it("renders a card whose rowsData is undefined", () => {
+    const cards = [
+      { id: "z", cardTitleLabel: "ZCard", cardTitleValue: "ZVal" },
+    ] as never;
+    expect(() =>
+      render(<GenericCards cardsData={cards} language="en" />)
+    ).not.toThrow();
+  });
+
+  it("applies grid-cols-2 dense flow for two columns", () => {
+    const { container } = render(
+      <GenericCards cardsData={sampleCards} itemsPerRow="2" language="en" />
+    );
+    const col2 = container.querySelector(".col-span-2");
+    expect(col2).toBeInTheDocument();
+  });
 });

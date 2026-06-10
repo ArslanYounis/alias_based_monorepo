@@ -100,13 +100,13 @@ describe("Tooltip", () => {
     expect(container.firstChild).toHaveClass("max-w-[150px]", "break-words");
   });
 
-  it("has bg-primary-chrome-6 background class", () => {
+  it("has the chrome background color class", () => {
     const { container } = render(<Tooltip text="Text" />);
-    expect(container.firstChild).toHaveClass("bg-primary-chrome-6");
+    expect(container.firstChild).toHaveClass("bg-[#566C74]");
   });
 
-  it("has text-base-white text color class", () => {
+  it("has white text color class", () => {
     const { container } = render(<Tooltip text="Text" />);
-    expect(container.firstChild).toHaveClass("text-base-white");
+    expect(container.firstChild).toHaveClass("text-white");
   });
 });

@@ -38,6 +38,43 @@ jest.mock("@shared/components/SharedLanguageSwitchRenderer", () => {
   };
 });
 
+// ── CardTitle mock (cuts the Buttons → useRenderIcon → lib-index chain) ────
+jest.mock("@shared/components/CardTitle", () => {
+  const React = require("react");
+  const { View, Text, TouchableOpacity } = require("react-native");
+  return {
+    __esModule: true,
+    default: ({
+      title,
+      title_ar,
+      language,
+      isExpandable,
+      isExpanded,
+      onToggleExpand,
+    }: any) =>
+      React.createElement(
+        View,
+        { testID: "card-title" },
+        React.createElement(
+          Text,
+          null,
+          language === "ar" && title_ar ? title_ar : title
+        ),
+        isExpandable
+          ? React.createElement(
+              TouchableOpacity,
+              { testID: "master-toggle", onPress: onToggleExpand },
+              React.createElement(
+                Text,
+                null,
+                isExpanded ? "CollapseAll" : "ExpandAll"
+              )
+            )
+          : null
+      ),
+  };
+});
+
 // ── GenericCard mock ──────────────────────────────────────────────────────
 jest.mock("@shared/components/GenericCard/GenericCard", () => {
   const React = require("react");
@@ -45,7 +82,7 @@ jest.mock("@shared/components/GenericCard/GenericCard", () => {
   return {
     __esModule: true,
     default: ({
-      cardTitleValue,
+      cardTitleLabel,
       buttons,
       isExpanded,
       onToggleExpand,
@@ -53,11 +90,11 @@ jest.mock("@shared/components/GenericCard/GenericCard", () => {
     }: any) =>
       React.createElement(
         View,
-        { testID: `generic-card-${cardTitleValue}` },
-        React.createElement(Text, null, cardTitleValue),
+        { testID: `generic-card-${cardTitleLabel}` },
+        React.createElement(Text, null, cardTitleLabel),
         React.createElement(
           TouchableOpacity,
-          { testID: `toggle-${cardTitleValue}`, onPress: onToggleExpand },
+          { testID: `toggle-${cardTitleLabel}`, onPress: onToggleExpand },
           React.createElement(Text, null, isExpanded ? "Collapse" : "Expand")
         ),
         showButtons && buttons

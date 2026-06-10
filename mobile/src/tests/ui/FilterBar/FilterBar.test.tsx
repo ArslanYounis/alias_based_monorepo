@@ -173,7 +173,7 @@ describe("FilterBar", () => {
 
   // ── Controlled columns ─────────────────────────────────────────────────────
 
-  it("calls onSearchColumnsChange when columns change (controlled mode)", () => {
+  it("shows default 'All' label when no column is selected (controlled mode)", () => {
     const onSearchColumnsChange = jest.fn();
     render(
       <FilterBar
@@ -182,8 +182,8 @@ describe("FilterBar", () => {
         onSearchColumnsChange={onSearchColumnsChange}
       />
     );
-    // ColumnButton label defaults to 'Add Col Name' since selectedSearchColumns[0] is undefined
-    expect(screen.getByText("Add Col Name")).toBeTruthy();
+    // ColumnButton label falls back to 'All' since selectedSearchColumns[0] is undefined
+    expect(screen.getByText("All")).toBeTruthy();
   });
 
   it("shows first selected column as ColumnButton label", () => {

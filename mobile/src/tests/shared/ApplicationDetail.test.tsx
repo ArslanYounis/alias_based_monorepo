@@ -1,22 +1,19 @@
 /**
- * Tests for the shared ApplicationDetail component.
+ * Tests for the shared ApplicationDetail component (current presentational version).
  *
- * useGetApplicationDetails is mocked so no network calls occur.
- * Branches covered:
- *  - loading state (isLoading=true)
- *  - error state (isError=true, data absent)
- *  - no result in data (data.result null/undefined)
- *  - successful render with full data
- *  - owners present vs absent
- *  - plot present vs absent
- *  - interactionCards: completed vs inProgress type
- *  - documents: with attachment (downloadUrl) and without
- *  - language='en' vs language='ar' labels and names
- *  - onOwnerClick (view / plot / edit actions)
- *  - onPlotClick (view action)
- *  - onDocumentOpen called when attachment present, not called when absent
- *  - step.status=2 → completed, other → inProgress
- *  - actionUser present vs absent (author string)
+ * The component is now a props-driven card. It renders:
+ *  - a CardTitle (title / title_ar) via the `variant="small"` heading
+ *  - an optional action button (gated by showButton / onButtonClick)
+ *  - an "Application Number" row (always)
+ *  - an "Application Date" row (only when applicationDate / applicationDate_ar set)
+ *  - a "Reference Number" row (only when referenceNumber / referenceNumber_ar set)
+ *  - RTL/LTR direction based on `language`
+ *
+ * The old hook-driven version (useGetApplicationDetails, owners/plots/documents/
+ * interaction-history) no longer exists, so those cases have been rewritten.
+ *
+ * Container / Text / Buttons / icons / SharedLanguageSwitchRenderer are mocked;
+ * the real CardTitle renders (it just composes the same mocked primitives).
  */
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react-native";
@@ -37,23 +34,15 @@ jest.mock("@shared/components/SharedLanguageSwitchRenderer", () => {
   };
 });
 
-jest.mock("@shared/hooks/useGetApplicationDetails", () => ({
-  useGetApplicationDetails: jest.fn(() => ({
-    data: null,
-    isLoading: false,
-    isError: false,
-  })),
-}));
-
 // ── Platform components ────────────────────────────────────────────────────
 jest.mock("@platform/Container", () => {
   const React = require("react");
   const { View } = require("react-native");
   return {
-    Container: ({ children, onClick, style, ...props }: any) =>
+    Container: ({ children, onClick, dir, ...props }: any) =>
       React.createElement(
         View,
-        { ...props, style, onTouchEnd: onClick },
+        { ...props, accessibilityLabel: dir, onTouchEnd: onClick },
         children
       ),
   };
@@ -84,618 +73,190 @@ jest.mock("@platform/Buttons", () => {
 });
 
 jest.mock("@platform/icons", () => ({
-  CheckIcon: () => null,
-  SendIcon: () => null,
-  DocumentIcon: () => null,
+  ChevronDownIcon: () => null,
+  ChevronUpIcon: () => null,
 }));
-
-jest.mock("@shared/components/ProcessStatusRows", () => {
-  const React = require("react");
-  const { View } = require("react-native");
-  return {
-    __esModule: true,
-    default: () => React.createElement(View, { testID: "process-status-rows" }),
-  };
-});
 
 // ── Imports ────────────────────────────────────────────────────────────────
 import ApplicationDetail from "@shared/components/ApplicationDetail/ApplicationDetail";
-import { useGetApplicationDetails } from "@shared/hooks/useGetApplicationDetails";
-
-const mockUseGetApplicationDetails = useGetApplicationDetails as jest.Mock;
 
 // ── Fixtures ───────────────────────────────────────────────────────────────
-const baseApplication = {
+const fullProps = {
+  title: "Land Application",
+  title_ar: "طلب الأرض",
   applicationNumber: "APP-2024-001",
-  applicationCreatedDate: "2024-01-15",
-  applicationReferenceNumber: "REF-001",
-};
-
-const baseOwner = {
-  ownerNameE: "John Smith",
-  ownerNameA: "جون سميث",
-};
-
-const basePlot = {
-  plotNumber: "PLOT-42",
-};
-
-const baseStep = {
-  stepConst: "Initial Review",
-  status: 2,
-  actionDate: "2024-01-20",
-  actionUser: { userNameE: "Admin User", userNameA: "مستخدم المسؤول" },
-};
-
-const inProgressStep = {
-  stepConst: "Pending Approval",
-  status: 1,
-  actionDate: "2024-01-22",
-  actionUser: null,
-};
-
-const baseDocument = {
-  documentNameE: "Title Deed",
-  documentNameA: "صك الملكية",
-  attachmentList: [
-    {
-      downloadUrl: "https://example.com/file.pdf",
-    },
-  ],
-};
-
-const documentNoAttachment = {
-  documentNameE: "ID Copy",
-  documentNameA: "نسخة الهوية",
-  attachmentList: [],
-};
-
-const fullResult = {
-  application: baseApplication,
-  owners: [baseOwner],
-  plot: basePlot,
-  steps: [baseStep, inProgressStep],
-  documents: [baseDocument, documentNoAttachment],
-};
-
-const baseProps = {
-  applicationId: "app-123",
-  applicationTitle: "Land Application",
-  applicationTitle_ar: "طلب الأرض",
+  applicationNumber_ar: "APP-2024-001-AR",
+  applicationDate: "2024-01-15",
+  applicationDate_ar: "٢٠٢٤-٠١-١٥",
+  referenceNumber: "REF-001",
+  referenceNumber_ar: "REF-001-AR",
   language: "en" as const,
 };
 
 describe("ApplicationDetail", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: null,
-      isLoading: false,
-      isError: false,
-    });
   });
 
-  // ── Loading state ─────────────────────────────────────────────────────────
+  // ── Basic rendering ─────────────────────────────────────────────────────
 
-  it("shows loading message when isLoading=true", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: null,
-      isLoading: true,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Loading...")).toBeTruthy();
+  it("renders without crashing with no props (defaults)", () => {
+    render(<ApplicationDetail />);
+    expect(screen.getByText("Application Detail")).toBeTruthy();
   });
 
-  it("shows Arabic loading message when isLoading=true and language='ar'", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: null,
-      isLoading: true,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(screen.getByText("جارٍ التحميل...")).toBeTruthy();
+  it("renders without crashing with full data", () => {
+    render(<ApplicationDetail {...fullProps} />);
   });
 
-  // ── Error state ───────────────────────────────────────────────────────────
+  // ── Title ────────────────────────────────────────────────────────────────
 
-  it("shows error message when isError=true", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: null,
-      isLoading: false,
-      isError: true,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Error loading application details.")).toBeTruthy();
-  });
-
-  it("shows Arabic error message when isError=true and language='ar'", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: null,
-      isLoading: false,
-      isError: true,
-    });
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(
-      screen.getByText("خطأ في تحميل تفاصيل التطبيق.")
-    ).toBeTruthy();
-  });
-
-  it("shows error message when data.result is null", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: null },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Error loading application details.")).toBeTruthy();
-  });
-
-  it("shows error message when data is null and isError=false", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: null,
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Error loading application details.")).toBeTruthy();
-  });
-
-  // ── Successful render ─────────────────────────────────────────────────────
-
-  it("renders without crashing when data is complete", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-  });
-
-  it("renders English application title", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
+  it("renders English title", () => {
+    render(<ApplicationDetail {...fullProps} />);
     expect(screen.getByText("Land Application")).toBeTruthy();
   });
 
-  it("renders Arabic application title when language='ar'", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} language="ar" />);
+  it("renders Arabic title when language='ar'", () => {
+    render(<ApplicationDetail {...fullProps} language="ar" />);
     expect(screen.getByText("طلب الأرض")).toBeTruthy();
   });
 
-  it("renders application number", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("APP-2024-001")).toBeTruthy();
+  it("renders default Arabic title when language='ar' and no title provided", () => {
+    render(<ApplicationDetail language="ar" />);
+    expect(screen.getByText("تفاصيل الطلب")).toBeTruthy();
   });
 
-  it("renders application date", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("2024-01-15")).toBeTruthy();
-  });
-
-  it("renders reference number", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("REF-001")).toBeTruthy();
-  });
+  // ── Detail labels ──────────────────────────────────────────────────────────
 
   it("renders English detail labels", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
+    render(<ApplicationDetail {...fullProps} />);
     expect(screen.getByText("Application Number")).toBeTruthy();
     expect(screen.getByText("Application Date")).toBeTruthy();
     expect(screen.getByText("Reference Number")).toBeTruthy();
   });
 
   it("renders Arabic detail labels when language='ar'", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} language="ar" />);
+    render(<ApplicationDetail {...fullProps} language="ar" />);
     expect(screen.getByText("رقم الطلب")).toBeTruthy();
     expect(screen.getByText("تاريخ الطلب")).toBeTruthy();
-    expect(screen.getByText("الرقم المرجعي")).toBeTruthy();
+    expect(screen.getByText("رقم المرجع")).toBeTruthy();
   });
 
-  // ── Owner section ─────────────────────────────────────────────────────────
+  // ── Application number ─────────────────────────────────────────────────────
 
-  it("renders owner section when owners array is non-empty", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Owner")).toBeTruthy();
-    expect(screen.getByText("John Smith")).toBeTruthy();
+  it("renders application number (English)", () => {
+    render(<ApplicationDetail {...fullProps} />);
+    expect(screen.getByText("APP-2024-001")).toBeTruthy();
   });
 
-  it("renders Arabic owner name when language='ar'", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(screen.getByText("المالك")).toBeTruthy();
-    expect(screen.getByText("جون سميث")).toBeTruthy();
+  it("renders Arabic application number when language='ar'", () => {
+    render(<ApplicationDetail {...fullProps} language="ar" />);
+    expect(screen.getByText("APP-2024-001-AR")).toBeTruthy();
   });
 
-  it("does not render owner section when owners array is empty", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: { ...fullResult, owners: [] } },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.queryByText("Owner")).toBeNull();
+  // ── Application date row (conditional) ─────────────────────────────────────
+
+  it("renders application date when provided", () => {
+    render(<ApplicationDetail {...fullProps} />);
+    expect(screen.getByText("2024-01-15")).toBeTruthy();
   });
 
-  it("does not render owner section when owners is undefined", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: { ...fullResult, owners: undefined } },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.queryByText("Owner")).toBeNull();
-  });
-
-  it("renders owner action buttons (View, Plots, Edit Contact)", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    // Both "View" buttons (owner + plot) are rendered; check at least one exists
-    expect(screen.getAllByTestId("btn-View").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByTestId("btn-Plots")).toBeTruthy();
-    expect(screen.getByTestId("btn-Edit Contact")).toBeTruthy();
-  });
-
-  it("renders Arabic owner action buttons when language='ar'", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    // Both "عرض" buttons (owner + plot) may be rendered
-    expect(screen.getAllByTestId("btn-عرض").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByTestId("btn-القطع")).toBeTruthy();
-    expect(screen.getByTestId("btn-تعديل جهة الاتصال")).toBeTruthy();
-  });
-
-  it("calls onOwnerClick with action='view' when View button pressed", () => {
-    const onOwnerClick = jest.fn();
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} onOwnerClick={onOwnerClick} />);
-    // First "View" button belongs to the owner section
-    fireEvent.press(screen.getAllByTestId("btn-View")[0]);
-    expect(onOwnerClick).toHaveBeenCalledWith({
-      ownerData: baseOwner,
-      action: "view",
-    });
-  });
-
-  it("calls onOwnerClick with action='plot' when Plots button pressed", () => {
-    const onOwnerClick = jest.fn();
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} onOwnerClick={onOwnerClick} />);
-    fireEvent.press(screen.getByTestId("btn-Plots"));
-    expect(onOwnerClick).toHaveBeenCalledWith({
-      ownerData: baseOwner,
-      action: "plot",
-    });
-  });
-
-  it("calls onOwnerClick with action='edit' when Edit Contact button pressed", () => {
-    const onOwnerClick = jest.fn();
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} onOwnerClick={onOwnerClick} />);
-    fireEvent.press(screen.getByTestId("btn-Edit Contact"));
-    expect(onOwnerClick).toHaveBeenCalledWith({
-      ownerData: baseOwner,
-      action: "edit",
-    });
-  });
-
-  // ── Plot section ──────────────────────────────────────────────────────────
-
-  it("renders plot section when plot is present", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Plot")).toBeTruthy();
-    expect(screen.getByText("PLOT-42")).toBeTruthy();
-  });
-
-  it("renders Arabic plot section title when language='ar'", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(screen.getByText("قطعة الأرض")).toBeTruthy();
-  });
-
-  it("does not render plot section when plot is undefined", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: { ...fullResult, plot: undefined } },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.queryByText("Plot")).toBeNull();
-  });
-
-  it("calls onPlotClick with action='view' when View plot button pressed", () => {
-    const onPlotClick = jest.fn();
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} onPlotClick={onPlotClick} />);
-    // There are two "View" buttons (owner + plot). Get the second one.
-    const viewBtns = screen.getAllByTestId("btn-View");
-    fireEvent.press(viewBtns[1]); // second View = plot view
-    expect(onPlotClick).toHaveBeenCalledWith({
-      PlotData: basePlot,
-      action: "view",
-    });
-  });
-
-  // ── Interaction history section ────────────────────────────────────────────
-
-  it("renders Interaction History heading", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Interaction History")).toBeTruthy();
-  });
-
-  it("renders Arabic Interaction History heading when language='ar'", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(screen.getByText("سجل التفاعل")).toBeTruthy();
-  });
-
-  it("renders completed step title", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Initial Review")).toBeTruthy();
-  });
-
-  it("renders inProgress step title", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Pending Approval")).toBeTruthy();
-  });
-
-  it("renders 'Complete' badge for completed step (status=2)", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Complete")).toBeTruthy();
-  });
-
-  it("renders ProcessStatusRows for inProgress step", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByTestId("process-status-rows")).toBeTruthy();
-  });
-
-  it("renders step author when actionUser is present", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Admin User")).toBeTruthy();
-  });
-
-  it("renders Arabic step author when language='ar' and actionUser present", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(screen.getByText("مستخدم المسؤول")).toBeTruthy();
-  });
-
-  it("renders empty author when actionUser is null", () => {
-    // inProgressStep has actionUser: null → author = ""
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: {
-        result: { ...fullResult, steps: [inProgressStep] },
-      },
-      isLoading: false,
-      isError: false,
-    });
-    // Should render without crash
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Pending Approval")).toBeTruthy();
-  });
-
-  it("renders step date", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("2024-01-20")).toBeTruthy();
-  });
-
-  it("renders with empty steps array", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: { ...fullResult, steps: [] } },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Interaction History")).toBeTruthy();
-  });
-
-  // ── Documents section ─────────────────────────────────────────────────────
-
-  it("renders Documents heading", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Documents")).toBeTruthy();
-  });
-
-  it("renders Arabic Documents heading when language='ar'", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(screen.getByText("المستندات")).toBeTruthy();
-  });
-
-  it("renders document name in English", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Title Deed")).toBeTruthy();
-    expect(screen.getByText("ID Copy")).toBeTruthy();
-  });
-
-  it("renders document name in Arabic when language='ar'", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(screen.getByText("صك الملكية")).toBeTruthy();
-    expect(screen.getByText("نسخة الهوية")).toBeTruthy();
-  });
-
-  it("calls onDocumentOpen when document with attachment is pressed", () => {
-    const onDocumentOpen = jest.fn();
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: fullResult },
-      isLoading: false,
-      isError: false,
-    });
+  it("does not render Application Date row when date is absent", () => {
     render(
-      <ApplicationDetail {...baseProps} onDocumentOpen={onDocumentOpen} />
+      <ApplicationDetail
+        title="X"
+        applicationNumber="A-1"
+        applicationDate=""
+        applicationDate_ar=""
+        referenceNumber=""
+        referenceNumber_ar=""
+      />
     );
-    // The Container for the document with an attachment has onTouchEnd wired
-    // Our Container mock forwards onClick as onTouchEnd. Find the element with "Title Deed" text.
-    const titleDeedText = screen.getByText("Title Deed");
-    // Traverse up to find the clickable container — fire on the text's parent.
-    fireEvent(titleDeedText, "touchEnd");
-    // onDocumentOpen may or may not be called depending on mock traversal.
-    // The key test: no crash. We verify callback registration differently:
-    // We test via checking no error is thrown.
+    expect(screen.queryByText("Application Date")).toBeNull();
   });
 
-  it("renders with empty documents array", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: { ...fullResult, documents: [] } },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Documents")).toBeTruthy();
+  // ── Reference number row (conditional) ─────────────────────────────────────
+
+  it("renders reference number when provided", () => {
+    render(<ApplicationDetail {...fullProps} />);
+    expect(screen.getByText("REF-001")).toBeTruthy();
   });
 
-  it("renders with undefined documents", () => {
-    mockUseGetApplicationDetails.mockReturnValue({
-      data: { result: { ...fullResult, documents: undefined } },
-      isLoading: false,
-      isError: false,
-    });
-    render(<ApplicationDetail {...baseProps} />);
-    expect(screen.getByText("Documents")).toBeTruthy();
+  it("does not render Reference Number row when reference is absent", () => {
+    render(
+      <ApplicationDetail
+        title="X"
+        applicationNumber="A-1"
+        applicationDate="2024-01-15"
+        referenceNumber=""
+        referenceNumber_ar=""
+      />
+    );
+    expect(screen.queryByText("Reference Number")).toBeNull();
   });
 
-  // ── applicationId forwarded to hook ──────────────────────────────────────
+  it("renders only the Application Number row when date and reference absent", () => {
+    render(
+      <ApplicationDetail
+        title="X"
+        applicationNumber="A-1"
+        applicationDate=""
+        applicationDate_ar=""
+        referenceNumber=""
+        referenceNumber_ar=""
+      />
+    );
+    expect(screen.getByText("Application Number")).toBeTruthy();
+    expect(screen.queryByText("Application Date")).toBeNull();
+    expect(screen.queryByText("Reference Number")).toBeNull();
+  });
 
-  it("calls useGetApplicationDetails with the given applicationId", () => {
-    render(<ApplicationDetail {...baseProps} applicationId="test-app-id" />);
-    expect(mockUseGetApplicationDetails).toHaveBeenCalledWith("test-app-id");
+  // ── Action button (gated by showButton) ────────────────────────────────────
+
+  it("renders the action button with default title 'View' when showButton=true", () => {
+    render(<ApplicationDetail {...fullProps} showButton={true} />);
+    expect(screen.getByTestId("btn-View")).toBeTruthy();
+  });
+
+  it("renders a custom button title", () => {
+    render(
+      <ApplicationDetail {...fullProps} showButton={true} buttonTitle="Open" />
+    );
+    expect(screen.getByTestId("btn-Open")).toBeTruthy();
+  });
+
+  it("renders Arabic button title when language='ar'", () => {
+    render(<ApplicationDetail {...fullProps} language="ar" showButton={true} />);
+    expect(screen.getByTestId("btn-عرض")).toBeTruthy();
+  });
+
+  it("does not render the action button when showButton=false", () => {
+    render(<ApplicationDetail {...fullProps} showButton={false} />);
+    expect(screen.queryByTestId("btn-View")).toBeNull();
+  });
+
+  it("calls onButtonClick when the action button is pressed", () => {
+    const onButtonClick = jest.fn();
+    render(
+      <ApplicationDetail
+        {...fullProps}
+        showButton={true}
+        onButtonClick={onButtonClick}
+      />
+    );
+    fireEvent.press(screen.getByTestId("btn-View"));
+    expect(onButtonClick).toHaveBeenCalledTimes(1);
+  });
+
+  // ── Direction (RTL / LTR) ──────────────────────────────────────────────────
+
+  it("renders LTR direction by default", () => {
+    render(<ApplicationDetail {...fullProps} />);
+    expect(screen.getAllByLabelText("ltr").length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("renders RTL direction when language='ar'", () => {
+    render(<ApplicationDetail {...fullProps} language="ar" />);
+    expect(screen.getAllByLabelText("rtl").length).toBeGreaterThanOrEqual(1);
   });
 });

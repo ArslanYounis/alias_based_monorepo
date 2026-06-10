@@ -204,4 +204,83 @@ describe("OwnerCard (shared component – web platform)", () => {
     );
     expect(screen.getByText("John Smith")).toBeInTheDocument();
   });
+
+  it("renders Change Owner button and fires changeOwner action", () => {
+    const onPressAction = vi.fn();
+    render(
+      <OwnerCard
+        owners={sampleOwners}
+        title="Owners"
+        showChangeOwnerButton={true}
+        onPressAction={onPressAction}
+        language="en"
+      />
+    );
+    fireEvent.click(screen.getByText("Change Owner"));
+    expect(onPressAction).toHaveBeenCalledWith({
+      action: "changeOwner",
+      owner: sampleOwners[0],
+    });
+  });
+
+  it("collapses and re-expands all cards via the master toggle", () => {
+    render(<OwnerCard owners={sampleOwners} title="Owners" language="en" />);
+    // Initially all expanded -> master shows a Collapse control
+    const collapse = screen.getByLabelText("Collapse");
+    fireEvent.click(collapse); // toggleMaster -> collapse all
+    // Now master shows Expand
+    const expand = screen.getByLabelText("Expand");
+    fireEvent.click(expand); // toggleMaster -> expand all again
+    expect(screen.getByText("John Smith")).toBeInTheDocument();
+  });
+
+  it("re-expands an individual collapsed owner card via its header", () => {
+    const multi = [
+      ...sampleOwners,
+      {
+        ownerId: "2",
+        ownerArgs: "args-2",
+        name: "Jane Doe",
+        fields: [{ label: "Phone", value: "+971509876543" }],
+      },
+    ];
+    render(<OwnerCard owners={multi} title="Owners" language="en" />);
+    // Collapse all via master toggle
+    fireEvent.click(screen.getByLabelText("Collapse"));
+    // Click a collapsed card header (owner name) -> toggleExpand(idx)
+    fireEvent.click(screen.getByText("John Smith"));
+    // Re-expanded card shows its field
+    expect(screen.getByText("Emirates ID")).toBeInTheDocument();
+    // Collapse it again + toggle the other (covers include/remove branches)
+    fireEvent.click(screen.getByText("Jane Doe"));
+    expect(screen.getByText("Jane Doe")).toBeInTheDocument();
+  });
+
+  it("expands newly added owners when the owners array grows", () => {
+    const { rerender } = render(
+      <OwnerCard owners={sampleOwners} title="Owners" language="en" />
+    );
+    const more = [
+      ...sampleOwners,
+      {
+        ownerId: "2",
+        ownerArgs: "args-2",
+        name: "Jane Doe",
+        fields: [{ label: "Phone", value: "+971509876543" }],
+      },
+    ];
+    rerender(<OwnerCard owners={more} title="Owners" language="en" />);
+    expect(screen.getByText("Jane Doe")).toBeInTheDocument();
+  });
+
+  it("uses the default onPressAction (no handler) without crashing on View click", () => {
+    render(<OwnerCard owners={sampleOwners} title="Owners" language="en" />);
+    expect(() => fireEvent.click(screen.getByText("View"))).not.toThrow();
+  });
+
+  it("does nothing on master toggle when there are no owners", () => {
+    render(<OwnerCard owners={[]} title="Owners" language="en" />);
+    // No master toggle rendered for empty owners
+    expect(screen.queryByLabelText("Collapse")).not.toBeInTheDocument();
+  });
 });

@@ -27,17 +27,21 @@ jest.mock("lodash", () => ({
 }));
 
 // ── Hook mocks ───────────────────────────────────────────────────────────────
+// A single stable refetch reference — the component's effect depends on it, so a
+// fresh jest.fn() per render would re-fire the effect every render (loop once the
+// plots drawer is open).
+const mockStableRefetch = jest.fn();
 jest.mock("../../hooks/useGetOwnerPlots", () => ({
   useGetOwnerPlots: jest.fn(() => ({
     data: null,
-    refetch: jest.fn(),
+    refetch: mockStableRefetch,
     isFetching: false,
   })),
 }), { virtual: true });
 jest.mock("@shared/hooks/useGetOwnerPlots", () => ({
   useGetOwnerPlots: jest.fn(() => ({
     data: null,
-    refetch: jest.fn(),
+    refetch: mockStableRefetch,
     isFetching: false,
   })),
 }));
@@ -76,7 +80,14 @@ jest.mock("@platform/Buttons", () => {
 });
 jest.mock("@platform/Pagination", () => {
   const React = require("react");
-  return { Pagination: (p: any) => null };
+  const { TouchableOpacity } = require("react-native");
+  return {
+    Pagination: ({ onPageChange }: any) =>
+      React.createElement(TouchableOpacity, {
+        testID: "pagination-next",
+        onPress: () => onPageChange?.(2),
+      }),
+  };
 });
 jest.mock("@platform/CustomDrawer", () => {
   const React = require("react");
@@ -97,10 +108,22 @@ jest.mock("@shared/components/ViewOwnerDetail/ViewOwnerDetail", () => {
 });
 jest.mock("@shared/components/SearchPlot/SearchOwnerPlotsResult", () => {
   const React = require("react");
-  const { View } = require("react-native");
+  const { View, TouchableOpacity } = require("react-native");
   return {
     __esModule: true,
-    default: () => React.createElement(View, { testID: "search-owner-plots-result" }),
+    default: ({ onSelectPlot, onCloseDrawer }: any) =>
+      React.createElement(
+        View,
+        { testID: "search-owner-plots-result" },
+        React.createElement(TouchableOpacity, {
+          testID: "plots-select",
+          onPress: () => onSelectPlot?.({ plotId: "px" }),
+        }),
+        React.createElement(TouchableOpacity, {
+          testID: "plots-close",
+          onPress: () => onCloseDrawer?.(),
+        })
+      ),
   };
 });
 
@@ -127,6 +150,12 @@ const mockResults: IOwnerSearchResult[] = [
   },
 ];
 
+// Stable reference: the component has a useEffect keyed on `selected`. Passing a
+// fresh [] each render (the prop default) would re-run it every render; once an
+// interactive state update is in flight (e.g. opening a drawer) that turns into a
+// render loop under act(). A stable array keeps the effect dependency constant.
+const stableSelected: IOwnerSearchResult[] = [];
+
 const defaultProps = {
   ownerName: "Smith",
   results: mockResults,
@@ -134,6 +163,7 @@ const defaultProps = {
   pageSize: 10,
   totalCount: 2,
   language: "en" as const,
+  selected: stableSelected,
 };
 
 describe("SearchOwnerResult (SearchPlot)", () => {
@@ -212,5 +242,79 @@ describe("SearchOwnerResult (SearchPlot)", () => {
   it("result count text is rendered", () => {
     render(<SearchOwnerResult {...defaultProps} />);
     expect(screen.getByText("We returned")).toBeTruthy();
+  });
+
+  // ── Plots drawer (selectOwnerForPlots) ──────────────────────────────────────
+
+  it("opens the plots drawer when a result's Plots button is pressed", () => {
+    render(<SearchOwnerResult {...defaultProps} />);
+    expect(screen.queryByTestId("search-owner-plots-result")).toBeNull();
+    fireEvent.press(screen.getAllByTestId("btn-Plots")[0]);
+    expect(screen.getByTestId("search-owner-plots-result")).toBeTruthy();
+  });
+
+  it("does not open plots drawer when result has no id", () => {
+    const noId = [{ ...mockResults[0], id: undefined }] as IOwnerSearchResult[];
+    render(<SearchOwnerResult {...defaultProps} results={noId} totalCount={1} />);
+    fireEvent.press(screen.getByTestId("btn-Plots"));
+    expect(screen.queryByTestId("search-owner-plots-result")).toBeNull();
+  });
+
+  // ── Owner detail drawer ─────────────────────────────────────────────────────
+
+  it("opens the owner detail drawer when Details is pressed", () => {
+    render(<SearchOwnerResult {...defaultProps} />);
+    expect(screen.queryByTestId("view-owner-detail")).toBeNull();
+    fireEvent.press(screen.getAllByTestId("btn-Details")[0]);
+    expect(screen.getByTestId("view-owner-detail")).toBeTruthy();
+  });
+
+  // ── Pagination (getCurrentPageResults slicing) ──────────────────────────────
+
+  it("slices results to the current page when results exceed pageSize", () => {
+    const many: IOwnerSearchResult[] = Array.from({ length: 15 }, (_, i) => ({
+      id: `id-${i}`,
+      ownerId: `id-${i}`,
+      ownerName_E: `Owner ${i}`,
+      nationalNumber: `nn-${i}`,
+      cityName: `City ${i}`,
+    }));
+    render(
+      <SearchOwnerResult
+        {...defaultProps}
+        results={many}
+        pageSize={10}
+        totalCount={15}
+      />
+    );
+    // First page shows the first 10 owners; the 11th is sliced off.
+    expect(screen.getByText("Owner 0")).toBeTruthy();
+    expect(screen.getByText("Owner 9")).toBeTruthy();
+    expect(screen.queryByText("Owner 10")).toBeNull();
+  });
+
+  it("returns all results when pageSize is 0 (falsy)", () => {
+    render(<SearchOwnerResult {...defaultProps} pageSize={0} totalCount={2} />);
+    expect(screen.getByText("John Smith")).toBeTruthy();
+    expect(screen.getByText("Jane Doe")).toBeTruthy();
+  });
+
+  it("calls onPageChange when pagination changes the page", () => {
+    const onPageChange = jest.fn();
+    render(<SearchOwnerResult {...defaultProps} onPageChange={onPageChange} />);
+    fireEvent.press(screen.getByTestId("pagination-next"));
+    expect(onPageChange).toHaveBeenCalledWith(2);
+  });
+
+  it("handles plot selection and closing from the plots drawer", () => {
+    render(<SearchOwnerResult {...defaultProps} />);
+    // Open the plots drawer
+    fireEvent.press(screen.getAllByTestId("btn-Plots")[0]);
+    expect(screen.getByTestId("search-owner-plots-result")).toBeTruthy();
+    // Selecting a plot (handleSelectPlot) does not throw
+    fireEvent.press(screen.getByTestId("plots-select"));
+    // Closing the plots drawer (onCloseDrawer) hides the sub-component
+    fireEvent.press(screen.getByTestId("plots-close"));
+    expect(screen.queryByTestId("search-owner-plots-result")).toBeNull();
   });
 });

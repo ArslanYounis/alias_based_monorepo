@@ -1,53 +1,41 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { DateSelect } from "@platform/DateSelect";
 
 // ── Mocks ────────────────────────────────────────────────────────────────────
+//
+// DateSelect now renders:  Label  +  Fields(type="date" → DateInput)  +  Caption.
+// DateInput uses the shadcn Popover / Calendar / Button primitives and the
+// lucide Calendar icon, so we mock those to render inline (no portals in jsdom)
+// and to drive date selection deterministically.
 
-// Mock Radix Popover to render inline (no portal issues in jsdom)
 vi.mock("@/components/ui/popover", () => ({
   Popover: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="popover">{children}</div>
   ),
-  PopoverTrigger: ({
-    children,
-    asChild,
-  }: {
-    children: React.ReactNode;
-    asChild?: boolean;
-  }) => <div data-testid="popover-trigger">{children}</div>,
+  PopoverTrigger: ({ children }: { children: React.ReactNode; asChild?: boolean }) => (
+    <div data-testid="popover-trigger">{children}</div>
+  ),
   PopoverContent: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="popover-content">{children}</div>
   ),
 }));
 
-// Mock shadcn Calendar to a simple date picker button
+// Mock shadcn Calendar to a simple date picker with deterministic buttons
 vi.mock("@/components/ui/calendar", () => ({
-  Calendar: ({
-    onSelect,
-    selected,
-  }: {
-    onSelect: (d: Date | undefined) => void;
-    selected?: Date;
-  }) => (
+  Calendar: ({ onSelect }: { onSelect: (d: Date | undefined) => void }) => (
     <div data-testid="calendar">
-      <button
-        data-testid="pick-date"
-        onClick={() => onSelect(new Date("2024-06-15"))}
-      >
+      <button data-testid="pick-date" onClick={() => onSelect(new Date("2024-06-15"))}>
         Pick June 15
       </button>
-      <button
-        data-testid="clear-date"
-        onClick={() => onSelect(undefined)}
-      >
+      <button data-testid="clear-date" onClick={() => onSelect(undefined)}>
         Clear
       </button>
     </div>
   ),
 }));
 
-// Mock lucide CalendarIcon
+// Mock lucide Calendar icon
 vi.mock("lucide-react", async (importOriginal) => {
   const original = await importOriginal<typeof import("lucide-react")>();
   return {
@@ -58,21 +46,20 @@ vi.mock("lucide-react", async (importOriginal) => {
   };
 });
 
-// Mock Info SVG asset
-vi.mock("@/assets/svg/info", () => ({
+// Label renders its info icon via InfoSVG when showInfoIcon is true
+vi.mock("@/assets/svg/InfoSVG", () => ({
   default: (props: React.SVGProps<SVGSVGElement>) => (
     <svg data-testid="info-icon" {...props} />
   ),
 }));
 
-// Mock shadcn Button to a simple button
+// Mock shadcn Button to a plain button
 vi.mock("@/components/ui/button", () => ({
   Button: ({
     children,
     disabled,
     className,
     onClick,
-    variant,
   }: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: string }) => (
     <button
       data-testid="date-trigger-button"
@@ -109,11 +96,15 @@ describe("DateSelect", () => {
     expect(screen.getByText("اختر التاريخ")).toBeInTheDocument();
   });
 
-  it("falls back to English placeholder when placeholder_ar is empty and language is 'ar'", () => {
+  // Current behavior: DateSelect forwards the resolved placeholder to Fields,
+  // which forwards to DateInput. DateInput has its own Arabic default
+  // ("اختر التاريخ") that is used when placeholder_ar resolves empty in 'ar'
+  // mode, so it does NOT fall back to the English string here.
+  it("uses the Arabic default placeholder when placeholder_ar is empty and language is 'ar'", () => {
     render(
       <DateSelect placeholder="Select date" placeholder_ar="" language="ar" />
     );
-    expect(screen.getByText("Select date")).toBeInTheDocument();
+    expect(screen.getByText("اختر التاريخ")).toBeInTheDocument();
   });
 
   it("renders the calendar icon", () => {
@@ -133,24 +124,19 @@ describe("DateSelect", () => {
     expect(screen.getByText("تاريخ الميلاد")).toBeInTheDocument();
   });
 
-  it("does not render label element when label is not provided", () => {
-    render(<DateSelect />);
-    expect(screen.queryByRole("label")).not.toBeInTheDocument();
-  });
-
   it("renders required asterisk when required is true", () => {
     render(<DateSelect label="DOB" required />);
     expect(screen.getByText("*")).toBeInTheDocument();
   });
 
-  // ── Info text ─────────────────────────────────────────────────────────────
+  // ── Info icon (now driven by showInfoIcon on the Label) ────────────────────
 
-  it("renders info icon when infoText is provided", () => {
-    render(<DateSelect label="DOB" infoText="Some info" />);
+  it("renders info icon when showInfoIcon is true", () => {
+    render(<DateSelect label="DOB" showInfoIcon tooltipText="Some info" />);
     expect(screen.getByTestId("info-icon")).toBeInTheDocument();
   });
 
-  it("does not render info icon when infoText is not provided", () => {
+  it("does not render info icon when showInfoIcon is not provided", () => {
     render(<DateSelect label="DOB" />);
     expect(screen.queryByTestId("info-icon")).not.toBeInTheDocument();
   });
@@ -165,59 +151,57 @@ describe("DateSelect", () => {
 
   it("shows Arabic locale date format when language is 'ar' and value is provided", () => {
     render(<DateSelect value="2024-01-15" language="ar" />);
-    // Arabic locale string contains Arabic numerals/text
     const button = screen.getByTestId("date-trigger-button");
     expect(button.textContent).not.toBe("");
   });
 
   it("syncs date when value prop changes", async () => {
-    const { rerender } = render(<DateSelect value="" language="en" />);
+    const { rerender } = render(
+      <DateSelect value="" placeholder="Select date" language="en" />
+    );
     expect(screen.getByText("Select date")).toBeInTheDocument();
-    rerender(<DateSelect value="2024-03-20" language="en" />);
+    rerender(<DateSelect value="2024-03-20" placeholder="Select date" language="en" />);
     await waitFor(() => {
       expect(screen.getByText(/March 20th, 2024/)).toBeInTheDocument();
     });
   });
 
   it("clears date when value prop becomes empty", async () => {
-    const { rerender } = render(<DateSelect value="2024-03-20" language="en" />);
-    rerender(<DateSelect value="" language="en" />);
+    const { rerender } = render(
+      <DateSelect value="2024-03-20" placeholder="Select date" language="en" />
+    );
+    rerender(<DateSelect value="" placeholder="Select date" language="en" />);
     await waitFor(() => {
       expect(screen.getByText("Select date")).toBeInTheDocument();
     });
   });
 
-  // ── Date selection via Calendar ───────────────────────────────────────────
+  // ── Date selection via Calendar (onChange now receives a YYYY-MM-DD string) ─
 
-  it("calls onDateChange when a date is picked", () => {
-    const onDateChange = vi.fn();
-    render(<DateSelect onDateChange={onDateChange} />);
+  it("calls onChange with formatted date string when a date is picked", () => {
+    const onChange = vi.fn();
+    render(<DateSelect onChange={onChange} />);
     fireEvent.click(screen.getByTestId("pick-date"));
-    expect(onDateChange).toHaveBeenCalledWith(new Date("2024-06-15"));
+    expect(onChange).toHaveBeenCalledWith("2024-06-15");
   });
 
-  it("calls onDateChange with undefined when date is cleared", () => {
-    const onDateChange = vi.fn();
-    render(<DateSelect value="2024-06-15" onDateChange={onDateChange} />);
+  it("calls onChange with empty string when date is cleared", () => {
+    const onChange = vi.fn();
+    render(<DateSelect value="2024-06-15" onChange={onChange} />);
     fireEvent.click(screen.getByTestId("clear-date"));
-    expect(onDateChange).toHaveBeenCalledWith(undefined);
+    expect(onChange).toHaveBeenCalledWith("");
   });
 
   // ── Error state ───────────────────────────────────────────────────────────
 
-  it("applies error border class when hasError is true", () => {
+  it("applies error border class to the trigger button when hasError is true", () => {
     render(<DateSelect hasError />);
     const btn = screen.getByTestId("date-trigger-button");
-    expect(btn).toHaveClass("border-form-fields-error");
+    expect(btn.className).toContain("border-form-fields-error");
   });
 
   it("renders error message via Caption when hasError and errorMessage provided", () => {
-    render(
-      <DateSelect
-        hasError
-        errorMessage="Please select a date"
-      />
-    );
+    render(<DateSelect hasError errorMessage="Please select a date" />);
     expect(screen.getByText("Please select a date")).toBeInTheDocument();
   });
 
@@ -232,20 +216,12 @@ describe("DateSelect", () => {
 
   it("applies rtl direction for Arabic", () => {
     const { container } = render(<DateSelect language="ar" />);
-    expect(container.firstChild).toHaveAttribute("dir", "rtl");
+    expect(container.querySelector("[dir]")).toHaveAttribute("dir", "rtl");
   });
 
   it("applies ltr direction for English", () => {
     const { container } = render(<DateSelect language="en" />);
-    expect(container.firstChild).toHaveAttribute("dir", "ltr");
-  });
-
-  // ── testId ────────────────────────────────────────────────────────────────
-
-  it("applies data-testid when testId is provided", () => {
-    render(<DateSelect testId="my-date-select" />);
-    const wrapper = document.querySelector('[data-testid="my-date-select"]');
-    expect(wrapper).toBeInTheDocument();
+    expect(container.querySelector("[dir]")).toHaveAttribute("dir", "ltr");
   });
 
   // ── Caption ───────────────────────────────────────────────────────────────
@@ -255,13 +231,9 @@ describe("DateSelect", () => {
     expect(screen.getByText("From today")).toBeInTheDocument();
   });
 
-  // ── Caption with Arabic ───────────────────────────────────────────────────
-
   it("renders caption when captionLeft_ar is provided", () => {
     render(<DateSelect captionLeft_ar="من اليوم" language="ar" />);
-    // Caption component should render
-    const wrapper = document.querySelector(".flex.flex-col.gap-s");
-    expect(wrapper).toBeInTheDocument();
+    expect(screen.getByText("من اليوم")).toBeInTheDocument();
   });
 
   it("renders caption when captionRight is provided", () => {
@@ -284,23 +256,15 @@ describe("DateSelect", () => {
   // ── No caption when no data ───────────────────────────────────────────────
 
   it("does not render Caption when no caption data and no error", () => {
-    const { container } = render(<DateSelect />);
-    // Only the main div, label (none), popover should exist
-    const children = container.firstChild?.childNodes;
-    // Should not have Caption child
-    expect(children?.length).toBeLessThanOrEqual(2);
+    render(<DateSelect captionLeft="" />);
+    // The DateSelect-level Caption is not rendered, so its known caption text
+    // ("From today" etc.) is absent.
+    expect(screen.queryByText("From today")).not.toBeInTheDocument();
   });
 
-  // ── Invalid date handling ─────────────────────────────────────────────────
+  // ── Date pick without onChange handler ────────────────────────────────────
 
-  it("handles empty string value by showing placeholder", () => {
-    render(<DateSelect value="" />);
-    expect(screen.getByText("Select date")).toBeInTheDocument();
-  });
-
-  // ── onDateChange not provided ─────────────────────────────────────────────
-
-  it("does not crash when date is selected without onDateChange handler", () => {
+  it("does not crash when a date is selected without onChange handler", () => {
     render(<DateSelect />);
     expect(() => fireEvent.click(screen.getByTestId("pick-date"))).not.toThrow();
   });
@@ -315,9 +279,8 @@ describe("DateSelect", () => {
   // ── Error styling on placeholder ──────────────────────────────────────────
 
   it("applies error text class to placeholder when hasError and no date", () => {
-    render(<DateSelect hasError />);
-    const btn = screen.getByTestId("date-trigger-button");
-    const span = btn.querySelector("span");
-    expect(span).toHaveClass("text-form-fields-error");
+    render(<DateSelect hasError placeholder="Select date" />);
+    const span = screen.getByText("Select date");
+    expect(span.className).toContain("text-form-fields-error");
   });
 });

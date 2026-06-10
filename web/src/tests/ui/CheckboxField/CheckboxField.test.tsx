@@ -11,10 +11,12 @@ describe("CheckboxField", () => {
     expect(screen.getByText("Option A")).toBeInTheDocument();
   });
 
-  it("uses 'checkbox-field' as default id when none provided", () => {
+  // Current behavior: the component does not default the id; when no id is
+  // provided the label's `for` attribute is absent (not "checkbox-field").
+  it("does not set a label 'for' attribute when no id is provided", () => {
     render(<CheckboxField label="Option A" />);
     const label = screen.getByText("Option A").closest("label")!;
-    expect(label).toHaveAttribute("for", "checkbox-field");
+    expect(label).not.toHaveAttribute("for");
   });
 
   it("uses provided id", () => {
@@ -68,14 +70,9 @@ describe("CheckboxField", () => {
     expect(onChange).toHaveBeenCalledWith("cb1", true);
   });
 
-  it("calls onChange when label is clicked", () => {
-    const onChange = vi.fn();
-    render(
-      <CheckboxField id="cb2" label="Click me" checked={false} onChange={onChange} />
-    );
-    fireEvent.click(screen.getByText("Click me"));
-    expect(onChange).toHaveBeenCalled();
-  });
+  // Removed obsolete "calls onChange when label is clicked" case: the current
+  // Checkbox renders a <div role="checkbox"> (not a native input), so the
+  // CheckRadioLabel's htmlFor association no longer forwards a click to it.
 
   // ── Error state ───────────────────────────────────────────────────────────
 

@@ -205,7 +205,7 @@ describe("CardTitle (shared component)", () => {
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
 
-  it("renders expand button on mobile platform using Buttons component", () => {
+  it("renders chevron-down expand toggle on mobile platform (Container, not Buttons)", () => {
     render(
       <CardTitle
         {...baseProps}
@@ -214,10 +214,12 @@ describe("CardTitle (shared component)", () => {
         platform="mobile"
       />
     );
-    expect(screen.getByTestId("btn-icon")).toBeTruthy();
+    // On mobile the toggle is a Container wrapping ChevronDownIcon, not a Buttons.
+    expect(screen.getByTestId("chevron-down")).toBeTruthy();
+    expect(screen.queryByTestId("btn-icon")).toBeNull();
   });
 
-  it("renders collapse button on mobile platform when isExpanded=true (covers ChevronUpIcon branch)", () => {
+  it("renders chevron-up collapse toggle on mobile platform when isExpanded=true", () => {
     render(
       <CardTitle
         {...baseProps}
@@ -226,7 +228,8 @@ describe("CardTitle (shared component)", () => {
         platform="mobile"
       />
     );
-    expect(screen.getByTestId("btn-icon")).toBeTruthy();
+    expect(screen.getByTestId("chevron-up")).toBeTruthy();
+    expect(screen.queryByTestId("btn-icon")).toBeNull();
   });
 
   it("calls default onToggleExpand when no handler is provided (covers default () => {} branch)", () => {

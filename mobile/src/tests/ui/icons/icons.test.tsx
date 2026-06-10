@@ -59,6 +59,17 @@ import {
   AppMessageSuccessIcon,
   AppMessageErrorIcon,
   AppMessageInformationIcon,
+  AppMessageActionIcon,
+  DocumentIcon,
+  PlotIcon,
+  OwnerIcon,
+  CompanyIcon,
+  HomeIcon,
+  CommunityIcon,
+  ServicesIcon,
+  ChallengesIcon,
+  AdminIcon,
+  PlusIcon,
 } from "@platform/icons/index";
 
 describe("Icons", () => {
@@ -234,5 +245,94 @@ describe("Icons", () => {
   it("ChevronLeftIcon passes color to SVG element", () => {
     render(<ChevronLeftIcon color="red" />);
     expect(screen.UNSAFE_getAllByType(require("react-native").View).length).toBeGreaterThan(0);
+  });
+
+  // ── Additional status / entity / nav icons ─────────────────────────────────
+
+  describe("AppMessageActionIcon", () => {
+    it("renders without crashing", () => {
+      expect(() => render(<AppMessageActionIcon />)).not.toThrow();
+    });
+  });
+
+  describe("DocumentIcon", () => {
+    it("renders without crashing", () => {
+      expect(() => render(<DocumentIcon />)).not.toThrow();
+    });
+  });
+
+  describe("PlotIcon", () => {
+    it("renders without crashing", () => {
+      expect(() => render(<PlotIcon />)).not.toThrow();
+    });
+    it("renders with className prop", () => {
+      expect(() => render(<PlotIcon className="x" />)).not.toThrow();
+    });
+  });
+
+  describe("OwnerIcon", () => {
+    it("renders without crashing", () => {
+      expect(() => render(<OwnerIcon />)).not.toThrow();
+    });
+  });
+
+  describe("CompanyIcon", () => {
+    it("renders without crashing", () => {
+      expect(() => render(<CompanyIcon />)).not.toThrow();
+    });
+  });
+
+  describe("HomeIcon", () => {
+    it("renders with defaults", () => {
+      expect(() => render(<HomeIcon />)).not.toThrow();
+    });
+    it("renders with custom color", () => {
+      expect(() => render(<HomeIcon color="#000000" />)).not.toThrow();
+    });
+  });
+
+  describe("CommunityIcon", () => {
+    it("renders with defaults", () => {
+      expect(() => render(<CommunityIcon />)).not.toThrow();
+    });
+    it("renders with custom color", () => {
+      expect(() => render(<CommunityIcon color="#111111" />)).not.toThrow();
+    });
+  });
+
+  describe("ServicesIcon", () => {
+    it("renders with defaults", () => {
+      expect(() => render(<ServicesIcon />)).not.toThrow();
+    });
+    it("renders with custom color", () => {
+      expect(() => render(<ServicesIcon color="#222222" />)).not.toThrow();
+    });
+  });
+
+  describe("ChallengesIcon", () => {
+    it("renders with defaults", () => {
+      expect(() => render(<ChallengesIcon />)).not.toThrow();
+    });
+    it("renders with custom color", () => {
+      expect(() => render(<ChallengesIcon color="#333333" />)).not.toThrow();
+    });
+  });
+
+  describe("AdminIcon", () => {
+    it("renders with defaults", () => {
+      expect(() => render(<AdminIcon />)).not.toThrow();
+    });
+    it("renders with custom color", () => {
+      expect(() => render(<AdminIcon color="#444444" />)).not.toThrow();
+    });
+  });
+
+  describe("PlusIcon", () => {
+    it("renders with defaults", () => {
+      expect(() => render(<PlusIcon />)).not.toThrow();
+    });
+    it("renders with custom size and color", () => {
+      expect(() => render(<PlusIcon size={20} color="#555555" />)).not.toThrow();
+    });
   });
 });

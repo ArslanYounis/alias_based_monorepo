@@ -42,11 +42,13 @@ describe("SwitchButton", () => {
     expect(thumb).toHaveClass("bg-text-link");
   });
 
-  it("thumb is translated to 24px when type='Standard'", () => {
+  // Thumb translation is now driven by the peer-checked:translate-x-5 utility
+  // class (applied when the checkbox is checked, i.e. type='Standard').
+  it("thumb has peer-checked:translate-x-5 class when type='Standard'", () => {
     render(<SwitchButton type="Standard" onToggle={vi.fn()} />);
     const divs = document.querySelectorAll("label > div");
     const thumb = divs[1] as HTMLElement;
-    expect(thumb.style.transform).toBe("translateX(24px)");
+    expect(thumb).toHaveClass("peer-checked:translate-x-5");
   });
 
   // ── Type!=Standard (off position) ─────────────────────────────────────────
@@ -64,11 +66,15 @@ describe("SwitchButton", () => {
     expect(thumb).toHaveClass("bg-text-dimmed");
   });
 
-  it("thumb is at translateX(0) when type is not 'Standard'", () => {
+  // When not Standard the checkbox is unchecked so peer-checked:translate-x-5
+  // does not take effect, leaving the thumb in its base (off) position.
+  it("checkbox is unchecked so thumb stays in off position when type is not 'Standard'", () => {
     render(<SwitchButton type="Compact" onToggle={vi.fn()} />);
+    const input = screen.getByRole("checkbox") as HTMLInputElement;
+    expect(input.checked).toBe(false);
     const divs = document.querySelectorAll("label > div");
     const thumb = divs[1] as HTMLElement;
-    expect(thumb.style.transform).toBe("translateX(0)");
+    expect(thumb.style.transform).toBe("");
   });
 
   // ── onToggle ───────────────────────────────────────────────────────────────

@@ -46,8 +46,9 @@ describe("Prompt (web)", () => {
   const defaultProps = {
     title: "Are you sure?",
     title_ar: "هل أنت متأكد؟",
-    subtitle: "This action cannot be undone.",
-    subtitle_ar: "لا يمكن التراجع عن هذا الإجراء.",
+    // Note: PromptProps uses the (misspelled) `subtiltle` / `subtiltle_ar` keys.
+    subtiltle: "This action cannot be undone.",
+    subtiltle_ar: "لا يمكن التراجع عن هذا الإجراء.",
     onYesClick: vi.fn(),
     onNoClick: vi.fn(),
   };

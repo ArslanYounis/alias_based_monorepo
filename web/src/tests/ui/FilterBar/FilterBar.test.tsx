@@ -162,7 +162,12 @@ describe("FilterBar (web)", () => {
     render(<FilterBar onSearchChange={onSearchChange} />);
     const input = screen.getByTestId("search-field");
     fireEvent.change(input, { target: { value: "abc" } });
-    expect(onSearchChange).toHaveBeenCalledWith("abc");
+    // Current FilterBar forwards the raw change event (not the string) to
+    // onSearchChange. The SearchField mock is controlled by the searchValue
+    // prop, so we only assert the handler fires with a change event.
+    expect(onSearchChange).toHaveBeenCalledTimes(1);
+    const arg = onSearchChange.mock.calls[0][0];
+    expect(arg).toHaveProperty("target");
   });
 
   it("uses controlled searchValue when onSearchChange is provided", () => {

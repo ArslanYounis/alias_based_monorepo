@@ -177,8 +177,10 @@ describe("ViewPlotDetail", () => {
   });
 
   it("renders plot number", () => {
+    // plotNumber now appears twice: in the "Plot Number" row and the
+    // "Plot File Number" row (which now shows plotNumber, not a FILE-xxx value).
     render(<ViewPlotDetail plotIds={["p1"]} />);
-    expect(screen.getByText("PLT-001")).toBeTruthy();
+    expect(screen.getAllByText("PLT-001").length).toBeGreaterThanOrEqual(2);
   });
 
   it("renders municipality name", () => {
@@ -239,8 +241,9 @@ describe("ViewPlotDetail", () => {
   });
 
   it("renders 'No' for hasSpecialNationality=false", () => {
+    // "No" now appears in multiple rows (Block and Special Nationality).
     render(<ViewPlotDetail plotIds={["p1"]} />);
-    expect(screen.getByText("No")).toBeTruthy();
+    expect(screen.getAllByText("No").length).toBeGreaterThanOrEqual(1);
   });
 
   it("renders 'Yes' for hasSpecialNationality=true", () => {

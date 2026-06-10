@@ -1,8 +1,21 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ApplicationSummary from "@shared/components/ApplicationSummary/ApplicationSummary";
 import type { UiBlock } from "@shared/components/ApplicationSummary/ApplicationSummary.types";
+
+// The "documents" block now renders @platform/UploadDocuments directly, which
+// uses react-query (useUploadFile). Renders containing that block must be
+// wrapped in a QueryClientProvider.
+const renderWithClient = (ui: React.ReactElement) => {
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  });
+  return render(
+    <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
+  );
+};
 
 const agentBlock: UiBlock = {
   type: "agent",
@@ -269,34 +282,27 @@ describe("ApplicationSummary (shared component – web platform)", () => {
     expect(screen.getByText("APP-999")).toBeInTheDocument();
   });
 
-  it("renders documents block with DocumentsComponent", () => {
-    const DocumentsComponent: React.ComponentType<{ documents?: unknown[]; language?: string }> = () => (
-      <div>My Documents</div>
-    );
+  it("renders documents block with its title (UploadDocuments)", () => {
+    // The documents block now renders the platform UploadDocuments component
+    // directly (DocumentsComponent prop was removed). It renders the block
+    // title via CardTitle and the upload UI underneath.
     const docsBlock: UiBlock = {
       type: "documents",
       title: "Documents",
       title_ar: "المستندات",
       data: { documents: [] },
     };
-    render(
-      <ApplicationSummary
-        data={[[docsBlock]]}
-        language="en"
-        DocumentsComponent={DocumentsComponent as never}
-      />
-    );
-    expect(screen.getByText("My Documents")).toBeInTheDocument();
+    renderWithClient(<ApplicationSummary data={[[docsBlock]]} language="en" />);
+    expect(screen.getByText("Documents")).toBeInTheDocument();
   });
 
-  it("does not render documents content when DocumentsComponent not provided", () => {
+  it("renders documents block without crashing when documents data is empty", () => {
     const docsBlock: UiBlock = {
       type: "documents",
       title: "Docs",
       data: {},
     };
-    render(<ApplicationSummary data={[[docsBlock]]} language="en" />);
-    // Just verifies no crash
+    renderWithClient(<ApplicationSummary data={[[docsBlock]]} language="en" />);
     expect(screen.getByText("Application Summary")).toBeInTheDocument();
   });
 

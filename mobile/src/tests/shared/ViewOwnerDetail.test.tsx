@@ -161,16 +161,8 @@ describe("ViewOwnerDetail", () => {
   });
 
   // ── View button ───────────────────────────────────────────────────────────
-
-  it("renders View button", () => {
-    render(<ViewOwnerDetail />);
-    expect(screen.getByTestId("btn-View")).toBeTruthy();
-  });
-
-  it("renders Arabic View button when language='ar'", () => {
-    render(<ViewOwnerDetail language="ar" />);
-    expect(screen.getByTestId("btn-عرض")).toBeTruthy();
-  });
+  // The "View"/"عرض" button is now commented out in ViewOwnerDetail source,
+  // so the button-presence test cases have been removed.
 
   // ── Default owner fallback ────────────────────────────────────────────────
 

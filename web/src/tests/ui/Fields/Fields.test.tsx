@@ -51,13 +51,25 @@ vi.mock("@platform/Checkbox", () => ({
   ),
 }));
 
-vi.mock("@platform/DateSelect", () => ({
-  DateSelect: ({ onDateChange, placeholder }: { onDateChange: (d: Date | null) => void; placeholder?: string }) => (
+// Fields renders DateInput (not DateSelect) for type="date". Mock the inner
+// DateInput so we can drive onDateChange deterministically. The alias
+// "@platform/DateInput" resolves to the same module Fields imports via
+// "../DateInput".
+vi.mock("@platform/DateInput", () => ({
+  DateInput: ({
+    onDateChange,
+    placeholder,
+  }: {
+    onDateChange: (d: Date | null) => void;
+    placeholder?: string;
+  }) => (
     <input
       type="date"
       placeholder={placeholder}
       data-testid="date-select"
-      onChange={(e) => onDateChange(e.target.value ? new Date(e.target.value) : null)}
+      onChange={(e) =>
+        onDateChange(e.target.value ? new Date(e.target.value) : null)
+      }
     />
   ),
 }));

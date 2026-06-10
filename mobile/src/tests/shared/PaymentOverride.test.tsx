@@ -251,14 +251,16 @@ describe("PaymentOverride", () => {
 
   // ── Static info rows ──────────────────────────────────────────────────────
 
-  it("renders Service Name label", () => {
+  it("renders Payment Name label", () => {
+    // Default serviceName label changed from "Service Name" to "Payment Name".
     render(<PaymentOverride {...defaultProps} />);
-    expect(screen.getByText("Service Name")).toBeTruthy();
+    expect(screen.getByText("Payment Name")).toBeTruthy();
   });
 
-  it("renders Arabic Service Name label when language='ar'", () => {
+  it("renders Arabic Payment Name label when language='ar'", () => {
+    // Default serviceName_ar label changed to "اسم خدمة الدفع".
     render(<PaymentOverride {...defaultProps} language="ar" />);
-    expect(screen.getByText("اسم الخدمة")).toBeTruthy();
+    expect(screen.getByText("اسم خدمة الدفع")).toBeTruthy();
   });
 
   it("renders ServiceName value", () => {
@@ -485,5 +487,142 @@ describe("PaymentOverride", () => {
     );
     // The component passes `PaymentFee_ar ?? PaymentFee` so will render "500"
     expect(screen.getByText("500")).toBeTruthy();
+  });
+
+  // ── validateField via TextInput onChange ─────────────────────────────────────
+  // platform="mobile" makes the mock TextInput render labelled testIDs.
+
+  it("shows a validation error on the Amount field when value is below the fee", () => {
+    // PaymentFee=500; entering "100" fails the >= refine -> error set for amount.
+    render(<PaymentOverride {...defaultProps} platform="mobile" />);
+    act(() => {
+      fireEvent.changeText(screen.getByTestId("text-input-Amount"), "100");
+    });
+    expect(mockFieldHandleChange).toHaveBeenCalledWith("100");
+    expect(screen.getByTestId("error-Amount")).toBeTruthy();
+  });
+
+  it("shows a validation error on Amount when value is not a number", () => {
+    render(<PaymentOverride {...defaultProps} platform="mobile" />);
+    act(() => {
+      fireEvent.changeText(screen.getByTestId("text-input-Amount"), "abc");
+    });
+    expect(screen.getByTestId("error-Amount")).toBeTruthy();
+  });
+
+  it("does not error the Reference Number field for a valid value", () => {
+    render(<PaymentOverride {...defaultProps} platform="mobile" />);
+    act(() => {
+      fireEvent.changeText(
+        screen.getByTestId("text-input-Reference Number"),
+        "REF-123"
+      );
+    });
+    expect(mockFieldHandleChange).toHaveBeenCalledWith("REF-123");
+    expect(screen.queryByTestId("error-Reference Number")).toBeNull();
+  });
+
+  it("clears a previously set field error when a valid value is entered", () => {
+    render(<PaymentOverride {...defaultProps} platform="mobile" />);
+    // First set an error on amount
+    act(() => {
+      fireEvent.changeText(screen.getByTestId("text-input-Amount"), "1");
+    });
+    expect(screen.getByTestId("error-Amount")).toBeTruthy();
+    // Then enter a valid amount (>= 500) which clears it
+    act(() => {
+      fireEvent.changeText(screen.getByTestId("text-input-Amount"), "600");
+    });
+    expect(screen.queryByTestId("error-Amount")).toBeNull();
+  });
+
+  it("validates the Receipt Date field via onChange", () => {
+    render(<PaymentOverride {...defaultProps} platform="mobile" />);
+    act(() => {
+      fireEvent.changeText(
+        screen.getByTestId("text-input-Receipt Date"),
+        "2024-02-02"
+      );
+    });
+    expect(mockFieldHandleChange).toHaveBeenCalledWith("2024-02-02");
+  });
+
+  it("validates with non-numeric PaymentFee (paymentFeeNumber=null amount refine)", () => {
+    // With a null fee, the >= refine always passes; "10" only needs to be numeric.
+    render(
+      <PaymentOverride {...defaultProps} PaymentFee="abc" platform="mobile" />
+    );
+    act(() => {
+      fireEvent.changeText(screen.getByTestId("text-input-Amount"), "10");
+    });
+    expect(screen.queryByTestId("error-Amount")).toBeNull();
+  });
+
+  // ── form.onSubmit failure path (safeParse fails -> setErrors) ─────────────────
+
+  it("sets field errors when submitted form values are invalid", async () => {
+    // Override useForm so its onSubmit receives invalid (empty) values.
+    mockUseForm.mockImplementationOnce(({ onSubmit }: any) => ({
+      Field: ({ children, name }: any) =>
+        children({
+          state: { value: name === "ignoreDuplicate" ? true : "", meta: { errors: [] } },
+          handleChange: mockFieldHandleChange,
+          handleBlur: mockFieldHandleBlur,
+          name,
+        }),
+      handleSubmit: jest.fn(async () => {
+        await onSubmit?.({
+          value: {
+            referenceNumber: "",
+            receiptDate: "",
+            amount: "",
+            ignoreDuplicate: true,
+          },
+        });
+      }),
+      state: {
+        values: {
+          referenceNumber: "",
+          receiptDate: "",
+          amount: "",
+          ignoreDuplicate: true,
+        },
+      },
+    }));
+
+    render(<PaymentOverride {...defaultProps} platform="mobile" />);
+    await act(async () => {
+      fireEvent.press(screen.getByTestId("btn-Override Payment"));
+    });
+    // safeParse fails for empty required fields -> errors rendered on inputs.
+    expect(screen.getByTestId("error-Reference Number")).toBeTruthy();
+    expect(screen.getByTestId("error-Receipt Date")).toBeTruthy();
+    expect(screen.getByTestId("error-Amount")).toBeTruthy();
+  });
+
+  it("uses Arabic validation messages when language='ar' on invalid submit", async () => {
+    mockUseForm.mockImplementationOnce(({ onSubmit }: any) => ({
+      Field: ({ children, name }: any) =>
+        children({
+          state: { value: name === "ignoreDuplicate" ? true : "", meta: { errors: [] } },
+          handleChange: mockFieldHandleChange,
+          handleBlur: mockFieldHandleBlur,
+          name,
+        }),
+      handleSubmit: jest.fn(async () => {
+        await onSubmit?.({
+          value: { referenceNumber: "", receiptDate: "", amount: "", ignoreDuplicate: true },
+        });
+      }),
+      state: {
+        values: { referenceNumber: "", receiptDate: "", amount: "", ignoreDuplicate: true },
+      },
+    }));
+
+    render(<PaymentOverride {...defaultProps} language="ar" platform="mobile" />);
+    await act(async () => {
+      fireEvent.press(screen.getByTestId("btn-تجاوز الدفع"));
+    });
+    expect(screen.getByText("حقل رقم المرجع مطلوب")).toBeTruthy();
   });
 });

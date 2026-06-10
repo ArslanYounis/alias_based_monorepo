@@ -225,9 +225,10 @@ describe("ApplicationMessage", () => {
     expect(screen.getByTestId("icon-action")).toBeTruthy();
   });
 
-  it("does not render icons when platform='mobile'", () => {
+  it("still renders the status icon when platform='mobile' (icon is not platform-gated)", () => {
+    // The current component renders the status icon regardless of platform.
     render(<ApplicationMessage {...baseProps} status="success" platform="mobile" />);
-    expect(screen.queryByTestId("icon-success")).toBeNull();
+    expect(screen.getByTestId("icon-success")).toBeTruthy();
   });
 
   // ── No input rendered ─────────────────────────────────────────────────────

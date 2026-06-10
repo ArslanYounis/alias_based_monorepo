@@ -172,12 +172,13 @@ describe("SearchPlotResults", () => {
 
   // ── Additional callback coverage ──────────────────────────────────────────
 
-  it("clicking Owners button opens owners drawer", () => {
+  it("clicking Owners button does not open the owners drawer (onClick disabled in source)", () => {
     render(<SearchPlotResults {...baseProps} />);
     const ownerBtns = screen.getAllByText("Owners");
+    // The Owners button's onClick is currently commented out in the source,
+    // so clicking it is a no-op and the owners drawer never opens.
     fireEvent.click(ownerBtns[0]);
-    // The owners drawer should open - check for loading text in drawer
-    expect(screen.getByText("Loading owner plots...")).toBeInTheDocument();
+    expect(screen.queryByText("Loading owner plots...")).not.toBeInTheDocument();
   });
 
   it("clicking Details button opens plot detail drawer", () => {

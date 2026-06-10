@@ -45,12 +45,18 @@ import { ApplicationCard } from "@platform/ApplicationCard/ApplicationCard";
 
 const makeCard = (overrides?: Partial<{
   id: string;
+  title: string;
+  location: string;
+  date: string;
   remaining: string;
   complete: number;
   approval: number;
   inprogress: number;
 }>) => ({
   id: overrides?.id ?? "APP-001",
+  title: overrides?.title ?? "Application Title",
+  location: overrides?.location ?? "Abu Dhabi",
+  date: overrides?.date ?? "01 Jan 2026",
   remaining: overrides?.remaining ?? "3 days remaining",
   stage: {
     complete: overrides?.complete ?? 0,
@@ -71,11 +77,20 @@ describe("ApplicationCard", () => {
     expect(screen.getByText("APP-123")).toBeTruthy();
   });
 
-  it("renders cardsData.remaining", () => {
+  // NOTE: source no longer renders `remaining`; it now renders title/location/date.
+  it("renders cardsData.title, location and date", () => {
     render(
-      <ApplicationCard cardsData={makeCard({ remaining: "5 days left" })} />
+      <ApplicationCard
+        cardsData={makeCard({
+          title: "Plot Application",
+          location: "Al Ain",
+          date: "12 Mar 2026",
+        })}
+      />
     );
-    expect(screen.getByText("5 days left")).toBeTruthy();
+    expect(screen.getByText("Plot Application")).toBeTruthy();
+    expect(screen.getByText("Al Ain")).toBeTruthy();
+    expect(screen.getByText("12 Mar 2026")).toBeTruthy();
   });
 
   // ── Default 6 status balls ─────────────────────────────────────────────

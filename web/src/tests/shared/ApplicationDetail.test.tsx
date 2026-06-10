@@ -1,255 +1,130 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import ApplicationDetail from "@shared/components/ApplicationDetail/ApplicationDetail";
 
-// Mock the data-fetching hook so we control what it returns
-vi.mock("@shared/hooks/useGetApplicationDetails", () => ({
-  useGetApplicationDetails: vi.fn(),
-}));
-
-import { useGetApplicationDetails } from "@shared/hooks/useGetApplicationDetails";
-
-const mockData = {
-  result: {
-    application: {
-      applicationNumber: "APP-2024-001",
-      applicationCreatedDate: "2024-01-15",
-      applicationReferenceNumber: "REF-001",
-    },
-    owners: [
-      {
-        ownerNameE: "John Smith",
-        ownerNameA: "جون سميث",
-      },
-    ],
-    plot: {
-      plotNumber: "PLT-001",
-    },
-    steps: [
-      {
-        stepConst: "Submit Application",
-        status: 2,
-        actionUser: { userNameE: "Admin", userNameA: "المسؤول" },
-        actionDate: "2024-01-15",
-      },
-      {
-        stepConst: "Review",
-        status: 1,
-        actionUser: { userNameE: "Reviewer", userNameA: "المراجع" },
-        actionDate: "",
-      },
-    ],
-    documents: [
-      {
-        documentNameE: "ID Document",
-        documentNameA: "وثيقة الهوية",
-        attachmentList: [
-          {
-            downloadUrl: "https://example.com/doc.pdf",
-          },
-        ],
-      },
-      {
-        documentNameE: "Passport",
-        documentNameA: "جواز السفر",
-        attachmentList: [],
-      },
-    ],
-  },
-};
-
-const baseProps = {
-  applicationId: "app-1",
-  applicationTitle: "Land Application",
-  applicationTitle_ar: "طلب أرض",
-  language: "en" as const,
-};
+// NOTE: The previous version of this test targeted an older, hook-driven
+// ApplicationDetail (owners / plots / documents / interaction history fetched
+// via useGetApplicationDetails). That component was replaced. The current
+// ApplicationDetail is a presentational, props-driven card showing application
+// number / date / reference number plus a single action button. The
+// (now obsolete) ApplicationSummaryDetail component was folded into this one,
+// so its old test file has been removed and its coverage merged here.
 
 describe("ApplicationDetail (shared component – web platform)", () => {
-  beforeEach(() => {
-    vi.mocked(useGetApplicationDetails).mockReturnValue({
-      data: mockData,
-      isLoading: false,
-      isError: false,
-    } as ReturnType<typeof useGetApplicationDetails>);
-  });
-
   it("renders without crashing", () => {
-    render(<ApplicationDetail {...baseProps} />);
+    render(<ApplicationDetail />);
   });
 
-  it("shows loading state", () => {
-    vi.mocked(useGetApplicationDetails).mockReturnValue({
-      data: undefined,
-      isLoading: true,
-      isError: false,
-    } as ReturnType<typeof useGetApplicationDetails>);
-    render(<ApplicationDetail {...baseProps} language="en" />);
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+  it("renders the default title 'Application Detail' in English", () => {
+    render(<ApplicationDetail language="en" />);
+    expect(screen.getByText("Application Detail")).toBeInTheDocument();
   });
 
-  it("shows Arabic loading text when language is 'ar'", () => {
-    vi.mocked(useGetApplicationDetails).mockReturnValue({
-      data: undefined,
-      isLoading: true,
-      isError: false,
-    } as ReturnType<typeof useGetApplicationDetails>);
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(screen.getByText("جارٍ التحميل...")).toBeInTheDocument();
+  it("renders custom title in English", () => {
+    render(
+      <ApplicationDetail title="App Info" title_ar="معلومات الطلب" language="en" />
+    );
+    expect(screen.getByText("App Info")).toBeInTheDocument();
   });
 
-  it("shows error state", () => {
-    vi.mocked(useGetApplicationDetails).mockReturnValue({
-      data: undefined,
-      isLoading: false,
-      isError: true,
-    } as ReturnType<typeof useGetApplicationDetails>);
-    render(<ApplicationDetail {...baseProps} language="en" />);
-    expect(screen.getByText("Error loading application details.")).toBeInTheDocument();
+  it("renders Arabic title when language is 'ar'", () => {
+    render(
+      <ApplicationDetail title="App Info" title_ar="معلومات الطلب" language="ar" />
+    );
+    expect(screen.getByText("معلومات الطلب")).toBeInTheDocument();
   });
 
-  it("shows Arabic error text when language is 'ar'", () => {
-    vi.mocked(useGetApplicationDetails).mockReturnValue({
-      data: undefined,
-      isLoading: false,
-      isError: true,
-    } as ReturnType<typeof useGetApplicationDetails>);
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(screen.getByText("خطأ في تحميل تفاصيل التطبيق.")).toBeInTheDocument();
-  });
-
-  it("renders the application title in English", () => {
-    render(<ApplicationDetail {...baseProps} language="en" />);
-    expect(screen.getByText("Land Application")).toBeInTheDocument();
-  });
-
-  it("renders the application title in Arabic", () => {
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(screen.getByText("طلب أرض")).toBeInTheDocument();
-  });
-
-  it("renders Application Number label and value", () => {
-    render(<ApplicationDetail {...baseProps} language="en" />);
+  it("renders Application Number label and value in English", () => {
+    render(<ApplicationDetail applicationNumber="APP-001" language="en" />);
     expect(screen.getByText("Application Number")).toBeInTheDocument();
-    expect(screen.getByText("APP-2024-001")).toBeInTheDocument();
+    expect(screen.getByText("APP-001")).toBeInTheDocument();
   });
 
-  it("renders Arabic labels when language is 'ar'", () => {
-    render(<ApplicationDetail {...baseProps} language="ar" />);
+  it("renders Arabic Application Number label when language is 'ar'", () => {
+    render(
+      <ApplicationDetail
+        applicationNumber="APP-001"
+        applicationNumber_ar="طلب-001"
+        language="ar"
+      />
+    );
     expect(screen.getByText("رقم الطلب")).toBeInTheDocument();
+    expect(screen.getByText("طلب-001")).toBeInTheDocument();
   });
 
-  it("renders owner section with owner name in English", () => {
-    render(<ApplicationDetail {...baseProps} language="en" />);
-    expect(screen.getByText("John Smith")).toBeInTheDocument();
-    expect(screen.getByText("Owner")).toBeInTheDocument();
+  it("renders Application Date row when date is provided", () => {
+    render(<ApplicationDetail applicationDate="2024-01-15" language="en" />);
+    expect(screen.getByText("Application Date")).toBeInTheDocument();
+    expect(screen.getByText("2024-01-15")).toBeInTheDocument();
   });
 
-  it("renders owner name in Arabic", () => {
-    render(<ApplicationDetail {...baseProps} language="ar" />);
-    expect(screen.getByText("جون سميث")).toBeInTheDocument();
-  });
-
-  it("renders owner action buttons in English", () => {
-    render(<ApplicationDetail {...baseProps} language="en" />);
-    // View may appear multiple times (owner View + plot View)
-    expect(screen.getAllByText("View").length).toBeGreaterThan(0);
-    expect(screen.getByText("Plots")).toBeInTheDocument();
-    expect(screen.getByText("Edit Contact")).toBeInTheDocument();
-  });
-
-  it("calls onOwnerClick with 'view' action", () => {
-    const onOwnerClick = vi.fn();
-    render(
-      <ApplicationDetail {...baseProps} language="en" onOwnerClick={onOwnerClick} />
-    );
-    // Click the first "View" button (owner view)
-    fireEvent.click(screen.getAllByText("View")[0]);
-    expect(onOwnerClick).toHaveBeenCalledWith({
-      ownerData: mockData.result.owners[0],
-      action: "view",
-    });
-  });
-
-  it("calls onOwnerClick with 'plot' action", () => {
-    const onOwnerClick = vi.fn();
-    render(
-      <ApplicationDetail {...baseProps} language="en" onOwnerClick={onOwnerClick} />
-    );
-    fireEvent.click(screen.getByText("Plots"));
-    expect(onOwnerClick).toHaveBeenCalledWith({
-      ownerData: mockData.result.owners[0],
-      action: "plot",
-    });
-  });
-
-  it("renders plot section with plot number", () => {
-    render(<ApplicationDetail {...baseProps} language="en" />);
-    expect(screen.getByText("PLT-001")).toBeInTheDocument();
-  });
-
-  it("renders interaction history section", () => {
-    render(<ApplicationDetail {...baseProps} language="en" />);
-    expect(screen.getByText("Interaction History")).toBeInTheDocument();
-    expect(screen.getByText("Submit Application")).toBeInTheDocument();
-    expect(screen.getByText("Review")).toBeInTheDocument();
-  });
-
-  it("renders Complete badge for completed step", () => {
-    render(<ApplicationDetail {...baseProps} language="en" />);
-    expect(screen.getByText("Complete")).toBeInTheDocument();
-  });
-
-  it("renders documents section", () => {
-    render(<ApplicationDetail {...baseProps} language="en" />);
-    expect(screen.getByText("Documents")).toBeInTheDocument();
-    expect(screen.getByText("ID Document")).toBeInTheDocument();
-    expect(screen.getByText("Passport")).toBeInTheDocument();
-  });
-
-  it("calls onDocumentOpen when document with attachment is clicked", () => {
-    const onDocumentOpen = vi.fn();
+  it("renders Arabic Application Date label when language is 'ar'", () => {
     render(
       <ApplicationDetail
-        {...baseProps}
-        language="en"
-        onDocumentOpen={onDocumentOpen}
+        applicationDate="2024-01-15"
+        applicationDate_ar="٢٠٢٤-٠١-١٥"
+        language="ar"
       />
     );
-    fireEvent.click(screen.getByText("ID Document"));
-    expect(onDocumentOpen).toHaveBeenCalledWith("https://example.com/doc.pdf");
+    expect(screen.getByText("تاريخ الطلب")).toBeInTheDocument();
   });
 
-  it("does not call onDocumentOpen for document without attachment", () => {
-    const onDocumentOpen = vi.fn();
+  it("does not render Application Date row when date is empty", () => {
+    render(<ApplicationDetail language="en" />);
+    expect(screen.queryByText("Application Date")).not.toBeInTheDocument();
+  });
+
+  it("renders Reference Number row when reference is provided", () => {
+    render(<ApplicationDetail referenceNumber="REF-2024-001" language="en" />);
+    expect(screen.getByText("Reference Number")).toBeInTheDocument();
+    expect(screen.getByText("REF-2024-001")).toBeInTheDocument();
+  });
+
+  it("does not render Reference Number row when reference is empty", () => {
+    render(<ApplicationDetail language="en" />);
+    expect(screen.queryByText("Reference Number")).not.toBeInTheDocument();
+  });
+
+  it("renders View button by default", () => {
+    render(<ApplicationDetail language="en" />);
+    expect(screen.getByText("View")).toBeInTheDocument();
+  });
+
+  it("does not render button when showButton is false", () => {
+    render(<ApplicationDetail showButton={false} language="en" />);
+    expect(screen.queryByText("View")).not.toBeInTheDocument();
+  });
+
+  it("renders custom button title", () => {
     render(
-      <ApplicationDetail
-        {...baseProps}
-        language="en"
-        onDocumentOpen={onDocumentOpen}
-      />
+      <ApplicationDetail buttonTitle="Open" buttonTitle_ar="فتح" language="en" />
     );
-    fireEvent.click(screen.getByText("Passport"));
-    expect(onDocumentOpen).not.toHaveBeenCalled();
+    expect(screen.getByText("Open")).toBeInTheDocument();
   });
 
-  it("renders no owner section when owners array is empty", () => {
-    vi.mocked(useGetApplicationDetails).mockReturnValue({
-      data: { result: { ...mockData.result, owners: [] } },
-      isLoading: false,
-      isError: false,
-    } as ReturnType<typeof useGetApplicationDetails>);
-    render(<ApplicationDetail {...baseProps} language="en" />);
-    expect(screen.queryByText("Owner")).not.toBeInTheDocument();
+  it("renders Arabic button title when language is 'ar'", () => {
+    render(
+      <ApplicationDetail buttonTitle="Open" buttonTitle_ar="فتح" language="ar" />
+    );
+    expect(screen.getByText("فتح")).toBeInTheDocument();
   });
 
-  it("renders no plot section when plot is null", () => {
-    vi.mocked(useGetApplicationDetails).mockReturnValue({
-      data: { result: { ...mockData.result, plot: null } },
-      isLoading: false,
-      isError: false,
-    } as ReturnType<typeof useGetApplicationDetails>);
-    render(<ApplicationDetail {...baseProps} language="en" />);
-    expect(screen.queryByText("Plot")).not.toBeInTheDocument();
+  it("calls onButtonClick when button is clicked", () => {
+    const onButtonClick = vi.fn();
+    render(<ApplicationDetail onButtonClick={onButtonClick} language="en" />);
+    fireEvent.click(screen.getByText("View"));
+    expect(onButtonClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("applies rtl direction for Arabic", () => {
+    const { container } = render(<ApplicationDetail language="ar" />);
+    const el = container.firstChild as HTMLElement;
+    expect(el).toHaveAttribute("dir", "rtl");
+  });
+
+  it("applies ltr direction for English", () => {
+    const { container } = render(<ApplicationDetail language="en" />);
+    const el = container.firstChild as HTMLElement;
+    expect(el).toHaveAttribute("dir", "ltr");
   });
 });

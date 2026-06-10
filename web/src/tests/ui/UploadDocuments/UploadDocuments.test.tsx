@@ -1,14 +1,24 @@
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, act, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import axios from "axios";
 import { UploadDocuments } from "@platform/UploadDocuments";
 
-// Mock useGetDownloadFile
-vi.mock("@/hooks/useGetDownloadFile", () => ({
-  useGetDownloadFile: vi.fn(() => ({
-    data: undefined,
-    isSuccess: false,
-  })),
+// The component now uses useDownload / useDariDownload to perform downloads.
+const mockDownload = vi.fn();
+const mockDownloadDari = vi.fn();
+const mockUploadFile = vi.fn(() => Promise.resolve({ ok: true }));
+vi.mock("@/hooks/useDownload", () => ({
+  useDownload: () => ({ download: mockDownload }),
+}));
+vi.mock("@/hooks/useDariDownload", () => ({
+  useDariDownload: () => ({ download: mockDownloadDari }),
+}));
+vi.mock("@shared/hooks/useUploadFile", () => ({
+  useUploadFile: () => ({ mutateAsync: mockUploadFile }),
+}));
+vi.mock("axios", () => ({
+  default: { post: vi.fn(() => Promise.resolve({ data: { id: 1 } })) },
 }));
 
 // Mock UploadDocument — source imports from "../UploadDocument/UploadDocument" (direct file, not index)
@@ -32,6 +42,18 @@ vi.mock("@platform/UploadDocument/UploadDocument", () => ({
         onClick={() => onFileChange?.({ name: `${documentName}.pdf`, uri: "blob:", size: 100, mimeType: "application/pdf" })}
       >
         Change
+      </button>
+      <button
+        data-testid={`change-null-${documentName}`}
+        onClick={() => onFileChange?.(null)}
+      >
+        ChangeNull
+      </button>
+      <button
+        data-testid={`change-bare-${documentName}`}
+        onClick={() => onFileChange?.({ name: "noext", uri: "blob:" })}
+      >
+        ChangeBare
       </button>
       <button
         data-testid={`download-${documentName}`}
@@ -60,6 +82,13 @@ describe("UploadDocuments", () => {
     vi.clearAllMocks();
     global.URL.createObjectURL = vi.fn(() => "blob:http://localhost/test");
     global.URL.revokeObjectURL = vi.fn();
+    // fetch returns a blob whose readAsDataURL produces a data URL
+    global.fetch = vi.fn(() =>
+      Promise.resolve({
+        blob: () =>
+          Promise.resolve(new Blob(["hello"], { type: "application/pdf" })),
+      })
+    ) as unknown as typeof fetch;
     // NOTE: do NOT mock document.body.appendChild/removeChild — that breaks React rendering
   });
 
@@ -122,16 +151,7 @@ describe("UploadDocuments", () => {
 
   // ── Download trigger ───────────────────────────────────────────────────────
 
-  it("triggers download when onDownloadClick is called and downloadUrl is set", async () => {
-    const { useGetDownloadFile } = vi.mocked(
-      await import("@/hooks/useGetDownloadFile")
-    );
-    const mockBlob = new Blob(["data"], { type: "application/pdf" });
-    useGetDownloadFile.mockReturnValue({
-      data: mockBlob,
-      isSuccess: true,
-    } as ReturnType<typeof useGetDownloadFile>);
-
+  it("triggers download when onDownloadClick is called and downloadUrl is set", () => {
     const docsWithDownload = [
       { documentName: "Contract", downloadUrl: "/files/contract.pdf", uploadUrl: "/upload/1" },
     ];
@@ -145,8 +165,8 @@ describe("UploadDocuments", () => {
       screen.getByTestId("download-Contract").click();
     });
 
-    // The effect should have tried to create an anchor element
-    expect(global.URL.createObjectURL).toHaveBeenCalled();
+    // Default apiType invokes useDownload().download(downloadUrl, documentName).
+    expect(mockDownload).toHaveBeenCalledWith("/files/contract.pdf", "Contract");
   });
 
   // ── isUploaded flag ────────────────────────────────────────────────────────
@@ -190,7 +210,7 @@ describe("UploadDocuments", () => {
     act(() => {
       screen.getByTestId("download-NoUrl").click();
     });
-    expect(global.URL.createObjectURL).not.toHaveBeenCalled();
+    expect(mockDownload).not.toHaveBeenCalled();
   });
 
   // ── Multiple documents render ─────────────────────────────────────────────
@@ -213,5 +233,206 @@ describe("UploadDocuments", () => {
     render(<UploadDocuments documents={documents} />, { wrapper });
     // Just verify no crash with defaults
     expect(screen.getByTestId("upload-doc-Contract")).toBeInTheDocument();
+  });
+
+  // ── Internal upload (handleUploadInternally) ───────────────────────────────
+
+  it("uploads via useUploadFile for the default apiType when handleUploadInternally", async () => {
+    const onUploadSuccess = vi.fn();
+    render(
+      <UploadDocuments
+        documents={[{ documentName: "Contract", uploadUrl: "/upload/1", wfiDocumentId: 7 }]}
+        handleUploadInternally
+        onFileChange={vi.fn()}
+        onUploadSuccess={onUploadSuccess}
+      />,
+      { wrapper }
+    );
+    act(() => {
+      screen.getByTestId("change-Contract").click();
+    });
+    await waitFor(() => {
+      expect(mockUploadFile).toHaveBeenCalledWith(
+        expect.objectContaining({ uploadUrl: "/upload/1" })
+      );
+    });
+    await waitFor(() => {
+      expect(onUploadSuccess).toHaveBeenCalledWith({ ok: true });
+    });
+  });
+
+  it("uploads via axios for the dari apiType when handleUploadInternally", async () => {
+    const onUploadSuccess = vi.fn();
+    render(
+      <UploadDocuments
+        documents={[
+          {
+            documentName: "Contract",
+            uploadUrl: "/upload/1",
+            applicationType: "ranch",
+            applicationID: 42,
+            documentType: "permit",
+          },
+        ]}
+        apiType="dari"
+        handleUploadInternally
+        onFileChange={vi.fn()}
+        onUploadSuccess={onUploadSuccess}
+      />,
+      { wrapper }
+    );
+    act(() => {
+      screen.getByTestId("change-Contract").click();
+    });
+    await waitFor(() => {
+      expect(axios.post).toHaveBeenCalledWith(
+        "/dari/file/upload",
+        expect.objectContaining({ applicationType: "ranch" })
+      );
+    });
+    await waitFor(() => {
+      expect(onUploadSuccess).toHaveBeenCalled();
+    });
+  });
+
+  it("calls onUploadFail when the internal upload throws", async () => {
+    const onUploadFail = vi.fn();
+    mockUploadFile.mockRejectedValueOnce(new Error("upload failed"));
+    render(
+      <UploadDocuments
+        documents={[{ documentName: "Contract", uploadUrl: "/upload/1" }]}
+        handleUploadInternally
+        onFileChange={vi.fn()}
+        onUploadFail={onUploadFail}
+      />,
+      { wrapper }
+    );
+    act(() => {
+      screen.getByTestId("change-Contract").click();
+    });
+    await waitFor(() => {
+      expect(onUploadFail).toHaveBeenCalledWith(expect.any(Error));
+    });
+  });
+
+  it("does nothing on internal upload when file is null", async () => {
+    render(
+      <UploadDocuments
+        documents={[{ documentName: "Contract", uploadUrl: "/upload/1" }]}
+        handleUploadInternally
+        onFileChange={vi.fn()}
+      />,
+      { wrapper }
+    );
+    // No file change triggered -> handleUpload never receives a file.
+    expect(mockUploadFile).not.toHaveBeenCalled();
+  });
+
+  // ── Dari download branch ───────────────────────────────────────────────────
+
+  it("returns early from handleUpload when the file is null", async () => {
+    render(
+      <UploadDocuments
+        documents={[{ documentName: "Contract", uploadUrl: "/upload/1" }]}
+        handleUploadInternally
+        onFileChange={vi.fn()}
+      />,
+      { wrapper }
+    );
+    act(() => {
+      screen.getByTestId("change-null-Contract").click();
+    });
+    // file is null -> handleUpload returns before any upload happens
+    expect(mockUploadFile).not.toHaveBeenCalled();
+  });
+
+  it("handles a file without an extension and without a mimeType", async () => {
+    const onUploadSuccess = vi.fn();
+    render(
+      <UploadDocuments
+        documents={[{ documentName: "Contract", uploadUrl: "/upload/1" }]}
+        handleUploadInternally
+        onFileChange={vi.fn()}
+        onUploadSuccess={onUploadSuccess}
+      />,
+      { wrapper }
+    );
+    act(() => {
+      // file has no extension and no mimeType -> exercises the "" fallbacks
+      screen.getByTestId("change-bare-Contract").click();
+    });
+    await waitFor(() => expect(mockUploadFile).toHaveBeenCalled());
+  });
+
+  it("uploads via dari with a doc missing optional fields", async () => {
+    const onUploadSuccess = vi.fn();
+    render(
+      <UploadDocuments
+        documents={[{ documentName: "Contract", uploadUrl: "/upload/1" }]}
+        apiType="dari"
+        handleUploadInternally
+        onFileChange={vi.fn()}
+        onUploadSuccess={onUploadSuccess}
+      />,
+      { wrapper }
+    );
+    act(() => {
+      screen.getByTestId("change-Contract").click();
+    });
+    // doc has no applicationType/applicationID/documentType -> "" fallbacks used
+    await waitFor(() => {
+      expect(axios.post).toHaveBeenCalledWith(
+        "/dari/file/upload",
+        expect.objectContaining({ applicationId: "" })
+      );
+    });
+  });
+
+  it("triggers dari download with a doc missing optional download fields", () => {
+    render(
+      <UploadDocuments
+        documents={[{ documentName: "Contract", uploadUrl: "/upload/1", applicationID: 7 }]}
+        apiType="dari"
+      />,
+      { wrapper }
+    );
+    act(() => {
+      screen.getByTestId("download-Contract").click();
+    });
+    // documentType/applicationType/subType undefined -> "" fallbacks
+    expect(mockDownloadDari).toHaveBeenCalledWith(
+      expect.objectContaining({
+        applicationID: 7,
+        applicationType: "",
+        documentType: "",
+        subType: "",
+      })
+    );
+  });
+
+  it("triggers dari download when apiType=dari and applicationID set", () => {
+    render(
+      <UploadDocuments
+        documents={[
+          {
+            documentName: "Contract",
+            uploadUrl: "/upload/1",
+            applicationID: 99,
+            applicationType: "ranch",
+            documentType: "permit",
+            subType: "sub",
+          },
+        ]}
+        apiType="dari"
+      />,
+      { wrapper }
+    );
+    act(() => {
+      screen.getByTestId("download-Contract").click();
+    });
+    expect(mockDownloadDari).toHaveBeenCalledWith(
+      expect.objectContaining({ applicationID: 99, applicationType: "ranch" })
+    );
+    expect(mockDownload).not.toHaveBeenCalled();
   });
 });

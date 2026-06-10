@@ -21,8 +21,14 @@ import {
   getRentErrorMessages,
 } from "@shared/components/Payment/helper";
 
+// mutate invokes the provided onSuccess callback so the success branches run.
+const mockCalcMutate = vi.fn(
+  (_payload: unknown, opts?: { onSuccess?: (data: unknown) => void }) => {
+    opts?.onSuccess?.({ rentFees: 123, registrationFees: 456 });
+  }
+);
 vi.mock("@shared/hooks/useCalculateRentFees", () => ({
-  useCalculateRentFees: vi.fn(() => ({ mutate: vi.fn() })),
+  useCalculateRentFees: vi.fn(() => ({ mutate: mockCalcMutate })),
 }));
 
 function renderWithQueryClient(ui: React.ReactElement) {
@@ -212,6 +218,34 @@ describe("Payment (shared component – web platform)", () => {
     expect(screen.getByText("Insurance")).toBeInTheDocument();
   });
 
+  it("computes rent fees when navigating to the Measurement step", () => {
+    mockCalcMutate.mockClear();
+    renderWithQueryClient(
+      <Payment
+        language="en"
+        stepInfo={{
+          result: {
+            tenancyContract: { plotId: 10, requestLandClassificationId: 2 },
+          },
+        }}
+      />
+    );
+    fireEvent.click(screen.getByText("Next")); // -> Measurement
+    expect(screen.getByText("Measurement")).toBeInTheDocument();
+    // Measurement's mount effect triggers the (mocked) fee calculation.
+    expect(mockCalcMutate).toHaveBeenCalled();
+  });
+
+  it("clears the remarks error once text is entered in No Payment mode", () => {
+    render(<Payment language="en" />);
+    fireEvent.click(screen.getByText("No Payment"));
+    fireEvent.click(screen.getByText("Submit"));
+    expect(screen.getByText("Remarks are required")).toBeInTheDocument();
+    const textarea = document.querySelector("textarea")!;
+    fireEvent.change(textarea, { target: { value: "Some remark" } });
+    expect(screen.queryByText("Remarks are required")).not.toBeInTheDocument();
+  });
+
   it("renders stepInfo contract date when provided", () => {
     render(
       <Payment
@@ -365,6 +399,43 @@ describe("Insurance sub-component", () => {
     render(<Insurance form={makeInsuranceFormMock() as never} language="en" />);
     fireEvent.click(screen.getByText("No"));
     expect(screen.queryByText("Rent fees area per unit (in fils)")).not.toBeInTheDocument();
+  });
+
+  it("calls onLiveValidate when an insurance-fee radio is clicked", () => {
+    const onLiveValidate = vi.fn();
+    render(
+      <Insurance
+        form={makeInsuranceFormMock() as never}
+        language="en"
+        onLiveValidate={onLiveValidate}
+      />
+    );
+    fireEvent.click(screen.getByText("No"));
+    expect(onLiveValidate).toHaveBeenCalled();
+  });
+
+  it("fires the registration-fee and amount onChange handlers", () => {
+    const onLiveValidate = vi.fn();
+    const handleChangeFns: Record<string, ReturnType<typeof vi.fn>> = {};
+    const form = {
+      state: { values: { insuranceFee: "Yes", insuranceRegistrationFees: "", insuranceAmountInWords: "" } },
+      Field: ({ name, children }: { name: string; children: (f: unknown) => React.ReactNode }) => {
+        const fn = vi.fn();
+        handleChangeFns[name] = fn;
+        return children({
+          state: { value: name === "insuranceFee" ? "Yes" : "", meta: { errors: [] } },
+          handleChange: fn,
+        });
+      },
+    } as unknown;
+    render(<Insurance form={form as never} language="en" onLiveValidate={onLiveValidate} />);
+    const numberInputs = screen.getAllByRole("spinbutton");
+    fireEvent.change(numberInputs[0], { target: { value: "500" } });
+    const textInputs = screen.getAllByRole("textbox");
+    fireEvent.change(textInputs[0], { target: { value: "Five Hundred" } });
+    expect(handleChangeFns["insuranceRegistrationFees"]).toHaveBeenCalled();
+    expect(handleChangeFns["insuranceAmountInWords"]).toHaveBeenCalled();
+    expect(onLiveValidate).toHaveBeenCalled();
   });
 });
 
@@ -1481,7 +1552,11 @@ describe("Rent – onChange handler coverage", () => {
     const onLiveValidate = vi.fn();
     const { form, handleChangeFns } = makeTrackableRentFormMock();
     render(<Rent form={form as never} language="en" onLiveValidate={onLiveValidate} />);
-    fireEvent.click(screen.getByText("Rent payment is free for the year"));
+    // The checkbox control is a role="checkbox" div (not a native input), so a
+    // <label htmlFor> click no longer toggles it — click the checkbox itself.
+    // Order: [0] isFirstYearFreeOfPayment, [1] exemptSocialAssistance.
+    const checkboxes = screen.getAllByRole("checkbox");
+    fireEvent.click(checkboxes[0]);
     expect(handleChangeFns["isFirstYearFreeOfPayment"]).toHaveBeenCalled();
     expect(onLiveValidate).toHaveBeenCalled();
   });
@@ -1490,7 +1565,8 @@ describe("Rent – onChange handler coverage", () => {
     const onLiveValidate = vi.fn();
     const { form, handleChangeFns } = makeTrackableRentFormMock();
     render(<Rent form={form as never} language="en" onLiveValidate={onLiveValidate} />);
-    fireEvent.click(screen.getByText("Exempt social assistance recipient"));
+    const checkboxes = screen.getAllByRole("checkbox");
+    fireEvent.click(checkboxes[1]);
     expect(handleChangeFns["exemptSocialAssistance"]).toHaveBeenCalled();
     expect(onLiveValidate).toHaveBeenCalled();
   });
@@ -1586,5 +1662,77 @@ describe("Measurement – onChange handler coverage", () => {
       <Measurement form={form as never} language="en" />
     );
     expect(screen.getByText("Ranch Type")).toBeInTheDocument();
+  });
+
+  it("invokes onRentFeesCalculated on mount via the initial fee calculation", () => {
+    const onRentFeesCalculated = vi.fn();
+    const { form } = makeTrackableMeasurementFormMock();
+    renderWithQueryClient(
+      <Measurement
+        form={form as never}
+        language="en"
+        data={{ plotId: 10, requestLandClassificationId: 2 }}
+        onRentFeesCalculated={onRentFeesCalculated}
+      />
+    );
+    // mocked mutate immediately calls onSuccess -> onRentFeesCalculated
+    expect(onRentFeesCalculated).toHaveBeenCalledWith(
+      expect.objectContaining({ tenancyContractTypeId: "3" })
+    );
+  });
+
+  it("falls back to the first ranch option when form has no ranchType", () => {
+    mockCalcMutate.mockClear();
+    const form = {
+      state: { values: { units: "Square Meters", ranchType: undefined, rentFees: "", measurementRegistrationFees: "", measurementAmountInWords: "", tenancyRemarks: undefined } },
+      Field: ({ name, children }: { name: string; children: (f: unknown) => React.ReactNode }) =>
+        children({
+          state: { value: name === "units" ? "Square Meters" : undefined, meta: { errors: [] } },
+          handleChange: vi.fn(),
+        }),
+    } as unknown;
+    renderWithQueryClient(
+      <Measurement form={form as never} language="en" data={{ plotId: 1, requestLandClassificationId: 1 }} />
+    );
+    // default option "3" used -> mutate called with tenancyContractTypeId 3
+    expect(mockCalcMutate).toHaveBeenCalledWith(
+      expect.objectContaining({ tenancyContractTypeId: 3 }),
+      expect.anything()
+    );
+    // tenancyRemarks value defaults to "" (covers nullish fallback)
+    expect(screen.getByText("Tenancy Remarks")).toBeInTheDocument();
+  });
+
+  it("does not call the fee API when ranchType is not a number", () => {
+    mockCalcMutate.mockClear();
+    const { form } = makeTrackableMeasurementFormMock({ ranchType: "abc" });
+    renderWithQueryClient(<Measurement form={form as never} language="en" />);
+    // Number("abc") is NaN -> the effect returns early before calling mutate
+    expect(mockCalcMutate).not.toHaveBeenCalled();
+  });
+
+  it("recalculates fees and fires callback when a ranch type is selected", async () => {
+    const onLiveValidate = vi.fn();
+    const onRentFeesCalculated = vi.fn();
+    const { form, handleChangeFns } = makeTrackableMeasurementFormMock();
+    renderWithQueryClient(
+      <Measurement
+        form={form as never}
+        language="en"
+        data={{ plotId: 10, requestLandClassificationId: 2 }}
+        onLiveValidate={onLiveValidate}
+        onRentFeesCalculated={onRentFeesCalculated}
+      />
+    );
+    onRentFeesCalculated.mockClear();
+    // Open the Ranch Type select (combobox) and choose another option
+    const combobox = screen.getByRole("combobox");
+    fireEvent.click(combobox);
+    fireEvent.click(await screen.findByText("Ranch With Service"));
+    expect(handleChangeFns["ranchType"]).toHaveBeenCalledWith("4");
+    expect(onLiveValidate).toHaveBeenCalled();
+    expect(onRentFeesCalculated).toHaveBeenCalledWith(
+      expect.objectContaining({ tenancyContractTypeId: "4" })
+    );
   });
 });

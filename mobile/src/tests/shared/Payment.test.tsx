@@ -22,20 +22,32 @@ jest.mock("@shared/components/SharedLanguageSwitchRenderer", () => {
 });
 
 // ── TanStack Form mock ───────────────────────────────────────────────────────
+const mockFormReset = jest.fn();
+const mockFieldHandleChange = jest.fn();
+// Mutable holder so a test can vary form.state.values (e.g. provide remarks).
+const mockFormState: { values: Record<string, any> } = {
+  values: { tenancyRemarks: "" },
+};
 jest.mock("@tanstack/react-form", () => ({
   useForm: jest.fn(() => ({
     Field: ({ children, name }: any) =>
       children({
-        state: { value: name === "tenancyRemarks" ? "" : "", meta: { errors: [] } },
-        handleChange: jest.fn(),
+        state: {
+          value:
+            name === "tenancyRemarks"
+              ? mockFormState.values.tenancyRemarks ?? ""
+              : "",
+          meta: { errors: [] },
+        },
+        handleChange: mockFieldHandleChange,
         handleBlur: jest.fn(),
         name,
       }),
     handleSubmit: jest.fn(),
     Subscribe: ({ children }: any) =>
       children({ canSubmit: true, isSubmitting: false }),
-    state: { values: { tenancyRemarks: "" } },
-    reset: jest.fn(),
+    state: mockFormState,
+    reset: mockFormReset,
   })),
 }));
 
@@ -52,8 +64,21 @@ jest.mock("@platform/Text", () => {
 });
 jest.mock("@platform/Fields", () => {
   const React = require("react");
-  const { View } = require("react-native");
-  return { Fields: (p: any) => React.createElement(View, { testID: "fields" }) };
+  const { View, TextInput, Text } = require("react-native");
+  return {
+    Fields: ({ onChange, hasError, errorMessage }: any) =>
+      React.createElement(
+        View,
+        { testID: "fields" },
+        React.createElement(TextInput, {
+          testID: "fields-input",
+          onChangeText: onChange,
+        }),
+        hasError
+          ? React.createElement(Text, { testID: "fields-error" }, errorMessage)
+          : null
+      ),
+  };
 });
 jest.mock("@platform/Label", () => {
   const React = require("react");
@@ -112,10 +137,26 @@ jest.mock("@shared/components/Payment/Contract", () => {
 });
 jest.mock("@shared/components/Payment/Measurement", () => {
   const React = require("react");
-  const { View } = require("react-native");
+  const { View, TouchableOpacity } = require("react-native");
   return {
     __esModule: true,
-    default: () => React.createElement(View, { testID: "measurement-step" }),
+    default: ({ onRentFeesCalculated }: any) =>
+      React.createElement(
+        View,
+        { testID: "measurement-step" },
+        React.createElement(TouchableOpacity, {
+          testID: "calc-rent-fees",
+          onPress: () =>
+            onRentFeesCalculated?.({
+              tenancyContractTypeId: "5",
+              result: {
+                rentFeesPerSqMeterUnit: "10",
+                feeAmount: "1000",
+                amountInWords: "One Thousand",
+              },
+            }),
+        })
+      ),
   };
 });
 jest.mock("@shared/components/Payment/Insurance", () => {
@@ -145,6 +186,9 @@ import Payment from "@shared/components/Payment/Payment";
 
 describe("Payment", () => {
   afterEach(() => jest.clearAllMocks());
+  beforeEach(() => {
+    mockFormState.values = { tenancyRemarks: "" };
+  });
 
   it("renders without crashing with default props", () => {
     render(<Payment />);
@@ -276,5 +320,77 @@ describe("Payment", () => {
     };
     render(<Payment stepInfo={stepInfo} />);
     expect(screen.getByTestId("contract-step")).toBeTruthy();
+  });
+
+  // ── No Payment remarks validation (onNextClick) ─────────────────────────────
+
+  it("shows a remarks-required error when submitting No Payment without remarks", () => {
+    const onPaymentSubmit = jest.fn();
+    render(<Payment onPaymentSubmit={onPaymentSubmit} />);
+    fireEvent.press(screen.getByTestId("radio-card-no-payment"));
+    fireEvent.press(screen.getByTestId("btn-Submit"));
+    // Validation fails: error is rendered and submit callback NOT called.
+    expect(screen.getByText("Remarks are required")).toBeTruthy();
+    expect(onPaymentSubmit).not.toHaveBeenCalled();
+  });
+
+  it("shows Arabic remarks-required error when language='ar'", () => {
+    render(<Payment language="ar" />);
+    fireEvent.press(screen.getByTestId("radio-card-no-payment"));
+    fireEvent.press(screen.getByTestId("btn-Submit"));
+    expect(screen.getByText("الملاحظات مطلوبة")).toBeTruthy();
+  });
+
+  it("submits No Payment successfully when remarks are present", () => {
+    mockFormState.values = { tenancyRemarks: "Some remarks" };
+    const onPaymentSubmit = jest.fn();
+    const onSubmit = jest.fn();
+    render(<Payment onPaymentSubmit={onPaymentSubmit} onSubmit={onSubmit} />);
+    fireEvent.press(screen.getByTestId("radio-card-no-payment"));
+    fireEvent.press(screen.getByTestId("btn-Submit"));
+    expect(onPaymentSubmit).toHaveBeenCalledTimes(1);
+    expect(onPaymentSubmit.mock.calls[0][0].meta.paymentType).toBe("No Payment");
+    expect(onSubmit).toHaveBeenCalledWith(
+      expect.objectContaining({ tenancyRemarks: "Some remarks" })
+    );
+  });
+
+  it("clears remarks error when text is entered into the remarks field", () => {
+    render(<Payment />);
+    fireEvent.press(screen.getByTestId("radio-card-no-payment"));
+    // Trigger the error first
+    fireEvent.press(screen.getByTestId("btn-Submit"));
+    expect(screen.getByTestId("fields-error")).toBeTruthy();
+    // Typing non-empty text clears the error
+    fireEvent.changeText(screen.getByTestId("fields-input"), "now has remarks");
+    expect(mockFieldHandleChange).toHaveBeenCalledWith("now has remarks");
+    expect(screen.queryByTestId("fields-error")).toBeNull();
+  });
+
+  // ── Switch back to Payment from No Payment (handlePaymentTypeChange) ─────────
+
+  it("switches back to Payment mode and resets to step 0", () => {
+    render(<Payment />);
+    fireEvent.press(screen.getByTestId("radio-card-no-payment"));
+    expect(screen.getByText("Remarks")).toBeTruthy();
+    fireEvent.press(screen.getByTestId("radio-card-payment"));
+    // Back in payment flow at the contract (step 0) view.
+    expect(screen.getByTestId("contract-step")).toBeTruthy();
+  });
+
+  // ── Measurement onRentFeesCalculated (rawFormApi.reset) ─────────────────────
+
+  it("resets the form when rent fees are calculated at the measurement step", () => {
+    render(<Payment />);
+    fireEvent.press(screen.getByTestId("btn-Next")); // go to measurement (step 1)
+    fireEvent.press(screen.getByTestId("calc-rent-fees"));
+    expect(mockFormReset).toHaveBeenCalledWith(
+      expect.objectContaining({
+        ranchType: "5",
+        rentFees: "10",
+        measurementRegistrationFees: "1000",
+        measurementAmountInWords: "One Thousand",
+      })
+    );
   });
 });

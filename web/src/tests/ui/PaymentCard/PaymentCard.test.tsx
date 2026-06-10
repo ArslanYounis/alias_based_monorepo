@@ -2,50 +2,14 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { PaymentCard } from "@platform/PaymentCard";
 
-// Mock all platform sub-components used inside PaymentCard
-vi.mock("@platform/Text", () => ({
-  Text: ({
-    children,
-    className,
-  }: {
-    children?: React.ReactNode;
-    className?: string;
-  }) => <span className={className}>{children}</span>,
-}));
+// The current PaymentCard renders raw <div> elements (no @platform/Container /
+// @platform/Text). It composes Avatar, ProfileIconStatus, ProcessStatusRows and
+// SharedLanguageSwitchRenderer. We mock the leaf sub-components and assert on the
+// real DOM output (root div = the rendered card).
 
 vi.mock("@platform/Avatar", () => ({
-  Avatar: ({
-    imageUrl,
-    avatarSize,
-  }: {
-    imageUrl?: string;
-    avatarSize?: number;
-  }) => <img data-testid="avatar" src={imageUrl} alt="avatar" />,
-}));
-
-vi.mock("@platform/Container", () => ({
-  Container: ({
-    children,
-    className,
-    dir,
-    onClick,
-    style,
-  }: {
-    children?: React.ReactNode;
-    className?: string;
-    dir?: string;
-    onClick?: () => void;
-    style?: React.CSSProperties;
-  }) => (
-    <div
-      data-testid="container"
-      className={className}
-      dir={dir}
-      onClick={onClick}
-      style={style}
-    >
-      {children}
-    </div>
+  Avatar: ({ imageUrl }: { imageUrl?: string; avatarSize?: number }) => (
+    <img data-testid="avatar" src={imageUrl} alt="avatar" />
   ),
 }));
 
@@ -86,7 +50,9 @@ vi.mock("@shared/components/ProcessStatusRows", () => ({
   ),
 }));
 
-vi.mock("@shared/components/SharedLanguageSwitchRenderer", () => ({
+// PaymentCard imports SharedLanguageSwitchRenderer from "@/components/shared/...".
+// Mock that exact path so it renders plain language-switched text.
+vi.mock("@/components/shared/SharedLanguageSwitchRenderer", () => ({
   default: ({
     value,
     value_ar,
@@ -95,7 +61,7 @@ vi.mock("@shared/components/SharedLanguageSwitchRenderer", () => ({
     value?: string;
     value_ar?: string;
     language?: string;
-  }) => <span>{language === "ar" ? value_ar ?? value : value}</span>,
+  }) => <>{language === "ar" ? value_ar ?? value : value}</>,
 }));
 
 describe("PaymentCard (web)", () => {
@@ -121,11 +87,14 @@ describe("PaymentCard (web)", () => {
     currentStepStatus: "pending" as const,
   };
 
+  // The component renders a single root <div> as its card. Helper to grab it.
+  const getCard = (container: HTMLElement) => container.firstChild as HTMLElement;
+
   // ── Default multi-row version ─────────────────────────────────────────────
 
   it("renders without crashing for type=pending multi-row", () => {
-    render(<PaymentCard {...baseProps} />);
-    expect(screen.getAllByTestId("container").length).toBeGreaterThan(0);
+    const { container } = render(<PaymentCard {...baseProps} />);
+    expect(getCard(container)).toBeInTheDocument();
   });
 
   it("renders action text in English", () => {
@@ -173,49 +142,47 @@ describe("PaymentCard (web)", () => {
 
   it("calls onCardClick when card is clicked", () => {
     const onCardClick = vi.fn();
-    render(<PaymentCard {...baseProps} onCardClick={onCardClick} />);
-    // Click the outermost container
-    const containers = screen.getAllByTestId("container");
-    fireEvent.click(containers[0]);
+    const { container } = render(
+      <PaymentCard {...baseProps} onCardClick={onCardClick} />
+    );
+    // onClick is wired on the root card div
+    fireEvent.click(getCard(container));
     expect(onCardClick).toHaveBeenCalledTimes(1);
   });
 
   // ── State-based styles ────────────────────────────────────────────────────
 
   it("applies pending background class for type=pending", () => {
-    render(<PaymentCard {...baseProps} type="pending" />);
-    const outerContainer = screen.getAllByTestId("container")[0];
-    expect(outerContainer).toHaveClass("bg-button-primary-disabled");
+    const { container } = render(<PaymentCard {...baseProps} type="pending" />);
+    expect(getCard(container)).toHaveClass("bg-button-primary-disabled");
   });
 
   it("applies failed background class for type=failed", () => {
-    render(<PaymentCard {...baseProps} type="failed" />);
-    const outerContainer = screen.getAllByTestId("container")[0];
-    expect(outerContainer).toHaveClass("bg-status-failed-light");
+    const { container } = render(<PaymentCard {...baseProps} type="failed" />);
+    expect(getCard(container)).toHaveClass("bg-status-failed-light");
   });
 
   it("applies success background class for type=success", () => {
-    render(<PaymentCard {...baseProps} type="success" />);
-    const outerContainer = screen.getAllByTestId("container")[0];
-    expect(outerContainer).toHaveClass("bg-status-success-light");
+    const { container } = render(<PaymentCard {...baseProps} type="success" />);
+    expect(getCard(container)).toHaveClass("bg-status-success-light");
   });
 
   it("applies action background class for type=action", () => {
-    render(<PaymentCard {...baseProps} type="action" />);
-    const outerContainer = screen.getAllByTestId("container")[0];
-    expect(outerContainer).toHaveClass("bg-status-pending-solid");
+    const { container } = render(<PaymentCard {...baseProps} type="action" />);
+    expect(getCard(container)).toHaveClass("bg-status-pending-solid");
   });
 
   it("applies action-other background class for type=action-other", () => {
-    render(<PaymentCard {...baseProps} type="action-other" />);
-    const outerContainer = screen.getAllByTestId("container")[0];
-    expect(outerContainer).toHaveClass("bg-status-pending-light");
+    const { container } = render(
+      <PaymentCard {...baseProps} type="action-other" />
+    );
+    expect(getCard(container)).toHaveClass("bg-status-pending-light");
   });
 
-  it("defaults to pending styles when type is undefined", () => {
-    render(<PaymentCard {...baseProps} type={undefined} />);
-    const outerContainer = screen.getAllByTestId("container")[0];
-    expect(outerContainer).toHaveClass("bg-button-primary-disabled");
+  it("defaults to pending-light styles when type is undefined", () => {
+    // getStateStyles default branch → bg-status-pending-light
+    const { container } = render(<PaymentCard {...baseProps} type={undefined} />);
+    expect(getCard(container)).toHaveClass("bg-status-pending-light");
   });
 
   // ── ProfileIconStatus status values ──────────────────────────────────────
@@ -266,7 +233,7 @@ describe("PaymentCard (web)", () => {
 
   it("renders full hybrid layout for type=failed", () => {
     render(<PaymentCard {...baseProps} type="failed" version="hybrid" />);
-    // Should show step info
+    // Generic hybrid branch shows the "Step X of Y" label
     expect(
       screen.getByText(`Step ${baseProps.currentStep} of ${baseProps.totalSteps}`)
     ).toBeInTheDocument();
@@ -289,21 +256,19 @@ describe("PaymentCard (web)", () => {
   // ── Default props ─────────────────────────────────────────────────────────
 
   it("renders with only required type prop", () => {
-    render(<PaymentCard type="pending" />);
-    expect(screen.getAllByTestId("container").length).toBeGreaterThan(0);
+    const { container } = render(<PaymentCard type="pending" />);
+    expect(getCard(container)).toBeInTheDocument();
   });
 
   // ── RTL direction ─────────────────────────────────────────────────────────
 
-  it("sets dir=rtl on the outermost container when language=ar", () => {
-    render(<PaymentCard {...baseProps} language="ar" />);
-    const outerContainer = screen.getAllByTestId("container")[0];
-    expect(outerContainer).toHaveAttribute("dir", "rtl");
+  it("sets dir=rtl on the card when language=ar", () => {
+    const { container } = render(<PaymentCard {...baseProps} language="ar" />);
+    expect(getCard(container)).toHaveAttribute("dir", "rtl");
   });
 
-  it("sets dir=ltr on the outermost container when language=en", () => {
-    render(<PaymentCard {...baseProps} language="en" />);
-    const outerContainer = screen.getAllByTestId("container")[0];
-    expect(outerContainer).toHaveAttribute("dir", "ltr");
+  it("sets dir=ltr on the card when language=en", () => {
+    const { container } = render(<PaymentCard {...baseProps} language="en" />);
+    expect(getCard(container)).toHaveAttribute("dir", "ltr");
   });
 });

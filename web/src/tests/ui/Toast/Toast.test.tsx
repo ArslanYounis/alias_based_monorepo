@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { Toast } from "@platform/Toast";
 
 // Mock all SVG assets
-vi.mock("@/assets/svg/CrossIconSvg", () => ({
+vi.mock("@/assets/icons/crossIconSvg", () => ({
   default: ({ onClick, className }: { onClick?: () => void; className?: string }) => (
     <button data-testid="close-btn" className={className} onClick={onClick} aria-label="close" />
   ),
@@ -120,7 +120,9 @@ describe("Toast", () => {
 
   it("hides when close button is clicked", () => {
     render(<Toast message="Close me" status="success" />);
-    fireEvent.click(screen.getByTestId("close-btn"));
+    act(() => {
+      fireEvent.click(screen.getByTestId("close-btn"));
+    });
     expect(screen.queryByText("Close me")).not.toBeInTheDocument();
   });
 
@@ -128,10 +130,14 @@ describe("Toast", () => {
 
   it("becomes visible again when message changes after manual close", () => {
     const { rerender } = render(<Toast message="First" status="success" />);
-    fireEvent.click(screen.getByTestId("close-btn"));
+    act(() => {
+      fireEvent.click(screen.getByTestId("close-btn"));
+    });
     expect(screen.queryByText("First")).not.toBeInTheDocument();
 
-    rerender(<Toast message="Second" status="success" />);
+    act(() => {
+      rerender(<Toast message="Second" status="success" />);
+    });
     expect(screen.getByText("Second")).toBeInTheDocument();
   });
 });

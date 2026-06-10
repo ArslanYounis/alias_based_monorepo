@@ -120,10 +120,9 @@ describe("ViewOwnerDetail (shared component – web platform)", () => {
     expect(el).toBeTruthy();
   });
 
-  it("renders View button", () => {
-    render(<ViewOwnerDetail owner={ownerInfo} language="en" />);
-    expect(screen.getByText("View")).toBeInTheDocument();
-  });
+  // NOTE: The "View" button is commented out in the current ViewOwnerDetail
+  // source, so the "renders View button" / "renders Arabic View button" cases
+  // were removed (behavior no longer exists).
 
   // ── plotCode prop (commented out in source but testing default) ────────────
 
@@ -138,13 +137,6 @@ describe("ViewOwnerDetail (shared component – web platform)", () => {
     );
     // plotCode rendering is commented out in source, but component should not crash
     expect(screen.getByText("John Smith")).toBeInTheDocument();
-  });
-
-  // ── Arabic view button ────────────────────────────────────────────────────
-
-  it("renders Arabic View button text when language is ar", () => {
-    render(<ViewOwnerDetail owner={ownerInfo} language="ar" />);
-    expect(screen.getByText("عرض")).toBeInTheDocument();
   });
 
   // ── Owner with empty details ──────────────────────────────────────────────

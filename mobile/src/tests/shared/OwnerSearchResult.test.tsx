@@ -26,15 +26,6 @@ jest.mock("lodash", () => ({
   some: (arr: any[], pred: any) => arr.some(pred),
 }));
 
-// ── Hook mocks ───────────────────────────────────────────────────────────────
-const mockRanchRecipientMutate = jest.fn();
-jest.mock("@shared/hooks/useRanchRecipient", () => ({
-  useRanchRecipient: jest.fn(() => ({ mutate: mockRanchRecipientMutate, isPending: false })),
-}));
-jest.mock("../../hooks/useRanchRecipient", () => ({
-  useRanchRecipient: jest.fn(() => ({ mutate: mockRanchRecipientMutate, isPending: false })),
-}), { virtual: true });
-
 // ── Platform mocks ───────────────────────────────────────────────────────────
 jest.mock("@platform/Container", () => {
   const React = require("react");
@@ -200,13 +191,20 @@ describe("OwnerSearchResult (OwnerSearch)", () => {
     expect(btn.props.disabled).toBeTruthy();
   });
 
-  it("calls ranchRecipient mutation when Select Owner is pressed with a selection", () => {
-    render(<OwnerSearchResult {...defaultProps} selected={[mockResults[0]]} />);
-    fireEvent.press(screen.getByTestId("btn-Select Owner"));
-    expect(mockRanchRecipientMutate).toHaveBeenCalledWith(
-      expect.any(Number),
-      expect.objectContaining({ onSuccess: expect.any(Function) })
+  // Current behavior: Select Owner invokes the onSubmit callback with the
+  // selected results (the ranchRecipient mutation was lifted out of this
+  // component).
+  it("calls onSubmit with the selected owners when Select Owner is pressed", () => {
+    const onSubmit = jest.fn();
+    render(
+      <OwnerSearchResult
+        {...defaultProps}
+        selected={[mockResults[0]]}
+        onSubmit={onSubmit}
+      />
     );
+    fireEvent.press(screen.getByTestId("btn-Select Owner"));
+    expect(onSubmit).toHaveBeenCalledWith([mockResults[0]]);
   });
 
   it("calls radio onChange to select an owner", () => {

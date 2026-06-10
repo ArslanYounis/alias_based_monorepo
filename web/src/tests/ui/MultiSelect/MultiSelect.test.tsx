@@ -210,14 +210,11 @@ describe("MultiSelect (web)", () => {
 
   // ── Value handling ────────────────────────────────────────────────────────
 
-  it("passes string value directly to Fields", () => {
-    render(<MultiSelect value="a, b" options={options} />);
-    expect(screen.getByTestId("fields-input")).toHaveValue("a, b");
-  });
-
-  it("joins array value with commas when value is an array", () => {
+  // `value` is now strictly string[]; MultiSelect joins it with ", " before
+  // passing to Fields. (A raw string value is no longer a supported input.)
+  it("joins array value with ', ' when value is an array", () => {
     render(<MultiSelect value={["a", "b"]} options={options} />);
-    expect(screen.getByTestId("fields-input")).toHaveValue("a,b");
+    expect(screen.getByTestId("fields-input")).toHaveValue("a, b");
   });
 
   it("uses empty string when value is undefined", () => {

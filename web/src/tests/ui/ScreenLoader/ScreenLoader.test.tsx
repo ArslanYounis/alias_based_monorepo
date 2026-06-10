@@ -25,10 +25,9 @@ describe("ScreenLoader", () => {
   it("renders the default gif when no gifSrc is provided", () => {
     render(<ScreenLoader isLoading />);
     const img = screen.getByRole("img");
-    expect(img).toHaveAttribute(
-      "src",
-      "https://adrec-images.mastermind-mindset.com/TrailLoading.gif"
-    );
+    // Default gif is `${IMAGE_URL}TrailLoading.gif`; IMAGE_URL comes from
+    // VITE_IMAGE_URL env, so assert on the stable filename suffix.
+    expect(img.getAttribute("src")).toMatch(/TrailLoading\.gif$/);
   });
 
   it("renders custom gifSrc when provided", () => {

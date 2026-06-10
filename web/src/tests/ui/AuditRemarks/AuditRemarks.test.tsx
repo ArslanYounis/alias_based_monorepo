@@ -31,12 +31,12 @@ describe("AuditRemarks", () => {
     expect(img.src).toContain("avatar.png");
   });
 
-  it("renders agent image element even when image is not provided", () => {
+  it("renders agent image element with dummy fallback when image is not provided", () => {
     render(<AuditRemarks agent={{ ...agent, image: undefined }} />);
     const img = screen.getByAltText("agent") as HTMLImageElement;
     expect(img).toBeInTheDocument();
-    // The component sets src={agent.image || ""}, so src attr is ""
-    expect(img.getAttribute("src") ?? "").toBe("");
+    // The component now falls back to `${IMAGE_URL}dummyUserImg.png`.
+    expect(img.getAttribute("src") ?? "").toMatch(/dummyUserImg\.png$/);
   });
 
   // ── Title ─────────────────────────────────────────────────────────────────
@@ -218,8 +218,10 @@ describe("AuditRemarks", () => {
     expect(screen.queryByText("Supporting Documents")).not.toBeInTheDocument();
   });
 
-  it("renders documents when provided and calls onDocumentPress on click", () => {
-    const onDocumentPress = vi.fn();
+  it("renders documents when provided and opens the downloadUrl on click", () => {
+    // Note: the current component no longer wires up an onDocumentPress prop;
+    // clicking a document row opens its downloadUrl in a new tab via window.open.
+    const openSpy = vi.spyOn(window, "open").mockImplementation(() => null);
     const documents = [
       {
         documentNameE: "Contract.pdf",
@@ -227,18 +229,16 @@ describe("AuditRemarks", () => {
         downloadUrl: "https://example.com/contract.pdf",
       },
     ];
-    render(
-      <AuditRemarks
-        agent={agent}
-        documents={documents}
-        onDocumentPress={onDocumentPress}
-      />
-    );
+    render(<AuditRemarks agent={agent} documents={documents} />);
     expect(screen.getByText("Contract.pdf")).toBeInTheDocument();
     // Document row has role="button"
     const docBtn = screen.getByRole("button", { name: /contract\.pdf/i });
     fireEvent.click(docBtn);
-    expect(onDocumentPress).toHaveBeenCalledWith("https://example.com/contract.pdf");
+    expect(openSpy).toHaveBeenCalledWith(
+      "https://example.com/contract.pdf",
+      "_blank"
+    );
+    openSpy.mockRestore();
   });
 
   it("renders Arabic document name when language is 'ar'", () => {

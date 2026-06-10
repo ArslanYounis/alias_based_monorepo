@@ -80,10 +80,10 @@ describe("UploadDocument", () => {
     render(<UploadDocument />);
   });
 
+  // NOTE: source renders prefix + documentName in a single Text node.
   it("renders Add text and document name in default state", () => {
     render(<UploadDocument documentName="Passport" />);
-    expect(screen.getByText("Add ")).toBeTruthy();
-    expect(screen.getByText("Passport")).toBeTruthy();
+    expect(screen.getByText("Add Passport")).toBeTruthy();
   });
 
   it("renders the plus icon when not uploaded", () => {
@@ -95,7 +95,7 @@ describe("UploadDocument", () => {
 
   it("shows Uploaded text when isUploaded=true", () => {
     render(<UploadDocument documentName="Passport" isUploaded />);
-    expect(screen.getByText("Uploaded ")).toBeTruthy();
+    expect(screen.getByText("Uploaded Passport")).toBeTruthy();
   });
 
   it("hides plus icon when isUploaded=true", () => {
@@ -112,9 +112,9 @@ describe("UploadDocument", () => {
     const { rerender } = render(
       <UploadDocument documentName="Doc" isUploaded={false} />
     );
-    expect(screen.getByText("Add ")).toBeTruthy();
+    expect(screen.getByText("Add Doc")).toBeTruthy();
     rerender(<UploadDocument documentName="Doc" isUploaded />);
-    expect(screen.getByText("Uploaded ")).toBeTruthy();
+    expect(screen.getByText("Uploaded Doc")).toBeTruthy();
   });
 
   // ── File picker — cancel ───────────────────────────────────────────────────
@@ -294,14 +294,14 @@ describe("UploadDocument", () => {
 
   it("shows Arabic text for Add when language='ar'", () => {
     render(<UploadDocument language="ar" documentName="جواز سفر" />);
-    expect(screen.getByText("إضافة ")).toBeTruthy();
+    expect(screen.getByText("إضافة جواز سفر")).toBeTruthy();
   });
 
   it("shows Arabic Uploaded text when language='ar' and isUploaded", () => {
     render(
       <UploadDocument language="ar" documentName="وثيقة" isUploaded />
     );
-    expect(screen.getByText("تم رفع ")).toBeTruthy();
+    expect(screen.getByText("تم رفع وثيقة")).toBeTruthy();
   });
 
   // ── type prop ─────────────────────────────────────────────────────────────

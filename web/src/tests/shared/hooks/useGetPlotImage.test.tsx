@@ -165,4 +165,111 @@ describe("getPlotImage (standalone function)", () => {
 
     fetchSpy.mockRestore();
   });
+
+  it("handles JSON-wrapped response with image field", async () => {
+    mockedAxios.get.mockRejectedValueOnce(new Error("arraybuffer fail"));
+    const dataUrl = "data:image/png;base64,abc=";
+    mockedAxios.get.mockResolvedValueOnce({
+      data: JSON.stringify({ image: dataUrl }),
+    });
+    const mockBlob = new Blob(["img"], { type: "image/png" });
+    const fetchSpy = vi.spyOn(global, "fetch").mockResolvedValue({
+      ok: true,
+      blob: async () => mockBlob,
+    } as Response);
+
+    const result = await getPlotImage("plot-json-image");
+    expect(result).toBeInstanceOf(Blob);
+    fetchSpy.mockRestore();
+  });
+
+  it("ignores malformed JSON and treats body as raw", async () => {
+    mockedAxios.get.mockRejectedValueOnce(new Error("arraybuffer fail"));
+    // starts with { but is not valid JSON -> JSON.parse throws, ignored
+    mockedAxios.get.mockResolvedValueOnce({ data: "{not-json" });
+    const result = await getPlotImage("plot-bad-json");
+    // "{not-json" is neither hex, base64 (length not %4 / has '-'), nor URL -> null
+    expect(result).toBeNull();
+  });
+
+  it("fetches a remote image URL response", async () => {
+    mockedAxios.get.mockRejectedValueOnce(new Error("arraybuffer fail"));
+    mockedAxios.get.mockResolvedValueOnce({
+      data: "https://example.com/image.png",
+    });
+    const mockBlob = new Blob(["remote"], { type: "image/png" });
+    const fetchSpy = vi.spyOn(global, "fetch").mockResolvedValue({
+      ok: true,
+      blob: async () => mockBlob,
+    } as Response);
+
+    const result = await getPlotImage("plot-url");
+    expect(result).toBeInstanceOf(Blob);
+    expect(fetchSpy).toHaveBeenCalledWith("https://example.com/image.png");
+    fetchSpy.mockRestore();
+  });
+
+  it("returns null when the remote image URL fetch fails", async () => {
+    mockedAxios.get.mockRejectedValueOnce(new Error("arraybuffer fail"));
+    mockedAxios.get.mockResolvedValueOnce({
+      data: "https://example.com/missing.png",
+    });
+    const fetchSpy = vi.spyOn(global, "fetch").mockResolvedValue({
+      ok: false,
+      blob: async () => new Blob([]),
+    } as Response);
+
+    const result = await getPlotImage("plot-url-fail");
+    expect(result).toBeNull();
+    fetchSpy.mockRestore();
+  });
+
+  it("returns null and warns for an unrecognized text format", async () => {
+    mockedAxios.get.mockRejectedValueOnce(new Error("arraybuffer fail"));
+    // contains characters that fail hex/base64/url checks
+    mockedAxios.get.mockResolvedValueOnce({ data: "!!! not an image @@@" });
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    const result = await getPlotImage("plot-unknown");
+    expect(result).toBeNull();
+    expect(warnSpy).toHaveBeenCalled();
+    warnSpy.mockRestore();
+  });
+
+  it("rejects when the data-URL fetch responds with not ok", async () => {
+    mockedAxios.get.mockRejectedValueOnce(new Error("arraybuffer fail"));
+    mockedAxios.get.mockResolvedValueOnce({ data: "data:image/png;base64,abc=" });
+    const fetchSpy = vi.spyOn(global, "fetch").mockResolvedValue({
+      ok: false,
+      blob: async () => new Blob([]),
+    } as Response);
+
+    // fetchDataUrlToBlob's rejection propagates (it is returned, not awaited
+    // inside the try/catch), so getPlotImage rejects.
+    await expect(getPlotImage("plot-dataurl-fail")).rejects.toThrow(
+      "Failed to convert data URL to blob"
+    );
+    fetchSpy.mockRestore();
+  });
+
+  it("defaults content-type to image/png when header missing", async () => {
+    mockedAxios.get.mockResolvedValueOnce({
+      data: new ArrayBuffer(8),
+      headers: {},
+    });
+    const result = await getPlotImage("plot-no-ct");
+    expect(result).toBeInstanceOf(Blob);
+    expect((result as Blob).type).toBe("image/png");
+  });
+
+  it("falls through to the text request when arraybuffer data is not a buffer", async () => {
+    // arraybuffer call resolves but data is not an ArrayBuffer/view -> falls to text
+    mockedAxios.get.mockResolvedValueOnce({
+      data: "not-a-buffer",
+      headers: { "content-type": "image/png" },
+    });
+    mockedAxios.get.mockResolvedValueOnce({ data: "   " });
+    const result = await getPlotImage("plot-fallthrough");
+    expect(result).toBeNull();
+  });
 });

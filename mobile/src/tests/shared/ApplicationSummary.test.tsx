@@ -38,8 +38,16 @@ jest.mock("@platform/Container", () => {
   const React = require("react");
   const { View } = require("react-native");
   return {
-    Container: ({ children, ...props }: any) =>
-      React.createElement(View, props, children),
+    // When a Container has an onClick (e.g. the mobile expand/collapse toggle),
+    // expose it as a pressable element with a stable testID + onTouchEnd.
+    Container: ({ children, onClick, ...props }: any) =>
+      React.createElement(
+        View,
+        onClick
+          ? { ...props, testID: props.testID ?? "expand-toggle", onTouchEnd: onClick }
+          : props,
+        children
+      ),
   };
 });
 
@@ -167,13 +175,27 @@ jest.mock("@shared/components/InteractionCard", () => {
   };
 });
 
-jest.mock("@shared/components/ApplicationSummary/ApplicationSummaryDetail", () => {
+// The "applicationDetails" block now renders the shared ApplicationDetail
+// component directly (the old ApplicationSummaryDetail was removed).
+jest.mock("@shared/components/ApplicationDetail", () => {
   const React = require("react");
   const { View } = require("react-native");
   return {
     __esModule: true,
     default: () =>
-      React.createElement(View, { testID: "application-summary-detail" }),
+      React.createElement(View, { testID: "application-detail" }),
+  };
+});
+
+// The "documents" block now renders the @platform/UploadDocuments primitive
+// directly (the old DocumentsComponent prop is gone).
+jest.mock("@platform/UploadDocuments", () => {
+  const React = require("react");
+  const { View } = require("react-native");
+  return {
+    __esModule: true,
+    UploadDocuments: () =>
+      React.createElement(View, { testID: "upload-documents" }),
   };
 });
 
@@ -218,17 +240,13 @@ describe("ApplicationSummary", () => {
     expect(screen.getByTestId("agent-card")).toBeTruthy();
   });
 
-  it("hides body after pressing the collapse button (mobile)", () => {
+  it("hides body after pressing the collapse toggle (mobile)", () => {
     const data = [[makeBlock("agent", { title: "Agent Info" })]];
     render(<ApplicationSummary data={data} platform="mobile" />);
 
-    // There should be a Buttons element for expand/collapse on mobile.
-    // Collapse by pressing the button with no title (empty string title).
-    const buttons = screen.getAllByTestId(/^btn-/);
-    // The expand/collapse Buttons has title="" so its testID is "btn-"
-    const collapseBtn = buttons.find((b) => b.props.testID === "btn-");
-    expect(collapseBtn).toBeTruthy();
-    fireEvent.press(collapseBtn!);
+    // On mobile the expand/collapse control is a Container (not a Buttons).
+    const toggle = screen.getByTestId("expand-toggle");
+    fireEvent(toggle, "touchEnd");
 
     // After collapse the body (agent-card) should not be visible
     expect(screen.queryByTestId("agent-card")).toBeNull();
@@ -238,9 +256,8 @@ describe("ApplicationSummary", () => {
     const data = [[makeBlock("agent", {})]];
     render(<ApplicationSummary data={data} platform="mobile" />);
 
-    const collapseBtn = screen.getByTestId("btn-");
-    fireEvent.press(collapseBtn); // collapse
-    fireEvent.press(collapseBtn); // re-expand
+    fireEvent(screen.getByTestId("expand-toggle"), "touchEnd"); // collapse
+    fireEvent(screen.getByTestId("expand-toggle"), "touchEnd"); // re-expand
     expect(screen.getByTestId("agent-card")).toBeTruthy();
   });
 
@@ -253,7 +270,7 @@ describe("ApplicationSummary", () => {
 
   it("hides SwitchButton when collapsed", () => {
     render(<ApplicationSummary platform="mobile" />);
-    fireEvent.press(screen.getByTestId("btn-"));
+    fireEvent(screen.getByTestId("expand-toggle"), "touchEnd");
     expect(screen.queryByTestId("switch-button")).toBeNull();
   });
 
@@ -341,37 +358,36 @@ describe("ApplicationSummary", () => {
     expect(screen.getByTestId("generic-table-card")).toBeTruthy();
   });
 
-  it("renders 'applicationDetails' block type", () => {
+  it("renders 'applicationDetails' block type (ApplicationDetail component)", () => {
     const data = [[makeBlock("applicationDetails", {})]];
     render(<ApplicationSummary data={data} />);
-    expect(screen.getByTestId("application-summary-detail")).toBeTruthy();
+    expect(screen.getByTestId("application-detail")).toBeTruthy();
   });
 
-  it("renders 'documents' block type with DocumentsComponent", () => {
-    const { View, Text } = require("react-native");
-    const DocComp = ({ language }: any) =>
-      React.createElement(View, { testID: "doc-comp" });
-
-    const data = [
-      [makeBlock("documents", { documents: [] }, { title: "Docs" })],
-    ];
-    render(<ApplicationSummary data={data} DocumentsComponent={DocComp} />);
-    expect(screen.getByTestId("doc-comp")).toBeTruthy();
-  });
-
-  it("renders 'documents' block type without DocumentsComponent (no crash)", () => {
+  it("renders 'documents' block type with UploadDocuments primitive", () => {
     const data = [
       [makeBlock("documents", { documents: [] }, { title: "Docs" })],
     ];
     render(<ApplicationSummary data={data} />);
-    // CardTitle should still render because block.title is set
+    expect(screen.getByTestId("upload-documents")).toBeTruthy();
+  });
+
+  it("renders documents CardTitle when block.title is set", () => {
+    const data = [
+      [makeBlock("documents", { documents: [] }, { title: "Docs" })],
+    ];
+    render(<ApplicationSummary data={data} />);
+    // CardTitle renders because block.title is set; UploadDocuments renders too.
     expect(screen.getByTestId("card-title")).toBeTruthy();
+    expect(screen.getByTestId("upload-documents")).toBeTruthy();
   });
 
   it("does not render documents CardTitle when block.title is absent", () => {
     const data = [[makeBlock("documents", { documents: [] })]];
     render(<ApplicationSummary data={data} />);
     expect(screen.queryByTestId("card-title")).toBeNull();
+    // UploadDocuments still renders even without a title.
+    expect(screen.getByTestId("upload-documents")).toBeTruthy();
   });
 
   it("returns null for unknown block type (no crash)", () => {

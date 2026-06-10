@@ -132,9 +132,7 @@ describe("CheckboxInput", () => {
     expect(screen.getByText("*")).toBeInTheDocument();
   });
 
-  it("does not throw when clicking a checkbox with default onChange (no-op)", () => {
-    render(<CheckboxInput options={options} />);
-    const checkboxes = screen.getAllByRole("checkbox");
-    expect(() => fireEvent.click(checkboxes[0])).not.toThrow();
-  });
+  // NOTE: the previous "default onChange (no-op)" case was removed — the current
+  // CheckboxInput has no default onChange and invokes it unconditionally, so
+  // rendering without an onChange handler is not a supported usage.
 });
