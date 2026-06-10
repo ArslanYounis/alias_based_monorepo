@@ -36,6 +36,7 @@ import { createDariOwnerSearchConfig } from "@shared/components/DariOwnerSearch/
 import { createDariPlotSearchConfig } from "@shared/components/DariPlotSearch/dariPlotSearch.config";
 import { createSearchTenancyContractConfig } from "@shared/components/SearchTenancyContract/searchTenancyContract.config";
 import { createSearchAllotmentConfig } from "@shared/components/SearchAllotment/searchAllotment.config";
+import { createPartialBlockHandlerConfig } from "@shared/components/PartialBlockHandler/PartialBlockHandler.config";
 
 // Shared components
 import CardTitle from "@shared/components/CardTitle/CardTitle";
@@ -61,6 +62,7 @@ import DariPlotSearch from "@shared/components/DariPlotSearch/dariPlotSearch";
 import DariOwnerSearch from "@shared/components/DariOwnerSearch/dariOwnerSearch";
 import SearchTenancyContract from "@shared/components/SearchTenancyContract/searchTenancyContract";
 import SearchAllotment from "@shared/components/SearchAllotment/searchAllotment";
+import PartialBlockHandler from "@shared/components/PartialBlockHandler/PartialBlockHandler";
 
 // Platform-specific icons
 import {
@@ -104,6 +106,7 @@ const DariOwnerSearchConfigs = createDariOwnerSearchConfig(DariOwnerSearch, Fold
 const DariPlotSearchConfigs = createDariPlotSearchConfig(DariPlotSearch, FolderSymlinkIcon);
 const SearchTenancyContractConfigs = createSearchTenancyContractConfig(SearchTenancyContract, FolderSymlinkIcon);
 const SearchAllotmentConfigs = createSearchAllotmentConfig(SearchAllotment, FolderSymlinkIcon);
+const PartialBlockHandlerConfigs = createPartialBlockHandlerConfig(PartialBlockHandler, FolderSymlinkIcon);
 
 /**
  * Component configs used for renderer only (service + form).
@@ -145,7 +148,8 @@ const exposeComponents = [
   DariOwnerSearchConfigs,
   DariPlotSearchConfigs,
   SearchTenancyContractConfigs,
-  SearchAllotmentConfigs
+  SearchAllotmentConfigs,
+  PartialBlockHandlerConfigs
 ];
 
 export default exposeComponents as any[];
