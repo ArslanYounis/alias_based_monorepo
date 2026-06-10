@@ -46,6 +46,12 @@ export default defineConfig({
         "**/node_modules/**",
         "**/__tests__/**",
         "**/*.{test,spec}.{ts,tsx}",
+        // Barrel re-export files — v8 cannot instrument pure re-exports
+        "**/index.ts",
+        // Config-only files — constant data, no testable logic
+        "**/*.config.ts",
+        // Type-only files
+        "**/*.types.ts",
       ],
       thresholds: {
         branches: 80,
